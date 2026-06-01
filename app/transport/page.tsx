@@ -1,0 +1,56 @@
+import type { Metadata } from "next";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import ContactSection from "@/components/sections/ContactSection";
+import ServiceShowcase from "@/components/sections/ServiceShowcase";
+
+export const metadata: Metadata = {
+  title: "Transport — Waerebo Lodge",
+  description:
+    "Effortless travel solutions for your mountain journey. From scenic overland transfers to quick rides to the Dintor terminal.",
+};
+
+const bookMessage = `Hello Waerebo Lodge! 🌿\n\nI'd like to arrange transport for my trip.\n\nPlease share availability and options. Thank you!`;
+const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
+  bookMessage
+)}`;
+
+const thumbnails = [
+  {
+    src: "https://placehold.co/600x420/27392A/F0E3D3?text=4x4+Pickup",
+    alt: "4x4 vehicle pickup",
+  },
+  {
+    src: "https://placehold.co/600x420/5A7C61/F0E3D3?text=Trailhead",
+    alt: "Group at the trailhead",
+  },
+  {
+    src: "https://placehold.co/600x420/73B07C/101313?text=Boat+Transfer",
+    alt: "Boat transfer over the sea",
+  },
+  {
+    src: "https://placehold.co/600x420/101313/F0E3D3?text=Shuttle",
+    alt: "Shuttle on the coastal road",
+  },
+];
+
+export default function TransportPage() {
+  return (
+    <>
+      <Navbar />
+      <main className="pt-16 lg:pt-20">
+        <ServiceShowcase
+          titleHead="Waerebo Lodge "
+          titleTail="Transport"
+          subtitle="Effortless travel solutions for your mountain journey. We handle the driving so you can enjoy the view. From scenic overland transfers to quick rides to the Dintor terminal, we make sure you reach your trekking starting line on time and stress-free."
+          heroImage="https://placehold.co/1600x900/304534/F0E3D3?text=Waerebo+Lodge+Transport"
+          buttonLabel="Book Transport"
+          bookHref={bookHref}
+          thumbnails={thumbnails}
+        />
+        <ContactSection />
+      </main>
+      <Footer />
+    </>
+  );
+}

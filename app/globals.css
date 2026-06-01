@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAF7F2;
+  --foreground: #101313;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Brand greens — from Green column */
+  --color-lodge-green: #27392A;
+  --color-lodge-green-hover: #304534;
+  --color-lodge-mid: #5A7C61;
+  --color-lodge-green-light: #73B07C;
+
+  /* Pale green — Pale Green-1 */
+  --color-lodge-pale: #ABBAA8;
+
+  /* Cream & warm backgrounds */
+  --color-lodge-cream: #F0E3D3;
+  --color-lodge-warm: #FAF7F2;
+
+  /* Neutrals */
+  --color-lodge-dark: #101313;
+  --color-lodge-neutral: #8E9797;
+
+  /* Fonts */
+  --font-sans: var(--font-jakarta);
+  --font-script: var(--font-dancing);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
