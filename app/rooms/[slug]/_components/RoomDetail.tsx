@@ -62,21 +62,21 @@ const WHATSAPP_NUMBER = "6285339567549";
 
 function RoomCard({ room }: { room: Room }) {
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-lodge-pale/30 flex flex-col">
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-pale-green-100/30 flex flex-col">
       <div className="relative h-44">
         <Image src={room.images[0]} alt={room.title} fill className="object-cover" />
-        <span className="absolute top-3 left-3 px-2.5 py-1 bg-lodge-green text-white text-[10px] font-semibold rounded-full">
+        <span className="absolute top-3 left-3 px-2.5 py-1 bg-green-400 text-white text-[10px] font-semibold rounded-full">
           Available
         </span>
       </div>
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="text-sm font-bold text-lodge-dark mb-2">{room.title}</h3>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-lodge-neutral font-medium mb-4">
+        <h3 className="text-sm font-bold text-neutral-900 mb-2">{room.title}</h3>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-neutral-300 font-medium mb-4">
           {room.cardSpecs.map((spec) => {
             const Icon = CARD_SPEC_ICON[spec.key];
             return (
               <span key={spec.label} className="inline-flex items-center gap-1">
-                <Icon size={13} className="text-lodge-mid" />
+                <Icon size={13} className="text-green-200" />
                 {spec.label}
               </span>
             );
@@ -84,7 +84,7 @@ function RoomCard({ room }: { room: Room }) {
         </div>
         <Link
           href={`/rooms/${room.slug}`}
-          className="mt-auto block w-full text-center px-4 py-2.5 bg-lodge-green text-white text-xs font-semibold rounded-full hover:bg-lodge-green-hover transition-colors"
+          className="mt-auto block w-full text-center px-4 py-2.5 bg-green-400 text-white text-xs font-semibold rounded-full hover:bg-pale-green-500 transition-colors"
         >
           See Lodge Details
         </Link>
@@ -114,7 +114,7 @@ export default function RoomDetail({
       href={bookLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-lodge-green text-white text-sm font-bold rounded-full hover:bg-lodge-green-hover transition-colors shadow-lg shadow-lodge-green/20 ${className}`}
+      className={`flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-green-400 text-white text-sm font-bold rounded-full hover:bg-pale-green-500 transition-colors shadow-lg shadow-green-400/20 ${className}`}
     >
       <IoLogoWhatsapp size={18} />
       Book Room Now
@@ -149,7 +149,7 @@ export default function RoomDetail({
                       aria-label={`View image ${i + 1}`}
                       className={`relative h-16 sm:h-20 rounded-xl overflow-hidden transition-all ${
                         activeImage === i
-                          ? "ring-2 ring-lodge-green ring-offset-2"
+                          ? "ring-2 ring-green-400 ring-offset-2"
                           : "opacity-70 hover:opacity-100"
                       }`}
                     >
@@ -165,23 +165,23 @@ export default function RoomDetail({
 
             {/* Right — info */}
             <div>
-              <h1 className="text-2xl lg:text-3xl font-bold text-lodge-dark mb-3">
+              <h1 className="text-2xl lg:text-3xl font-bold text-neutral-900 mb-3">
                 {room.title}
               </h1>
-              <p className="text-sm text-lodge-neutral leading-relaxed mb-6">
+              <p className="text-sm text-neutral-300 leading-relaxed mb-6">
                 {room.description}
               </p>
 
               {/* Highlights */}
-              <ul className="divide-y divide-lodge-pale/40 border-y border-lodge-pale/40 mb-8">
+              <ul className="divide-y divide-pale-green-100/40 border-y border-pale-green-100/40 mb-8">
                 {room.highlights.map((h) => {
                   const Icon = HIGHLIGHT_ICON[h.key];
                   return (
                     <li
                       key={h.key}
-                      className="flex items-center gap-3 py-3 text-sm text-lodge-dark font-medium"
+                      className="flex items-center gap-3 py-3 text-sm text-neutral-900 font-medium"
                     >
-                      <Icon size={18} className="text-lodge-green flex-shrink-0" />
+                      <Icon size={18} className="text-green-400 flex-shrink-0" />
                       {h.label}
                     </li>
                   );
@@ -189,7 +189,7 @@ export default function RoomDetail({
               </ul>
 
               {/* Other facility */}
-              <h2 className="text-base font-bold text-lodge-dark mb-4">
+              <h2 className="text-base font-bold text-neutral-900 mb-4">
                 Other Facility
               </h2>
               <div className="grid grid-cols-2 gap-x-6 gap-y-3.5 mb-8">
@@ -198,9 +198,9 @@ export default function RoomDetail({
                   return (
                     <div
                       key={key}
-                      className="flex items-center gap-2.5 text-sm text-lodge-neutral"
+                      className="flex items-center gap-2.5 text-sm text-neutral-300"
                     >
-                      <Icon size={16} className="text-lodge-green flex-shrink-0" />
+                      <Icon size={16} className="text-green-400 flex-shrink-0" />
                       {label}
                     </div>
                   );
@@ -208,7 +208,7 @@ export default function RoomDetail({
               </div>
 
               {/* Locations */}
-              <h2 className="text-base font-bold text-lodge-dark mb-4">Locations</h2>
+              <h2 className="text-base font-bold text-neutral-900 mb-4">Locations</h2>
               <div className="relative h-44 w-full rounded-2xl overflow-hidden shadow-sm mb-8">
                 <Image
                   src={room.mapImage}
@@ -216,8 +216,8 @@ export default function RoomDetail({
                   fill
                   className="object-cover"
                 />
-                <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 text-lodge-dark text-xs font-semibold rounded-full shadow-sm">
-                  <IoLocationOutline size={14} className="text-lodge-green" />
+                <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 text-neutral-900 text-xs font-semibold rounded-full shadow-sm">
+                  <IoLocationOutline size={14} className="text-green-400" />
                   Waerebo Lodge, Flores
                 </span>
               </div>
@@ -225,7 +225,7 @@ export default function RoomDetail({
               {/* Reviews */}
               {room.reviews.length > 0 && (
                 <>
-                  <h2 className="text-base font-bold text-lodge-dark mb-4">Review</h2>
+                  <h2 className="text-base font-bold text-neutral-900 mb-4">Review</h2>
                   <div className="space-y-5">
                     {room.reviews.map((review) => (
                       <div key={review.name} className="flex gap-3">
@@ -240,19 +240,19 @@ export default function RoomDetail({
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
                             <div>
-                              <p className="text-sm font-bold text-lodge-dark leading-tight">
+                              <p className="text-sm font-bold text-neutral-900 leading-tight">
                                 {review.name}
                               </p>
-                              <p className="text-[11px] text-lodge-neutral">
+                              <p className="text-[11px] text-neutral-300">
                                 {review.location}
                               </p>
                             </div>
-                            <span className="inline-flex items-center gap-1 text-sm font-bold text-lodge-green flex-shrink-0">
+                            <span className="inline-flex items-center gap-1 text-sm font-bold text-green-400 flex-shrink-0">
                               <IoStar size={13} />
                               {review.rating}/5
                             </span>
                           </div>
-                          <p className="text-xs text-lodge-neutral leading-relaxed mt-1.5">
+                          <p className="text-xs text-neutral-300 leading-relaxed mt-1.5">
                             {review.text}
                           </p>
                         </div>
@@ -271,10 +271,10 @@ export default function RoomDetail({
 
       {/* ── More Room to Explore ── */}
       {otherRooms.length > 0 && (
-        <section className="bg-lodge-warm py-12 lg:py-16">
+        <section className="bg-light-green-100 py-12 lg:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl lg:text-3xl font-bold text-lodge-dark text-center mb-8 lg:mb-10">
-              More Room <span className="text-lodge-green">to Explore</span>
+            <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 text-center mb-8 lg:mb-10">
+              More Room <span className="text-green-400">to Explore</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {otherRooms.map((r) => (

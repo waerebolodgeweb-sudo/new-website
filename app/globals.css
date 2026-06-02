@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF7F2;
+  --background: #FFFFFF;
   --foreground: #101313;
 }
 
@@ -9,22 +9,107 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Brand greens — from Green column */
-  --color-lodge-green: #27392A;
-  --color-lodge-green-hover: #304534;
-  --color-lodge-mid: #5A7C61;
-  --color-lodge-green-light: #73B07C;
+  /* ── Neutral ── */
+  --color-neutral-000: #FFFFFF;
+  --color-neutral-050: #EAEDED;
+  --color-neutral-100: #CBD0D0;
+  --color-neutral-150: #BCC2C2;
+  --color-neutral-200: #ADB3B4;
+  --color-neutral-300: #8E9797;
+  --color-neutral-400: #707A7B;
+  --color-neutral-500: #515D5E;
+  --color-neutral-600: #414A4B;
+  --color-neutral-700: #313838;
+  --color-neutral-800: #202526;
+  --color-neutral-900: #101313;
 
-  /* Pale green — Pale Green-1 */
-  --color-lodge-pale: #ABBAA8;
+  /* ── Grey ── */
+  --color-grey-100: #A5ACA4;
+  --color-grey-200: #878F86;
+  --color-grey-300: #6A7169;
+  --color-grey-400: #4C544B;
+  --color-grey-500: #2F362E;
+  --color-grey-600: #262B25;
+  --color-grey-700: #1C201C;
 
-  /* Cream & warm backgrounds */
-  --color-lodge-cream: #F0E3D3;
-  --color-lodge-warm: #FAF7F2;
+  /* ── Light Green ── */
+  --color-light-green-100: #E9EADB;
+  --color-light-green-300: #BCC193;
+  --color-light-green-500: #90984B;
+  --color-light-green-600: #737A3C;
+  --color-light-green-700: #565B2D;
+  --color-light-green-800: #3A3D1E;
+  --color-light-green-900: #1D1E0F;
 
-  /* Neutrals */
-  --color-lodge-dark: #101313;
-  --color-lodge-neutral: #8E9797;
+  /* ── Green ── */
+  --color-green-100: #739D7C;
+  --color-green-200: #5A7C61;
+  --color-green-300: #405A45;
+  --color-green-400: #27392A;
+
+  /* ── Pale Green ── */
+  --color-pale-green-100: #A8BAAB;
+  --color-pale-green-200: #8A9D8D;
+  --color-pale-green-300: #6C7F70;
+  --color-pale-green-400: #4E6252;
+  --color-pale-green-500: #304534;
+  --color-pale-green-600: #26372A;
+  --color-pale-green-700: #1D291F;
+  --color-pale-green-800: #131C15;
+
+  /* ── Cream ── */
+  --color-cream-200: #F0E3D3;
+  --color-cream-300: #E9D5BC;
+  --color-cream-500: #DAB990;
+  --color-cream-600: #B89B77;
+  --color-cream-700: #977D5D;
+  --color-cream-900: #54412A;
+  --color-cream-1000: #322311;
+
+  /* ── Brown ── */
+  --color-brown-100: #DDCAB1;
+  --color-brown-200: #C6AE8D;
+  --color-brown-300: #AE9169;
+  --color-brown-400: #977545;
+  --color-brown-500: #805821;
+  --color-brown-600: #66461A;
+  --color-brown-700: #4D3514;
+  --color-brown-800: #33230D;
+  --color-brown-850: #261A0A;
+  --color-brown-900: #1A1207;
+
+  /* ── Yellow ── */
+  --color-yellow-100: #F3F1D6;
+  --color-yellow-300: #DAD685;
+  --color-yellow-400: #CEC85C;
+  --color-yellow-500: #C2BA33;
+  --color-yellow-600: #9B9529;
+  --color-yellow-700: #74701F;
+  --color-yellow-800: #4E4A14;
+  --color-yellow-850: #3A380F;
+  --color-yellow-900: #27250A;
+
+  /* ── Savana ── */
+  --color-savana-200: #DED6B1;
+  --color-savana-500: #AC983B;
+  --color-savana-600: #8A7A2F;
+  --color-savana-700: #675B23;
+  --color-savana-800: #453D18;
+
+  /* ── Pale Savana ── */
+  --color-pale-savana-200: #868167;
+  --color-pale-savana-300: #66614C;
+  --color-pale-savana-400: #464231;
+  --color-pale-savana-500: #262316;
+  --color-pale-savana-600: #1E1C12;
+
+  /* ── Savana Green ── */
+  --color-savana-green-200: #939763;
+  --color-savana-green-300: #727649;
+  --color-savana-green-400: #52562E;
+  --color-savana-green-500: #323514;
+  --color-savana-green-600: #282A10;
+  --color-savana-green-700: #1E200C;
 
   /* Fonts */
   --font-sans: var(--font-jakarta);

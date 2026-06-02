@@ -78,7 +78,7 @@ export default function FaqContent() {
     <section className="bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-20 pb-16 lg:pb-24">
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-lodge-dark leading-tight mb-8 lg:mb-10">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 leading-tight mb-8 lg:mb-10">
           Got Questions?
           <br />
           We&apos;ve Got Answers.
@@ -92,8 +92,8 @@ export default function FaqContent() {
               onClick={() => setActive(cat)}
               className={`px-5 py-2.5 text-sm font-semibold rounded-full transition-colors ${
                 active === cat
-                  ? "bg-lodge-green text-white"
-                  : "bg-lodge-warm text-lodge-neutral hover:text-lodge-dark hover:bg-lodge-pale/30"
+                  ? "bg-green-400 text-white"
+                  : "bg-light-green-100 text-neutral-300 hover:text-neutral-900 hover:bg-pale-green-100/30"
               }`}
             >
               {cat}
@@ -102,13 +102,13 @@ export default function FaqContent() {
         </div>
 
         {/* Q&A list */}
-        <div className="divide-y divide-lodge-pale/40 border-t border-lodge-pale/40">
+        <div className="divide-y divide-pale-green-100/40 border-t border-pale-green-100/40">
           {visible.map((faq) => (
             <div key={faq.question} className="py-7 lg:py-8">
-              <h2 className="text-base lg:text-lg font-bold text-lodge-dark mb-3">
+              <h2 className="text-base lg:text-lg font-bold text-neutral-900 mb-3">
                 Q: {faq.question}
               </h2>
-              <p className="text-sm lg:text-base text-lodge-neutral leading-relaxed max-w-3xl">
+              <p className="text-sm lg:text-base text-neutral-300 leading-relaxed max-w-3xl">
                 {faq.answer}
               </p>
             </div>

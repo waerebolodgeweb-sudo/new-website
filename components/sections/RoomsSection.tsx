@@ -62,10 +62,10 @@ export default function RoomsSection() {
   return (
     <section id="rooms" className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-[11px] font-semibold tracking-[0.2em] text-lodge-mid uppercase mb-2">
+        <p className="text-[11px] font-semibold tracking-[0.2em] text-green-200 uppercase mb-2">
           Accommodation
         </p>
-        <h2 className="text-3xl lg:text-5xl font-bold text-lodge-dark mb-10">
+        <h2 className="text-3xl lg:text-5xl font-bold text-neutral-900 mb-10">
           Rest Before the Ascent.
         </h2>
 
@@ -73,7 +73,7 @@ export default function RoomsSection() {
           {rooms.map((room) => (
             <div
               key={room.slug}
-              className="bg-lodge-warm rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              className="bg-light-green-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="relative h-44 lg:h-48">
                 <Image
@@ -84,24 +84,24 @@ export default function RoomsSection() {
                 />
               </div>
               <div className="p-5">
-                <h3 className="text-base font-bold text-lodge-dark mb-2">
+                <h3 className="text-base font-bold text-neutral-900 mb-2">
                   {room.title}
                 </h3>
-                <div className="flex gap-3 text-xs text-lodge-neutral font-medium mb-4">
+                <div className="flex gap-3 text-xs text-neutral-300 font-medium mb-4">
                   <span>{room.sqm} m²</span>
                   <span>·</span>
                   <span>{room.beds}</span>
                   <span>·</span>
                   <span>{room.capacity} Guests</span>
                 </div>
-                <div className="flex items-center justify-between pt-4 border-t border-lodge-pale/30">
+                <div className="flex items-center justify-between pt-4 border-t border-pale-green-100/30">
                   <div>
-                    <p className="text-[10px] text-lodge-neutral uppercase tracking-wide font-medium">
+                    <p className="text-[10px] text-neutral-300 uppercase tracking-wide font-medium">
                       From
                     </p>
-                    <p className="text-lodge-green font-bold text-sm">
+                    <p className="text-green-400 font-bold text-sm">
                       {room.price}
-                      <span className="text-lodge-neutral font-normal text-xs">
+                      <span className="text-neutral-300 font-normal text-xs">
                         {" "}
                         /night
                       </span>
@@ -109,7 +109,7 @@ export default function RoomsSection() {
                   </div>
                   <Link
                     href={`/rooms/${room.slug}`}
-                    className="px-4 py-2 bg-lodge-dark text-white text-xs font-semibold rounded-full hover:bg-lodge-green transition-colors"
+                    className="px-4 py-2 bg-neutral-900 text-white text-xs font-semibold rounded-full hover:bg-green-400 transition-colors"
                   >
                     See Lodge Details
                   </Link>

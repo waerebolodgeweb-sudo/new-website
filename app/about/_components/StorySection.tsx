@@ -49,8 +49,8 @@ export default function StorySection() {
                   className="object-cover"
                 />
               </div>
-              <p className="text-sm font-bold text-lodge-dark mt-3">Mr. Martin</p>
-              <p className="text-[11px] sm:text-xs text-lodge-neutral leading-relaxed mt-1">
+              <p className="text-sm font-bold text-neutral-900 mt-3">Mr. Martin</p>
+              <p className="text-[11px] sm:text-xs text-neutral-300 leading-relaxed mt-1">
                 Mr. Martin was born in Waerebo in 1969 and has been a dedicated
                 local guide since 2003. His wife, Isabela, is the general manager
                 who loves cooking and is always excited to try recipes from her
@@ -61,12 +61,12 @@ export default function StorySection() {
 
           {/* Story text */}
           <div>
-            <h1 className="text-3xl lg:text-5xl font-bold text-lodge-dark leading-tight mb-5">
+            <h1 className="text-3xl lg:text-5xl font-bold text-neutral-900 leading-tight mb-5">
               The Story
               <br />
               Behind the Lodge
             </h1>
-            <p className="text-sm lg:text-base text-lodge-neutral leading-relaxed">
+            <p className="text-sm lg:text-base text-neutral-300 leading-relaxed">
               Sincere greetings from the heart of Flores. We are Martin and
               Isabela Anggo, and we built Waerebo Lodge after being inspired by
               community-based ecotourism in 2007. Our goal is to provide a

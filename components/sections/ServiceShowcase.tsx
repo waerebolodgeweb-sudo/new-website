@@ -37,7 +37,7 @@ export default function ServiceShowcase({
             <div className="max-w-xl">
               <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
                 {titleHead}
-                <span className="text-lodge-pale">{titleTail}</span>
+                <span className="text-pale-green-100">{titleTail}</span>
               </h1>
               <p className="text-white/80 text-sm lg:text-base leading-relaxed max-w-md">
                 {subtitle}
@@ -48,7 +48,7 @@ export default function ServiceShowcase({
               href={bookHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-7 py-3.5 bg-white text-lodge-dark text-sm font-semibold rounded-full hover:bg-lodge-warm transition-colors flex-shrink-0 w-fit"
+              className="inline-flex items-center justify-center px-7 py-3.5 bg-white text-neutral-900 text-sm font-semibold rounded-full hover:bg-light-green-100 transition-colors flex-shrink-0 w-fit"
             >
               {buttonLabel}
             </a>

@@ -3,75 +3,90 @@ import Link from "next/link";
 
 export default function PurposeSection() {
   return (
-    <section id="about" className="py-16 lg:py-24 bg-lodge-warm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-32 lg:py-40 bg-neutral-50">
+      <div className="max-w-7xl mx-auto px-10 sm:px-12 lg:px-8">
         {/* Centered headline */}
-        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-center mb-14 lg:mb-20 leading-tight">
-          <span className="text-lodge-dark">Rest Well. </span>
-          <span className="text-lodge-mid">Give Back.</span>
+        <h2 className="text-5xl lg:text-6xl font-semibold text-center mb-24 leading-tight text-neutral-900">
+          <span className="text-savana-800">Rest Well. </span>
+          <span className="text-savana-600">Give Back.</span>
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-20 lg:gap-16 items-end">
           {/* Left — copy */}
-          <div>
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-lodge-mid uppercase mb-4">
+          <div className="lg:w-2/5 flex flex-col justify-end">
+            <p className="text-base font-normal text-savana-600 mb-3 tracking-wide">
               About Us
             </p>
-            <h3 className="text-2xl lg:text-4xl font-bold text-lodge-dark mb-6">
+            <h3 className="text-4xl font-semibold text-savana-800 mb-6 leading-tight">
               Basecamp with a Purpose.
             </h3>
-            <p className="text-lodge-neutral leading-relaxed mb-4 text-sm font-normal">
-              We built Waerebo Lodge with a simple goal: to provide a
+            <p className="text-base font-normal text-pale-savana-500 leading-relaxed mb-6">
+              We built Waerebo Lodge with a simple goal: <span className="font-semibold">"to provide a
               comfortable, high-quality resting place before your ascent to the
-              sky village.
+              sky village".</span>
             </p>
-            <p className="text-lodge-neutral leading-relaxed mb-8 text-sm font-normal">
-              But our mission goes beyond our walls. We commit 10% of your stay
+            <p className="text-base font-normal text-pale-savana-500 leading-relaxed mb-8">
+              But our mission goes beyond our walls. We commit 10% of your room rate
               to directly support the social and cultural initiatives of the
               Waerebo community. By staying with us, your adventure leaves a
               positive, lasting mark on the highlands.
             </p>
-            <Link
-              href="/about"
-              className="inline-flex px-6 py-3 border-2 border-lodge-green text-lodge-green text-sm font-semibold rounded-full hover:bg-lodge-green hover:text-white transition-colors"
-            >
-              Learn More About Us
-            </Link>
+            <div>
+              <a
+                href="/about"
+                className="inline-flex px-5 py-3 bg-savana-800 text-white text-base font-medium rounded-xl hover:bg-neutral-800 transition-colors"
+              >
+                Learn More About Us
+              </a>
+            </div>
           </div>
 
           {/* Right — image collage */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="relative h-40 sm:h-48 rounded-2xl overflow-hidden shadow-sm">
-              <Image
-                src="/home/about-1.png"
-                alt="Waerebo Lodge sign"
-                fill
-                className="object-cover"
-              />
+          <div className="lg:w-3/5 flex gap-5 h-full">
+            {/* Left column */}
+            <div className="flex flex-col gap-5 w-[30%]">
+              <div className="h-24 rounded-3xl bg-transparent" />
+              <div className="relative h-72 rounded-3xl overflow-hidden shadow-sm shrink-0 aspect-2.2/3">
+                <Image
+                  src="/home/about-1.png"
+                  alt="Waerebo Lodge sign"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="h-24 rounded-3xl bg-transparent" />
             </div>
-            <div className="relative h-40 sm:h-48 rounded-2xl overflow-hidden shadow-sm">
-              <Image
-                src="/home/about-2.png"
-                alt="Aerial view of Waerebo village"
-                fill
-                className="object-cover"
-              />
+
+            {/* Middle column */}
+            <div className="flex flex-col gap-5 w-[30%]">
+              <div className="h-40 rounded-3xl bg-transparent" />
+              <div className="relative h-72 rounded-3xl overflow-hidden shadow-sm shrink-0 aspect-2.2/3">
+                <Image
+                  src="/home/about-2.png"
+                  alt="Aerial view of Waerebo village"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
-            <div className="relative col-span-2 h-56 sm:h-64 rounded-2xl overflow-hidden shadow-sm">
-              <Image
-                src="/home/about-3.jpg"
-                alt="Traditional cone-shaped Waerebo houses"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-white text-base font-bold mb-1">
+
+            {/* Right column */}
+            <div className="flex flex-col gap-5 w-[40%]">
+              <div className="relative h-96 rounded-3xl overflow-hidden shadow-sm aspect-2.7/3 ">
+                <Image
+                  src="/home/about-3.jpg"
+                  alt="Traditional cone-shaped Waerebo houses"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <h4 className="text-xl font-semibold text-neutral-900">
                   Waerebo Village
-                </p>
-                <p className="text-white/80 text-xs leading-relaxed">
-                  Discover the iconic Waerebo houses — a blend of nature and
-                  traditional ways.
+                </h4>
+                <p className="text-sm font-normal text-neutral-700">
+                  Discover the iconic Wae Rebo houses, sustained by responsible
+                  and mindful travel choices.
                 </p>
               </div>
             </div>

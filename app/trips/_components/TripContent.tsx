@@ -47,32 +47,32 @@ function StopText({ stop }: { stop: Stop }) {
   return (
     <div className="flex flex-col justify-center">
       {stop.day && (
-        <p className="text-[10px] font-bold text-lodge-mid uppercase tracking-[0.2em] mb-1.5">
+        <p className="text-[10px] font-bold text-green-200 uppercase tracking-[0.2em] mb-1.5">
           {stop.day}
         </p>
       )}
-      <h3 className="text-xl lg:text-2xl font-bold text-lodge-dark mb-4 leading-tight">
+      <h3 className="text-xl lg:text-2xl font-bold text-neutral-900 mb-4 leading-tight">
         {stop.title}
       </h3>
       <dl className="space-y-2 mb-4">
         {stop.time && (
           <div className="flex gap-2 text-sm">
-            <dt className="font-semibold text-lodge-dark min-w-[78px]">
+            <dt className="font-semibold text-neutral-900 min-w-[78px]">
               Time:
             </dt>
-            <dd className="text-lodge-mid font-medium">{stop.time}</dd>
+            <dd className="text-green-200 font-medium">{stop.time}</dd>
           </div>
         )}
         {stop.transport && (
           <div className="flex gap-2 text-sm">
-            <dt className="font-semibold text-lodge-dark min-w-[78px]">
+            <dt className="font-semibold text-neutral-900 min-w-[78px]">
               Transport:
             </dt>
-            <dd className="text-lodge-mid font-medium">{stop.transport}</dd>
+            <dd className="text-green-200 font-medium">{stop.transport}</dd>
           </div>
         )}
       </dl>
-      <p className="text-sm text-lodge-neutral leading-relaxed">
+      <p className="text-sm text-neutral-300 leading-relaxed">
         {stop.description}
       </p>
     </div>
@@ -109,7 +109,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
       >
         <path
           d={pathD}
-          stroke="#C8A24B"
+          stroke="#AC983B"
           strokeWidth="3"
           fill="none"
           strokeLinecap="round"
@@ -123,7 +123,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
         return (
           <div
             key={i}
-            className="absolute z-10 w-4 h-4 rounded-full bg-[#C8A24B] border-[3px] border-white shadow-md"
+            className="absolute z-10 w-4 h-4 rounded-full bg-savana-500 border-[3px] border-white shadow-md"
             style={{
               left: `${(x / 1000) * 100}%`,
               top: y,
@@ -201,7 +201,7 @@ export default function TripContent() {
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-5">
             {titleHead}
-            <span className="text-lodge-pale">{titleTail}</span>
+            <span className="text-pale-green-100">{titleTail}</span>
           </h1>
           <p className="text-white/80 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
             {program.subtitle}
@@ -211,8 +211,8 @@ export default function TripContent() {
 
       {/* ── Floating program selector ── */}
       <div className="relative z-30 max-w-4xl mx-auto px-4 sm:px-6 -mt-14 lg:-mt-16">
-        <div className="bg-white rounded-3xl shadow-xl border border-lodge-pale/40 p-5 lg:p-6">
-          <p className="text-sm font-bold text-lodge-dark mb-3 text-center lg:text-left">
+        <div className="bg-white rounded-3xl shadow-xl border border-pale-green-100/40 p-5 lg:p-6">
+          <p className="text-sm font-bold text-neutral-900 mb-3 text-center lg:text-left">
             Choose your Program
           </p>
           <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
@@ -222,8 +222,8 @@ export default function TripContent() {
                 onClick={() => setActiveId(p.id)}
                 className={`px-4 py-2.5 text-xs font-semibold rounded-full whitespace-nowrap transition-colors ${
                   activeId === p.id
-                    ? "bg-lodge-green text-white"
-                    : "bg-lodge-warm text-lodge-neutral hover:text-lodge-dark hover:bg-lodge-pale/30"
+                    ? "bg-green-400 text-white"
+                    : "bg-light-green-100 text-neutral-300 hover:text-neutral-900 hover:bg-pale-green-100/30"
                 }`}
               >
                 {p.label}
@@ -245,7 +245,7 @@ export default function TripContent() {
       <div className="flex justify-center pb-16 bg-white">
         <button
           onClick={() => setModalOpen(true)}
-          className="px-10 py-4 bg-lodge-dark text-white font-bold text-sm rounded-full hover:bg-lodge-green transition-colors shadow-lg tracking-wide"
+          className="px-10 py-4 bg-neutral-900 text-white font-bold text-sm rounded-full hover:bg-green-400 transition-colors shadow-lg tracking-wide"
         >
           Book The Trip
         </button>

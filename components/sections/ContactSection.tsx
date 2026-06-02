@@ -14,10 +14,10 @@ export default function ContactSection() {
         {/* Top row — heading + contact details */}
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 mb-12">
           <div>
-            <h2 className="text-3xl lg:text-5xl font-bold text-lodge-dark mb-4">
+            <h2 className="text-3xl lg:text-5xl font-bold text-neutral-900 mb-4">
               Contact Us
             </h2>
-            <p className="text-lodge-neutral text-sm lg:text-base leading-relaxed max-w-md">
+            <p className="text-neutral-300 text-sm lg:text-base leading-relaxed max-w-md">
               Where the journey to the clouds begins. We handle the logistics so
               you can embrace the adventure.
             </p>
@@ -25,47 +25,47 @@ export default function ContactSection() {
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-8 self-center">
             <div>
-              <p className="text-[10px] font-semibold text-lodge-neutral uppercase tracking-wider mb-1.5">
+              <p className="text-[10px] font-semibold text-neutral-300 uppercase tracking-wider mb-1.5">
                 Phone
               </p>
               <a
                 href="tel:+6285239344046"
-                className="text-lodge-dark font-semibold text-sm hover:text-lodge-green transition-colors"
+                className="text-neutral-900 font-semibold text-sm hover:text-green-400 transition-colors"
               >
                 +6285 239 344 046
               </a>
             </div>
             <div>
-              <p className="text-[10px] font-semibold text-lodge-neutral uppercase tracking-wider mb-1.5">
+              <p className="text-[10px] font-semibold text-neutral-300 uppercase tracking-wider mb-1.5">
                 Be Our Partner Now
               </p>
               <a
                 href="https://wa.me/6285339021145"
-                className="inline-flex items-center gap-1.5 text-lodge-green font-semibold text-sm hover:underline"
+                className="inline-flex items-center gap-1.5 text-green-400 font-semibold text-sm hover:underline"
               >
                 Let&apos;s work together
                 <IoArrowForwardOutline size={15} />
               </a>
             </div>
             <div>
-              <p className="text-[10px] font-semibold text-lodge-neutral uppercase tracking-wider mb-1.5">
+              <p className="text-[10px] font-semibold text-neutral-300 uppercase tracking-wider mb-1.5">
                 WhatsApp
               </p>
               <a
                 href="https://wa.me/6285339021145"
-                className="inline-flex items-center gap-1.5 text-lodge-dark font-semibold text-sm hover:text-lodge-green transition-colors"
+                className="inline-flex items-center gap-1.5 text-neutral-900 font-semibold text-sm hover:text-green-400 transition-colors"
               >
-                <IoLogoWhatsapp size={15} className="text-lodge-green" />
+                <IoLogoWhatsapp size={15} className="text-green-400" />
                 +6285 339 021 145
               </a>
             </div>
             <div>
-              <p className="text-[10px] font-semibold text-lodge-neutral uppercase tracking-wider mb-1.5">
+              <p className="text-[10px] font-semibold text-neutral-300 uppercase tracking-wider mb-1.5">
                 Emails
               </p>
               <a
                 href="mailto:waerebolodge@gmail.com"
-                className="text-lodge-dark font-semibold text-sm hover:text-lodge-green transition-colors break-all"
+                className="text-neutral-900 font-semibold text-sm hover:text-green-400 transition-colors break-all"
               >
                 waerebolodge@gmail.com
               </a>
@@ -84,22 +84,22 @@ export default function ContactSection() {
                 fill
                 className="object-cover"
               />
-              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 text-lodge-dark text-xs font-semibold rounded-full shadow-sm">
-                <IoLocationOutline size={14} className="text-lodge-green" />
+              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 text-neutral-900 text-xs font-semibold rounded-full shadow-sm">
+                <IoLocationOutline size={14} className="text-green-400" />
                 Dintor — Manggarai, Flores, Indonesia
               </span>
             </div>
             <div className="flex gap-3">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-4 py-2 border-2 border-lodge-green text-lodge-green text-sm font-semibold rounded-full hover:bg-lodge-green hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 border-2 border-green-400 text-green-400 text-sm font-semibold rounded-full hover:bg-green-400 hover:text-white transition-colors"
               >
                 <IoLogoInstagram size={16} />
                 Instagram
               </a>
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-4 py-2 border-2 border-lodge-green text-lodge-green text-sm font-semibold rounded-full hover:bg-lodge-green hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 border-2 border-green-400 text-green-400 text-sm font-semibold rounded-full hover:bg-green-400 hover:text-white transition-colors"
               >
                 <IoMusicalNotesOutline size={16} />
                 Tik Tok

@@ -27,7 +27,7 @@ const milestones = [
 
 export default function HistorySection() {
   return (
-    <section id="history" className="bg-lodge-warm py-12 lg:py-20">
+    <section id="history" className="bg-light-green-100 py-12 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Banner */}
         <div className="relative h-52 lg:h-96 rounded-3xl overflow-hidden shadow-sm mb-10 lg:mb-14">
@@ -36,10 +36,10 @@ export default function HistorySection() {
 
         {/* Section header */}
         <div className="grid lg:grid-cols-2 gap-3 lg:gap-12 mb-10 lg:mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-lodge-dark">
+          <h2 className="text-3xl lg:text-5xl font-bold text-neutral-900">
             Our History
           </h2>
-          <p className="text-sm text-lodge-neutral leading-relaxed lg:pt-2">
+          <p className="text-sm text-neutral-300 leading-relaxed lg:pt-2">
             From a single shelter at the trailhead to a beloved basecamp — a look
             back at the milestones that shaped Waerebo Lodge and its bond with the
             community.
@@ -63,11 +63,11 @@ export default function HistorySection() {
                   <Image src={m.img} alt={m.title} fill className="object-cover" />
                 </div>
                 <div className={reversed ? "lg:order-1" : ""}>
-                  <p className="text-lg font-bold text-lodge-mid mb-1">{m.year}</p>
-                  <h3 className="text-xl lg:text-2xl font-bold text-lodge-dark mb-3">
+                  <p className="text-lg font-bold text-green-200 mb-1">{m.year}</p>
+                  <h3 className="text-xl lg:text-2xl font-bold text-neutral-900 mb-3">
                     {m.title}
                   </h3>
-                  <p className="text-sm text-lodge-neutral leading-relaxed">
+                  <p className="text-sm text-neutral-300 leading-relaxed">
                     {m.text}
                   </p>
                 </div>

@@ -3,7 +3,7 @@ import { IoLogoInstagram, IoMusicalNotesOutline } from "react-icons/io5";
 
 export default function Footer() {
   return (
-    <footer className="bg-lodge-dark text-white py-8">
+    <footer className="bg-neutral-900 text-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/50 font-normal">

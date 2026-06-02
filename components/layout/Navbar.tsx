@@ -36,7 +36,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         transparent
           ? "bg-transparent"
-          : "bg-white/95 backdrop-blur-sm border-b border-lodge-pale/40"
+          : "bg-white/95 backdrop-blur-sm border-b border-pale-green-100/40"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,7 +64,7 @@ export default function Navbar() {
                 className={`text-sm font-medium transition-colors ${
                   transparent
                     ? "text-white/90 hover:text-white"
-                    : "text-lodge-neutral hover:text-lodge-green"
+                    : "text-neutral-300 hover:text-green-400"
                 }`}
               >
                 {link.label}
@@ -77,8 +77,8 @@ export default function Navbar() {
             href="/#contact"
             className={`hidden lg:inline-flex px-5 py-2.5 text-sm font-semibold rounded-full transition-colors ${
               transparent
-                ? "border border-white/50 text-white hover:bg-white hover:text-lodge-dark"
-                : "bg-lodge-dark text-white hover:bg-lodge-green"
+                ? "border border-white/50 text-white hover:bg-white hover:text-neutral-900"
+                : "bg-neutral-900 text-white hover:bg-green-400"
             }`}
           >
             Contact Us
@@ -87,7 +87,7 @@ export default function Navbar() {
           {/* Mobile button */}
           <button
             className={`lg:hidden p-2 ${
-              transparent ? "text-white" : "text-lodge-green"
+              transparent ? "text-white" : "text-green-400"
             }`}
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
@@ -98,12 +98,12 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="lg:hidden border-t border-lodge-pale/30 py-4 space-y-1">
+          <div className="lg:hidden border-t border-pale-green-100/30 py-4 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="block px-4 py-2.5 text-sm font-medium text-lodge-neutral hover:text-lodge-green hover:bg-lodge-pale/20 rounded-lg transition-colors"
+                className="block px-4 py-2.5 text-sm font-medium text-neutral-300 hover:text-green-400 hover:bg-pale-green-100/20 rounded-lg transition-colors"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -112,7 +112,7 @@ export default function Navbar() {
             <div className="px-4 pt-2">
               <Link
                 href="/#contact"
-                className="block px-5 py-2.5 bg-lodge-dark text-white text-sm font-semibold rounded-full text-center hover:bg-lodge-green transition-colors"
+                className="block px-5 py-2.5 bg-neutral-900 text-white text-sm font-semibold rounded-full text-center hover:bg-green-400 transition-colors"
                 onClick={() => setOpen(false)}
               >
                 Contact Us

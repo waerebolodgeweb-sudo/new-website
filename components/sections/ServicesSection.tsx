@@ -37,70 +37,55 @@ const services = [
 ];
 
 export default function ServicesSection() {
-  const [open, setOpen] = useState<string>("trip");
+  const [open, setOpen] = useState<string>("lodge");
 
   return (
-    <section id="services" className="py-16 lg:py-24 bg-lodge-warm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
-          {/* Left */}
-          <div className="lg:w-5/12">
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-lodge-mid uppercase mb-4">
-              Services
-            </p>
-            <h2 className="text-3xl lg:text-5xl font-bold text-lodge-dark mb-4 leading-tight">
-              Everything You Need.
-            </h2>
-            <p className="text-lodge-neutral leading-relaxed mb-6 max-w-sm text-sm font-normal">
-              We handle all the details so you can focus on the journey. From
-              transport to meals, accommodation to guided treks — everything is
-              under one roof.
-            </p>
-            <Link
-              href="/trips"
-              className="inline-flex px-6 py-3 border-2 border-lodge-green text-lodge-green text-sm font-semibold rounded-full hover:bg-lodge-green hover:text-white transition-colors mb-8"
-            >
-              Learn More
-            </Link>
-            <div className="relative h-52 lg:h-64 rounded-2xl overflow-hidden">
-              <Image
-                src="/home/our-services.jpg"
-                alt="Lodge services"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
+    <section id="services" className="py-32 lg:py-40 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-10 sm:px-12 lg:px-8">
+        {/* Top: Heading */}
+       
 
-          {/* Right: Accordion */}
-          <div className="lg:w-7/12 space-y-2 self-center">
+        {/* Main: Accordion + Image */}
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-start">
+          {/* Left: Accordion */}
+          <div className="w-full lg:w-5/12 space-y-3">
+           <div className="mb-16 max-w-2xl">
+          <p className="text-base font-normal text-savana-600 mb-3 tracking-wide">
+            Our Services
+          </p>
+          <h2 className="text-4xl text-neutral-800 mb-6 leading-tight">
+            <span className="font-semibold">Everything</span> You Need.
+          </h2>
+        </div>
             {services.map((s) => (
               <div
                 key={s.id}
-                className="border border-lodge-pale/50 rounded-2xl overflow-hidden bg-white"
+                className="border border-slate-200 rounded-2xl overflow-hidden bg-white"
               >
                 <button
                   className="w-full flex items-center justify-between px-6 py-5 text-left group"
                   onClick={() => setOpen(open === s.id ? "" : s.id)}
                 >
                   <span
-                    className={`font-semibold text-sm transition-colors ${
+                    className={`text-lg font-semibold transition-colors ${
                       open === s.id
-                        ? "text-lodge-green"
-                        : "text-lodge-dark group-hover:text-lodge-green"
+                        ? "text-neutral-900"
+                        : "text-neutral-900 group-hover:text-neutral-700"
                     }`}
                   >
                     {s.label}
                   </span>
-                  <IoChevronDownOutline
-                    size={18}
-                    className={`text-lodge-mid transition-transform flex-shrink-0 ${
-                      open === s.id ? "rotate-180" : ""
-                    }`}
-                  />
+                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+                    <IoChevronDownOutline
+                      size={16}
+                      className={`text-neutral-600 transition-transform ${
+                        open === s.id ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
                 </button>
                 {open === s.id && (
-                  <div className="px-6 pb-5 border-t border-lodge-pale/30 pt-4">
+                  <div className="px-6 pb-5 border-t border-slate-200 pt-4">
                     {s.id === "lodge" && (
                       <div className="relative h-40 rounded-xl overflow-hidden mb-4">
                         <Image
@@ -111,20 +96,35 @@ export default function ServicesSection() {
                         />
                       </div>
                     )}
-                    <p className="text-sm text-lodge-neutral leading-relaxed font-normal mb-4">
+                    <p className="text-base font-normal text-neutral-700 leading-relaxed mb-4">
                       {s.content}
                     </p>
                     <Link
                       href={s.href}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-lodge-green hover:underline"
+                      className="inline-flex items-center gap-1.5 text-base font-medium text-neutral-900 hover:text-neutral-700"
                     >
-                      View {s.label}
-                      <IoArrowForwardOutline size={15} />
+                      Learn More
+                      <IoArrowForwardOutline size={16} />
                     </Link>
                   </div>
                 )}
               </div>
             ))}
+          </div>
+
+          {/* Right: Description + Large Image */}
+          <div className="w-full lg:w-7/12 flex flex-col">
+            <p className="text-base font-normal text-neutral-800 text-justify leading-relaxed mb-8 ">
+              We handle the logistics so you can focus on the experience. Explore our services to make your journey to the Waerebo village adventurous, safe, and unforgettable.
+            </p>
+            <div className="relative h-80 lg:h-96 rounded-3xl overflow-hidden shadow-md flex-grow">
+              <Image
+                src="/home/our-services.jpg"
+                alt="Waerebo Lodge"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>

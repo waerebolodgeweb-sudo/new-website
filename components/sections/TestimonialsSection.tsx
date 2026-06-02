@@ -39,15 +39,15 @@ export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
 
   return (
-    <section id="reviews" className="py-16 lg:py-24 bg-lodge-green overflow-hidden">
+    <section id="reviews" className="py-16 lg:py-24 bg-green-400 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-[11px] font-semibold tracking-[0.2em] text-lodge-pale uppercase mb-2">
+        <p className="text-[11px] font-semibold tracking-[0.2em] text-pale-green-100 uppercase mb-2">
           Travelers Review
         </p>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-10 gap-4">
           <h2 className="text-3xl lg:text-5xl font-bold">
             <span className="text-white">Word </span>
-            <span className="text-lodge-pale">on the Trail.</span>
+            <span className="text-pale-green-100">on the Trail.</span>
           </h2>
           <div className="flex gap-2 items-center">
             {testimonials.map((_, i) => (

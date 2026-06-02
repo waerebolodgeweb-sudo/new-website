@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${jakarta.variable} ${dancing.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-lodge-warm font-sans">
+      <body className="min-h-full flex flex-col bg-light-green-100 font-sans">
         {children}
       </body>
     </html>

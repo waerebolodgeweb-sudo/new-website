@@ -80,15 +80,15 @@ function ImageTile({ label, src }: { label: string; src: string }) {
 
 function QuoteCard() {
   return (
-    <div className="relative aspect-square rounded-2xl bg-lodge-dark p-5 lg:p-6 flex flex-col justify-end overflow-hidden">
+    <div className="relative aspect-square rounded-2xl bg-neutral-900 p-5 lg:p-6 flex flex-col justify-end overflow-hidden">
       <IoArrowForwardOutline
         size={22}
-        className="absolute top-5 right-5 text-lodge-pale -rotate-45"
+        className="absolute top-5 right-5 text-pale-green-100 -rotate-45"
       />
-      <h3 className="text-lodge-cream text-base lg:text-lg font-bold mb-2">
+      <h3 className="text-cream-200 text-base lg:text-lg font-bold mb-2">
         The Heart of Flores
       </h3>
-      <p className="text-lodge-pale text-[11px] lg:text-xs leading-relaxed">
+      <p className="text-pale-green-100 text-[11px] lg:text-xs leading-relaxed">
         &ldquo;More than just a beautiful destination, it is a profound
         connection to the past. Walk our trails, share our authentic coffee, and
         sleep under the starlit sky of our ancestral home.&rdquo;
@@ -104,21 +104,21 @@ export default function OfferGrid() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
           {/* Heading cell */}
           <div className="col-span-2 lg:col-span-1 flex flex-col justify-center py-2 lg:aspect-square">
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-lodge-mid uppercase mb-3">
+            <p className="text-[11px] font-semibold tracking-[0.2em] text-green-200 uppercase mb-3">
               Our Services
             </p>
-            <h2 className="text-2xl lg:text-3xl font-bold text-lodge-dark leading-tight mb-3">
+            <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 leading-tight mb-3">
               Everything
               <br className="hidden lg:block" /> You Need
             </h2>
-            <p className="text-xs lg:text-sm text-lodge-neutral leading-relaxed mb-5">
+            <p className="text-xs lg:text-sm text-neutral-300 leading-relaxed mb-5">
               We handle the logistics so you can focus on the experience. Explore
               our services to make your journey to the Waerebo village
               adventurous, safe, and unforgettable.
             </p>
             <Link
               href="#contact"
-              className="inline-flex w-fit px-5 py-2.5 bg-lodge-dark text-white text-sm font-semibold rounded-full hover:bg-lodge-green transition-colors"
+              className="inline-flex w-fit px-5 py-2.5 bg-neutral-900 text-white text-sm font-semibold rounded-full hover:bg-green-400 transition-colors"
             >
               Contact Us
             </Link>

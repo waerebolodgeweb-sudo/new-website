@@ -30,15 +30,15 @@ export default function GallerySection() {
         fill
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-lodge-dark/70" />
+      <div className="absolute inset-0 bg-neutral-900/70" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-[11px] font-semibold tracking-[0.2em] text-lodge-pale uppercase mb-2">
+        <p className="font-semibold tracking-[0.2em] text-white mb-2">
           The Experience
         </p>
-        <h2 className="text-3xl lg:text-5xl font-bold mb-10 lg:mb-12">
+        <h2 className="text-3xl lg:text-5xl mb-10 lg:mb-12">
           <span className="text-white">Moments </span>
-          <span className="text-lodge-pale">Captured.</span>
+          <span className="text-white font-semibold">Captured.</span>
         </h2>
 
         <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-center">
@@ -47,7 +47,7 @@ export default function GallerySection() {
             <h3 className="text-xl lg:text-2xl font-bold text-white mb-3">
               Smiles Before the Ascent
             </h3>
-            <p className="text-white/70 text-sm leading-relaxed mb-8">
+            <p className="text-neutral-000 text-sm leading-relaxed mb-8">
               Take a moment to soak in the joy that visitors and travelers share
               before the climb begins — the warmth of the highlands lingers long
               before the trek to the sky village.
@@ -56,14 +56,14 @@ export default function GallerySection() {
               <button
                 onClick={prev}
                 aria-label="Previous photo"
-                className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-lodge-dark transition-colors"
+                className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-neutral-900 transition-colors"
               >
                 <IoChevronBackOutline size={20} />
               </button>
               <button
                 onClick={next}
                 aria-label="Next photo"
-                className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-lodge-dark transition-colors"
+                className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-neutral-900 transition-colors"
               >
                 <IoChevronForwardOutline size={20} />
               </button>
