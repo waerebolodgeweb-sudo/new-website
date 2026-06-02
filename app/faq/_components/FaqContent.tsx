@@ -76,24 +76,24 @@ export default function FaqContent() {
 
   return (
     <section className="bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-20 pb-16 lg:pb-24">
+      <div className="mx-auto max-w-5xl px-4 pt-12 pb-16 sm:px-6 lg:px-8 lg:pt-20 lg:pb-24">
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 leading-tight mb-8 lg:mb-10">
+        <h1 className="mb-8 text-4xl leading-tight font-bold text-neutral-900 sm:text-5xl lg:mb-10 lg:text-6xl">
           Got Questions?
           <br />
           We&apos;ve Got Answers.
         </h1>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap gap-2 mb-10 lg:mb-14">
+        <div className="mb-10 flex flex-wrap gap-2 lg:mb-14">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-5 py-2.5 text-sm font-semibold rounded-full transition-colors ${
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
                 active === cat
                   ? "bg-green-400 text-white"
-                  : "bg-light-green-100 text-neutral-300 hover:text-neutral-900 hover:bg-pale-green-100/30"
+                  : "bg-light-green-100 text-neutral-300 hover:bg-pale-green-100/30 hover:text-neutral-900"
               }`}
             >
               {cat}
@@ -105,10 +105,10 @@ export default function FaqContent() {
         <div className="divide-y divide-pale-green-100/40 border-t border-pale-green-100/40">
           {visible.map((faq) => (
             <div key={faq.question} className="py-7 lg:py-8">
-              <h2 className="text-base lg:text-lg font-bold text-neutral-900 mb-3">
+              <h2 className="mb-3 text-base font-bold text-neutral-900 lg:text-lg">
                 Q: {faq.question}
               </h2>
-              <p className="text-sm lg:text-base text-neutral-300 leading-relaxed max-w-3xl">
+              <p className="max-w-3xl text-sm leading-relaxed text-neutral-300 lg:text-base">
                 {faq.answer}
               </p>
             </div>

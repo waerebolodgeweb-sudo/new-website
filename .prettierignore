@@ -1,0 +1,15 @@
+# Build output
+.next/
+out/
+build/
+
+# Dependencies
+node_modules/
+
+# Generated / vendored
+next-env.d.ts
+package-lock.json
+
+# Assets & docs
+public/
+*.md

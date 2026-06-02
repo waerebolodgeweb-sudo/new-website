@@ -3,38 +3,40 @@ import Link from "next/link";
 
 export default function PurposeSection() {
   return (
-    <section id="about" className="py-32 lg:py-40 bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-10 sm:px-12 lg:px-8">
+    <section id="about" className="bg-neutral-50 py-32 lg:py-40">
+      <div className="mx-auto max-w-7xl px-10 sm:px-12 lg:px-8">
         {/* Centered headline */}
-        <h2 className="text-5xl lg:text-6xl font-semibold text-center mb-24 leading-tight text-neutral-900">
+        <h2 className="mb-24 text-center text-5xl leading-tight font-semibold text-neutral-900 lg:text-6xl">
           <span className="text-savana-800">Rest Well. </span>
           <span className="text-savana-600">Give Back.</span>
         </h2>
 
-        <div className="flex flex-col lg:flex-row gap-20 lg:gap-16 items-end">
+        <div className="flex flex-col items-end gap-20 lg:flex-row lg:gap-16">
           {/* Left — copy */}
-          <div className="lg:w-2/5 flex flex-col justify-end">
-            <p className="text-base font-normal text-savana-600 mb-3 tracking-wide">
+          <div className="flex flex-col justify-end lg:w-2/5">
+            <p className="mb-3 text-base font-normal tracking-wide text-savana-600">
               About Us
             </p>
-            <h3 className="text-4xl font-semibold text-savana-800 mb-6 leading-tight">
+            <h3 className="mb-6 text-4xl leading-tight font-semibold text-savana-800">
               Basecamp with a Purpose.
             </h3>
-            <p className="text-base font-normal text-pale-savana-500 leading-relaxed mb-6">
-              We built Waerebo Lodge with a simple goal: <span className="font-semibold">"to provide a
-              comfortable, high-quality resting place before your ascent to the
-              sky village".</span>
+            <p className="mb-6 text-base leading-relaxed font-normal text-pale-savana-500">
+              We built Waerebo Lodge with a simple goal:{" "}
+              <span className="font-semibold">
+                "to provide a comfortable, high-quality resting place before
+                your ascent to the sky village".
+              </span>
             </p>
-            <p className="text-base font-normal text-pale-savana-500 leading-relaxed mb-8">
-              But our mission goes beyond our walls. We commit 10% of your room rate
-              to directly support the social and cultural initiatives of the
-              Waerebo community. By staying with us, your adventure leaves a
+            <p className="mb-8 text-base leading-relaxed font-normal text-pale-savana-500">
+              But our mission goes beyond our walls. We commit 10% of your room
+              rate to directly support the social and cultural initiatives of
+              the Waerebo community. By staying with us, your adventure leaves a
               positive, lasting mark on the highlands.
             </p>
             <div>
               <a
                 href="/about"
-                className="inline-flex px-5 py-3 bg-savana-800 text-white text-base font-medium rounded-xl hover:bg-neutral-800 transition-colors"
+                className="inline-flex rounded-xl bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-neutral-800"
               >
                 Learn More About Us
               </a>
@@ -42,11 +44,11 @@ export default function PurposeSection() {
           </div>
 
           {/* Right — image collage */}
-          <div className="lg:w-3/5 flex gap-5 h-full">
+          <div className="flex h-full gap-5 lg:w-3/5">
             {/* Left column */}
-            <div className="flex flex-col gap-5 w-[30%]">
+            <div className="flex w-[30%] flex-col gap-5">
               <div className="h-24 rounded-3xl bg-transparent" />
-              <div className="relative h-72 rounded-3xl overflow-hidden shadow-sm shrink-0 aspect-2.2/3">
+              <div className="aspect-2.2/3 relative h-72 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
                   src="/home/about-1.png"
                   alt="Waerebo Lodge sign"
@@ -58,9 +60,9 @@ export default function PurposeSection() {
             </div>
 
             {/* Middle column */}
-            <div className="flex flex-col gap-5 w-[30%]">
+            <div className="flex w-[30%] flex-col gap-5">
               <div className="h-40 rounded-3xl bg-transparent" />
-              <div className="relative h-72 rounded-3xl overflow-hidden shadow-sm shrink-0 aspect-2.2/3">
+              <div className="aspect-2.2/3 relative h-72 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
                   src="/home/about-2.png"
                   alt="Aerial view of Waerebo village"
@@ -71,8 +73,8 @@ export default function PurposeSection() {
             </div>
 
             {/* Right column */}
-            <div className="flex flex-col gap-5 w-[40%]">
-              <div className="relative h-96 rounded-3xl overflow-hidden shadow-sm aspect-2.7/3 ">
+            <div className="flex w-[40%] flex-col gap-5">
+              <div className="aspect-2.7/3 relative h-96 overflow-hidden rounded-3xl shadow-sm">
                 <Image
                   src="/home/about-3.jpg"
                   alt="Traditional cone-shaped Waerebo houses"

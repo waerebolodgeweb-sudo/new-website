@@ -40,58 +40,60 @@ export default function JourneysSection() {
   const [activeTab, setActiveTab] = useState("Trip");
 
   return (
-    <section id="journeys" className="pt-0 lg:pt-0 pb-24 lg:pb-28 bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="relative -mt-16 lg:-mt-24 z-10">
+    <section
+      id="journeys"
+      className="bg-neutral-50 pt-0 pb-24 lg:pt-0 lg:pb-28"
+    >
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 -mt-16 lg:-mt-24">
           <div className="overflow-hidden rounded-[2rem] border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)] lg:p-8">
-          <p className="text-sm font-semibold tracking-[0.2em] md:text-base text-savana text-savana-600 mb-2">
-            The Adventure
-          </p>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-            <h2 className="text-3xl lg:text-5xl text-neutral-900 leading-tight">
-              Curated Highland <span className="font-semibold">Journeys</span>
-            </h2>
+            <p className="text-savana mb-2 text-sm font-semibold tracking-[0.2em] text-savana-600 md:text-base">
+              The Adventure
+            </p>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <h2 className="text-3xl leading-tight text-neutral-900 lg:text-5xl">
+                Curated Highland <span className="font-semibold">Journeys</span>
+              </h2>
 
-            <div className="flex gap-0 border-b border-pale-green-100/50 overflow-x-auto overflow-y-hidden">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 pb-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 -mb-px ${
-                    activeTab === tab
-                      ? "text-green-400 border-green-400"
-                      : "text-neutral-300 border-transparent hover:text-neutral-900"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+              <div className="flex gap-0 overflow-x-auto overflow-y-hidden border-b border-pale-green-100/50">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`-mb-px border-b-2 px-4 pb-3 text-sm font-semibold whitespace-nowrap transition-colors ${
+                      activeTab === tab
+                        ? "border-green-400 text-green-400"
+                        : "border-transparent text-neutral-300 hover:text-neutral-900"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <div className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         {activeTab === "Trip" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {trips.map((trip) => (
               <div
                 key={trip.id}
-                className="bg-white p-2 rounded-[2.25rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                className="overflow-hidden rounded-[2.25rem] bg-white p-2 shadow-sm transition-shadow hover:shadow-md"
               >
-                <div className="relative h-72 lg:h-[320px] rounded-[28px]">
+                <div className="relative h-72 rounded-[28px] lg:h-[320px]">
                   <Image
                     src={trip.image}
                     alt={trip.title}
                     fill
-                    className="object-cover rounded-[28px]"
+                    className="rounded-[28px] object-cover"
                   />
-                  <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-slate-950/60 px-3 py-2 text-white text-sm">
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-slate-950/60 px-3 py-2 text-sm text-white">
                     <span className="h-2.5 w-2.5 rounded-full bg-white" />
                     <span className="font-normal">Available</span>
                   </div>
-                  
                 </div>
                 <div className="p-5">
                   <div className="space-y-4">
@@ -99,17 +101,17 @@ export default function JourneysSection() {
                       {trip.title}
                     </h3>
                     <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-neutral-500">
-                      <div className="flex items-center gap-2 text-neutral-400 text-sm">
+                      <div className="flex items-center gap-2 text-sm text-neutral-400">
                         <IoPartlySunny className="h-5 w-5 text-neutral-200" />
                         <span>1 Day</span>
                       </div>
-                      <div className="flex rounded-full h-2 w-2 items-center gap-2 text-sm bg-neutral-200"/>
-                      <div className="flex items-center gap-2 text-neutral-400 text-sm">
+                      <div className="flex h-2 w-2 items-center gap-2 rounded-full bg-neutral-200 text-sm" />
+                      <div className="flex items-center gap-2 text-sm text-neutral-400">
                         <IoFlag className="h-5 w-5 text-neutral-200" />
                         <span>Trek start at Dintor</span>
                       </div>
                     </div>
-                    <p className="text-sm font-normal line-clamp-3 leading-6 text-neutral-500">
+                    <p className="line-clamp-3 text-sm leading-6 font-normal text-neutral-500">
                       {trip.description}
                     </p>
                   </div>
@@ -124,7 +126,7 @@ export default function JourneysSection() {
         )}
 
         {activeTab !== "Trip" && (
-          <div className="flex items-center justify-center h-48 rounded-2xl border-2 border-dashed border-pale-green-100/50 text-neutral-300 text-sm font-medium">
+          <div className="flex h-48 items-center justify-center rounded-2xl border-2 border-dashed border-pale-green-100/50 text-sm font-medium text-neutral-300">
             {activeTab} packages coming soon
           </div>
         )}

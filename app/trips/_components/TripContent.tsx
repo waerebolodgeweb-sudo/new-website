@@ -47,42 +47,48 @@ function StopText({ stop }: { stop: Stop }) {
   return (
     <div className="flex flex-col justify-center">
       {stop.day && (
-        <p className="text-[10px] font-bold text-green-200 uppercase tracking-[0.2em] mb-1.5">
+        <p className="mb-1.5 text-[10px] font-bold tracking-[0.2em] text-green-200 uppercase">
           {stop.day}
         </p>
       )}
-      <h3 className="text-xl lg:text-2xl font-bold text-neutral-900 mb-4 leading-tight">
+      <h3 className="mb-4 text-xl leading-tight font-bold text-neutral-900 lg:text-2xl">
         {stop.title}
       </h3>
-      <dl className="space-y-2 mb-4">
+      <dl className="mb-4 space-y-2">
         {stop.time && (
           <div className="flex gap-2 text-sm">
-            <dt className="font-semibold text-neutral-900 min-w-[78px]">
+            <dt className="min-w-[78px] font-semibold text-neutral-900">
               Time:
             </dt>
-            <dd className="text-green-200 font-medium">{stop.time}</dd>
+            <dd className="font-medium text-green-200">{stop.time}</dd>
           </div>
         )}
         {stop.transport && (
           <div className="flex gap-2 text-sm">
-            <dt className="font-semibold text-neutral-900 min-w-[78px]">
+            <dt className="min-w-[78px] font-semibold text-neutral-900">
               Transport:
             </dt>
-            <dd className="text-green-200 font-medium">{stop.transport}</dd>
+            <dd className="font-medium text-green-200">{stop.transport}</dd>
           </div>
         )}
       </dl>
-      <p className="text-sm text-neutral-300 leading-relaxed">
+      <p className="text-sm leading-relaxed text-neutral-300">
         {stop.description}
       </p>
     </div>
   );
 }
 
-function StopImage({ stop, className = "" }: { stop: Stop; className?: string }) {
+function StopImage({
+  stop,
+  className = "",
+}: {
+  stop: Stop;
+  className?: string;
+}) {
   return (
     <div
-      className={`relative w-full h-[220px] lg:h-[240px] rounded-3xl overflow-hidden shadow-md ${className}`}
+      className={`relative h-[220px] w-full overflow-hidden rounded-3xl shadow-md lg:h-[240px] ${className}`}
     >
       <Image src={stop.image} alt={stop.title} fill className="object-cover" />
     </div>
@@ -101,7 +107,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
   return (
     <div className="relative hidden lg:block" style={{ height: totalH }}>
       <svg
-        className="absolute inset-0 w-full pointer-events-none"
+        className="pointer-events-none absolute inset-0 w-full"
         viewBox={`0 0 1000 ${totalH}`}
         preserveAspectRatio="none"
         height={totalH}
@@ -123,7 +129,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
         return (
           <div
             key={i}
-            className="absolute z-10 w-4 h-4 rounded-full bg-savana-500 border-[3px] border-white shadow-md"
+            className="absolute z-10 h-4 w-4 rounded-full border-[3px] border-white bg-savana-500 shadow-md"
             style={{
               left: `${(x / 1000) * 100}%`,
               top: y,
@@ -139,7 +145,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
         return (
           <div
             key={stop.id}
-            className="absolute w-full grid grid-cols-[1fr_8%_1fr] items-center"
+            className="absolute grid w-full grid-cols-[1fr_8%_1fr] items-center"
             style={{ top: i * BLOCK_H, height: BLOCK_H }}
           >
             {reversed ? (
@@ -166,7 +172,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
 
 function MobileTimeline({ stops }: { stops: Stop[] }) {
   return (
-    <div className="lg:hidden space-y-10">
+    <div className="space-y-10 lg:hidden">
       {stops.map((stop) => (
         <div key={stop.id}>
           <StopImage stop={stop} className="mb-5 !h-48" />
@@ -183,13 +189,14 @@ export default function TripContent() {
   const [activeId, setActiveId] = useState("1-day");
   const [modalOpen, setModalOpen] = useState(false);
 
-  const program = tripPrograms.find((p) => p.id === activeId) ?? tripPrograms[0];
+  const program =
+    tripPrograms.find((p) => p.id === activeId) ?? tripPrograms[0];
   const [titleHead, titleTail] = splitTitle(program.title);
 
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative h-[70vh] min-h-[480px] flex items-center justify-center">
+      <section className="relative flex h-[70vh] min-h-[480px] items-center justify-center">
         <Image
           src={program.heroImage}
           alt={program.title}
@@ -198,32 +205,32 @@ export default function TripContent() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-5">
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
+          <h1 className="mb-5 text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
             {titleHead}
             <span className="text-pale-green-100">{titleTail}</span>
           </h1>
-          <p className="text-white/80 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/80 lg:text-base">
             {program.subtitle}
           </p>
         </div>
       </section>
 
       {/* ── Floating program selector ── */}
-      <div className="relative z-30 max-w-4xl mx-auto px-4 sm:px-6 -mt-14 lg:-mt-16">
-        <div className="bg-white rounded-3xl shadow-xl border border-pale-green-100/40 p-5 lg:p-6">
-          <p className="text-sm font-bold text-neutral-900 mb-3 text-center lg:text-left">
+      <div className="relative z-30 mx-auto -mt-14 max-w-4xl px-4 sm:px-6 lg:-mt-16">
+        <div className="rounded-3xl border border-pale-green-100/40 bg-white p-5 shadow-xl lg:p-6">
+          <p className="mb-3 text-center text-sm font-bold text-neutral-900 lg:text-left">
             Choose your Program
           </p>
-          <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+          <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
             {tripPrograms.map((p) => (
               <button
                 key={p.id}
                 onClick={() => setActiveId(p.id)}
-                className={`px-4 py-2.5 text-xs font-semibold rounded-full whitespace-nowrap transition-colors ${
+                className={`rounded-full px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors ${
                   activeId === p.id
                     ? "bg-green-400 text-white"
-                    : "bg-light-green-100 text-neutral-300 hover:text-neutral-900 hover:bg-pale-green-100/30"
+                    : "bg-light-green-100 text-neutral-300 hover:bg-pale-green-100/30 hover:text-neutral-900"
                 }`}
               >
                 {p.label}
@@ -235,17 +242,17 @@ export default function TripContent() {
 
       {/* ── Itinerary ── */}
       <section className="bg-white py-14 lg:py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <DesktopTimeline stops={program.stops} />
           <MobileTimeline stops={program.stops} />
         </div>
       </section>
 
       {/* ── Book button ── */}
-      <div className="flex justify-center pb-16 bg-white">
+      <div className="flex justify-center bg-white pb-16">
         <button
           onClick={() => setModalOpen(true)}
-          className="px-10 py-4 bg-neutral-900 text-white font-bold text-sm rounded-full hover:bg-green-400 transition-colors shadow-lg tracking-wide"
+          className="rounded-full bg-neutral-900 px-10 py-4 text-sm font-bold tracking-wide text-white shadow-lg transition-colors hover:bg-green-400"
         >
           Book The Trip
         </button>

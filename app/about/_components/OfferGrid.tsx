@@ -2,9 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoArrowForwardOutline } from "react-icons/io5";
 
-type Tile =
-  | { kind: "image"; label: string; src: string }
-  | { kind: "quote" };
+type Tile = { kind: "image"; label: string; src: string } | { kind: "quote" };
 
 /* Bento order: heading occupies cell 1, then these 11 tiles fill the grid */
 const tiles: Tile[] = [
@@ -63,7 +61,7 @@ const tiles: Tile[] = [
 
 function ImageTile({ label, src }: { label: string; src: string }) {
   return (
-    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-sm group">
+    <div className="group relative aspect-square overflow-hidden rounded-2xl shadow-sm">
       <Image
         src={src}
         alt={label}
@@ -71,7 +69,7 @@ function ImageTile({ label, src }: { label: string; src: string }) {
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      <p className="absolute bottom-3 left-3 right-3 text-white text-sm font-semibold drop-shadow">
+      <p className="absolute right-3 bottom-3 left-3 text-sm font-semibold text-white drop-shadow">
         {label}
       </p>
     </div>
@@ -80,15 +78,15 @@ function ImageTile({ label, src }: { label: string; src: string }) {
 
 function QuoteCard() {
   return (
-    <div className="relative aspect-square rounded-2xl bg-neutral-900 p-5 lg:p-6 flex flex-col justify-end overflow-hidden">
+    <div className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-neutral-900 p-5 lg:p-6">
       <IoArrowForwardOutline
         size={22}
-        className="absolute top-5 right-5 text-pale-green-100 -rotate-45"
+        className="absolute top-5 right-5 -rotate-45 text-pale-green-100"
       />
-      <h3 className="text-cream-200 text-base lg:text-lg font-bold mb-2">
+      <h3 className="mb-2 text-base font-bold text-cream-200 lg:text-lg">
         The Heart of Flores
       </h3>
-      <p className="text-pale-green-100 text-[11px] lg:text-xs leading-relaxed">
+      <p className="text-[11px] leading-relaxed text-pale-green-100 lg:text-xs">
         &ldquo;More than just a beautiful destination, it is a profound
         connection to the past. Walk our trails, share our authentic coffee, and
         sleep under the starlit sky of our ancestral home.&rdquo;
@@ -100,25 +98,25 @@ function QuoteCard() {
 export default function OfferGrid() {
   return (
     <section id="offer" className="bg-white py-12 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
           {/* Heading cell */}
-          <div className="col-span-2 lg:col-span-1 flex flex-col justify-center py-2 lg:aspect-square">
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-green-200 uppercase mb-3">
+          <div className="col-span-2 flex flex-col justify-center py-2 lg:col-span-1 lg:aspect-square">
+            <p className="mb-3 text-[11px] font-semibold tracking-[0.2em] text-green-200 uppercase">
               Our Services
             </p>
-            <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 leading-tight mb-3">
+            <h2 className="mb-3 text-2xl leading-tight font-bold text-neutral-900 lg:text-3xl">
               Everything
               <br className="hidden lg:block" /> You Need
             </h2>
-            <p className="text-xs lg:text-sm text-neutral-300 leading-relaxed mb-5">
-              We handle the logistics so you can focus on the experience. Explore
-              our services to make your journey to the Waerebo village
+            <p className="mb-5 text-xs leading-relaxed text-neutral-300 lg:text-sm">
+              We handle the logistics so you can focus on the experience.
+              Explore our services to make your journey to the Waerebo village
               adventurous, safe, and unforgettable.
             </p>
             <Link
               href="#contact"
-              className="inline-flex w-fit px-5 py-2.5 bg-neutral-900 text-white text-sm font-semibold rounded-full hover:bg-green-400 transition-colors"
+              className="inline-flex w-fit rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-400"
             >
               Contact Us
             </Link>

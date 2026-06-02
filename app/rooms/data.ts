@@ -77,7 +77,10 @@ const baseReviews: RoomReview[] = [
   },
 ];
 
-const standardHighlights = (capacity: string, couples: string): RoomHighlight[] => [
+const standardHighlights = (
+  capacity: string,
+  couples: string
+): RoomHighlight[] => [
   { key: "capacity", label: capacity },
   { key: "couples", label: couples },
   { key: "bedroom", label: "Bedroom" },
@@ -95,7 +98,8 @@ const standardFacilities: FacilityKey[] = [
   "toilet",
 ];
 
-const mapImage = "https://placehold.co/800x400/ABBAA8/27392A?text=Lodge+Location+Map";
+const mapImage =
+  "https://placehold.co/800x400/ABBAA8/27392A?text=Lodge+Location+Map";
 
 export const rooms: Room[] = [
   {
@@ -154,7 +158,14 @@ export const rooms: Room[] = [
       { key: "shower", label: "Hot Shower" },
     ],
     highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
-    facilities: ["wifi", "parking", "hairdryer", "water", "breakfast", "toilet"],
+    facilities: [
+      "wifi",
+      "parking",
+      "hairdryer",
+      "water",
+      "breakfast",
+      "toilet",
+    ],
     images: [
       "https://placehold.co/900x600/9B8265/F0E3D3?text=Twin+Room+Fan",
       "https://placehold.co/300x220/7A6448/F0E3D3?text=View+1",

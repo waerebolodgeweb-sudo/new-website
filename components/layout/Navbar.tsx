@@ -33,30 +33,34 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-50 transition-colors duration-300 ${
         transparent
           ? "bg-transparent"
-          : "bg-white/95 backdrop-blur-sm border-b border-pale-green-100/40"
+          : "border-b border-pale-green-100/40 bg-white/95 backdrop-blur-sm"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16 lg:h-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative flex h-16 items-center justify-between lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center" aria-label="Waerebo Lodge — Home">
+          <Link
+            href="/"
+            className="flex items-center"
+            aria-label="Waerebo Lodge — Home"
+          >
             <Image
               src="/logo.png"
               alt="Waerebo Lodge"
               width={508}
               height={168}
               priority
-              className={`h-9 lg:h-10 w-auto transition-[filter] duration-300 ${
+              className={`h-9 w-auto transition-[filter] duration-300 lg:h-10 ${
                 transparent ? "" : "brightness-0"
               }`}
             />
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="hidden lg:flex items-center gap-7 absolute left-1/2 -translate-x-1/2">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -75,7 +79,7 @@ export default function Navbar() {
           {/* Contact Us — right */}
           <Link
             href="/#contact"
-            className={`hidden lg:inline-flex px-5 py-2.5 text-sm font-semibold rounded-full transition-colors ${
+            className={`hidden rounded-full px-5 py-2.5 text-sm font-semibold transition-colors lg:inline-flex ${
               transparent
                 ? "border border-white/50 text-white hover:bg-white hover:text-neutral-900"
                 : "bg-neutral-900 text-white hover:bg-green-400"
@@ -86,7 +90,7 @@ export default function Navbar() {
 
           {/* Mobile button */}
           <button
-            className={`lg:hidden p-2 ${
+            className={`p-2 lg:hidden ${
               transparent ? "text-white" : "text-green-400"
             }`}
             onClick={() => setOpen(!open)}
@@ -98,12 +102,12 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="lg:hidden border-t border-pale-green-100/30 py-4 space-y-1">
+          <div className="space-y-1 border-t border-pale-green-100/30 py-4 lg:hidden">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="block px-4 py-2.5 text-sm font-medium text-neutral-300 hover:text-green-400 hover:bg-pale-green-100/20 rounded-lg transition-colors"
+                className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -112,7 +116,7 @@ export default function Navbar() {
             <div className="px-4 pt-2">
               <Link
                 href="/#contact"
-                className="block px-5 py-2.5 bg-neutral-900 text-white text-sm font-semibold rounded-full text-center hover:bg-green-400 transition-colors"
+                className="block rounded-full bg-neutral-900 px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-green-400"
                 onClick={() => setOpen(false)}
               >
                 Contact Us

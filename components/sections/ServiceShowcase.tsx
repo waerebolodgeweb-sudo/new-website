@@ -21,9 +21,9 @@ export default function ServiceShowcase({
 }: ServiceShowcaseProps) {
   return (
     <section className="bg-white py-8 lg:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero card */}
-        <div className="relative h-[360px] sm:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-sm">
+        <div className="relative h-[360px] overflow-hidden rounded-3xl shadow-sm sm:h-[420px] lg:h-[460px]">
           <Image
             src={heroImage}
             alt={`${titleHead}${titleTail}`}
@@ -33,13 +33,13 @@ export default function ServiceShowcase({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
 
-          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
+          <div className="absolute inset-x-0 bottom-0 flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-end lg:justify-between lg:p-10">
             <div className="max-w-xl">
-              <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
+              <h1 className="mb-3 text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl">
                 {titleHead}
                 <span className="text-pale-green-100">{titleTail}</span>
               </h1>
-              <p className="text-white/80 text-sm lg:text-base leading-relaxed max-w-md">
+              <p className="max-w-md text-sm leading-relaxed text-white/80 lg:text-base">
                 {subtitle}
               </p>
             </div>
@@ -48,7 +48,7 @@ export default function ServiceShowcase({
               href={bookHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-7 py-3.5 bg-white text-neutral-900 text-sm font-semibold rounded-full hover:bg-light-green-100 transition-colors flex-shrink-0 w-fit"
+              className="inline-flex w-fit flex-shrink-0 items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-neutral-900 transition-colors hover:bg-light-green-100"
             >
               {buttonLabel}
             </a>
@@ -56,11 +56,11 @@ export default function ServiceShowcase({
         </div>
 
         {/* Thumbnail gallery */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mt-4 lg:mt-5">
+        <div className="mt-4 grid grid-cols-2 gap-3 lg:mt-5 lg:grid-cols-4 lg:gap-4">
           {thumbnails.map((thumb, i) => (
             <div
               key={i}
-              className="relative h-40 sm:h-48 lg:h-52 rounded-2xl overflow-hidden shadow-sm"
+              className="relative h-40 overflow-hidden rounded-2xl shadow-sm sm:h-48 lg:h-52"
             >
               <Image
                 src={thumb.src}

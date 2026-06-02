@@ -22,32 +22,27 @@ export default function GallerySection() {
   const next = () => setCurrent((c) => (c + 1) % photos.length);
 
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden">
+    <section className="relative overflow-hidden py-16 lg:py-24">
       {/* Background */}
-      <Image
-        src="/home/bg-moment.jpg"
-        alt=""
-        fill
-        className="object-cover"
-      />
+      <Image src="/home/bg-moment.jpg" alt="" fill className="object-cover" />
       <div className="absolute inset-0 bg-neutral-900/70" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="font-semibold tracking-[0.2em] text-white mb-2">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <p className="mb-2 font-semibold tracking-[0.2em] text-white">
           The Experience
         </p>
-        <h2 className="text-3xl lg:text-5xl mb-10 lg:mb-12">
+        <h2 className="mb-10 text-3xl lg:mb-12 lg:text-5xl">
           <span className="text-white">Moments </span>
-          <span className="text-white font-semibold">Captured.</span>
+          <span className="font-semibold text-white">Captured.</span>
         </h2>
 
-        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-center">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-12">
           {/* Left — caption + controls */}
           <div>
-            <h3 className="text-xl lg:text-2xl font-bold text-white mb-3">
+            <h3 className="mb-3 text-xl font-bold text-white lg:text-2xl">
               Smiles Before the Ascent
             </h3>
-            <p className="text-neutral-000 text-sm leading-relaxed mb-8">
+            <p className="mb-8 text-sm leading-relaxed text-neutral-000">
               Take a moment to soak in the joy that visitors and travelers share
               before the climb begins — the warmth of the highlands lingers long
               before the trek to the sky village.
@@ -56,14 +51,14 @@ export default function GallerySection() {
               <button
                 onClick={prev}
                 aria-label="Previous photo"
-                className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-neutral-900 transition-colors"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-neutral-900"
               >
                 <IoChevronBackOutline size={20} />
               </button>
               <button
                 onClick={next}
                 aria-label="Next photo"
-                className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-neutral-900 transition-colors"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-neutral-900"
               >
                 <IoChevronForwardOutline size={20} />
               </button>
@@ -71,7 +66,7 @@ export default function GallerySection() {
           </div>
 
           {/* Right — active photo */}
-          <div className="relative h-64 sm:h-80 lg:h-[420px] rounded-3xl overflow-hidden shadow-lg">
+          <div className="relative h-64 overflow-hidden rounded-3xl shadow-lg sm:h-80 lg:h-[420px]">
             <Image
               src={photos[current].src}
               alt={photos[current].alt}

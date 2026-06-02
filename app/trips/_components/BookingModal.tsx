@@ -32,9 +32,21 @@ interface FormState {
   travelers: string;
 }
 
-const travelersOptions = ["1 Person", "2 People", "3 People", "4 People", "5 People", "6+ People"];
+const travelersOptions = [
+  "1 Person",
+  "2 People",
+  "3 People",
+  "4 People",
+  "5 People",
+  "6+ People",
+];
 
-export default function BookingModal({ isOpen, onClose, programs, defaultProgramId }: Props) {
+export default function BookingModal({
+  isOpen,
+  onClose,
+  programs,
+  defaultProgramId,
+}: Props) {
   const [form, setForm] = useState<FormState>({
     name: "",
     origin: "",
@@ -57,12 +69,15 @@ export default function BookingModal({ isOpen, onClose, programs, defaultProgram
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
-  const set = (field: keyof FormState) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  const set =
+    (field: keyof FormState) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   const programLabel =
     programs.find((p) => p.id === form.program)?.title ?? form.program;
@@ -97,15 +112,15 @@ Thank you!`;
       />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+      <div className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-pale-green-100/40">
+        <div className="flex items-center justify-between border-b border-pale-green-100/40 px-6 pt-6 pb-4">
           <h2 className="text-base font-bold text-neutral-900">
             Please fill Booking Information
           </h2>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-pale-green-100/30 transition-colors text-neutral-300"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-300 transition-colors hover:bg-pale-green-100/30"
             aria-label="Close"
           >
             <IoCloseOutline size={20} />
@@ -113,7 +128,7 @@ Thank you!`;
         </div>
 
         {/* Form */}
-        <div className="px-6 py-5 space-y-3 max-h-[65vh] overflow-y-auto">
+        <div className="max-h-[65vh] space-y-3 overflow-y-auto px-6 py-5">
           {/* Name */}
           <Field icon={<IoPersonOutline size={16} />} label="Name">
             <input
@@ -121,7 +136,7 @@ Thank you!`;
               placeholder="Input your name"
               value={form.name}
               onChange={set("name")}
-              className="flex-1 text-sm text-neutral-900 placeholder:text-neutral-300 outline-none bg-transparent"
+              className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
             />
           </Field>
 
@@ -132,7 +147,7 @@ Thank you!`;
               placeholder="Where are you from?"
               value={form.origin}
               onChange={set("origin")}
-              className="flex-1 text-sm text-neutral-900 placeholder:text-neutral-300 outline-none bg-transparent"
+              className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
             />
           </Field>
 
@@ -143,7 +158,7 @@ Thank you!`;
               placeholder="Input your phone number"
               value={form.phone}
               onChange={set("phone")}
-              className="flex-1 text-sm text-neutral-900 placeholder:text-neutral-300 outline-none bg-transparent"
+              className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
             />
           </Field>
 
@@ -154,7 +169,7 @@ Thank you!`;
               placeholder="Input your email address"
               value={form.email}
               onChange={set("email")}
-              className="flex-1 text-sm text-neutral-900 placeholder:text-neutral-300 outline-none bg-transparent"
+              className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
             />
           </Field>
 
@@ -163,11 +178,15 @@ Thank you!`;
             <select
               value={form.program}
               onChange={set("program")}
-              className="flex-1 text-sm text-neutral-900 outline-none bg-transparent appearance-none cursor-pointer"
+              className="flex-1 cursor-pointer appearance-none bg-transparent text-sm text-neutral-900 outline-none"
             >
-              <option value="" disabled>Select your trip type</option>
+              <option value="" disabled>
+                Select your trip type
+              </option>
               {programs.map((p) => (
-                <option key={p.id} value={p.id}>{p.label}</option>
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
               ))}
             </select>
           </Field>
@@ -179,7 +198,7 @@ Thank you!`;
               value={form.date}
               onChange={set("date")}
               min={new Date().toISOString().split("T")[0]}
-              className="flex-1 text-sm text-neutral-900 outline-none bg-transparent cursor-pointer"
+              className="flex-1 cursor-pointer bg-transparent text-sm text-neutral-900 outline-none"
             />
           </Field>
 
@@ -188,30 +207,34 @@ Thank you!`;
             <select
               value={form.travelers}
               onChange={set("travelers")}
-              className="flex-1 text-sm text-neutral-900 outline-none bg-transparent appearance-none cursor-pointer"
+              className="flex-1 cursor-pointer appearance-none bg-transparent text-sm text-neutral-900 outline-none"
             >
-              <option value="" disabled>Select number of guests</option>
+              <option value="" disabled>
+                Select number of guests
+              </option>
               {travelersOptions.map((o) => (
-                <option key={o} value={o}>{o}</option>
+                <option key={o} value={o}>
+                  {o}
+                </option>
               ))}
             </select>
           </Field>
         </div>
 
         {/* Action buttons */}
-        <div className="px-6 pb-6 pt-4 grid grid-cols-2 gap-3 border-t border-pale-green-100/40">
+        <div className="grid grid-cols-2 gap-3 border-t border-pale-green-100/40 px-6 pt-4 pb-6">
           <a
             href={waLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-4 py-3 bg-green-400 text-white text-sm font-semibold rounded-full hover:bg-pale-green-500 transition-colors"
+            className="flex items-center justify-center gap-2 rounded-full bg-green-400 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-pale-green-500"
           >
             <IoLogoWhatsapp size={16} />
             Book Via Whatsapp
           </a>
           <a
             href={mailLink}
-            className="flex items-center justify-center gap-2 px-4 py-3 bg-neutral-900 text-white text-sm font-semibold rounded-full hover:bg-neutral-300/80 transition-colors"
+            className="flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-300/80"
           >
             <IoSendOutline size={15} />
             Book Via Email
@@ -232,10 +255,10 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-pale-green-100/50 bg-light-green-100/60 focus-within:border-green-400 focus-within:bg-white transition-colors">
-      <span className="text-green-400 flex-shrink-0">{icon}</span>
-      <div className="flex-1 min-w-0">
-        <p className="text-[9px] font-semibold text-neutral-300 uppercase tracking-wider mb-0.5">
+    <div className="flex items-center gap-3 rounded-xl border border-pale-green-100/50 bg-light-green-100/60 px-4 py-3 transition-colors focus-within:border-green-400 focus-within:bg-white">
+      <span className="flex-shrink-0 text-green-400">{icon}</span>
+      <div className="min-w-0 flex-1">
+        <p className="mb-0.5 text-[9px] font-semibold tracking-wider text-neutral-300 uppercase">
           {label}
         </p>
         {children}

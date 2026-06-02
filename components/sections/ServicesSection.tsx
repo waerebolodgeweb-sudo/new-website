@@ -40,30 +40,29 @@ export default function ServicesSection() {
   const [open, setOpen] = useState<string>("lodge");
 
   return (
-    <section id="services" className="py-32 lg:py-40 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-10 sm:px-12 lg:px-8">
+    <section id="services" className="bg-slate-50 py-32 lg:py-40">
+      <div className="mx-auto max-w-7xl px-10 sm:px-12 lg:px-8">
         {/* Top: Heading */}
-       
 
         {/* Main: Accordion + Image */}
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-start">
+        <div className="flex flex-col items-start gap-16 lg:flex-row lg:gap-20">
           {/* Left: Accordion */}
-          <div className="w-full lg:w-5/12 space-y-3">
-           <div className="mb-16 max-w-2xl">
-          <p className="text-base font-normal text-savana-600 mb-3 tracking-wide">
-            Our Services
-          </p>
-          <h2 className="text-4xl text-neutral-800 mb-6 leading-tight">
-            <span className="font-semibold">Everything</span> You Need.
-          </h2>
-        </div>
+          <div className="w-full space-y-3 lg:w-5/12">
+            <div className="mb-16 max-w-2xl">
+              <p className="mb-3 text-base font-normal tracking-wide text-savana-600">
+                Our Services
+              </p>
+              <h2 className="mb-6 text-4xl leading-tight text-neutral-800">
+                <span className="font-semibold">Everything</span> You Need.
+              </h2>
+            </div>
             {services.map((s) => (
               <div
                 key={s.id}
-                className="border border-slate-200 rounded-2xl overflow-hidden bg-white"
+                className="overflow-hidden rounded-2xl border border-slate-200 bg-white"
               >
                 <button
-                  className="w-full flex items-center justify-between px-6 py-5 text-left group"
+                  className="group flex w-full items-center justify-between px-6 py-5 text-left"
                   onClick={() => setOpen(open === s.id ? "" : s.id)}
                 >
                   <span
@@ -75,7 +74,7 @@ export default function ServicesSection() {
                   >
                     {s.label}
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-slate-200">
                     <IoChevronDownOutline
                       size={16}
                       className={`text-neutral-600 transition-transform ${
@@ -85,9 +84,9 @@ export default function ServicesSection() {
                   </div>
                 </button>
                 {open === s.id && (
-                  <div className="px-6 pb-5 border-t border-slate-200 pt-4">
+                  <div className="border-t border-slate-200 px-6 pt-4 pb-5">
                     {s.id === "lodge" && (
-                      <div className="relative h-40 rounded-xl overflow-hidden mb-4">
+                      <div className="relative mb-4 h-40 overflow-hidden rounded-xl">
                         <Image
                           src="/home/our-services-lodge.png"
                           alt="Waerebo Lodge room"
@@ -96,7 +95,7 @@ export default function ServicesSection() {
                         />
                       </div>
                     )}
-                    <p className="text-base font-normal text-neutral-700 leading-relaxed mb-4">
+                    <p className="mb-4 text-base leading-relaxed font-normal text-neutral-700">
                       {s.content}
                     </p>
                     <Link
@@ -113,11 +112,13 @@ export default function ServicesSection() {
           </div>
 
           {/* Right: Description + Large Image */}
-          <div className="w-full lg:w-7/12 flex flex-col">
-            <p className="text-base font-normal text-neutral-800 text-justify leading-relaxed mb-8 ">
-              We handle the logistics so you can focus on the experience. Explore our services to make your journey to the Waerebo village adventurous, safe, and unforgettable.
+          <div className="flex w-full flex-col lg:w-7/12">
+            <p className="mb-8 text-justify text-base leading-relaxed font-normal text-neutral-800">
+              We handle the logistics so you can focus on the experience.
+              Explore our services to make your journey to the Waerebo village
+              adventurous, safe, and unforgettable.
             </p>
-            <div className="relative h-80 lg:h-96 rounded-3xl overflow-hidden shadow-md flex-grow">
+            <div className="relative h-80 flex-grow overflow-hidden rounded-3xl shadow-md lg:h-96">
               <Image
                 src="/home/our-services.jpg"
                 alt="Waerebo Lodge"

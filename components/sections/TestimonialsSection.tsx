@@ -39,17 +39,20 @@ export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
 
   return (
-    <section id="reviews" className="py-16 lg:py-24 bg-green-400 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-[11px] font-semibold tracking-[0.2em] text-pale-green-100 uppercase mb-2">
+    <section
+      id="reviews"
+      className="overflow-hidden bg-green-400 py-16 lg:py-24"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <p className="mb-2 text-[11px] font-semibold tracking-[0.2em] text-pale-green-100 uppercase">
           Travelers Review
         </p>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-10 gap-4">
-          <h2 className="text-3xl lg:text-5xl font-bold">
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-3xl font-bold lg:text-5xl">
             <span className="text-white">Word </span>
             <span className="text-pale-green-100">on the Trail.</span>
           </h2>
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             {testimonials.map((_, i) => (
               <button
                 key={i}
@@ -57,26 +60,26 @@ export default function TestimonialsSection() {
                 aria-label={`Go to review ${i + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   i === current
-                    ? "bg-white w-6"
-                    : "bg-white/30 w-2 hover:bg-white/50"
+                    ? "w-6 bg-white"
+                    : "w-2 bg-white/30 hover:bg-white/50"
                 }`}
               />
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {testimonials.map((t, i) => (
             <div
               key={t.id}
-              className={`rounded-2xl p-6 border transition-all duration-300 ${
+              className={`rounded-2xl border p-6 transition-all duration-300 ${
                 i === current
-                  ? "bg-white/20 border-white/40"
-                  : "bg-white/10 border-white/15"
+                  ? "border-white/40 bg-white/20"
+                  : "border-white/15 bg-white/10"
               }`}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
                   <Image
                     src={t.avatar}
                     alt={t.name}
@@ -85,15 +88,15 @@ export default function TestimonialsSection() {
                   />
                 </div>
                 <div>
-                  <p className="text-white text-sm font-semibold">{t.name}</p>
-                  <div className="flex gap-0.5 mt-0.5">
+                  <p className="text-sm font-semibold text-white">{t.name}</p>
+                  <div className="mt-0.5 flex gap-0.5">
                     {Array.from({ length: t.rating }).map((_, j) => (
                       <IoStar key={j} size={11} className="text-yellow-400" />
                     ))}
                   </div>
                 </div>
               </div>
-              <p className="text-white/75 text-sm leading-relaxed font-normal">
+              <p className="text-sm leading-relaxed font-normal text-white/75">
                 {t.text}
               </p>
             </div>
