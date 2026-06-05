@@ -78,16 +78,23 @@ export default function ContactSection() {
           {/* Map + socials */}
           <div className="flex flex-col gap-5">
             <div className="relative min-h-56 flex-1 overflow-hidden rounded-3xl shadow-sm">
-              <Image
-                src="https://placehold.co/800x500/5A7C61/F0E3D3?text=Dintor+Map"
-                alt="Map to Waerebo Lodge"
-                fill
-                className="object-cover"
+              <iframe
+                title="Map to Waerebo Lodge"
+                src="https://www.google.com/maps?q=-8.8465902,120.3055812&z=17&output=embed"
+                className="absolute inset-0 h-full w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
-              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-neutral-900 shadow-sm">
+              <a
+                href="https://www.google.com/maps/@-8.8465902,120.3055812,17z"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-neutral-900 shadow-sm transition-colors hover:bg-white"
+              >
                 <IoLocationOutline size={14} className="text-green-400" />
                 Dintor — Manggarai, Flores, Indonesia
-              </span>
+              </a>
             </div>
             <div className="flex gap-3">
               <a

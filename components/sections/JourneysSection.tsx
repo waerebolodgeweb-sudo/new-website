@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { IoFlag, IoPartlySunny } from "react-icons/io5";
 
@@ -116,9 +117,12 @@ export default function JourneysSection() {
                     </p>
                   </div>
 
-                  <button className="mt-4 w-full rounded-[12px] bg-[#453D18] px-4 py-3 text-base font-medium text-white transition-colors hover:bg-[#5a5b3c]">
+                  <Link
+                    href="/trips"
+                    className="mt-4 block w-full rounded-[12px] bg-[#453D18] px-4 py-3 text-center text-base font-medium text-white transition-colors hover:bg-[#5a5b3c]"
+                  >
                     See Trip Details
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

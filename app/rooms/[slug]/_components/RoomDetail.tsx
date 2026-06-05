@@ -220,16 +220,23 @@ export default function RoomDetail({
                 Locations
               </h2>
               <div className="relative mb-8 h-44 w-full overflow-hidden rounded-2xl shadow-sm">
-                <Image
-                  src={room.mapImage}
-                  alt={`${room.title} location map`}
-                  fill
-                  className="object-cover"
+                <iframe
+                  title={`${room.title} location map`}
+                  src="https://www.google.com/maps?q=-8.8465902,120.3055812&z=17&output=embed"
+                  className="absolute inset-0 h-full w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
                 />
-                <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-neutral-900 shadow-sm">
+                <a
+                  href="https://www.google.com/maps/@-8.8465902,120.3055812,17z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-neutral-900 shadow-sm transition-colors hover:bg-white"
+                >
                   <IoLocationOutline size={14} className="text-green-400" />
                   Waerebo Lodge, Flores
-                </span>
+                </a>
               </div>
 
               {/* Reviews */}
