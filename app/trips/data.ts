@@ -38,7 +38,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car (20 minutes)",
         description:
           "After breakfast at Waerebo Lodge, you are picked up and driven to the trailhead terminal. The short drive winds through rice paddies and traditional Manggarai farmland — a gentle preview of the landscape ahead.",
-        image: "/trip/trip-1.png",
+        image: "/trip/stop-1.jpg",
       },
       {
         id: "1d-terminal-pos1",
@@ -47,7 +47,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Ojek (motorcycle taxi) or walking",
         description:
           "From the terminal the trek begins. You can take a local ojek up the rough track or set off on foot through community farmland. Pos 1 is a simple shelter where you can refill water and catch your breath.",
-        image: "/trip/trip-2.png",
+        image: "/trip/stop-2.jpg",
       },
       {
         id: "1d-pos1-forest",
@@ -56,7 +56,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Trekking / Walking",
         description:
           "Beyond Pos 1 the trail enters dense primary forest. The path becomes steeper and the air cooler and misty — ancient trees arch overhead and the calls of Flores birds echo through the canopy.",
-        image: "/trip/trip-3.png",
+        image: "/trip/stop-3.jpg",
       },
       {
         id: "1d-waerebo",
@@ -65,7 +65,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Walking (for the return trip)",
         description:
           "Arrive to a traditional Manggarai welcome. Explore the seven cone-shaped Mbaru Niang houses, share authentic Flores coffee with the community, and take in the mountain panorama before walking back down to Dintor.",
-        image: "/trip/trip-4.png",
+        image: "/trip/stop-4.jpg",
       },
     ],
   },
@@ -86,7 +86,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car (20 minutes)",
         description:
           "Depart Waerebo Lodge after breakfast and drive to the Dintor trailhead. Pack your overnight essentials — your belongings can be carried by our local porters.",
-        image: "/trip/trip-1.png",
+        image: "/trip/stop-1.jpg",
       },
       {
         id: "2d-full-trek",
@@ -95,7 +95,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Trekking / Walking",
         description:
           "Trek the complete trail through Pos 1 and the forest area, arriving at Waerebo village by midday. Join the welcome ceremony and enjoy a traditional lunch prepared by the villagers.",
-        image: "/trip/trip-3.png",
+        image: "/trip/stop-3.jpg",
       },
       {
         id: "2d-overnight",
@@ -105,7 +105,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Village stay",
         description:
           "Sleep in the traditional communal Mbaru Niang alongside the community. Experience authentic Manggarai hospitality, a traditional dinner, and stargazing far from any city lights.",
-        image: "/trip/trip-4.png",
+        image: "/trip/stop-4.jpg",
       },
       {
         id: "2d-return",
@@ -115,7 +115,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Walking (for the return trip)",
         description:
           "After sunrise and a farewell breakfast, descend through the forest back to the terminal. Our car returns you to Waerebo Lodge for a hot shower and well-earned rest.",
-        image: "/trip/trip-2.png",
+        image: "/trip/stop-2.jpg",
       },
     ],
   },
@@ -136,7 +136,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car + trekking",
         description:
           "Drive to Dintor and trek the full trail to Waerebo. Arrive in the afternoon, join the welcome ceremony, and settle into the communal Mbaru Niang for your first night.",
-        image: "/trip/trip-1.png",
+        image: "/trip/stop-1.jpg",
       },
       {
         id: "3d-day2",
@@ -146,7 +146,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "On foot around the village",
         description:
           "A free day in the village — join daily life, learn traditional songke weaving, help with farming, explore the surrounding nature trails, and listen to elders share folklore. Second night in the village.",
-        image: "/trip/trip-3.png",
+        image: "/trip/stop-3.jpg",
       },
       {
         id: "3d-day3",
@@ -156,7 +156,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Walking (for the return trip)",
         description:
           "A final sunrise above the clouds and a farewell breakfast, then descend through the forest back to Dintor and on to Waerebo Lodge.",
-        image: "/trip/trip-4.png",
+        image: "/trip/stop-4.jpg",
       },
     ],
   },
@@ -177,7 +177,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car + trekking",
         description:
           "Drive to Dintor and trek through the forest to Waerebo for the traditional welcome ceremony and an overnight stay in the village.",
-        image: "/trip/trip-1.png",
+        image: "/trip/stop-1.jpg",
       },
       {
         id: "4db-return",
@@ -187,7 +187,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Walking + by car",
         description:
           "Descend from Waerebo after sunrise, then transfer toward the coast near Labuan Bajo, ready for the boat trip the following day.",
-        image: "/trip/trip-2.png",
+        image: "/trip/stop-2.jpg",
       },
       {
         id: "4db-boat",
@@ -197,7 +197,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By boat",
         description:
           "Spend the day island hopping — snorkelling over coral reefs, relaxing on pink-sand beaches, and watching the sunset from the deck before returning to harbour.",
-        image: "/trip/trip-3.png",
+        image: "/trip/stop-3.jpg",
       },
       {
         id: "4db-depart",
@@ -207,7 +207,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car",
         description:
           "A relaxed final morning before your transfer to Labuan Bajo airport or onward to Waerebo Lodge — your Flores adventure complete.",
-        image: "/trip/trip-4.png",
+        image: "/trip/stop-4.jpg",
       },
     ],
   },
@@ -228,7 +228,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car + guided cave tour",
         description:
           "Explore the famous Liang Bua cave with a knowledgeable local guide, walking through the stalactite chambers with full historical and archaeological context.",
-        image: "/trip/trip-1.png",
+        image: "/trip/stop-1.jpg",
       },
       {
         id: "4dh-trek",
@@ -238,7 +238,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "By car + trekking",
         description:
           "Drive to Dintor and trek through the forest to Waerebo for the traditional welcome ceremony and an overnight stay in the communal Mbaru Niang.",
-        image: "/trip/trip-2.png",
+        image: "/trip/stop-2.jpg",
       },
       {
         id: "4dh-village",
@@ -248,7 +248,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "On foot around the village",
         description:
           "A full day in Waerebo — share daily life with the community, learn traditional weaving, and watch the mist roll over the surrounding peaks. Second night in the village.",
-        image: "/trip/trip-3.png",
+        image: "/trip/stop-3.jpg",
       },
       {
         id: "4dh-return",
@@ -258,7 +258,7 @@ export const tripPrograms: TripProgram[] = [
         transport: "Walking (for the return trip)",
         description:
           "A final sunrise above the clouds, a farewell breakfast, then descend through the forest back to Dintor and on to Waerebo Lodge.",
-        image: "/trip/trip-4.png",
+        image: "/trip/stop-4.jpg",
       },
     ],
   },

@@ -2,60 +2,55 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoArrowForwardOutline } from "react-icons/io5";
 
-type Tile = { kind: "image"; label: string; src: string } | { kind: "quote" };
+type Tile =
+  | { kind: "image"; label: string; src: string }
+  | { kind: "quote" }
+  | { kind: "spacer" };
 
 /* Bento order: heading occupies cell 1, then these 11 tiles fill the grid */
 const tiles: Tile[] = [
   {
     kind: "image",
     label: "Waerebo Village",
-    src: "https://placehold.co/400x400/27392A/F0E3D3?text=Waerebo+Village",
+    src: "/about/tile-waerebo-village.jpg",
   },
   { kind: "quote" },
   {
     kind: "image",
     label: "Pleas Waterfall",
-    src: "https://placehold.co/400x400/5A7C61/F0E3D3?text=Pleas+Waterfall",
+    src: "/about/tile-pleas-waterfall.jpg",
   },
   {
     kind: "image",
     label: "Waerebo Lodge",
-    src: "https://placehold.co/400x400/7A6448/F0E3D3?text=Waerebo+Lodge",
+    src: "/about/tile-waerebo-lodge.jpg",
   },
-  {
-    kind: "image",
-    label: "Rice Terraces",
-    src: "https://placehold.co/400x400/73B07C/101313?text=Rice+Terraces",
-  },
+  { kind: "spacer" },
   {
     kind: "image",
     label: "Hobbit Cave",
-    src: "https://placehold.co/400x400/304534/F0E3D3?text=Hobbit+Cave",
+    src: "/about/tile-hobbit-cave.jpg",
   },
   {
     kind: "image",
     label: "Waerebo House",
-    src: "https://placehold.co/400x400/27392A/ABBAA8?text=Waerebo+House",
+    src: "/about/tile-waerebo-house.jpg",
   },
   {
     kind: "image",
     label: "Double Bed",
-    src: "https://placehold.co/400x400/8B7355/F0E3D3?text=Double+Bed",
+    src: "/about/tile-double-bed.jpg",
   },
   {
     kind: "image",
     label: "Nusa Molas Boat Trip",
-    src: "https://placehold.co/400x400/5A7C61/F0E3D3?text=Nusa+Molas",
+    src: "/about/tile-nusa-molas.jpg",
   },
-  {
-    kind: "image",
-    label: "Flores Sea",
-    src: "https://placehold.co/400x400/304534/ABBAA8?text=Flores+Sea",
-  },
+  { kind: "spacer" },
   {
     kind: "image",
     label: "Waerebo Restaurant",
-    src: "https://placehold.co/400x400/6B5A44/F0E3D3?text=Restaurant",
+    src: "/about/tile-restaurant.jpg",
   },
 ];
 
@@ -126,6 +121,8 @@ export default function OfferGrid() {
           {tiles.map((tile, i) =>
             tile.kind === "quote" ? (
               <QuoteCard key={i} />
+            ) : tile.kind === "spacer" ? (
+              <div key={i} className="hidden lg:block" />
             ) : (
               <ImageTile key={i} label={tile.label} src={tile.src} />
             )

@@ -9,7 +9,7 @@ const rooms = [
     beds: "2 Single Beds",
     capacity: 2,
     price: "IDR 250.000",
-    image: "https://placehold.co/600x400/8B7355/F0E3D3?text=Twin+Room+AC",
+    image: "/lodge/hero-1.jpg",
   },
   {
     slug: "double-room-fan",
@@ -18,7 +18,7 @@ const rooms = [
     beds: "1 Double Bed",
     capacity: 2,
     price: "IDR 180.000",
-    image: "https://placehold.co/600x400/7A6448/F0E3D3?text=Double+Fan",
+    image: "/lodge/hero-2.jpg",
   },
   {
     slug: "twin-room-fan",
@@ -27,7 +27,7 @@ const rooms = [
     beds: "2 Single Beds",
     capacity: 2,
     price: "IDR 200.000",
-    image: "https://placehold.co/600x400/9B8265/F0E3D3?text=Twin+Room",
+    image: "/lodge/hero-3.jpg",
   },
   {
     slug: "double-room-ac",
@@ -36,7 +36,7 @@ const rooms = [
     beds: "1 Double Bed",
     capacity: 2,
     price: "IDR 280.000",
-    image: "https://placehold.co/600x400/6B5A44/F0E3D3?text=Double+AC",
+    image: "/lodge/hero-4.jpg",
   },
   {
     slug: "family-room-ac",
@@ -45,7 +45,7 @@ const rooms = [
     beds: "1 Double + 2 Single",
     capacity: 4,
     price: "IDR 420.000",
-    image: "https://placehold.co/600x400/7A6448/F0E3D3?text=Family+Room",
+    image: "/lodge/hero-1.jpg",
   },
   {
     slug: "twin-room-deluxe",
@@ -54,7 +54,7 @@ const rooms = [
     beds: "2 Single Beds",
     capacity: 2,
     price: "IDR 320.000",
-    image: "https://placehold.co/600x400/5A4A38/F0E3D3?text=Twin+Deluxe",
+    image: "/lodge/hero-2.jpg",
   },
 ];
 

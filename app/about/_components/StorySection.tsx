@@ -3,15 +3,15 @@ import Image from "next/image";
 /* Staggered hero collage — three images at different heights */
 const collage = [
   {
-    src: "https://placehold.co/440x800/5A7C61/F0E3D3?text=Rice+Fields",
+    src: "/about/story-left.jpg",
     alt: "Rice fields of the Flores valley",
   },
   {
-    src: "https://placehold.co/720x640/7A6448/F0E3D3?text=Mbaru+Niang",
+    src: "/about/story-mid.jpg",
     alt: "Traditional cone-shaped Mbaru Niang house",
   },
   {
-    src: "https://placehold.co/600x760/27392A/F0E3D3?text=Mr.+Martin",
+    src: "/about/story-right.jpg",
     alt: "Mr. Martin, dedicated local guide",
   },
 ];

@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-const banner =
-  "https://placehold.co/1432x400/27392A/ABBAA8?text=Waerebo+Highlands";
+const banner = "/about/story-left.jpg";
 
 /* Placeholder copy — swap with real history when available */
 const milestones = [
@@ -9,19 +8,19 @@ const milestones = [
     year: "2011",
     title: "Where It All Began",
     text: "Inspired by community-based ecotourism, Martin and Isabela laid the first stones of Waerebo Lodge — a humble resting place at the foot of the trail.",
-    img: "https://placehold.co/832x480/5A7C61/F0E3D3?text=2011",
+    img: "/trip/stop-1.jpg",
   },
   {
     year: "2022",
     title: "Growing With the Village",
     text: "As more travelers discovered Wae Rebo, the lodge grew alongside the community — adding comfortable rooms, a kitchen, and trusted local guides.",
-    img: "https://placehold.co/832x480/7A6448/F0E3D3?text=2022",
+    img: "/lodge/hero-1.jpg",
   },
   {
     year: "2026",
     title: "A Living Gateway to the Clouds",
     text: "Today the lodge welcomes guests from around the world, giving back to the Waerebo community while offering the perfect basecamp before the ascent.",
-    img: "https://placehold.co/832x480/304534/ABBAA8?text=2026",
+    img: "/about/story-mid.jpg",
   },
 ];
 

@@ -9,29 +9,29 @@ const tabs = ["Trip", "Lodge", "Restaurant", "Transport"];
 const trips = [
   {
     id: 1,
-    badge: "Featured",
     title: "1 Day Trekking",
+    duration: "1 Day",
+    trekStart: "Trek start at Dintor",
     description:
       "A full-day adventure starting from Dintor. Trek through a lush forest to reach the traditional Waerebo village, experience a local welcome ceremony, enjoy authentic coffee, and return to the lodge by afternoon.",
-    price: "IDR 350.000",
     image: "/home/1-day-trekking.jpg",
   },
   {
     id: 2,
-    badge: "Popular",
     title: "2D/1N Trekking",
+    duration: "2 Days 1 Night",
+    trekStart: "Trek start at Dintor",
     description:
       "Trek to the sky village and spend the night in a traditional communal cone-shaped house. Interact with locals, learn about daily activities like weaving and coffee pounding, and enjoy stargazing after dinner.",
-    price: "IDR 650.000",
-    image: "/home/2d-1n-trekking.png",
+    image: "/home/2d-1n-trekking.jpg",
   },
   {
     id: 3,
-    badge: "Best Value",
     title: "3D/2N Trekking",
+    duration: "3 Days 2 Nights",
+    trekStart: "Trek Start at Labuan Bajo",
     description:
       "A complete journey starting with a pickup in Labuan Bajo. Visit the beautiful Pleas Waterfall and Lembor rice fields, rest at Waerebo Lodge for a night, and embark on your overnight village trek the next day.",
-    price: "IDR 950.000",
     image: "/home/3d-2n-trekking.jpg",
   },
 ];
@@ -47,22 +47,22 @@ export default function JourneysSection() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 -mt-16 lg:-mt-24">
           <div className="overflow-hidden rounded-[2rem] border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)] lg:p-8">
-            <p className="text-savana mb-2 text-sm font-semibold tracking-[0.2em] text-savana-600 md:text-base">
+            <p className="mb-2 text-sm font-semibold tracking-[0.2em] text-savana-600 uppercase md:text-base">
               The Adventure
             </p>
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <h2 className="text-3xl leading-tight text-neutral-900 lg:text-5xl">
                 Curated Highland <span className="font-semibold">Journeys</span>
               </h2>
 
-              <div className="flex gap-0 overflow-x-auto overflow-y-hidden border-b border-pale-green-100/50">
+              <div className="flex gap-0 overflow-x-auto overflow-y-hidden border-b border-neutral-100">
                 {tabs.map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`-mb-px border-b-2 px-4 pb-3 text-sm font-semibold whitespace-nowrap transition-colors ${
+                    className={`-mb-px border-b-2 px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors ${
                       activeTab === tab
-                        ? "border-green-400 text-green-400"
+                        ? "border-savana-600 text-neutral-900"
                         : "border-transparent text-neutral-300 hover:text-neutral-900"
                     }`}
                   >
@@ -103,12 +103,12 @@ export default function JourneysSection() {
                     <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-neutral-500">
                       <div className="flex items-center gap-2 text-sm text-neutral-400">
                         <IoPartlySunny className="h-5 w-5 text-neutral-200" />
-                        <span>1 Day</span>
+                        <span>{trip.duration}</span>
                       </div>
                       <div className="flex h-2 w-2 items-center gap-2 rounded-full bg-neutral-200 text-sm" />
                       <div className="flex items-center gap-2 text-sm text-neutral-400">
                         <IoFlag className="h-5 w-5 text-neutral-200" />
-                        <span>Trek start at Dintor</span>
+                        <span>{trip.trekStart}</span>
                       </div>
                     </div>
                     <p className="line-clamp-3 text-sm leading-6 font-normal text-neutral-500">
