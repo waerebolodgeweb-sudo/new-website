@@ -17,20 +17,20 @@ const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
 
 const thumbnails = [
   {
-    src: "/about/tile-restaurant.jpg",
-    alt: "Open-air dining hall",
+    src: "/restaurant/dining-hall.jpg",
+    alt: "Open-air dining hall with guests sharing a long table",
   },
   {
-    src: "/about/story-right.jpg",
-    alt: "Mr. Martin — owner and local guide",
+    src: "/restaurant/chef.jpg",
+    alt: "Isabela serving traditional Flores dishes to guests",
   },
   {
-    src: "/about/story-mid.jpg",
-    alt: "Traditional Flores cuisine",
+    src: "/restaurant/cuisine.jpg",
+    alt: "A platter of freshly cooked local Flores cuisine",
   },
   {
-    src: "/lodge/hero-3.jpg",
-    alt: "Guests sharing a meal at the lodge",
+    src: "/restaurant/shared-table.jpg",
+    alt: "Guests sharing a meal overlooking the rice fields",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function RestaurantPage() {
           titleHead="Waerebo Lodge "
           titleTail="Restaurant"
           subtitle="Taste the true flavors of Flores at our lodge. Curated by our co-founder, our kitchen serves up comforting local meals, trail-ready lunch boxes, and authentic local dishes. We even love it when guests share recipes from their home countries."
-          heroImage="/about/tile-restaurant.jpg"
+          heroImage="/restaurant/hero.jpg"
           buttonLabel="Book Restaurant"
           bookHref={bookHref}
           thumbnails={thumbnails}
