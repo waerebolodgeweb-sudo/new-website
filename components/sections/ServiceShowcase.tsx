@@ -60,6 +60,7 @@ export default function ServiceShowcase({
           {thumbnails.map((thumb, i) => (
             <div
               key={i}
+              data-reveal
               className="relative h-40 overflow-hidden rounded-2xl shadow-sm sm:h-48 lg:h-52"
             >
               <Image

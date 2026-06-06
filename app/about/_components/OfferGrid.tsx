@@ -56,7 +56,10 @@ const tiles: Tile[] = [
 
 function ImageTile({ label, src }: { label: string; src: string }) {
   return (
-    <div className="group relative aspect-square overflow-hidden rounded-2xl shadow-sm">
+    <div
+      data-reveal
+      className="group relative aspect-square overflow-hidden rounded-2xl shadow-sm"
+    >
       <Image
         src={src}
         alt={label}
@@ -73,7 +76,10 @@ function ImageTile({ label, src }: { label: string; src: string }) {
 
 function QuoteCard() {
   return (
-    <div className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-neutral-900 p-5 lg:p-6">
+    <div
+      data-reveal
+      className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-neutral-900 p-5 lg:p-6"
+    >
       <IoArrowForwardOutline
         size={22}
         className="absolute top-5 right-5 -rotate-45 text-pale-green-100"

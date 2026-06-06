@@ -73,6 +73,7 @@ export default function RoomsSection() {
           {rooms.map((room) => (
             <div
               key={room.slug}
+              data-reveal
               className="overflow-hidden rounded-2xl bg-light-green-100 shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="relative h-44 lg:h-48">

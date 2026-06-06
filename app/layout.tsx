@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -30,6 +31,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-light-green-100 font-sans">
         {children}
+        <ScrollReveal />
       </body>
     </html>
   );

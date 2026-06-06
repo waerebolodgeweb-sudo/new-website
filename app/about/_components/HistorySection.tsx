@@ -57,6 +57,7 @@ export default function HistorySection() {
             return (
               <div
                 key={m.year}
+                data-reveal
                 className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12"
               >
                 <div

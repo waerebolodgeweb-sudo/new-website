@@ -72,6 +72,7 @@ export default function ServicesSection() {
               return (
                 <div
                   key={s.id}
+                  data-reveal
                   className={i > 0 ? "border-t border-neutral-100" : ""}
                 >
                   <button

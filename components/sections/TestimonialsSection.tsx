@@ -95,6 +95,7 @@ export default function TestimonialsSection() {
               {testimonials.map((t) => (
                 <div
                   key={t.id}
+                  data-reveal
                   className="flex min-w-[270px] flex-1 flex-col gap-7 rounded-[32px] bg-black/30 p-5 pb-10 backdrop-blur-md sm:min-w-[290px] lg:gap-8"
                 >
                   {/* Avatar + rating */}

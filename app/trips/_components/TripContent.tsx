@@ -157,6 +157,7 @@ function DesktopTimeline({ stops }: { stops: Stop[] }) {
         return (
           <div
             key={stop.id}
+            data-reveal
             className="absolute grid w-full grid-cols-[1fr_8%_1fr] items-center"
             style={{ top: i * BLOCK_H, height: BLOCK_H }}
           >
@@ -186,7 +187,7 @@ function MobileTimeline({ stops }: { stops: Stop[] }) {
   return (
     <div className="space-y-10 lg:hidden">
       {stops.map((stop) => (
-        <div key={stop.id}>
+        <div key={stop.id} data-reveal>
           <StopImage stop={stop} className="mb-5 !h-48" />
           <StopText stop={stop} />
         </div>

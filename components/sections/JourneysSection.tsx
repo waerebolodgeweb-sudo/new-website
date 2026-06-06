@@ -82,6 +82,7 @@ export default function JourneysSection() {
             {trips.map((trip) => (
               <div
                 key={trip.id}
+                data-reveal
                 className="overflow-hidden rounded-[2.25rem] bg-white p-2 shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="relative h-72 rounded-[28px] lg:h-[320px]">

@@ -101,7 +101,7 @@ export default function FaqContent() {
 
         <div className="divide-y divide-pale-green-100/40 border-t border-pale-green-100/40">
           {visible.map((faq) => (
-            <div key={faq.question} className="py-7 lg:py-8">
+            <div key={faq.question} data-reveal className="py-7 lg:py-8">
               <h2 className="mb-3 text-base font-bold text-neutral-900 lg:text-lg">
                 Q: {faq.question}
               </h2>

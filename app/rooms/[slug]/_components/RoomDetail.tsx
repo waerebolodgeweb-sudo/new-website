@@ -57,7 +57,10 @@ const WHATSAPP_NUMBER = "6285339567549";
 
 function RoomCard({ room }: { room: Room }) {
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-pale-green-100/30 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <div
+      data-reveal
+      className="flex flex-col overflow-hidden rounded-2xl border border-pale-green-100/30 bg-white shadow-sm transition-shadow hover:shadow-md"
+    >
       <div className="relative h-44">
         <Image
           src={room.images[0]}
