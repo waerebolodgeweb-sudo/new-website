@@ -83,9 +83,9 @@ export default function Navbar() {
               link.children ? (
                 <div key={link.label} className="group relative">
                   <button
-                    className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-1 text-base font-medium transition-colors ${
                       transparent
-                        ? "text-white/90 hover:text-white"
+                        ? "text-white hover:text-white/80"
                         : "text-neutral-300 hover:text-green-400"
                     }`}
                   >
@@ -114,9 +114,9 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors ${
+                  className={`text-base font-medium transition-colors ${
                     transparent
-                      ? "text-white/90 hover:text-white"
+                      ? "text-white hover:text-white/80"
                       : "text-neutral-300 hover:text-green-400"
                   }`}
                 >
@@ -129,9 +129,9 @@ export default function Navbar() {
           {/* Contact Us — right */}
           <Link
             href="/#contact"
-            className={`hidden rounded-full px-5 py-2.5 text-sm font-semibold transition-colors lg:inline-flex ${
+            className={`hidden rounded-xl px-4 py-2.5 text-base font-medium transition-colors lg:inline-flex ${
               transparent
-                ? "border border-white/50 text-white hover:bg-white hover:text-neutral-900"
+                ? "bg-white text-neutral-900 hover:bg-white/90"
                 : "bg-neutral-900 text-white hover:bg-green-400"
             }`}
           >

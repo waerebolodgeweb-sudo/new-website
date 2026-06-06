@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PurposeSection() {
   return (
-    <section id="about" className="bg-neutral-50 py-32 lg:py-40">
+    <section id="about" className="bg-neutral-050 py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-10 sm:px-12 lg:px-8">
         {/* Centered headline */}
         <h2 className="mb-24 text-center text-5xl leading-tight font-semibold text-neutral-900 lg:text-6xl">

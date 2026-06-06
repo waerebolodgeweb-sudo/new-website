@@ -43,7 +43,7 @@ export default function JourneysSection() {
   return (
     <section
       id="journeys"
-      className="bg-neutral-50 pt-0 pb-24 lg:pt-0 lg:pb-28"
+      className="bg-neutral-050 pt-0 pb-24 lg:pt-0 lg:pb-28"
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 -mt-16 lg:-mt-24">
