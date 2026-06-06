@@ -42,7 +42,7 @@ export default function TransportPage() {
         <ServiceShowcase
           titleHead="Waerebo Lodge "
           titleTail="Transport"
-          subtitle="Effortless travel solutions for your mountain journey. We handle the driving so you can enjoy the view. From scenic overland transfers to quick rides to the Dintor terminal, we make sure you reach your trekking starting line on time and stress-free."
+          subtitle="Effortless travel solutions for your mountain journey. We handle the driving so you can enjoy the view. From scenic overland car transfers to quick rides to the Dintor terminal, we make sure you reach your trekking starting line on time and stress-free."
           heroImage="/trip/stop-1.jpg"
           buttonLabel="Book Transport"
           bookHref={bookHref}
