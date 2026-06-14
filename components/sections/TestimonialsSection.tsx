@@ -133,8 +133,8 @@ export default function TestimonialsSection() {
           </div>
         </div>
 
-        {/* Chat-bubble triangle tail — makes the card read like a speech bubble */}
-        <div className="pl-8 sm:pl-12 lg:pl-[100px]">
+        {/* Chat-bubble triangle tail — desktop only (hidden on mobile per Figma) */}
+        <div className="hidden pl-8 sm:pl-12 lg:block lg:pl-[100px]">
           <div
             className="relative h-12 w-20 sm:h-16 sm:w-28 lg:h-20 lg:w-[150px]"
             style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}

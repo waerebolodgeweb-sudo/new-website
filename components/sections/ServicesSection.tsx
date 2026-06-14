@@ -91,7 +91,7 @@ export default function ServicesSection() {
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="flex items-start gap-6 pb-8">
+                    <div className="flex flex-col-reverse gap-4 pb-8 lg:flex-row lg:items-start lg:gap-6">
                       <div className="flex flex-1 flex-col gap-6">
                         <p className="text-base leading-relaxed font-normal text-grey-400">
                           {s.content}
@@ -103,7 +103,7 @@ export default function ServicesSection() {
                           Learn More
                         </Link>
                       </div>
-                      <div className="relative h-40 w-40 flex-shrink-0 overflow-hidden rounded-[20px]">
+                      <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-[20px] lg:h-40 lg:w-40">
                         <Image
                           src={s.thumb}
                           alt={s.label}
@@ -118,8 +118,8 @@ export default function ServicesSection() {
             })}
           </div>
 
-          {/* Large image */}
-          <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-sm lg:h-[504px]">
+          {/* Large image — desktop only (mobile shows it inside the open item) */}
+          <div className="relative hidden h-80 w-full overflow-hidden rounded-3xl shadow-sm lg:block lg:h-[504px]">
             <Image
               src="/home/our-services.jpg"
               alt="Waerebo Lodge"

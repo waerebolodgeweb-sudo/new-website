@@ -3,15 +3,15 @@ import Link from "next/link";
 
 export default function PurposeSection() {
   return (
-    <section id="about" className="bg-neutral-050 py-32 lg:py-40">
+    <section id="about" className="bg-neutral-050 py-16 lg:py-40">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
-        {/* Centered headline */}
-        <h2 className="mb-24 text-center text-5xl leading-tight font-semibold text-neutral-900 lg:text-6xl">
+        {/* Centered headline — hidden on mobile per Figma */}
+        <h2 className="mb-24 hidden text-center text-5xl leading-tight font-semibold text-neutral-900 lg:block lg:text-6xl">
           <span className="text-savana-800">Rest Well. </span>
           <span className="text-savana-600">Give Back.</span>
         </h2>
 
-        <div className="flex flex-col items-end gap-20 lg:flex-row lg:gap-16">
+        <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-end lg:gap-16">
           {/* Left — copy */}
           <div className="flex flex-col justify-end lg:w-2/5">
             <p className="mb-3 text-base font-normal tracking-wide text-savana-600">
@@ -45,8 +45,8 @@ export default function PurposeSection() {
 
           {/* Right — image collage */}
           <div className="flex h-full gap-5 lg:w-3/5">
-            {/* Left column */}
-            <div className="flex w-[30%] flex-col gap-5">
+            {/* Left column — desktop only */}
+            <div className="hidden w-[30%] flex-col gap-5 lg:flex">
               <div className="h-24 rounded-3xl bg-transparent" />
               <div className="aspect-2.2/3 relative h-72 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
@@ -59,8 +59,8 @@ export default function PurposeSection() {
               <div className="h-24 rounded-3xl bg-transparent" />
             </div>
 
-            {/* Middle column */}
-            <div className="flex w-[30%] flex-col gap-5">
+            {/* Middle column — desktop only */}
+            <div className="hidden w-[30%] flex-col gap-5 lg:flex">
               <div className="h-40 rounded-3xl bg-transparent" />
               <div className="aspect-2.2/3 relative h-72 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
@@ -72,9 +72,9 @@ export default function PurposeSection() {
               </div>
             </div>
 
-            {/* Right column */}
-            <div className="flex w-[40%] flex-col gap-5">
-              <div className="aspect-2.7/3 relative h-96 overflow-hidden rounded-3xl shadow-sm">
+            {/* Right column — full width on mobile */}
+            <div className="flex w-full flex-col gap-4 lg:w-[40%] lg:gap-5">
+              <div className="relative h-56 overflow-hidden rounded-3xl shadow-sm sm:h-72 lg:aspect-[2.7/3] lg:h-96">
                 <Image
                   src="/home/about-3.jpg"
                   alt="Traditional cone-shaped Waerebo houses"
