@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function PurposeSection() {
   return (
     <section id="about" className="bg-neutral-050 py-32 lg:py-40">
-      <div className="mx-auto max-w-7xl px-10 sm:px-12 lg:px-8">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         {/* Centered headline */}
         <h2 className="mb-24 text-center text-5xl leading-tight font-semibold text-neutral-900 lg:text-6xl">
           <span className="text-savana-800">Rest Well. </span>

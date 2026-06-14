@@ -45,7 +45,7 @@ export default function ServicesSection() {
 
   return (
     <section id="services" className="bg-neutral-050 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         {/* Heading row */}
         <div className="mb-12 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <div className="lg:flex-1">

@@ -36,7 +36,7 @@ export default function GallerySection() {
 
   return (
     <section className="bg-neutral-050 py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         <div className="relative overflow-hidden rounded-3xl shadow-sm">
           {/* Golden rice-terrace background */}
           <Image
@@ -51,7 +51,7 @@ export default function GallerySection() {
           <div className="relative z-10 grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.85fr_1.5fr] lg:gap-10 lg:p-12">
             {/* Left — heading, caption, controls */}
             <div className="flex flex-col">
-              <p className="mb-2 text-[11px] font-semibold tracking-[0.2em] text-cream-200 uppercase">
+              <p className="mb-2 text-[11px] font-semibold tracking-wide text-cream-200">
                 The Experience
               </p>
               <h2 className="mb-8 text-3xl text-white lg:mb-10 lg:text-5xl">

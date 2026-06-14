@@ -4,7 +4,7 @@ import { IoPlaySharp } from "react-icons/io5";
 export default function VideoSection() {
   return (
     <section className="bg-neutral-050 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1.65fr_1fr]">
           {/* Left: Video thumbnail (large) */}
           <div className="group relative h-72 cursor-pointer overflow-hidden rounded-3xl shadow-md sm:h-96 lg:h-[504px]">

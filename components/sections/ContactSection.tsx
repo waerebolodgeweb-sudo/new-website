@@ -4,7 +4,7 @@ import { IoArrowForwardOutline } from "react-icons/io5";
 export default function ContactSection() {
   return (
     <section id="contact" className="bg-neutral-050 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-20">
           {/* Left content */}
           <div className="flex flex-col gap-8 lg:w-[40%] lg:max-w-[469px]">

@@ -46,11 +46,11 @@ export default function TestimonialsSection() {
 
   return (
     <section id="reviews" className="bg-neutral-050 py-12 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         <div className="relative overflow-hidden rounded-[36px]">
           {/* Rice-field background + dark olive overlay */}
           <Image
-            src="/home/bg-moment.jpg"
+            src="/home/testimonials-bg.jpg"
             alt=""
             fill
             className="object-cover"
@@ -90,7 +90,7 @@ export default function TestimonialsSection() {
             {/* Review cards */}
             <div
               ref={scrollRef}
-              className="flex gap-5 overflow-x-auto pb-1 lg:gap-7 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex [scrollbar-width:none] gap-5 overflow-x-auto pb-1 [-ms-overflow-style:none] lg:gap-7 [&::-webkit-scrollbar]:hidden"
             >
               {testimonials.map((t) => (
                 <div
@@ -133,17 +133,20 @@ export default function TestimonialsSection() {
           </div>
         </div>
 
-        {/* Chat-bubble tail — makes the card read like a speech bubble */}
+        {/* Chat-bubble triangle tail — makes the card read like a speech bubble */}
         <div className="pl-8 sm:pl-12 lg:pl-[100px]">
-          <div className="relative h-12 w-24 overflow-hidden rounded-b-[24px] sm:h-16 sm:w-28 lg:h-20 lg:w-[150px]">
+          <div
+            className="relative h-12 w-20 sm:h-16 sm:w-28 lg:h-20 lg:w-[150px]"
+            style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
+          >
             <Image
-              src="/home/bg-moment.jpg"
+              src="/home/testimonials-bg.jpg"
               alt=""
               fill
               className="object-cover object-bottom"
             />
-            <div className="absolute inset-0 bg-[#312805]/55" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#453D18]/85" />
+            <div className="absolute inset-0 bg-[#312805]/45" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#453D18]/70" />
           </div>
         </div>
       </div>
