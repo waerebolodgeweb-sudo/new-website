@@ -266,9 +266,9 @@ export default function JourneysSection() {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`-mb-px border-b-2 px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors ${
+                    className={`-mb-px border-b-2 px-5 pb-3 text-sm md:text-lg font-semibold whitespace-nowrap transition-colors ${
                       activeTab === tab
-                        ? "border-savana-600 text-neutral-900"
+                        ? "border-savana-600 border-b-4 text-neutral-900"
                         : "border-transparent text-neutral-300 hover:text-neutral-900"
                     }`}
                   >

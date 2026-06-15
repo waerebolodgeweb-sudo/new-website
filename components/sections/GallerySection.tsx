@@ -36,8 +36,9 @@ export default function GallerySection() {
 
   return (
     <section className="bg-neutral-050 py-16 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
-        <div className="relative overflow-hidden rounded-3xl shadow-sm">
+      <div className="mx-auto max-w-[1920px]">
+         <div className="max-w-[1512px] ml-auto">
+        <div className="relative overflow-hidden rounded-l-3xl shadow-sm">
           {/* Golden rice-terrace background */}
           <Image
             src="/home/bg-moment.jpg"
@@ -46,7 +47,7 @@ export default function GallerySection() {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-[#666666]/0 backdrop-blur-[2px] w-1/2" />
 
           <div className="relative z-10 grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.85fr_1.5fr] lg:gap-10 lg:p-12">
             {/* Left — heading, caption, controls */}
@@ -83,7 +84,7 @@ export default function GallerySection() {
             </div>
 
             {/* Right — filmstrip carousel (active photo + next peeking in) */}
-            <div className="relative h-64 overflow-hidden sm:h-80 lg:h-[440px]">
+            <div className="relative h-64 overflow-hidden sm:h-80 lg:h-[600px]">
               <div
                 className="flex h-full transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${current * 85}%)` }}
@@ -108,6 +109,8 @@ export default function GallerySection() {
           </div>
         </div>
       </div>
+        </div>
+     
     </section>
   );
 }

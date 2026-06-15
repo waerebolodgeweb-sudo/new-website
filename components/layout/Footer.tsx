@@ -10,14 +10,14 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-5">
             <Link
-              href="#"
+              href="/terms"
               className="text-base font-medium text-neutral-400 transition-colors hover:text-neutral-600"
             >
               Terms &amp; Conditions
             </Link>
             <span className="h-4 w-px bg-black/20" />
             <Link
-              href="#"
+              href="/privacy"
               className="text-base font-medium text-neutral-400 transition-colors hover:text-neutral-600"
             >
               Privacy Policy

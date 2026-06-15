@@ -6,9 +6,9 @@ export default function PurposeSection() {
     <section id="about" className="bg-neutral-050 py-16 lg:py-40">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         {/* Centered headline — hidden on mobile per Figma */}
-        <h2 className="mb-24 hidden text-center text-5xl leading-tight font-semibold text-neutral-900 lg:block lg:text-6xl">
-          <span className="text-savana-800">Rest Well. </span>
-          <span className="text-savana-600">Give Back.</span>
+        <h2 className="mb-24 hidden text-center text-5xl leading-tight text-neutral-900 lg:block lg:text-6xl">
+          <span className="text-savana-800 font-semibold">Rest Well. </span>
+          <span className="text-savana-800">Give Back.</span>
         </h2>
 
         <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-end lg:gap-16">
