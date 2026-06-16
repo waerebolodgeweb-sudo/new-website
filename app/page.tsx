@@ -8,20 +8,43 @@ import VideoSection from "@/components/sections/VideoSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ContactSection from "@/components/sections/ContactSection";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Home() {
   return (
     <>
       <Navbar />
       <main>
+        {/* Hero — no animation, already in viewport on load */}
         <HeroSection />
-        <JourneysSection />
-        <PurposeSection />
-        <GallerySection />
-        <VideoSection />
-        <ServicesSection />
-        <TestimonialsSection />
-        <ContactSection />
+
+        <ScrollReveal variant="fadeUp">
+          <JourneysSection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeUp">
+          <PurposeSection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeIn" duration={900}>
+          <GallerySection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeUp">
+          <VideoSection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeUp">
+          <ServicesSection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeIn" duration={900}>
+          <TestimonialsSection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeUp">
+          <ContactSection />
+        </ScrollReveal>
       </main>
       <Footer />
     </>
