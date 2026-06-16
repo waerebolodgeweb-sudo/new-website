@@ -34,8 +34,10 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Purpose / About Us (home)
     "purpose.eyebrow": "About Us",
     "purpose.heading": "Basecamp with a Purpose.",
-    "purpose.body1":
-      'We built Waerebo Lodge with a simple goal: “to provide a comfortable, high-quality resting place before your ascent to the sky village”.',
+    "purpose.body1.pre": 'We built Waerebo Lodge with a simple goal "',
+    "purpose.body1.bold":
+      "to provide a comfortable, high-quality resting place before your ascent to the sky village",
+    "purpose.body1.post": '".',
     "purpose.body2":
       "But our mission goes beyond our walls. We commit 10% of your room rate to directly support the social and cultural initiatives of the Waerebo community. By staying with us, your adventure leaves a positive, lasting mark on the highlands.",
     "purpose.cta": "Learn More About Us",
@@ -83,9 +85,11 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Video
     "video.eyebrow": "Local Voices",
     "video.heading": "The Heart of Waerebo",
-    "video.body":
+    "video.metrotv.body":
+      "Watch Pak Martin and the Waerebo community share their story in this Metro TV feature — a look at life in the legendary sky village through the eyes of a true local.",
+    "video.kompastv.body":
       "Sit down with our founder, Pak Martin, in an exclusive interview with Kompas TV. Discover the untold stories, rich traditions, and the true spirit of the sky village from a true local.",
-    "video.cta": "Watch the Video",
+    "video.cta": "Watch on Instagram",
 
     // ── Contact
     "contact.heading": "Contact Us",
@@ -222,9 +226,9 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.trip.a3":
       "Electricity in the village is very limited and generally only runs from 6:00 PM to 10:00 PM. We highly recommend bringing a power bank to keep your camera or phone charged!",
     "faq.trip.q4":
-      'What is the “Ojek” service mentioned in the itinerary?',
+      'What is the "Ojek" service mentioned in the itinerary?',
     "faq.trip.a4":
-      'An “Ojek” is a local motorcycle taxi. On rougher sections of the lower trail you can choose to ride an ojek for part of the way to save energy, or you can simply walk the whole route. It is an optional service arranged with local drivers.',
+      'An "Ojek" is a local motorcycle taxi. On rougher sections of the lower trail you can choose to ride an ojek for part of the way to save energy, or you can simply walk the whole route. It is an optional service arranged with local drivers.',
     "faq.lodge.q1": "Where exactly is Waerebo Lodge located?",
     "faq.lodge.a1":
       "Our basecamp is located in Dintor, right at the valley below Waerebo. It sits beautifully in the middle of rice fields, offering stunning open views of the Flores Sea and the surrounding mountains.",
@@ -312,8 +316,10 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Purpose / About Us (home)
     "purpose.eyebrow": "Tentang Kami",
     "purpose.heading": "Basecamp Penuh Makna.",
-    "purpose.body1":
-      'Kami membangun Waerebo Lodge dengan satu tujuan sederhana: “menyediakan tempat istirahat yang nyaman dan berkualitas sebelum pendakianmu ke desa di atas awan”.',
+    "purpose.body1.pre": 'Kami membangun Waerebo Lodge dengan satu tujuan sederhana "',
+    "purpose.body1.bold":
+      "menyediakan tempat istirahat yang nyaman dan berkualitas sebelum pendakianmu ke desa di atas awan",
+    "purpose.body1.post": '".',
     "purpose.body2":
       "Namun misi kami melampaui dinding lodge ini. Kami mengalokasikan 10% dari tarif kamar untuk mendukung langsung inisiatif sosial dan budaya komunitas Waerebo. Dengan menginap bersama kami, petualanganmu meninggalkan jejak positif yang bermakna di pegunungan ini.",
     "purpose.cta": "Pelajari Tentang Kami",
@@ -361,9 +367,11 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Video
     "video.eyebrow": "Suara Lokal",
     "video.heading": "Jiwa Waerebo",
-    "video.body":
+    "video.metrotv.body":
+      "Saksikan Pak Martin dan komunitas Waerebo berbagi kisah mereka dalam liputan khusus Metro TV — sebuah pandangan tentang kehidupan di desa legendaris di atas awan melalui mata warga asli.",
+    "video.kompastv.body":
       "Simak wawancara eksklusif dengan pendiri kami, Pak Martin, di Kompas TV. Temukan kisah tersembunyi, tradisi yang kaya, dan jiwa sejati desa di atas awan dari seorang warga asli.",
-    "video.cta": "Tonton Videonya",
+    "video.cta": "Tonton di Instagram",
 
     // ── Contact
     "contact.heading": "Hubungi Kami",
@@ -499,9 +507,9 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.trip.a3":
       "Listrik di desa sangat terbatas dan umumnya hanya menyala dari pukul 18.00 hingga 22.00. Kami sangat menyarankan Anda membawa power bank untuk mengisi daya kamera atau ponsel!",
     "faq.trip.q4":
-      'Apa itu layanan “Ojek” yang disebutkan dalam itinerary?',
+      'Apa itu layanan "Ojek" yang disebutkan dalam itinerary?',
     "faq.trip.a4":
-      '“Ojek” adalah ojek motor lokal. Di bagian jalur bawah yang lebih kasar, Anda bisa memilih naik ojek untuk menghemat tenaga, atau cukup berjalan kaki sepanjang rute. Ini adalah layanan opsional yang diatur bersama pengemudi lokal.',
+      '"Ojek" adalah ojek motor lokal. Di bagian jalur bawah yang lebih kasar, Anda bisa memilih naik ojek untuk menghemat tenaga, atau cukup berjalan kaki sepanjang rute. Ini adalah layanan opsional yang diatur bersama pengemudi lokal.',
     "faq.lodge.q1": "Di mana tepatnya Waerebo Lodge berada?",
     "faq.lodge.a1":
       "Basecamp kami terletak di Dintor, tepat di lembah bawah Waerebo. Berada indah di tengah sawah, menawarkan pemandangan terbuka yang menakjubkan ke Laut Flores dan pegunungan sekitar.",

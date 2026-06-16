@@ -42,13 +42,17 @@ export default function ContactSection() {
             {/* Socials */}
             <div className="mt-auto flex items-end gap-10">
               <a
-                href="#"
+                href="https://www.instagram.com/waerebolodge.official"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xl font-semibold text-[#9B9529] transition-opacity hover:opacity-80"
               >
                 Instagram
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@waerebolodge.official"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xl font-semibold text-[#9B9529] transition-opacity hover:opacity-80"
               >
                 Tik Tok
