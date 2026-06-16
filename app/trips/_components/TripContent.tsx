@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { tripPrograms, type Stop } from "../data";
 import BookingModal from "./BookingModal";
+import { useLang } from "@/lib/i18n";
 
 /* ── helpers ── */
 
@@ -40,6 +41,7 @@ function splitTitle(title: string): [string, string] {
 /* ── shared text block for a stop ── */
 
 function StopText({ stop }: { stop: Stop }) {
+  const { t } = useLang();
   return (
     <div className="flex flex-col justify-center">
       {stop.day && (
@@ -53,14 +55,14 @@ function StopText({ stop }: { stop: Stop }) {
       <dl className="mb-4 space-y-2">
         {stop.time && (
           <div className="flex gap-3 text-base">
-            <dt className="min-w-[80px] font-normal text-neutral-400">Time:</dt>
+            <dt className="min-w-[80px] font-normal text-neutral-400">{t("trips.time")}</dt>
             <dd className="font-semibold text-[#9B9529]">{stop.time}</dd>
           </div>
         )}
         {stop.transport && (
           <div className="flex gap-3 text-base">
             <dt className="min-w-[80px] font-normal text-neutral-400">
-              Transport:
+              {t("trips.transport")}
             </dt>
             <dd className="font-semibold text-[#9B9529]">{stop.transport}</dd>
           </div>
@@ -201,6 +203,7 @@ function MobileTimeline({ stops }: { stops: Stop[] }) {
 export default function TripContent() {
   const [activeId, setActiveId] = useState("1-day");
   const [modalOpen, setModalOpen] = useState(false);
+  const { t } = useLang();
 
   const program =
     tripPrograms.find((p) => p.id === activeId) ?? tripPrograms[0];
@@ -233,7 +236,7 @@ export default function TripContent() {
       <div className="relative z-30 mx-auto -mt-14 max-w-4xl px-4 sm:px-6 lg:-mt-16">
         <div className="rounded-3xl border border-pale-green-100/40 bg-white p-5 shadow-xl lg:p-6">
           <p className="mb-3 text-center text-sm font-bold text-neutral-900 lg:text-left">
-            Choose your Program
+            {t("trips.chooseProgram")}
           </p>
           <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
             {tripPrograms.map((p) => (
@@ -267,7 +270,7 @@ export default function TripContent() {
           onClick={() => setModalOpen(true)}
           className="rounded-xl bg-savana-800 px-12 py-5 text-lg font-medium text-white shadow-lg transition-colors hover:bg-savana-700"
         >
-          Book The Trip
+          {t("trips.bookTrip")}
         </button>
       </div>
 

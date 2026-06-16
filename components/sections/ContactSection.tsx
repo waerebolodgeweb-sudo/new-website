@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { IoArrowForwardOutline } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
 
 export default function ContactSection() {
+  const { t } = useLang();
+
   return (
     <section id="contact" className="bg-neutral-050 py-20 lg:py-28">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
@@ -10,11 +15,10 @@ export default function ContactSection() {
           <div className="flex flex-col gap-8 lg:w-[40%] lg:max-w-[469px]">
             <div>
               <h2 className="mb-2 text-4xl leading-tight font-semibold text-savana-800 lg:text-5xl">
-                Contact Us
+                {t("contact.heading")}
               </h2>
               <p className="text-base leading-relaxed text-black">
-                Where the journey to the clouds begins. We handle the logistics
-                so you can embrace the adventure
+                {t("contact.body")}
               </p>
             </div>
 
@@ -59,7 +63,7 @@ export default function ContactSection() {
               <div className="grid gap-6 sm:grid-cols-2 sm:gap-14">
                 <div>
                   <p className="mb-2 text-base font-semibold text-[#9B9529]">
-                    Phone
+                    {t("contact.phone")}
                   </p>
                   <a
                     href="tel:+6285239344046"
@@ -70,7 +74,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="mb-2 text-base font-semibold text-[#9B9529]">
-                    Whatsapp
+                    {t("contact.whatsapp")}
                   </p>
                   <a
                     href="https://wa.me/6285339021145"
@@ -84,19 +88,19 @@ export default function ContactSection() {
               <div className="grid gap-6 sm:grid-cols-2 sm:gap-14">
                 <div>
                   <p className="mb-2 text-base font-semibold text-[#9B9529]">
-                    Be Our Partner Now
+                    {t("contact.partner")}
                   </p>
                   <a
                     href="https://wa.me/6285339021145"
                     className="inline-flex items-center gap-2 text-xl font-semibold text-green-400 transition-opacity hover:opacity-80"
                   >
-                    Let&apos;s work together
+                    {t("contact.partnerCta")}
                     <IoArrowForwardOutline size={20} />
                   </a>
                 </div>
                 <div>
                   <p className="mb-2 text-base font-semibold text-[#9B9529]">
-                    Emails
+                    {t("contact.email")}
                   </p>
                   <a
                     href="mailto:waerebolodge@gmail.com"

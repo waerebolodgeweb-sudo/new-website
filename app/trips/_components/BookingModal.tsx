@@ -14,6 +14,7 @@ import {
   IoSendOutline,
 } from "react-icons/io5";
 import type { TripProgram } from "../data";
+import { useLang } from "@/lib/i18n";
 
 interface Props {
   isOpen: boolean;
@@ -47,6 +48,7 @@ export default function BookingModal({
   programs,
   defaultProgramId,
 }: Props) {
+  const { t } = useLang();
   const [form, setForm] = useState<FormState>({
     name: "",
     origin: "",
@@ -116,7 +118,7 @@ Thank you!`;
         {/* Header */}
         <div className="flex items-center justify-between border-b border-pale-green-100/40 px-6 pt-6 pb-4">
           <h2 className="text-base font-bold text-neutral-900">
-            Please fill Booking Information
+            {t("booking.heading")}
           </h2>
           <button
             onClick={onClose}
@@ -130,10 +132,10 @@ Thank you!`;
         {/* Form */}
         <div className="max-h-[65vh] space-y-3 overflow-y-auto px-6 py-5">
           {/* Name */}
-          <Field icon={<IoPersonOutline size={16} />} label="Name">
+          <Field icon={<IoPersonOutline size={16} />} label={t("booking.name")}>
             <input
               type="text"
-              placeholder="Input your name"
+              placeholder={t("booking.name.placeholder")}
               value={form.name}
               onChange={set("name")}
               className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
@@ -141,10 +143,10 @@ Thank you!`;
           </Field>
 
           {/* Origin */}
-          <Field icon={<IoLocationOutline size={16} />} label="Origin">
+          <Field icon={<IoLocationOutline size={16} />} label={t("booking.origin")}>
             <input
               type="text"
-              placeholder="Where are you from?"
+              placeholder={t("booking.origin.placeholder")}
               value={form.origin}
               onChange={set("origin")}
               className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
@@ -152,10 +154,10 @@ Thank you!`;
           </Field>
 
           {/* Phone */}
-          <Field icon={<IoCallOutline size={16} />} label="Phone Number">
+          <Field icon={<IoCallOutline size={16} />} label={t("booking.phone")}>
             <input
               type="tel"
-              placeholder="Input your phone number"
+              placeholder={t("booking.phone.placeholder")}
               value={form.phone}
               onChange={set("phone")}
               className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
@@ -163,10 +165,10 @@ Thank you!`;
           </Field>
 
           {/* Email */}
-          <Field icon={<IoMailOutline size={16} />} label="Email">
+          <Field icon={<IoMailOutline size={16} />} label={t("booking.email")}>
             <input
               type="email"
-              placeholder="Input your email address"
+              placeholder={t("booking.email.placeholder")}
               value={form.email}
               onChange={set("email")}
               className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-300"
@@ -174,14 +176,14 @@ Thank you!`;
           </Field>
 
           {/* Trip Program */}
-          <Field icon={<IoListOutline size={16} />} label="Trip Program">
+          <Field icon={<IoListOutline size={16} />} label={t("booking.program")}>
             <select
               value={form.program}
               onChange={set("program")}
               className="flex-1 cursor-pointer appearance-none bg-transparent text-sm text-neutral-900 outline-none"
             >
               <option value="" disabled>
-                Select your trip type
+                {t("booking.program.placeholder")}
               </option>
               {programs.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -192,7 +194,7 @@ Thank you!`;
           </Field>
 
           {/* Trip Date */}
-          <Field icon={<IoCalendarOutline size={16} />} label="Trip Date">
+          <Field icon={<IoCalendarOutline size={16} />} label={t("booking.date")}>
             <input
               type="date"
               value={form.date}
@@ -203,14 +205,14 @@ Thank you!`;
           </Field>
 
           {/* Travelers */}
-          <Field icon={<IoPeopleOutline size={16} />} label="Travelers">
+          <Field icon={<IoPeopleOutline size={16} />} label={t("booking.travelers")}>
             <select
               value={form.travelers}
               onChange={set("travelers")}
               className="flex-1 cursor-pointer appearance-none bg-transparent text-sm text-neutral-900 outline-none"
             >
               <option value="" disabled>
-                Select number of guests
+                {t("booking.travelers.placeholder")}
               </option>
               {travelersOptions.map((o) => (
                 <option key={o} value={o}>
@@ -230,14 +232,14 @@ Thank you!`;
             className="flex items-center justify-center gap-2 rounded-full bg-green-400 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-pale-green-500"
           >
             <IoLogoWhatsapp size={16} />
-            Book Via Whatsapp
+            {t("booking.via.whatsapp")}
           </a>
           <a
             href={mailLink}
             className="flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-300/80"
           >
             <IoSendOutline size={15} />
-            Book Via Email
+            {t("booking.via.email")}
           </a>
         </div>
       </div>

@@ -4,44 +4,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { IoAdd, IoRemove } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
 
-const services = [
-  {
-    id: "trip",
-    label: "Waerebo Trip",
-    href: "/trips",
-    thumb: "/trip/stop-1.jpg",
-    content:
-      "Guided trekking packages to Wae Rebo village, ranging from day trips to multi-day immersive experiences with local guides and porters.",
-  },
-  {
-    id: "lodge",
-    label: "Lodge",
-    href: "/lodge",
-    thumb: "/lodge/hero-1.jpg",
-    content:
-      "Comfortable accommodation in our highland lodge, featuring both AC and fan rooms with stunning mountain views and traditional Flores-inspired design.",
-  },
-  {
-    id: "restaurant",
-    label: "Restaurant",
-    href: "/restaurant",
-    thumb: "/restaurant/dining-hall.jpg",
-    content:
-      "Fresh, locally sourced meals in our open-air restaurant. Traditional Manggarai cuisine and international dishes prepared by local chefs.",
-  },
-  {
-    id: "transport",
-    label: "Transport",
-    href: "/transport",
-    thumb: "/home/contact-us.jpg",
-    content:
-      "Reliable door-to-door transportation from Ruteng or Labuan Bajo to Waerebo Lodge and back, with private and shared options available.",
-  },
-];
+type ServiceId = "trip" | "lodge" | "restaurant" | "transport";
+
+const serviceIds: ServiceId[] = ["trip", "lodge", "restaurant", "transport"];
+
+const serviceHrefs: Record<ServiceId, string> = {
+  trip: "/trips",
+  lodge: "/lodge",
+  restaurant: "/restaurant",
+  transport: "/transport",
+};
+
+const serviceThumbs: Record<ServiceId, string> = {
+  trip: "/trip/stop-1.jpg",
+  lodge: "/lodge/hero-1.jpg",
+  restaurant: "/restaurant/dining-hall.jpg",
+  transport: "/home/contact-us.jpg",
+};
 
 export default function ServicesSection() {
-  const [open, setOpen] = useState<string>("lodge");
+  const [open, setOpen] = useState<ServiceId | "">( "lodge");
+  const { t } = useLang();
 
   return (
     <section id="services" className="bg-neutral-050 py-20 lg:py-28">
@@ -50,16 +35,14 @@ export default function ServicesSection() {
         <div className="mb-12 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <div className="lg:flex-1">
             <p className="mb-2 text-base font-normal text-savana-600">
-              Our Services
+              {t("services.eyebrow")}
             </p>
             <h2 className="text-3xl leading-none font-semibold text-savana-800 lg:text-4xl">
-              Everything You Need.
+              {t("services.heading")}
             </h2>
           </div>
           <p className="max-w-xl text-base leading-relaxed font-normal text-pale-savana-600 lg:flex-1">
-            We handle the logistics so you can focus on the experience. Explore
-            our services to make your journey to the Waerebo village
-            adventurous, safe, and unforgettable.
+            {t("services.body")}
           </p>
         </div>
 
@@ -67,20 +50,20 @@ export default function ServicesSection() {
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Accordion */}
           <div className="flex flex-col">
-            {services.map((s, i) => {
-              const isOpen = open === s.id;
+            {serviceIds.map((id, i) => {
+              const isOpen = open === id;
               return (
                 <div
-                  key={s.id}
+                  key={id}
                   data-reveal
                   className={i > 0 ? "border-t border-neutral-100" : ""}
                 >
                   <button
-                    onClick={() => setOpen(isOpen ? "" : s.id)}
+                    onClick={() => setOpen(isOpen ? "" : id)}
                     className="flex w-full items-center justify-between gap-5 py-5 text-left"
                   >
                     <span className="text-xl font-semibold text-pale-savana-600">
-                      {s.label}
+                      {t(`services.${id}.label`)}
                     </span>
                     <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-grey-100/30 transition-colors">
                       {isOpen ? (
@@ -94,19 +77,19 @@ export default function ServicesSection() {
                     <div className="flex flex-col-reverse gap-4 pb-8 lg:flex-row lg:items-start lg:gap-6">
                       <div className="flex flex-1 flex-col gap-6">
                         <p className="text-base leading-relaxed font-normal text-grey-400">
-                          {s.content}
+                          {t(`services.${id}.content`)}
                         </p>
                         <Link
-                          href={s.href}
+                          href={serviceHrefs[id]}
                           className="inline-flex w-fit items-center justify-center rounded-xl bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-savana-700"
                         >
-                          Learn More
+                          {t("services.learnMore")}
                         </Link>
                       </div>
                       <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-[20px] lg:h-40 lg:w-40">
                         <Image
-                          src={s.thumb}
-                          alt={s.label}
+                          src={serviceThumbs[id]}
+                          alt={t(`services.${id}.label`)}
                           fill
                           className="object-cover"
                         />

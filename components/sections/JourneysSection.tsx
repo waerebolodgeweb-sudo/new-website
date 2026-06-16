@@ -14,118 +14,102 @@ import {
 } from "react-icons/io5";
 import { restaurantShowcase } from "@/app/restaurant/data";
 import { transportShowcase } from "@/app/transport/data";
+import { useLang } from "@/lib/i18n";
 
-const tabs = ["Trip", "Lodge", "Restaurant", "Transport"] as const;
-type Tab = (typeof tabs)[number];
+type TabKey = "trip" | "lodge" | "restaurant" | "transport";
+const tabKeys: TabKey[] = ["trip", "lodge", "restaurant", "transport"];
 
-/* Per-tab eyebrow + heading */
-const headings: Record<Tab, { eyebrow: string; head: string; emph: string }> = {
-  Trip: {
-    eyebrow: "The Adventure",
-    head: "Curated Highland ",
-    emph: "Journeys",
-  },
-  Lodge: { eyebrow: "The Stay", head: "Rooms at the ", emph: "Lodge" },
-  Restaurant: { eyebrow: "The Table", head: "A Taste of ", emph: "Flores" },
-  Transport: { eyebrow: "On the Road", head: "Getting You ", emph: "There" },
-};
-
-interface CardMeta {
+interface CardMetaDef {
   icon: IconType;
-  text: string;
+  textKey: string;
 }
 
-interface JourneyCard {
+interface JourneyCardDef {
   id: string;
-  title: string;
+  titleKey: string;
   image: string;
-  meta: [CardMeta, CardMeta];
-  description: string;
+  meta: [CardMetaDef, CardMetaDef];
+  descKey: string;
 }
 
-const trips: JourneyCard[] = [
+const tripDefs: JourneyCardDef[] = [
   {
     id: "1-day",
-    title: "1 Day Trekking",
+    titleKey: "journeys.trip1.title",
     image: "/home/1-day-trekking.jpg",
     meta: [
-      { icon: IoPartlySunny, text: "1 Day" },
-      { icon: IoFlag, text: "Trek start at Dintor" },
+      { icon: IoPartlySunny, textKey: "journeys.trip1.meta0" },
+      { icon: IoFlag, textKey: "journeys.trip1.meta1" },
     ],
-    description:
-      "A full-day adventure starting from Dintor. Trek through a lush forest to reach the traditional Waerebo village, experience a local welcome ceremony, enjoy authentic coffee, and return to the lodge by afternoon.",
+    descKey: "journeys.trip1.desc",
   },
   {
     id: "2d1n",
-    title: "2D/1N Trekking",
+    titleKey: "journeys.trip2.title",
     image: "/home/2d-1n-trekking.jpg",
     meta: [
-      { icon: IoPartlySunny, text: "2 Days 1 Night" },
-      { icon: IoFlag, text: "Trek start at Dintor" },
+      { icon: IoPartlySunny, textKey: "journeys.trip2.meta0" },
+      { icon: IoFlag, textKey: "journeys.trip2.meta1" },
     ],
-    description:
-      "Trek to the sky village and spend the night in a traditional communal cone-shaped house. Interact with locals, learn about daily activities like weaving and coffee pounding, and enjoy stargazing after dinner.",
+    descKey: "journeys.trip2.desc",
   },
   {
     id: "3d2n",
-    title: "3D/2N Trekking",
+    titleKey: "journeys.trip3.title",
     image: "/home/3d-2n-trekking.jpg",
     meta: [
-      { icon: IoPartlySunny, text: "3 Days 2 Nights" },
-      { icon: IoFlag, text: "Trek start at Labuan Bajo" },
+      { icon: IoPartlySunny, textKey: "journeys.trip3.meta0" },
+      { icon: IoFlag, textKey: "journeys.trip3.meta1" },
     ],
-    description:
-      "A complete journey starting with a pickup in Labuan Bajo. Visit the beautiful Pleas Waterfall and Lembor rice fields, rest at Waerebo Lodge for a night, and embark on your overnight village trek the next day.",
+    descKey: "journeys.trip3.desc",
   },
 ];
 
-const lodges: JourneyCard[] = [
+const lodgeDefs: JourneyCardDef[] = [
   {
     id: "twin-ac",
-    title: "Twin Room (AC)",
+    titleKey: "journeys.lodge1.title",
     image: "/lodge/hero-1.jpg",
     meta: [
-      { icon: IoPeopleOutline, text: "2 Person" },
-      { icon: IoBedOutline, text: "AC · Hot Shower" },
+      { icon: IoPeopleOutline, textKey: "journeys.lodge1.meta0" },
+      { icon: IoBedOutline, textKey: "journeys.lodge1.meta1" },
     ],
-    description:
-      "Rest comfortably before your trek in a room with two single beds, air conditioning, and a hot shower — with serene views of the rice fields and mountains just outside your window.",
+    descKey: "journeys.lodge1.desc",
   },
   {
     id: "double-ac",
-    title: "Double Room (AC)",
+    titleKey: "journeys.lodge2.title",
     image: "/lodge/hero-2.jpg",
     meta: [
-      { icon: IoPeopleOutline, text: "2 Person" },
-      { icon: IoBedOutline, text: "AC · Hot Shower" },
+      { icon: IoPeopleOutline, textKey: "journeys.lodge2.meta0" },
+      { icon: IoBedOutline, textKey: "journeys.lodge2.meta1" },
     ],
-    description:
-      "A spacious double room with a plush bed, air conditioning, and a private hot shower. The most relaxing way to unwind after the descent, with sweeping views of the highlands.",
+    descKey: "journeys.lodge2.desc",
   },
   {
     id: "family-ac",
-    title: "Family Room (AC)",
+    titleKey: "journeys.lodge3.title",
     image: "/lodge/hero-3.jpg",
     meta: [
-      { icon: IoPeopleOutline, text: "4 Person" },
-      { icon: IoBedOutline, text: "AC · Hot Shower" },
+      { icon: IoPeopleOutline, textKey: "journeys.lodge3.meta0" },
+      { icon: IoBedOutline, textKey: "journeys.lodge3.meta1" },
     ],
-    description:
-      "Our largest room comfortably sleeps a family of four with a double bed and two singles, air conditioning, and a generous hot-water bathroom. Plenty of space to gather and relax.",
+    descKey: "journeys.lodge3.desc",
   },
 ];
 
 function Card({
-  card,
+  def,
   href,
-  label,
+  labelKey,
 }: {
-  card: JourneyCard;
+  def: JourneyCardDef;
   href: string;
-  label: string;
+  labelKey: string;
 }) {
-  const Icon0 = card.meta[0].icon;
-  const Icon1 = card.meta[1].icon;
+  const { t } = useLang();
+  const Icon0 = def.meta[0].icon;
+  const Icon1 = def.meta[1].icon;
   return (
     <div
       data-reveal
@@ -133,34 +117,34 @@ function Card({
     >
       <div className="relative h-72 rounded-[28px] lg:h-[320px]">
         <Image
-          src={card.image}
-          alt={card.title}
+          src={def.image}
+          alt={t(def.titleKey)}
           fill
           className="rounded-[28px] object-cover"
         />
         <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-slate-950/60 px-3 py-2 text-sm text-white">
           <span className="h-2.5 w-2.5 rounded-full bg-white" />
-          <span className="font-normal">Available</span>
+          <span className="font-normal">{t("journeys.available")}</span>
         </div>
       </div>
       <div className="p-5">
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-neutral-900">
-            {card.title}
+            {t(def.titleKey)}
           </h3>
           <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-neutral-500">
             <div className="flex items-center gap-2 text-sm text-neutral-400">
               <Icon0 className="h-5 w-5 text-neutral-300" />
-              <span>{card.meta[0].text}</span>
+              <span>{t(def.meta[0].textKey)}</span>
             </div>
             <div className="flex h-2 w-2 items-center gap-2 rounded-full bg-neutral-200 text-sm" />
             <div className="flex items-center gap-2 text-sm text-neutral-400">
               <Icon1 className="h-5 w-5 text-neutral-300" />
-              <span>{card.meta[1].text}</span>
+              <span>{t(def.meta[1].textKey)}</span>
             </div>
           </div>
           <p className="line-clamp-3 text-sm leading-6 font-normal text-neutral-500">
-            {card.description}
+            {t(def.descKey)}
           </p>
         </div>
 
@@ -168,16 +152,20 @@ function Card({
           href={href}
           className="mt-4 block w-full rounded-[12px] bg-savana-800 px-4 py-3 text-center text-base font-medium text-white transition-colors hover:bg-savana-700"
         >
-          {label}
+          {t(labelKey)}
         </Link>
       </div>
     </div>
   );
 }
 
-type Showcase = typeof restaurantShowcase;
+function ServicePreview({ showcaseKey }: { showcaseKey: "restaurant" | "transport" }) {
+  const { t } = useLang();
+  const data = showcaseKey === "restaurant" ? restaurantShowcase : transportShowcase;
+  const subtitle = t(`${showcaseKey}.subtitle`);
+  const buttonLabel = t(`${showcaseKey}.bookLabel`);
+  const viewLabel = t(`${showcaseKey}.viewLabel`);
 
-function ServicePreview({ data }: { data: Showcase }) {
   return (
     <div className="grid items-stretch gap-6 lg:grid-cols-2">
       {/* Hero image */}
@@ -198,7 +186,7 @@ function ServicePreview({ data }: { data: Showcase }) {
       {/* Details */}
       <div className="flex flex-col">
         <p className="text-sm leading-relaxed text-neutral-500 lg:text-base">
-          {data.subtitle}
+          {subtitle}
         </p>
 
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
@@ -207,12 +195,7 @@ function ServicePreview({ data }: { data: Showcase }) {
               key={thumb.src}
               className="relative h-24 overflow-hidden rounded-2xl shadow-sm lg:h-28"
             >
-              <Image
-                src={thumb.src}
-                alt={thumb.alt}
-                fill
-                className="object-cover"
-              />
+              <Image src={thumb.src} alt={thumb.alt} fill className="object-cover" />
             </div>
           ))}
         </div>
@@ -225,13 +208,13 @@ function ServicePreview({ data }: { data: Showcase }) {
             className="inline-flex items-center gap-2 rounded-[12px] bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-savana-700"
           >
             <IoLogoWhatsapp className="h-5 w-5" />
-            {data.buttonLabel}
+            {buttonLabel}
           </a>
           <Link
             href={data.href}
             className="inline-flex items-center gap-1.5 rounded-[12px] border border-pale-green-100 px-5 py-3 text-base font-medium text-neutral-900 transition-colors hover:bg-light-green-100"
           >
-            View {data.titleTail}
+            {viewLabel}
             <IoArrowForwardOutline className="h-4 w-4" />
           </Link>
         </div>
@@ -241,8 +224,8 @@ function ServicePreview({ data }: { data: Showcase }) {
 }
 
 export default function JourneysSection() {
-  const [activeTab, setActiveTab] = useState<Tab>("Trip");
-  const h = headings[activeTab];
+  const [activeTab, setActiveTab] = useState<TabKey>("trip");
+  const { t } = useLang();
 
   return (
     <section
@@ -253,16 +236,16 @@ export default function JourneysSection() {
         <div className="relative z-10 -mt-16 lg:-mt-24">
           <div className="overflow-hidden rounded-[2rem] border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)] lg:p-8">
             <p className="mb-2 text-base font-normal text-savana-600">
-              {h.eyebrow}
+              {t(`journeys.${activeTab}.eyebrow`)}
             </p>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <h2 className="text-3xl leading-tight text-neutral-900 lg:text-5xl">
-                {h.head}
-                <span className="font-semibold">{h.emph}</span>
+                {t(`journeys.${activeTab}.head`)}
+                <span className="font-semibold">{t(`journeys.${activeTab}.emph`)}</span>
               </h2>
 
               <div className="flex gap-0 overflow-x-auto overflow-y-hidden border-b border-neutral-100">
-                {tabs.map((tab) => (
+                {tabKeys.map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -272,7 +255,7 @@ export default function JourneysSection() {
                         : "border-transparent text-neutral-300 hover:text-neutral-900"
                     }`}
                   >
-                    {tab}
+                    {t(`journeys.tab.${tab}`)}
                   </button>
                 ))}
               </div>
@@ -282,38 +265,38 @@ export default function JourneysSection() {
       </div>
 
       <div className="mx-auto mt-10 max-w-[1512px] px-6 lg:px-10">
-        {activeTab === "Trip" && (
+        {activeTab === "trip" && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {trips.map((card) => (
+            {tripDefs.map((def) => (
               <Card
-                key={card.id}
-                card={card}
+                key={def.id}
+                def={def}
                 href="/trips"
-                label="See Trip Details"
+                labelKey="journeys.seeTripDetails"
               />
             ))}
           </div>
         )}
 
-        {activeTab === "Lodge" && (
+        {activeTab === "lodge" && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {lodges.map((card) => (
+            {lodgeDefs.map((def) => (
               <Card
-                key={card.id}
-                card={card}
+                key={def.id}
+                def={def}
                 href="/lodge"
-                label="See Lodge Details"
+                labelKey="journeys.seeLodgeDetails"
               />
             ))}
           </div>
         )}
 
-        {activeTab === "Restaurant" && (
-          <ServicePreview data={restaurantShowcase} />
+        {activeTab === "restaurant" && (
+          <ServicePreview showcaseKey="restaurant" />
         )}
 
-        {activeTab === "Transport" && (
-          <ServicePreview data={transportShowcase} />
+        {activeTab === "transport" && (
+          <ServicePreview showcaseKey="transport" />
         )}
       </div>
     </section>

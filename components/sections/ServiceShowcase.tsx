@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useLang } from "@/lib/i18n";
 
 export interface ServiceShowcaseProps {
   titleHead: string;
@@ -8,6 +11,10 @@ export interface ServiceShowcaseProps {
   buttonLabel: string;
   bookHref: string;
   thumbnails: { src: string; alt: string }[];
+  /** If provided, the subtitle is looked up from the i18n dictionary instead of the prop value */
+  subtitleKey?: string;
+  /** If provided, the button label is looked up from the i18n dictionary instead of the prop value */
+  buttonLabelKey?: string;
 }
 
 export default function ServiceShowcase({
@@ -18,7 +25,13 @@ export default function ServiceShowcase({
   buttonLabel,
   bookHref,
   thumbnails,
+  subtitleKey,
+  buttonLabelKey,
 }: ServiceShowcaseProps) {
+  const { t } = useLang();
+  const displaySubtitle = subtitleKey ? t(subtitleKey) : subtitle;
+  const displayButtonLabel = buttonLabelKey ? t(buttonLabelKey) : buttonLabel;
+
   return (
     <section className="bg-white py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -40,7 +53,7 @@ export default function ServiceShowcase({
                 <span className="text-pale-green-100">{titleTail}</span>
               </h1>
               <p className="max-w-md text-sm leading-relaxed text-white/80 lg:text-base">
-                {subtitle}
+                {displaySubtitle}
               </p>
             </div>
 
@@ -50,7 +63,7 @@ export default function ServiceShowcase({
               rel="noopener noreferrer"
               className="inline-flex w-fit flex-shrink-0 items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-neutral-900 transition-colors hover:bg-light-green-100"
             >
-              {buttonLabel}
+              {displayButtonLabel}
             </a>
           </div>
         </div>
@@ -63,12 +76,7 @@ export default function ServiceShowcase({
               data-reveal
               className="relative h-40 overflow-hidden rounded-2xl shadow-sm sm:h-48 lg:h-52"
             >
-              <Image
-                src={thumb.src}
-                alt={thumb.alt}
-                fill
-                className="object-cover"
-              />
+              <Image src={thumb.src} alt={thumb.alt} fill className="object-cover" />
             </div>
           ))}
         </div>

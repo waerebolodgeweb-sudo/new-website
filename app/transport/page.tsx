@@ -16,7 +16,11 @@ export default function TransportPage() {
     <>
       <Navbar />
       <main className="pt-16 lg:pt-20">
-        <ServiceShowcase {...transportShowcase} />
+        <ServiceShowcase
+          {...transportShowcase}
+          subtitleKey="transport.subtitle"
+          buttonLabelKey="transport.bookLabel"
+        />
         <ContactSection />
       </main>
       <Footer />

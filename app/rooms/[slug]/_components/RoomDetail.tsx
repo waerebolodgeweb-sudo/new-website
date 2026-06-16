@@ -22,6 +22,7 @@ import {
   IoLogoWhatsapp,
 } from "react-icons/io5";
 import type { Room, FacilityKey, HighlightKey, CardSpecKey } from "../../data";
+import { useLang } from "@/lib/i18n";
 
 /* ── icon maps ── */
 
@@ -56,6 +57,7 @@ const WHATSAPP_NUMBER = "6285339567549";
 /* ── room card (used in "More Room to Explore") ── */
 
 function RoomCard({ room }: { room: Room }) {
+  const { t } = useLang();
   return (
     <div
       data-reveal
@@ -69,7 +71,7 @@ function RoomCard({ room }: { room: Room }) {
           className="object-cover"
         />
         <span className="absolute top-3 left-3 rounded-full bg-green-400 px-2.5 py-1 text-[10px] font-semibold text-white">
-          Available
+          {t("room.available")}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-4">
@@ -91,7 +93,7 @@ function RoomCard({ room }: { room: Room }) {
           href={`/rooms/${room.slug}`}
           className="mt-auto block w-full rounded-full bg-green-400 px-4 py-2.5 text-center text-xs font-semibold text-white transition-colors hover:bg-pale-green-500"
         >
-          See Lodge Details
+          {t("room.seeLodgeDetails")}
         </Link>
       </div>
     </div>
@@ -108,6 +110,7 @@ export default function RoomDetail({
   otherRooms: Room[];
 }) {
   const [activeImage, setActiveImage] = useState(0);
+  const { t } = useLang();
 
   const bookMessage = `Hello Waerebo Lodge! 🌿\n\nI'd like to book the "${room.title}" (${room.price} / night).\n\nPlease share availability. Thank you!`;
   const bookLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -122,7 +125,7 @@ export default function RoomDetail({
       className={`flex w-full items-center justify-center gap-2 rounded-full bg-green-400 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-green-400/20 transition-colors hover:bg-pale-green-500 ${className}`}
     >
       <IoLogoWhatsapp size={18} />
-      Book Room Now
+      {t("room.bookNow")}
     </a>
   );
 
@@ -198,7 +201,7 @@ export default function RoomDetail({
 
               {/* Other facility */}
               <h2 className="mb-4 text-base font-bold text-neutral-900">
-                Other Facility
+                {t("room.otherFacility")}
               </h2>
               <div className="mb-8 grid grid-cols-2 gap-x-6 gap-y-3.5">
                 {room.facilities.map((key) => {
@@ -220,7 +223,7 @@ export default function RoomDetail({
 
               {/* Locations */}
               <h2 className="mb-4 text-base font-bold text-neutral-900">
-                Locations
+                {t("room.locations")}
               </h2>
               <div className="relative mb-8 h-44 w-full overflow-hidden rounded-2xl shadow-sm">
                 <iframe
@@ -246,7 +249,7 @@ export default function RoomDetail({
               {room.reviews.length > 0 && (
                 <>
                   <h2 className="mb-4 text-base font-bold text-neutral-900">
-                    Review
+                    {t("room.review")}
                   </h2>
                   <div className="space-y-5">
                     {room.reviews.map((review) => (
@@ -296,7 +299,7 @@ export default function RoomDetail({
         <section className="bg-light-green-100 py-12 lg:py-16">
           <div className="mx-auto max-w-5xl px-4 sm:px-6">
             <h2 className="mb-8 text-center text-2xl font-bold text-neutral-900 lg:mb-10 lg:text-3xl">
-              More Room <span className="text-green-400">to Explore</span>
+              {t("room.moreRooms")} <span className="text-green-400">{t("room.toExplore")}</span>
             </h2>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {otherRooms.map((r) => (

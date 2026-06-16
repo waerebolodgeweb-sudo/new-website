@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { useLang } from "@/lib/i18n";
 
 export default function PurposeSection() {
+  const { t } = useLang();
+
   return (
     <section id="about" className="bg-neutral-050 py-16 lg:py-40">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
@@ -15,30 +19,23 @@ export default function PurposeSection() {
           {/* Left — copy */}
           <div className="flex flex-col justify-end lg:w-2/5">
             <p className="mb-3 text-base font-normal tracking-wide text-savana-600">
-              About Us
+              {t("purpose.eyebrow")}
             </p>
             <h3 className="mb-6 text-4xl leading-tight font-semibold text-savana-800">
-              Basecamp with a Purpose.
+              {t("purpose.heading")}
             </h3>
             <p className="mb-6 text-base leading-relaxed font-normal text-pale-savana-500">
-              We built Waerebo Lodge with a simple goal:{" "}
-              <span className="font-semibold">
-                "to provide a comfortable, high-quality resting place before
-                your ascent to the sky village".
-              </span>
+              {t("purpose.body1")}
             </p>
             <p className="mb-8 text-base leading-relaxed font-normal text-pale-savana-500">
-              But our mission goes beyond our walls. We commit 10% of your room
-              rate to directly support the social and cultural initiatives of
-              the Waerebo community. By staying with us, your adventure leaves a
-              positive, lasting mark on the highlands.
+              {t("purpose.body2")}
             </p>
             <div>
               <a
                 href="/about"
                 className="inline-flex rounded-xl bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-neutral-800"
               >
-                Learn More About Us
+                {t("purpose.cta")}
               </a>
             </div>
           </div>
@@ -84,11 +81,10 @@ export default function PurposeSection() {
               </div>
               <div className="flex flex-col gap-1">
                 <h4 className="text-xl font-semibold text-neutral-900">
-                  Waerebo Village
+                  {t("purpose.village.title")}
                 </h4>
                 <p className="text-sm font-normal text-neutral-700">
-                  Discover the iconic Wae Rebo houses, sustained by responsible
-                  and mindful travel choices.
+                  {t("purpose.village.caption")}
                 </p>
               </div>
             </div>

@@ -16,7 +16,11 @@ export default function RestaurantPage() {
     <>
       <Navbar />
       <main className="pt-16 lg:pt-20">
-        <ServiceShowcase {...restaurantShowcase} />
+        <ServiceShowcase
+          {...restaurantShowcase}
+          subtitleKey="restaurant.subtitle"
+          buttonLabelKey="restaurant.bookLabel"
+        />
         <ContactSection />
       </main>
       <Footer />

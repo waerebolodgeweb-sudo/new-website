@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { IoPlaySharp } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
 
 export default function VideoSection() {
+  const { t } = useLang();
+
   return (
     <section className="bg-neutral-050 py-20 lg:py-28">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
@@ -25,19 +30,17 @@ export default function VideoSection() {
           <div className="flex flex-col justify-end gap-10">
             <div>
               <p className="mb-2 text-base font-normal text-savana-600">
-                Local Voices
+                {t("video.eyebrow")}
               </p>
               <h2 className="mb-3 text-3xl leading-none font-semibold text-savana-800 lg:text-4xl">
-                The Heart of Waerebo
+                {t("video.heading")}
               </h2>
               <p className="text-base leading-relaxed font-normal text-pale-savana-500">
-                Sit down with our founder, Pak Martin, in an exclusive interview
-                with Kompas TV. Discover the untold stories, rich traditions,
-                and the true spirit of the sky village from a true local.
+                {t("video.body")}
               </p>
             </div>
             <button className="inline-flex w-fit items-center justify-center rounded-xl bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-savana-700">
-              Watch the Video
+              {t("video.cta")}
             </button>
           </div>
         </div>

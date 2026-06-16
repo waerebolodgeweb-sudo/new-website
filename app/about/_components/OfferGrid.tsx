@@ -1,60 +1,42 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { IoArrowForwardOutline } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
+
+type TileKey =
+  | "waerebo-village"
+  | "pleas-waterfall"
+  | "waerebo-lodge"
+  | "hobbit-cave"
+  | "waerebo-house"
+  | "double-bed"
+  | "nusa-molas"
+  | "restaurant";
 
 type Tile =
-  | { kind: "image"; label: string; src: string }
+  | { kind: "image"; key: TileKey; src: string }
   | { kind: "quote" }
   | { kind: "spacer" };
 
-/* Bento order: heading occupies cell 1, then these 11 tiles fill the grid */
 const tiles: Tile[] = [
-  {
-    kind: "image",
-    label: "Waerebo Village",
-    src: "/about/tile-waerebo-village.jpg",
-  },
+  { kind: "image", key: "waerebo-village", src: "/about/tile-waerebo-village.jpg" },
   { kind: "quote" },
-  {
-    kind: "image",
-    label: "Pleas Waterfall",
-    src: "/about/tile-pleas-waterfall.jpg",
-  },
-  {
-    kind: "image",
-    label: "Waerebo Lodge",
-    src: "/about/tile-waerebo-lodge.jpg",
-  },
+  { kind: "image", key: "pleas-waterfall", src: "/about/tile-pleas-waterfall.jpg" },
+  { kind: "image", key: "waerebo-lodge", src: "/about/tile-waerebo-lodge.jpg" },
   { kind: "spacer" },
-  {
-    kind: "image",
-    label: "Hobbit Cave",
-    src: "/about/tile-hobbit-cave.jpg",
-  },
-  {
-    kind: "image",
-    label: "Waerebo House",
-    src: "/about/tile-waerebo-house.jpg",
-  },
-  {
-    kind: "image",
-    label: "Double Bed",
-    src: "/about/tile-double-bed.jpg",
-  },
-  {
-    kind: "image",
-    label: "Nusa Molas Boat Trip",
-    src: "/about/tile-nusa-molas.jpg",
-  },
+  { kind: "image", key: "hobbit-cave", src: "/about/tile-hobbit-cave.jpg" },
+  { kind: "image", key: "waerebo-house", src: "/about/tile-waerebo-house.jpg" },
+  { kind: "image", key: "double-bed", src: "/about/tile-double-bed.jpg" },
+  { kind: "image", key: "nusa-molas", src: "/about/tile-nusa-molas.jpg" },
   { kind: "spacer" },
-  {
-    kind: "image",
-    label: "Waerebo Restaurant",
-    src: "/about/tile-restaurant.jpg",
-  },
+  { kind: "image", key: "restaurant", src: "/about/tile-restaurant.jpg" },
 ];
 
-function ImageTile({ label, src }: { label: string; src: string }) {
+function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
+  const { t } = useLang();
+  const label = t(`about.tile.${tileKey}`);
   return (
     <div
       data-reveal
@@ -75,6 +57,7 @@ function ImageTile({ label, src }: { label: string; src: string }) {
 }
 
 function QuoteCard() {
+  const { t } = useLang();
   return (
     <div
       data-reveal
@@ -85,18 +68,18 @@ function QuoteCard() {
         className="absolute top-5 right-5 -rotate-45 text-pale-green-100"
       />
       <h3 className="mb-2 text-base font-bold text-cream-200 lg:text-lg">
-        The Heart of Flores
+        {t("about.offer.quote.heading")}
       </h3>
       <p className="text-[11px] leading-relaxed text-pale-green-100 lg:text-xs">
-        &ldquo;More than just a beautiful destination, it is a profound
-        connection to the past. Walk our trails, share our authentic coffee, and
-        sleep under the starlit sky of our ancestral home.&rdquo;
+        {t("about.offer.quote.body")}
       </p>
     </div>
   );
 }
 
 export default function OfferGrid() {
+  const { t } = useLang();
+
   return (
     <section id="offer" className="bg-white py-12 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -104,22 +87,20 @@ export default function OfferGrid() {
           {/* Heading cell */}
           <div className="col-span-2 flex flex-col justify-center py-2 lg:col-span-1 lg:aspect-square">
             <p className="mb-3 text-[11px] font-semibold tracking-[0.2em] text-green-200 uppercase">
-              Our Services
+              {t("about.offer.eyebrow")}
             </p>
             <h2 className="mb-3 text-2xl leading-tight font-bold text-neutral-900 lg:text-3xl">
-              Everything
-              <br className="hidden lg:block" /> You Need
+              {t("about.offer.heading1")}
+              <br className="hidden lg:block" /> {t("about.offer.heading2")}
             </h2>
             <p className="mb-5 text-xs leading-relaxed text-neutral-300 lg:text-sm">
-              We handle the logistics so you can focus on the experience.
-              Explore our services to make your journey to the Waerebo village
-              adventurous, safe, and unforgettable.
+              {t("about.offer.body")}
             </p>
             <Link
               href="#contact"
               className="inline-flex w-fit rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-400"
             >
-              Contact Us
+              {t("about.offer.cta")}
             </Link>
           </div>
 
@@ -130,7 +111,7 @@ export default function OfferGrid() {
             ) : tile.kind === "spacer" ? (
               <div key={i} className="hidden lg:block" />
             ) : (
-              <ImageTile key={i} label={tile.label} src={tile.src} />
+              <ImageTile key={i} tileKey={tile.key} src={tile.src} />
             )
           )}
         </div>

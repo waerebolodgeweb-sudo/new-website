@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
 
 const testimonials = [
   {
@@ -37,6 +38,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
 
   const scroll = (dir: number) => {
     const el = scrollRef.current;
@@ -63,10 +65,10 @@ export default function TestimonialsSection() {
             <div className="mb-10 flex items-end justify-between gap-6 lg:mb-16">
               <div>
                 <p className="mb-2 text-sm font-normal text-white/90 lg:text-base">
-                  Travelers Review
+                  {t("testimonials.eyebrow")}
                 </p>
                 <h2 className="text-3xl leading-tight font-semibold text-white lg:text-5xl">
-                  Word on the Trail.
+                  {t("testimonials.heading")}
                 </h2>
               </div>
               <div className="flex flex-shrink-0 items-center gap-2.5">
@@ -92,9 +94,9 @@ export default function TestimonialsSection() {
               ref={scrollRef}
               className="flex [scrollbar-width:none] gap-5 overflow-x-auto pb-1 [-ms-overflow-style:none] lg:gap-7 [&::-webkit-scrollbar]:hidden"
             >
-              {testimonials.map((t) => (
+              {testimonials.map((review) => (
                 <div
-                  key={t.id}
+                  key={review.id}
                   data-reveal
                   className="flex min-w-[270px] flex-1 flex-col gap-7 rounded-[32px] bg-black/30 p-5 pb-10 backdrop-blur-md sm:min-w-[290px] lg:gap-8"
                 >
@@ -102,15 +104,15 @@ export default function TestimonialsSection() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="relative h-[60px] w-[60px] flex-shrink-0 overflow-hidden rounded-full bg-white">
                       <Image
-                        src={t.avatar}
-                        alt={t.name}
+                        src={review.avatar}
+                        alt={review.name}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="flex items-end gap-0.5">
                       <span className="text-3xl font-semibold text-white">
-                        {t.rating}
+                        {review.rating}
                       </span>
                       <span className="pb-1 text-lg font-normal text-white/50">
                         /5
@@ -121,10 +123,10 @@ export default function TestimonialsSection() {
                   {/* Name + comment */}
                   <div>
                     <p className="mb-2 text-xl font-semibold text-white">
-                      {t.name}
+                      {review.name}
                     </p>
                     <p className="text-sm leading-relaxed font-medium text-white/90">
-                      {t.text}
+                      {review.text}
                     </p>
                   </div>
                 </div>

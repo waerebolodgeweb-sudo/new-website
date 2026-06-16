@@ -9,34 +9,55 @@ import {
   IoCloseOutline,
   IoChevronDownOutline,
 } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
 
 type NavLink = {
-  label: string;
+  key: string;
   href: string;
-  children?: { label: string; href: string }[];
+  children?: { key: string; href: string }[];
 };
 
 const navLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
+  { key: "nav.home", href: "/" },
+  { key: "nav.about", href: "/about" },
   {
-    label: "Our Services",
+    key: "nav.services",
     href: "/#services",
     children: [
-      { label: "Lodge", href: "/lodge" },
-      { label: "Restaurant", href: "/restaurant" },
-      { label: "Transport", href: "/transport" },
+      { key: "nav.lodge", href: "/lodge" },
+      { key: "nav.restaurant", href: "/restaurant" },
+      { key: "nav.transport", href: "/transport" },
     ],
   },
-  { label: "Testimonials", href: "/#reviews" },
-  { label: "Reviews", href: "/#reviews" },
-  { label: "FAQ", href: "/faq" },
+  { key: "nav.testimonials", href: "/#reviews" },
+  { key: "nav.reviews", href: "/#reviews" },
+  { key: "nav.faq", href: "/faq" },
 ];
+
+function LangToggle({ transparent }: { transparent: boolean }) {
+  const { lang, toggle } = useLang();
+  return (
+    <button
+      onClick={toggle}
+      aria-label={`Switch language — current ${lang === "en" ? "English" : "Indonesian"}`}
+      className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-sm font-semibold transition-colors ${
+        transparent
+          ? "border-white/50 text-white hover:bg-white/10"
+          : "border-pale-green-100 text-neutral-600 hover:border-green-400 hover:text-green-400"
+      }`}
+    >
+      <span className={lang === "en" ? "" : "opacity-40"}>EN</span>
+      <span className="opacity-40">/</span>
+      <span className={lang === "id" ? "" : "opacity-40"}>ID</span>
+    </button>
+  );
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { t } = useLang();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -81,7 +102,7 @@ export default function Navbar() {
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
             {navLinks.map((link) =>
               link.children ? (
-                <div key={link.label} className="group relative">
+                <div key={link.key} className="group relative">
                   <button
                     className={`flex items-center gap-1 text-base font-medium transition-colors ${
                       transparent
@@ -89,22 +110,22 @@ export default function Navbar() {
                         : "text-neutral-300 hover:text-green-400"
                     }`}
                   >
-                    {link.label}
+                    {t(link.key)}
                     <IoChevronDownOutline
                       size={14}
                       className="transition-transform duration-200 group-hover:rotate-180"
                     />
                   </button>
                   {/* Dropdown */}
-                  <div className="invisible absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div className="invisible absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                     <div className="overflow-hidden rounded-2xl border border-pale-green-100/40 bg-white py-2 shadow-lg">
                       {link.children.map((child) => (
                         <Link
-                          key={child.label}
+                          key={child.key}
                           href={child.href}
                           className="block px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
                         >
-                          {child.label}
+                          {t(child.key)}
                         </Link>
                       ))}
                     </div>
@@ -112,7 +133,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <Link
-                  key={link.label}
+                  key={link.key}
                   href={link.href}
                   className={`text-base font-medium transition-colors ${
                     transparent
@@ -120,34 +141,42 @@ export default function Navbar() {
                       : "text-neutral-300 hover:text-green-400"
                   }`}
                 >
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               )
             )}
           </div>
 
-          {/* Contact Us — right */}
-          <Link
-            href="/#contact"
-            className={`hidden rounded-xl px-4 py-2.5 text-base font-medium transition-colors lg:inline-flex ${
-              transparent
-                ? "bg-white text-neutral-900 hover:bg-white/90"
-                : "bg-neutral-900 text-white hover:bg-green-400"
-            }`}
-          >
-            Contact Us
-          </Link>
+          {/* Language toggle + Contact Us — right */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <LangToggle transparent={transparent} />
+            <Link
+              href="/#contact"
+              className={`rounded-xl px-4 py-2.5 text-base font-medium transition-colors ${
+                transparent
+                  ? "bg-white text-neutral-900 hover:bg-white/90"
+                  : "bg-neutral-900 text-white hover:bg-green-400"
+              }`}
+            >
+              {t("nav.contact")}
+            </Link>
+          </div>
 
-          {/* Mobile button */}
-          <button
-            className={`p-2 lg:hidden ${
-              transparent ? "text-white" : "text-green-400"
-            }`}
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <IoCloseOutline size={26} /> : <IoMenuOutline size={26} />}
-          </button>
+          {/* Mobile: language toggle + menu button */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <LangToggle transparent={transparent} />
+            <button
+              className={`p-2 ${transparent ? "text-white" : "text-green-400"}`}
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+            >
+              {open ? (
+                <IoCloseOutline size={26} />
+              ) : (
+                <IoMenuOutline size={26} />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -155,35 +184,35 @@ export default function Navbar() {
           <div className="space-y-1 border-t border-pale-green-100/30 py-4 lg:hidden">
             {navLinks.map((link) =>
               link.children ? (
-                <div key={link.label}>
+                <div key={link.key}>
                   <Link
                     href={link.href}
                     className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
                     onClick={() => setOpen(false)}
                   >
-                    {link.label}
+                    {t(link.key)}
                   </Link>
                   <div className="ml-4 border-l border-pale-green-100/30 pl-2">
                     {link.children.map((child) => (
                       <Link
-                        key={child.label}
+                        key={child.key}
                         href={child.href}
                         className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
                         onClick={() => setOpen(false)}
                       >
-                        {child.label}
+                        {t(child.key)}
                       </Link>
                     ))}
                   </div>
                 </div>
               ) : (
                 <Link
-                  key={link.label}
+                  key={link.key}
                   href={link.href}
                   className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
                   onClick={() => setOpen(false)}
                 >
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               )
             )}
@@ -193,7 +222,7 @@ export default function Navbar() {
                 className="block rounded-full bg-neutral-900 px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-green-400"
                 onClick={() => setOpen(false)}
               >
-                Contact Us
+                {t("nav.contact")}
               </Link>
             </div>
           </div>
