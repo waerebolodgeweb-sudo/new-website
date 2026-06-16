@@ -10,11 +10,11 @@ import {
   IoBedOutline,
   IoWaterOutline,
   IoWifiOutline,
-  IoTvOutline,
   IoSnowOutline,
   IoCarSportOutline,
   IoSparklesOutline,
   IoCafeOutline,
+  IoMoonOutline,
   IoManOutline,
   IoSyncOutline,
   IoStar,
@@ -34,14 +34,14 @@ const HIGHLIGHT_ICON: Record<HighlightKey, IconType> = {
 };
 
 const FACILITY_META: Record<FacilityKey, { icon: IconType; label: string }> = {
-  wifi: { icon: IoWifiOutline, label: "Wifi" },
-  tv: { icon: IoTvOutline, label: "TV" },
+  wifi: { icon: IoWifiOutline, label: "WiFi" },
   ac: { icon: IoSnowOutline, label: "Air Conditioning" },
+  hotShower: { icon: IoWaterOutline, label: "Hot Shower" },
   parking: { icon: IoCarSportOutline, label: "Free Parking" },
-  hairdryer: { icon: IoSparklesOutline, label: "Hair dryer" },
-  water: { icon: IoWaterOutline, label: "Water" },
-  breakfast: { icon: IoCafeOutline, label: "Breakfast" },
-  toilet: { icon: IoManOutline, label: "Toilet" },
+  amenities: { icon: IoSparklesOutline, label: "Towel, Toothbrush & Soap" },
+  breakfast: { icon: IoCafeOutline, label: "Breakfast Included" },
+  dinner: { icon: IoMoonOutline, label: "Dinner Included" },
+  toilet: { icon: IoManOutline, label: "Bathroom" },
 };
 
 const CARD_SPEC_ICON: Record<CardSpecKey, IconType> = {
@@ -112,7 +112,7 @@ export default function RoomDetail({
   const [activeImage, setActiveImage] = useState(0);
   const { t } = useLang();
 
-  const bookMessage = `Hello Waerebo Lodge! 🌿\n\nI'd like to book the "${room.title}" (${room.price} / night).\n\nPlease share availability. Thank you!`;
+  const bookMessage = `Hello Waerebo Lodge! 🌿\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
   const bookLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     bookMessage
   )}`;

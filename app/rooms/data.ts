@@ -2,12 +2,12 @@
 
 export type FacilityKey =
   | "wifi"
-  | "tv"
   | "ac"
+  | "hotShower"
   | "parking"
-  | "hairdryer"
-  | "water"
+  | "amenities"
   | "breakfast"
+  | "dinner"
   | "toilet";
 
 export type HighlightKey = "capacity" | "couples" | "bedroom" | "bathroom";
@@ -36,12 +36,10 @@ export interface Room {
   slug: string;
   title: string;
   description: string;
-  price: string;
   cardSpecs: RoomCardSpec[];
   highlights: RoomHighlight[];
   facilities: FacilityKey[];
   images: string[]; // [0] is the main image
-  mapImage: string;
   reviews: RoomReview[];
 }
 
@@ -87,164 +85,108 @@ const standardHighlights = (
   { key: "bathroom", label: "Bathroom" },
 ];
 
-const standardFacilities: FacilityKey[] = [
+/* Fan room facilities — no hot shower, no AC */
+const fanFacilities: FacilityKey[] = [
   "wifi",
-  "tv",
-  "ac",
   "parking",
-  "hairdryer",
-  "water",
+  "amenities",
   "breakfast",
+  "dinner",
   "toilet",
 ];
 
-const mapImage =
-  "https://placehold.co/800x400/ABBAA8/27392A?text=Lodge+Location+Map";
+/* AC room facilities — with hot shower and AC */
+const acFacilities: FacilityKey[] = [
+  "wifi",
+  "ac",
+  "hotShower",
+  "parking",
+  "amenities",
+  "breakfast",
+  "dinner",
+  "toilet",
+];
 
 export const rooms: Room[] = [
   {
     slug: "twin-room-ac",
     title: "Twin Room (AC)",
     description:
-      "Rest comfortably before your trek in this room featuring two single beds, air conditioning, and a hot shower. Enjoy serene views of the rice fields, mountains, and far horizon — the perfect place to recharge before heading up to Wae Rebo.",
-    price: "IDR 250.000",
+      "Two single beds with air conditioning and a private hot shower. A comfortable choice for a well-rested start to your trek — cool air and warm water to recharge after the long journey to Dintor.",
     cardSpecs: [
       { key: "people", label: "2 Person" },
       { key: "ac", label: "AC" },
       { key: "shower", label: "Hot Shower" },
     ],
-    highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
-    facilities: standardFacilities,
+    highlights: standardHighlights("2 Person", "Perfect for trekking partners"),
+    facilities: acFacilities,
     images: [
       "/lodge/hero-1.jpg",
       "/lodge/hero-2.jpg",
       "/lodge/hero-3.jpg",
       "/lodge/hero-4.jpg",
     ],
-    mapImage,
     reviews: baseReviews,
-  },
-  {
-    slug: "double-room-fan",
-    title: "Double Room (Fan)",
-    description:
-      "A cozy and affordable double room with one comfortable double bed and a refreshing fan. Ideal for couples seeking a simple, breezy stay close to nature, with all the lodge essentials within easy reach.",
-    price: "IDR 180.000",
-    cardSpecs: [
-      { key: "people", label: "2 Person" },
-      { key: "fan", label: "Fan" },
-      { key: "shower", label: "Hot Shower" },
-    ],
-    highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
-    facilities: ["wifi", "parking", "water", "breakfast", "toilet"],
-    images: [
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-3.jpg",
-      "/lodge/hero-4.jpg",
-    ],
-    mapImage,
-    reviews: baseReviews.slice(0, 3),
-  },
-  {
-    slug: "twin-room-fan",
-    title: "Twin Room (Fan)",
-    description:
-      "Two single beds and a cooling fan make this room a great pick for friends trekking together. Wake to the sound of Flores birds and the morning mist rolling over the rice paddies just outside your window.",
-    price: "IDR 200.000",
-    cardSpecs: [
-      { key: "people", label: "2 Person" },
-      { key: "fan", label: "Fan" },
-      { key: "shower", label: "Hot Shower" },
-    ],
-    highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
-    facilities: [
-      "wifi",
-      "parking",
-      "hairdryer",
-      "water",
-      "breakfast",
-      "toilet",
-    ],
-    images: [
-      "/lodge/hero-3.jpg",
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-4.jpg",
-    ],
-    mapImage,
-    reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "double-room-ac",
     title: "Double Room (AC)",
     description:
-      "A spacious double room with a plush double bed, air conditioning, and a private hot shower. The most relaxing way to unwind after the descent, with sweeping views of the surrounding highlands.",
-    price: "IDR 280.000",
+      "One double bed with air conditioning and a private hot shower. Wind down after your adventure in comfort, with cool air and warm water ready whenever you need them.",
     cardSpecs: [
       { key: "people", label: "2 Person" },
       { key: "ac", label: "AC" },
       { key: "shower", label: "Hot Shower" },
     ],
     highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
-    facilities: standardFacilities,
+    facilities: acFacilities,
     images: [
       "/lodge/hero-4.jpg",
       "/lodge/hero-1.jpg",
       "/lodge/hero-2.jpg",
       "/lodge/hero-3.jpg",
     ],
-    mapImage,
     reviews: baseReviews,
   },
   {
-    slug: "family-room-ac",
-    title: "Family Room (AC)",
+    slug: "twin-room-fan",
+    title: "Twin Room (Fan)",
     description:
-      "Our largest room comfortably sleeps a family of four with a double bed and two singles, air conditioning, and a generous hot-water bathroom. Plenty of space to gather, relax, and plan the next day's adventure together.",
-    price: "IDR 420.000",
-    cardSpecs: [
-      { key: "people", label: "4 Person" },
-      { key: "ac", label: "AC" },
-      { key: "shower", label: "Hot Shower" },
-    ],
-    highlights: [
-      { key: "capacity", label: "4 Person" },
-      { key: "couples", label: "Perfect for families" },
-      { key: "bedroom", label: "Bedroom" },
-      { key: "bathroom", label: "Bathroom" },
-    ],
-    facilities: standardFacilities,
-    images: [
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-3.jpg",
-      "/lodge/hero-4.jpg",
-    ],
-    mapImage,
-    reviews: baseReviews,
-  },
-  {
-    slug: "twin-room-deluxe",
-    title: "Twin Room (Deluxe)",
-    description:
-      "Our premium twin room with upgraded bedding, air conditioning, a hot shower, and the best panoramic view in the lodge. A little extra comfort for travelers who want to wake up to the mountains in style.",
-    price: "IDR 320.000",
+      "Two single beds cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. Simple, clean, and everything you need for a good rest before your ascent to Wae Rebo.",
     cardSpecs: [
       { key: "people", label: "2 Person" },
-      { key: "ac", label: "AC" },
-      { key: "shower", label: "Hot Shower" },
+      { key: "fan", label: "Fan" },
+      { key: "shower", label: "Shower" },
+    ],
+    highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
+    facilities: fanFacilities,
+    images: [
+      "/lodge/hero-3.jpg",
+      "/lodge/hero-1.jpg",
+      "/lodge/hero-2.jpg",
+      "/lodge/hero-4.jpg",
+    ],
+    reviews: baseReviews.slice(0, 3),
+  },
+  {
+    slug: "double-room-fan",
+    title: "Double Room (Fan)",
+    description:
+      "One double bed cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. A cozy, affordable option for couples who enjoy the natural highland breeze.",
+    cardSpecs: [
+      { key: "people", label: "2 Person" },
+      { key: "fan", label: "Fan" },
+      { key: "shower", label: "Shower" },
     ],
     highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
-    facilities: standardFacilities,
+    facilities: fanFacilities,
     images: [
       "/lodge/hero-2.jpg",
       "/lodge/hero-1.jpg",
       "/lodge/hero-3.jpg",
       "/lodge/hero-4.jpg",
     ],
-    mapImage,
-    reviews: baseReviews,
+    reviews: baseReviews.slice(0, 3),
   },
 ];
 
