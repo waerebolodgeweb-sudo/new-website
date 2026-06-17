@@ -59,10 +59,10 @@ const dict: Record<Lang, Record<string, string>> = {
       "Comfortable accommodation in our highland lodge, featuring both AC and fan rooms with stunning mountain views and traditional Flores-inspired design.",
     "services.restaurant.label": "Restaurant",
     "services.restaurant.content":
-      "Fresh, locally sourced meals in our open-air restaurant. Traditional Manggarai cuisine and international dishes prepared by local chefs.",
+      "Home-cooked meals served fresh every day — rice, vegetables, and seasonal protein (fish or chicken). Priced per person; non-guests are welcome to dine.",
     "services.transport.label": "Transport",
     "services.transport.content":
-      "Reliable door-to-door transportation from Ruteng or Labuan Bajo to Waerebo Lodge and back, with private and shared options available.",
+      "Two vehicle options — otopool and Toyota Innova — guided by Pak Martin. Available as part of a lodge package or as a standalone rental.",
 
     // ── Testimonials
     "testimonials.eyebrow": "Travelers Review",
@@ -149,21 +149,21 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.lodge2.meta1": "AC · Hot Shower",
     "journeys.lodge2.desc":
       "A spacious double room with a plush bed, air conditioning, and a private hot shower. The most relaxing way to unwind after the descent, with sweeping views of the highlands.",
-    "journeys.lodge3.title": "Family Room (AC)",
-    "journeys.lodge3.meta0": "4 Person",
-    "journeys.lodge3.meta1": "AC · Hot Shower",
+    "journeys.lodge3.title": "Twin Room (Fan)",
+    "journeys.lodge3.meta0": "2 Person",
+    "journeys.lodge3.meta1": "Fan · Shower",
     "journeys.lodge3.desc":
-      "Our largest room comfortably sleeps a family of four with a double bed and two singles, air conditioning, and a generous hot-water bathroom. Plenty of space to gather and relax.",
+      "Two single beds cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. Simple, clean, and everything you need before your ascent.",
 
     // ── Restaurant showcase
     "restaurant.subtitle":
-      "Taste the true flavors of Flores at our lodge. Curated by our co-founder, our kitchen serves up comforting local meals, trail-ready lunch boxes, and authentic local dishes. We even love it when guests share recipes from their home countries.",
+      "Our kitchen serves fresh, home-cooked meals prepared daily from local ingredients. Every lunch and dinner includes rice, vegetables, and a seasonal protein — fresh fish when in season, or chicken and tempe otherwise. Meals are priced per person, and you are welcome to dine here even without an overnight stay.",
     "restaurant.bookLabel": "Book Restaurant",
     "restaurant.viewLabel": "View Restaurant",
 
     // ── Transport showcase
     "transport.subtitle":
-      "Effortless travel solutions for your mountain journey. We handle the driving so you can enjoy the view. From scenic overland car transfers to quick rides to the Dintor terminal, we make sure you reach your trekking starting line on time and stress-free.",
+      "We offer two vehicle options: an otopool — a diesel truck fitted with wooden bench seating in the back — and a Toyota Innova. Guided by Pak Martin himself, transport can be arranged as part of a full lodge-and-trekking package, or booked as a standalone vehicle rental for your own journey.",
     "transport.bookLabel": "Book Transport",
     "transport.viewLabel": "View Transport",
 
@@ -234,16 +234,16 @@ const dict: Record<Lang, Record<string, string>> = {
       "Our basecamp is located in Dintor, right at the valley below Waerebo. It sits beautifully in the middle of rice fields, offering stunning open views of the Flores Sea and the surrounding mountains.",
     "faq.lodge.q2": "Do the lodge rooms have AC and hot water?",
     "faq.lodge.a2":
-      "Yes! We offer several room types to fit your needs. If you want maximum comfort before or after your hike, you can book our AC rooms which come equipped with hot showers. We also offer standard Fan rooms.",
+      "Yes. Our AC rooms include air conditioning and a hot shower. Our fan rooms have a fan and a private bathroom with a shower and traditional bucket bath. All rooms include breakfast and dinner — lunch is priced separately.",
     "faq.restaurant.q1": "Do you provide food for the trekking journey?",
     "faq.restaurant.a1":
-      "Absolutely. We prepare practical lunch boxes for you to carry on the trail. Depending on your booked package, we also serve hearty pre-trek breakfasts and warm dinners when you return to the lodge.",
+      "Yes. Meals are sold per person — you can purchase lunch before heading up the trail. Breakfast and dinner are included in the room rate for overnight guests, while lunch is priced separately.",
     "faq.restaurant.q2": "What kind of food can I expect at the lodge?",
     "faq.restaurant.a2":
-      "We serve comforting, authentic local Flores meals. Our co-founder and general manager, Isabela, loves to cook and ensures every guest is well-fed. You will also get to taste authentic, locally sourced Waerebo coffee!",
+      "Every meal includes rice, vegetables, and a seasonal protein. We serve fresh fish when it is in season, and chicken or tempe when it is not — so the menu changes naturally with the harvest. You do not need to be staying overnight to eat here; many trekkers stop in for lunch before heading up to the village.",
     "faq.transport.q1": "How do I get from Labuan Bajo to Waerebo Lodge?",
     "faq.transport.a1":
-      "We provide a comfortable overland car transfer. Your driver will pick you up from your hotel or the airport in Labuan Bajo for the scenic drive towards Dintor. Along the way, we even stop at scenic spots like Cunca Wulang waterfall and the rice fields. The drive takes roughly 3 to 4 hours.",
+      "We offer two vehicle options: an otopool (a diesel truck with wooden bench seating in the back) and a Toyota Innova, both guided by Pak Martin. Transport can be booked as part of a full lodge-and-trekking package, or rented separately for just the drive.",
 
     // ── Trips page
     "trips.chooseProgram": "Choose your Program",
@@ -341,10 +341,10 @@ const dict: Record<Lang, Record<string, string>> = {
       "Akomodasi nyaman di lodge pegunungan kami, tersedia kamar ber-AC dan kipas angin dengan pemandangan gunung yang menakjubkan dan desain khas Flores.",
     "services.restaurant.label": "Restoran",
     "services.restaurant.content":
-      "Makanan segar dari bahan lokal di restoran terbuka kami. Masakan Manggarai tradisional dan hidangan internasional yang disiapkan oleh koki lokal.",
+      "Makanan rumahan segar setiap hari — nasi, sayur, dan lauk musiman (ikan atau ayam). Dihitung per orang; tamu luar pun bisa makan di sini tanpa menginap.",
     "services.transport.label": "Transportasi",
     "services.transport.content":
-      "Transportasi door-to-door yang andal dari Ruteng atau Labuan Bajo ke Waerebo Lodge dan kembali, dengan pilihan privat dan bersama.",
+      "Dua pilihan kendaraan — otopool dan Toyota Innova — dipandu Pak Martin. Tersedia sebagai paket lodge atau sewa mandiri.",
 
     // ── Testimonials
     "testimonials.eyebrow": "Ulasan Wisatawan",
@@ -430,21 +430,21 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.lodge2.meta1": "AC · Shower Air Panas",
     "journeys.lodge2.desc":
       "Kamar double luas dengan kasur empuk, AC, dan shower air panas pribadi. Cara paling menenangkan untuk bersantai setelah turun gunung, dengan pemandangan pegunungan yang lapang.",
-    "journeys.lodge3.title": "Kamar Keluarga (AC)",
-    "journeys.lodge3.meta0": "4 Orang",
-    "journeys.lodge3.meta1": "AC · Shower Air Panas",
+    "journeys.lodge3.title": "Kamar Twin (Kipas)",
+    "journeys.lodge3.meta0": "2 Orang",
+    "journeys.lodge3.meta1": "Kipas · Shower",
     "journeys.lodge3.desc":
-      "Kamar terbesar kami yang nyaman untuk keluarga empat orang dengan satu kasur double dan dua kasur tunggal, AC, dan kamar mandi air panas yang luas. Banyak ruang untuk berkumpul dan bersantai.",
+      "Dua kasur tunggal dengan kipas angin dan kamar mandi pribadi — shower dan bak mandi tradisional. Sederhana, bersih, dan semua yang Anda butuhkan sebelum pendakian.",
 
     // ── Restaurant showcase
     "restaurant.subtitle":
-      "Nikmati cita rasa sejati Flores di lodge kami. Diracik oleh pendiri bersama kami, dapur kami menyajikan makanan lokal yang menghangatkan, bekal praktis untuk jalur trek, dan hidangan autentik lokal. Kami bahkan senang ketika tamu berbagi resep dari negara asal mereka.",
+      "Dapur kami menyajikan makanan rumahan segar yang dimasak setiap hari dari bahan lokal. Setiap makan siang dan malam selalu ada nasi, sayur, dan lauk bergizi — ikan segar saat musimnya, atau ayam dan tempe di luar musim. Harga dihitung per orang, dan Anda tetap bisa makan di sini meski tidak menginap.",
     "restaurant.bookLabel": "Pesan Restoran",
     "restaurant.viewLabel": "Lihat Restoran",
 
     // ── Transport showcase
     "transport.subtitle":
-      "Solusi perjalanan mudah untuk petualangan gunung Anda. Kami yang mengemudi agar Anda bisa menikmati pemandangan. Dari transfer mobil darat yang indah hingga tumpangan cepat ke terminal Dintor, kami memastikan Anda tiba di titik awal trek tepat waktu dan tanpa stres.",
+      "Kami menyediakan dua pilihan kendaraan: otopool — truk diesel dengan kursi kayu di bagian belakang — dan Toyota Innova. Dipandu langsung oleh Pak Martin, transportasi bisa dipadukan dalam paket lodge dan trekking, atau disewa tersendiri tanpa paket apapun.",
     "transport.bookLabel": "Pesan Transportasi",
     "transport.viewLabel": "Lihat Transportasi",
 
@@ -515,18 +515,18 @@ const dict: Record<Lang, Record<string, string>> = {
       "Basecamp kami terletak di Dintor, tepat di lembah bawah Waerebo. Berada indah di tengah sawah, menawarkan pemandangan terbuka yang menakjubkan ke Laut Flores dan pegunungan sekitar.",
     "faq.lodge.q2": "Apakah kamar lodge memiliki AC dan air panas?",
     "faq.lodge.a2":
-      "Ya! Kami menawarkan beberapa tipe kamar sesuai kebutuhan Anda. Jika Anda menginginkan kenyamanan maksimal sebelum atau setelah mendaki, Anda bisa memesan kamar AC kami yang dilengkapi shower air panas. Kami juga menyediakan kamar Kipas Angin standar.",
+      "Ya. Kamar AC dilengkapi pendingin udara dan shower air panas. Kamar kipas angin memiliki kipas dan kamar mandi pribadi dengan shower serta bak mandi tradisional. Semua kamar sudah termasuk sarapan dan makan malam — makan siang dihitung terpisah.",
     "faq.restaurant.q1":
       "Apakah Anda menyediakan makanan untuk perjalanan trekking?",
     "faq.restaurant.a1":
-      "Tentu saja. Kami menyiapkan bekal praktis untuk Anda bawa di jalur. Tergantung paket yang Anda pesan, kami juga menyajikan sarapan sebelum trek dan makan malam hangat saat Anda kembali ke lodge.",
+      "Ya. Makanan dijual per orang — Anda bisa membeli makan siang sebelum naik ke jalur. Sarapan dan makan malam sudah termasuk dalam harga kamar bagi tamu yang menginap, sedangkan makan siang dihitung terpisah.",
     "faq.restaurant.q2": "Makanan apa yang bisa saya harapkan di lodge?",
     "faq.restaurant.a2":
-      "Kami menyajikan hidangan lokal Flores yang autentik dan menghangatkan. Pendiri bersama dan manajer umum kami, Isabela, senang memasak dan memastikan setiap tamu kenyang. Anda juga akan mencicipi kopi Waerebo asli dari sumber lokal!",
+      "Setiap hidangan selalu ada nasi, sayur, dan lauk bergizi. Kami menyajikan ikan segar saat musimnya, dan ayam atau tempe saat di luar musim — jadi menu berubah mengikuti alam. Anda tidak harus menginap untuk makan di sini; banyak pendaki yang mampir makan siang sebelum naik ke desa.",
     "faq.transport.q1":
       "Bagaimana cara ke Waerebo Lodge dari Labuan Bajo?",
     "faq.transport.a1":
-      "Kami menyediakan transfer mobil darat yang nyaman. Pengemudi Anda akan menjemput dari hotel atau bandara di Labuan Bajo untuk perjalanan pemandangan indah menuju Dintor. Di sepanjang perjalanan, kami bahkan berhenti di tempat indah seperti air terjun Cunca Wulang dan sawah. Perjalanan memakan waktu sekitar 3 hingga 4 jam.",
+      "Kami menyediakan dua pilihan kendaraan: otopool (truk diesel dengan kursi kayu di bagian belakang) dan Toyota Innova, keduanya dipandu oleh Pak Martin. Transportasi bisa dipesan sebagai bagian dari paket lodge dan trekking, atau disewa tersendiri hanya untuk perjalanannya saja.",
 
     // ── Trips page
     "trips.chooseProgram": "Pilih Program Anda",
