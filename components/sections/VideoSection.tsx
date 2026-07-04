@@ -19,19 +19,32 @@ export default function VideoSection() {
   return (
     <section className="bg-neutral-050 py-20 lg:py-28">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.65fr_1fr]">
+        <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
           {/* Left: Instagram embed */}
-          <div className="flex flex-col gap-4">
-            {/* Channel selector */}
-            <div className="flex gap-2">
+          <div className="overflow-hidden rounded-3xl shadow-md lg:flex-1">
+            <iframe
+              key={channel.shortcode}
+              src={`https://www.instagram.com/p/${channel.shortcode}/embed/`}
+              className="w-full border-0"
+              height="540"
+              allowFullScreen
+              scrolling="no"
+              title={channel.label}
+            />
+          </div>
+
+          {/* Right: card panel */}
+          <div className="flex flex-col gap-10 rounded-3xl bg-savana-200 p-5 lg:w-[500px] lg:flex-shrink-0">
+            {/* Channel tabs */}
+            <div className="flex gap-4 border-b-2 border-savana-800/20">
               {CHANNELS.map((ch) => (
                 <button
                   key={ch.id}
                   onClick={() => setActive(ch.id)}
-                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                  className={`-mb-0.5 border-b-2 px-4 py-3 text-xl font-semibold transition-colors ${
                     active === ch.id
-                      ? "bg-savana-800 text-white"
-                      : "bg-light-green-100 text-neutral-300 hover:bg-pale-green-100/30 hover:text-neutral-900"
+                      ? "border-savana-800 text-savana-800"
+                      : "border-transparent text-savana-800 opacity-40 hover:opacity-70"
                   }`}
                 >
                   {ch.label}
@@ -39,38 +52,20 @@ export default function VideoSection() {
               ))}
             </div>
 
-            {/* Embed container */}
-            <div className="overflow-hidden rounded-3xl shadow-md">
-              <iframe
-                key={channel.shortcode}
-                src={`https://www.instagram.com/p/${channel.shortcode}/embed/`}
-                className="w-full border-0"
-                height="540"
-                allowFullScreen
-                scrolling="no"
-                title={channel.label}
-              />
-            </div>
-          </div>
-
-          {/* Right: Text */}
-          <div className="flex flex-col justify-end gap-10">
-            <div>
-              <p className="mb-2 text-base font-normal text-savana-600">
-                {t("video.eyebrow")}
-              </p>
-              <h2 className="mb-3 text-3xl leading-none font-semibold text-savana-800 lg:text-4xl">
+            <div className="flex flex-1 flex-col gap-3">
+              <h2 className="text-3xl leading-tight font-semibold text-savana-800 lg:text-4xl">
                 {t("video.heading")}
               </h2>
               <p className="text-base leading-relaxed font-normal text-pale-savana-500">
                 {t(`video.${active}.body`)}
               </p>
             </div>
+
             <a
               href={`https://www.instagram.com/p/${channel.shortcode}/`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center justify-center rounded-xl bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-savana-700"
+              className="inline-flex w-full items-center justify-center rounded-lg border border-savana-800 px-6 py-4 text-lg font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
             >
               {t("video.cta")}
             </a>

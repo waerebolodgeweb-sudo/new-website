@@ -41,7 +41,7 @@ export default function ServicesSection() {
               {t("services.heading")}
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-relaxed font-normal text-pale-savana-600 lg:flex-1">
+          <p className="max-w-xl text-base leading-relaxed font-normal text-pale-savana-600 lg:flex-1 lg:text-right">
             {t("services.body")}
           </p>
         </div>
@@ -62,10 +62,14 @@ export default function ServicesSection() {
                     onClick={() => setOpen(isOpen ? "" : id)}
                     className="flex w-full items-center justify-between gap-5 py-5 text-left"
                   >
-                    <span className="text-xl font-semibold text-pale-savana-600">
+                    <span
+                      className={`text-xl font-semibold text-savana-800 transition-opacity ${
+                        isOpen ? "opacity-100" : "opacity-50"
+                      }`}
+                    >
                       {t(`services.${id}.label`)}
                     </span>
-                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-grey-100/30 transition-colors">
+                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-savana-200 transition-colors">
                       {isOpen ? (
                         <IoRemove size={22} className="text-savana-800" />
                       ) : (
@@ -74,8 +78,8 @@ export default function ServicesSection() {
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="flex flex-col-reverse gap-4 pb-8 lg:flex-row lg:items-start lg:gap-6">
-                      <div className="flex flex-1 flex-col gap-6">
+                    <div className="mb-8 flex flex-col-reverse gap-4 rounded-[20px] bg-savana-200 p-3 lg:flex-row lg:items-stretch lg:gap-6">
+                      <div className="flex flex-1 flex-col justify-between gap-6 py-1 pl-1">
                         <p className="text-base leading-relaxed font-normal text-grey-400">
                           {t(`services.${id}.content`)}
                         </p>
@@ -86,11 +90,12 @@ export default function ServicesSection() {
                           {t("services.learnMore")}
                         </Link>
                       </div>
-                      <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-[20px] lg:h-40 lg:w-40">
+                      <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-xl lg:h-auto lg:w-40">
                         <Image
                           src={serviceThumbs[id]}
                           alt={t(`services.${id}.label`)}
                           fill
+                          sizes="(min-width: 1024px) 160px, 100vw"
                           className="object-cover"
                         />
                       </div>
@@ -107,6 +112,7 @@ export default function ServicesSection() {
               src="/home/our-services.jpg"
               alt="Waerebo Lodge"
               fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
           </div>
