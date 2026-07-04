@@ -70,8 +70,8 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── Gallery
     "gallery.eyebrow": "The Experience",
-    "gallery.head1": "Moments ",
-    "gallery.head2": "Captured.",
+    "gallery.head1": "What They ",
+    "gallery.head2": "Says.",
     "gallery.photo1.title": "Smiles Before the Ascent",
     "gallery.photo1.caption":
       "Taking a moment to soak in the golden rice terraces and coastal breeze at Dintor before hiking up to the sky village",
@@ -233,8 +233,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.trip.q3": "Is there electricity in Waerebo Village?",
     "faq.trip.a3":
       "Electricity in the village is very limited and generally only runs from 6:00 PM to 10:00 PM. We highly recommend bringing a power bank to keep your camera or phone charged!",
-    "faq.trip.q4":
-      'What is the "Ojek" service mentioned in the itinerary?',
+    "faq.trip.q4": 'What is the "Ojek" service mentioned in the itinerary?',
     "faq.trip.a4":
       'An "Ojek" is a local motorcycle taxi. On rougher sections of the lower trail you can choose to ride an ojek for part of the way to save energy, or you can simply walk the whole route. It is an optional service arranged with local drivers.',
     "faq.lodge.q1": "Where exactly is Waerebo Lodge located?",
@@ -297,9 +296,11 @@ const dict: Record<Lang, Record<string, string>> = {
     "legal.eyebrow": "Legal",
     "legal.lastUpdated": "Last updated:",
     "legal.questions.heading": "Questions?",
-    "legal.questions.body": "If you have any questions about this page, reach out to us at",
+    "legal.questions.body":
+      "If you have any questions about this page, reach out to us at",
     "legal.questions.or": "or",
-    "legal.questions.address": "Waerebo Lodge — Dintor, Manggarai, Flores, Indonesia.",
+    "legal.questions.address":
+      "Waerebo Lodge — Dintor, Manggarai, Flores, Indonesia.",
 
     // ── Footer
     "footer.rights": "All rights reserved.",
@@ -330,7 +331,8 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Purpose / About Us (home)
     "purpose.eyebrow": "Tentang Kami",
     "purpose.heading": "Basecamp Penuh Makna.",
-    "purpose.body1.pre": 'Kami membangun Waerebo Lodge dengan satu tujuan sederhana "',
+    "purpose.body1.pre":
+      'Kami membangun Waerebo Lodge dengan satu tujuan sederhana "',
     "purpose.body1.bold":
       "menyediakan tempat istirahat yang nyaman dan berkualitas sebelum pendakianmu ke desa di atas awan",
     "purpose.body1.post": '".',
@@ -366,8 +368,8 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── Gallery
     "gallery.eyebrow": "Pengalaman Wisata",
-    "gallery.head1": "Momen yang ",
-    "gallery.head2": "Diabadikan.",
+    "gallery.head1": "Apa Kata ",
+    "gallery.head2": "Mereka.",
     "gallery.photo1.title": "Senyum Sebelum Mendaki",
     "gallery.photo1.caption":
       "Menikmati sejenak keindahan sawah keemasan dan angin pantai di Dintor sebelum mendaki ke desa di atas awan",
@@ -528,8 +530,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.trip.q3": "Apakah ada listrik di Desa Waerebo?",
     "faq.trip.a3":
       "Listrik di desa sangat terbatas dan umumnya hanya menyala dari pukul 18.00 hingga 22.00. Kami sangat menyarankan Anda membawa power bank untuk mengisi daya kamera atau ponsel!",
-    "faq.trip.q4":
-      'Apa itu layanan "Ojek" yang disebutkan dalam itinerary?',
+    "faq.trip.q4": 'Apa itu layanan "Ojek" yang disebutkan dalam itinerary?',
     "faq.trip.a4":
       '"Ojek" adalah ojek motor lokal. Di bagian jalur bawah yang lebih kasar, Anda bisa memilih naik ojek untuk menghemat tenaga, atau cukup berjalan kaki sepanjang rute. Ini adalah layanan opsional yang diatur bersama pengemudi lokal.',
     "faq.lodge.q1": "Di mana tepatnya Waerebo Lodge berada?",
@@ -545,8 +546,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.restaurant.q2": "Makanan apa yang bisa saya harapkan di lodge?",
     "faq.restaurant.a2":
       "Setiap hidangan selalu ada nasi, sayur, dan lauk bergizi. Kami menyajikan ikan segar saat musimnya, dan ayam atau tempe saat di luar musim — jadi menu berubah mengikuti alam. Anda tidak harus menginap untuk makan di sini; banyak pendaki yang mampir makan siang sebelum naik ke desa.",
-    "faq.transport.q1":
-      "Bagaimana cara ke Waerebo Lodge dari Labuan Bajo?",
+    "faq.transport.q1": "Bagaimana cara ke Waerebo Lodge dari Labuan Bajo?",
     "faq.transport.a1":
       "Kami menyediakan dua pilihan kendaraan: otopool (truk diesel dengan kursi kayu di bagian belakang) dan Toyota Innova, keduanya dipandu oleh Pak Martin. Transportasi bisa dipesan sebagai bagian dari paket lodge dan trekking, atau disewa tersendiri hanya untuk perjalanannya saja.",
 

@@ -24,6 +24,8 @@ const WHATSAPP_NUMBER = "6285339567549";
 
 export default function LodgeCard({ room }: { room: Room }) {
   const { t } = useLang();
+  const cardTitle = room.cardTitle ?? room.title;
+  const cardImage = room.cardImage ?? room.images[0];
 
   const bookMessage = `Hello Waerebo Lodge! 🌿\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
   const bookLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(bookMessage)}`;
@@ -33,8 +35,8 @@ export default function LodgeCard({ room }: { room: Room }) {
       <div className="flex w-full flex-col gap-4 rounded-3xl bg-white px-2 pt-2 pb-5 shadow-md">
         <div className="relative h-72 w-full overflow-hidden rounded-[20px] bg-neutral-100">
           <Image
-            src={room.images[0]}
-            alt={room.title}
+            src={cardImage}
+            alt={cardTitle}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
@@ -42,11 +44,15 @@ export default function LodgeCard({ room }: { room: Room }) {
         </div>
         <div className="flex flex-col gap-2 px-4">
           <p className="text-2xl leading-tight font-semibold text-black">
-            {room.title}
+            {cardTitle}
           </p>
           <div className="flex flex-wrap items-center gap-3 pb-2">
             {room.cardSpecs.map((spec, i) => {
               const Icon = CARD_SPEC_ICON[spec.key];
+              const label =
+                spec.key === "people"
+                  ? spec.label.replace("Guests", "People")
+                  : spec.label;
               return (
                 <div key={spec.key} className="flex items-center gap-3">
                   {i > 0 && (
@@ -54,7 +60,7 @@ export default function LodgeCard({ room }: { room: Room }) {
                   )}
                   <span className="flex items-center gap-1 text-sm font-semibold text-neutral-400">
                     <Icon size={20} className="text-neutral-400" />
-                    {spec.label}
+                    {label}
                   </span>
                 </div>
               );

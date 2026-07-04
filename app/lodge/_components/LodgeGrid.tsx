@@ -4,14 +4,33 @@ import { useLang } from "@/lib/i18n";
 import type { Room } from "../../rooms/data";
 import LodgeCard from "./LodgeCard";
 
+const LODGE_CARD_ORDER = [
+  "standard-twin-1",
+  "standard-double",
+  "standard-twin-2",
+  "wooden-twin-1",
+  "wooden-twin-2",
+  "wooden-twin-3",
+  "wooden-double",
+  "deluxe-double-1",
+  "deluxe-double-2",
+  "deluxe-twin-1",
+  "deluxe-twin-2",
+];
+
 export default function LodgeGrid({ rooms }: { rooms: Room[] }) {
   const { t } = useLang();
+  const orderedRooms = [...rooms].sort(
+    (first, second) =>
+      LODGE_CARD_ORDER.indexOf(first.slug) -
+      LODGE_CARD_ORDER.indexOf(second.slug)
+  );
 
   return (
     <section className="bg-neutral-050 py-16 lg:py-24">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
         <div className="mb-12 text-center lg:mb-16">
-          <p className="mb-2 text-base font-normal text-savana-600">
+          <p className="mb-2 text-3xl font-normal text-savana-800">
             {t("lodge.eyebrow")}
           </p>
           <h1 className="text-3xl leading-tight font-semibold text-savana-800 lg:text-5xl">
@@ -20,7 +39,7 @@ export default function LodgeGrid({ rooms }: { rooms: Room[] }) {
         </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {rooms.map((room) => (
+          {orderedRooms.map((room) => (
             <LodgeCard key={room.slug} room={room} />
           ))}
         </div>
