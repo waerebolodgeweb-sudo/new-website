@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ContactSection from "@/components/sections/ContactSection";
 import { rooms } from "../rooms/data";
-import RoomDetail from "../rooms/[slug]/_components/RoomDetail";
+import LodgeGrid from "./_components/LodgeGrid";
 
 export const metadata: Metadata = {
   title: "Lodge — Waerebo Lodge",
@@ -12,14 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function LodgePage() {
-  const featured = rooms[0];
-  const otherRooms = rooms.slice(1);
-
   return (
     <>
       <Navbar />
       <main className="pt-16 lg:pt-20">
-        <RoomDetail room={featured} otherRooms={otherRooms} />
+        <LodgeGrid rooms={rooms} />
         <ContactSection />
       </main>
       <Footer />

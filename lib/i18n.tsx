@@ -100,6 +100,14 @@ const dict: Record<Lang, Record<string, string>> = {
     "contact.partner": "Be Our Partner Now",
     "contact.partnerCta": "Let’s work together",
     "contact.email": "Emails",
+    "contact.tile.village": "Waerebo Village",
+    "contact.tile.heartTitle": "The Heart of Flores",
+    "contact.tile.heartCaption":
+      "More than just a destination, it is a profound connection to the past.",
+    "contact.tile.trekking": "Trekking Program",
+    "contact.tile.exploreLodge": "Explore Lodge",
+    "contact.tile.dintor": "Dintor",
+    "contact.tile.dintorCaption": "– Manggarai, Flores, Indonesia",
 
     // ── Journeys section tabs
     "journeys.tab.trip": "Trip",
@@ -279,6 +287,12 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.toExplore": "to Explore",
     "room.seeLodgeDetails": "See Lodge Details",
 
+    // ── Lodge page (room catalog)
+    "lodge.eyebrow": "Enjoy Your Stay in Our",
+    "lodge.heading": "Comfortable Rooms",
+    "lodge.bookNow": "Book Now",
+    "lodge.seeDetails": "See Details",
+
     // ── Legal pages (fixed chrome)
     "legal.eyebrow": "Legal",
     "legal.lastUpdated": "Last updated:",
@@ -382,6 +396,14 @@ const dict: Record<Lang, Record<string, string>> = {
     "contact.partner": "Jadilah Mitra Kami",
     "contact.partnerCta": "Mari berkolaborasi",
     "contact.email": "Email",
+    "contact.tile.village": "Desa Waerebo",
+    "contact.tile.heartTitle": "Jiwa Flores",
+    "contact.tile.heartCaption":
+      "Lebih dari sekadar tujuan wisata, ia adalah hubungan mendalam dengan masa lalu.",
+    "contact.tile.trekking": "Program Trekking",
+    "contact.tile.exploreLodge": "Jelajahi Lodge",
+    "contact.tile.dintor": "Dintor",
+    "contact.tile.dintorCaption": "– Manggarai, Flores, Indonesia",
 
     // ── Journeys section tabs
     "journeys.tab.trip": "Trip",
@@ -561,6 +583,12 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.moreRooms": "Kamar Lainnya",
     "room.toExplore": "untuk Dijelajahi",
     "room.seeLodgeDetails": "Lihat Detail Penginapan",
+
+    // ── Lodge page (room catalog)
+    "lodge.eyebrow": "Nikmati Menginap di",
+    "lodge.heading": "Kamar yang Nyaman",
+    "lodge.bookNow": "Pesan Sekarang",
+    "lodge.seeDetails": "Lihat Detail",
 
     // ── Legal pages (fixed chrome)
     "legal.eyebrow": "Legal",

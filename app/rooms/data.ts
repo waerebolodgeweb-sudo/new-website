@@ -107,86 +107,143 @@ const acFacilities: FacilityKey[] = [
   "toilet",
 ];
 
+const fanCardSpecs: RoomCardSpec[] = [
+  { key: "people", label: "2 Person" },
+  { key: "fan", label: "Fan" },
+];
+
+const acCardSpecs: RoomCardSpec[] = [
+  { key: "people", label: "2 Person" },
+  { key: "ac", label: "AC" },
+  { key: "shower", label: "Hot Water" },
+];
+
 export const rooms: Room[] = [
+  /* ── Standard (Fan) ── */
   {
-    slug: "twin-room-ac",
-    title: "Twin Room (AC)",
-    description:
-      "Two single beds with air conditioning and a private hot shower. A comfortable choice for a well-rested start to your trek — cool air and warm water to recharge after the long journey to Dintor.",
-    cardSpecs: [
-      { key: "people", label: "2 Person" },
-      { key: "ac", label: "AC" },
-      { key: "shower", label: "Hot Shower" },
-    ],
-    highlights: standardHighlights("2 Person", "Perfect for trekking partners"),
-    facilities: acFacilities,
-    images: [
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-3.jpg",
-      "/lodge/hero-4.jpg",
-    ],
-    reviews: baseReviews,
-  },
-  {
-    slug: "double-room-ac",
-    title: "Double Room (AC)",
-    description:
-      "One double bed with air conditioning and a private hot shower. Wind down after your adventure in comfort, with cool air and warm water ready whenever you need them.",
-    cardSpecs: [
-      { key: "people", label: "2 Person" },
-      { key: "ac", label: "AC" },
-      { key: "shower", label: "Hot Shower" },
-    ],
-    highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
-    facilities: acFacilities,
-    images: [
-      "/lodge/hero-4.jpg",
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-3.jpg",
-    ],
-    reviews: baseReviews,
-  },
-  {
-    slug: "twin-room-fan",
-    title: "Twin Room (Fan)",
+    slug: "standard-twin-1",
+    title: "Standard Twin 1",
     description:
       "Two single beds cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. Simple, clean, and everything you need for a good rest before your ascent to Wae Rebo.",
-    cardSpecs: [
-      { key: "people", label: "2 Person" },
-      { key: "fan", label: "Fan" },
-      { key: "shower", label: "Shower" },
-    ],
+    cardSpecs: fanCardSpecs,
     highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
     facilities: fanFacilities,
-    images: [
-      "/lodge/hero-3.jpg",
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-4.jpg",
-    ],
+    images: ["/lodge/rooms/standard-twin-1.jpg"],
     reviews: baseReviews.slice(0, 3),
   },
   {
-    slug: "double-room-fan",
-    title: "Double Room (Fan)",
+    slug: "standard-double",
+    title: "Standard Double",
     description:
       "One double bed cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. A cozy, affordable option for couples who enjoy the natural highland breeze.",
-    cardSpecs: [
-      { key: "people", label: "2 Person" },
-      { key: "fan", label: "Fan" },
-      { key: "shower", label: "Shower" },
-    ],
+    cardSpecs: fanCardSpecs,
     highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
     facilities: fanFacilities,
-    images: [
-      "/lodge/hero-2.jpg",
-      "/lodge/hero-1.jpg",
-      "/lodge/hero-3.jpg",
-      "/lodge/hero-4.jpg",
-    ],
+    images: ["/lodge/rooms/standard-double.jpg"],
     reviews: baseReviews.slice(0, 3),
+  },
+  {
+    slug: "standard-twin-2",
+    title: "Standard Twin 2",
+    description:
+      "Two single beds cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. Bright and simple, with easy access to the lodge's shared spaces.",
+    cardSpecs: fanCardSpecs,
+    highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
+    facilities: fanFacilities,
+    images: ["/lodge/rooms/standard-twin-2.jpg"],
+    reviews: baseReviews.slice(0, 3),
+  },
+
+  /* ── Wooden (Fan) ── */
+  {
+    slug: "wooden-twin-1",
+    title: "Wooden Twin 1",
+    description:
+      "Two single beds inside a room finished in warm timber, cooled by a fan with a private shower bathroom. A rustic, characterful stay that carries the feel of the highlands indoors.",
+    cardSpecs: fanCardSpecs,
+    highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
+    facilities: fanFacilities,
+    images: ["/lodge/rooms/wooden-twin-1.jpg"],
+    reviews: baseReviews.slice(0, 3),
+  },
+  {
+    slug: "wooden-twin-2",
+    title: "Wooden Twin 2",
+    description:
+      "Two single beds inside a room finished in warm timber, cooled by a fan with a private shower bathroom. Quiet and cozy, with a view over the surrounding greenery.",
+    cardSpecs: fanCardSpecs,
+    highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
+    facilities: fanFacilities,
+    images: ["/lodge/rooms/wooden-twin-2.jpg"],
+    reviews: baseReviews.slice(0, 3),
+  },
+  {
+    slug: "wooden-twin-3",
+    title: "Wooden Twin 3",
+    description:
+      "Two single beds inside a room finished in warm timber, cooled by a fan with a private shower bathroom. A relaxed, no-frills base for your night before the trek.",
+    cardSpecs: fanCardSpecs,
+    highlights: standardHighlights("2 Person", "Great for friends & trekkers"),
+    facilities: fanFacilities,
+    images: ["/lodge/rooms/wooden-twin-3.jpg"],
+    reviews: baseReviews.slice(0, 3),
+  },
+  {
+    slug: "wooden-double",
+    title: "Wooden Double",
+    description:
+      "One double bed inside a room finished in warm timber, cooled by a fan with a private shower bathroom. A warm, homely option for couples travelling together.",
+    cardSpecs: fanCardSpecs,
+    highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
+    facilities: fanFacilities,
+    images: ["/lodge/rooms/wooden-double.jpg"],
+    reviews: baseReviews.slice(0, 3),
+  },
+
+  /* ── Deluxe (AC + Hot Water) ── */
+  {
+    slug: "deluxe-double-1",
+    title: "Deluxe Double 1",
+    description:
+      "A spacious double room with air conditioning and a private hot shower. The most relaxing way to unwind after the descent, with the best comfort the lodge has to offer.",
+    cardSpecs: acCardSpecs,
+    highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
+    facilities: acFacilities,
+    images: ["/lodge/rooms/deluxe-double-1.jpg"],
+    reviews: baseReviews,
+  },
+  {
+    slug: "deluxe-double-2",
+    title: "Deluxe Double 2",
+    description:
+      "A spacious double room with air conditioning and a private hot shower. Wind down in comfort, with cool air and warm water ready whenever you need them.",
+    cardSpecs: acCardSpecs,
+    highlights: standardHighlights("2 Person", "Perfect for traveling couples"),
+    facilities: acFacilities,
+    images: ["/lodge/rooms/deluxe-double-2.jpg"],
+    reviews: baseReviews,
+  },
+  {
+    slug: "deluxe-twin-1",
+    title: "Deluxe Twin 1",
+    description:
+      "Two single beds with air conditioning and a private hot shower. A comfortable choice for a well-rested start to your trek — cool air and warm water to recharge after the journey to Dintor.",
+    cardSpecs: acCardSpecs,
+    highlights: standardHighlights("2 Person", "Perfect for trekking partners"),
+    facilities: acFacilities,
+    images: ["/lodge/rooms/deluxe-twin-1.jpg"],
+    reviews: baseReviews,
+  },
+  {
+    slug: "deluxe-twin-2",
+    title: "Deluxe Twin 2",
+    description:
+      "Two single beds with air conditioning and a private hot shower. Cool, quiet, and comfortable — a solid rest before or after your climb to Wae Rebo.",
+    cardSpecs: acCardSpecs,
+    highlights: standardHighlights("2 Person", "Perfect for trekking partners"),
+    facilities: acFacilities,
+    images: ["/lodge/rooms/deluxe-twin-2.jpg"],
+    reviews: baseReviews,
   },
 ];
 
