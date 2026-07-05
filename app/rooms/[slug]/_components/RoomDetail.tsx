@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { IconType } from "react-icons";
@@ -10,6 +10,8 @@ import {
   IoCarSportOutline,
   IoChevronBack,
   IoChevronForward,
+  IoClose,
+  IoExpandOutline,
   IoFastFoodOutline,
   IoHeartOutline,
   IoLogoWhatsapp,
@@ -60,47 +62,79 @@ const CARD_SPEC_ICON: Record<CardSpecKey, IconType> = {
 
 const WHATSAPP_NUMBER = "6285339567549";
 const BOOKING_EMAIL = "info@waerebolodge.com";
+const MORE_ROOM_ORDER = [
+  "standard-double",
+  "standard-twin-2",
+  "wooden-twin-1",
+  "wooden-double",
+  "deluxe-double-2",
+  "deluxe-twin-1",
+];
 
 function RoomCard({ room }: { room: Room }) {
   const { t } = useLang();
+  const cardTitle = room.cardTitle ?? room.title;
+  const cardImage = room.cardImage ?? room.images[0];
+  const bookMessage = `Hello Waerebo Lodge!\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
+  const bookLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    bookMessage
+  )}`;
 
   return (
-    <div
-      data-reveal
-      className="flex flex-col overflow-hidden rounded-lg border border-savana-200/40 bg-white shadow-sm transition-shadow hover:shadow-md"
-    >
-      <div className="relative h-44">
-        <Image
-          src={room.images[0]}
-          alt={room.title}
-          fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover"
-        />
- 
-      </div>
-      <div className="flex flex-1 flex-col p-4">
-        <h3 className="mb-2 text-sm font-bold text-pale-savana-500">
-          {room.title}
-        </h3>
-        <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-medium text-pale-savana-300">
-          {room.cardSpecs.map((spec) => {
-            const Icon = CARD_SPEC_ICON[spec.key];
-            return (
-              <span key={spec.label} className="inline-flex items-center gap-1">
-                <Icon size={13} className="text-savana-500" />
-                {spec.label}
-              </span>
-            );
-          })}
+    <div className="flex flex-col items-center gap-5">
+      <div className="flex w-full flex-col gap-4 rounded-3xl bg-white px-2 pt-2 pb-5 shadow-xl shadow-black/10">
+        <div className="relative h-[310px] w-full overflow-hidden rounded-[20px] bg-neutral-100">
+          <Image
+            src={cardImage}
+            alt={cardTitle}
+            fill
+            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
         </div>
-        <Link
-          href={`/rooms/${room.slug}`}
-          className="mt-auto block w-full rounded-lg bg-savana-800 px-4 py-2.5 text-center text-xs font-semibold text-white transition-colors hover:bg-savana-700"
-        >
-          {t("room.seeLodgeDetails")}
-        </Link>
+        <div className="flex flex-col gap-2 px-4">
+          <h3 className="text-2xl leading-tight font-semibold text-black">
+            {cardTitle}
+          </h3>
+          <div className="flex flex-wrap items-center gap-3 pb-2">
+            {room.cardSpecs.map((spec, index) => {
+              const Icon = CARD_SPEC_ICON[spec.key];
+              const label =
+                spec.key === "people"
+                  ? spec.label.replace("Guests", "People")
+                  : spec.label;
+
+              return (
+                <div key={spec.key} className="flex items-center gap-3">
+                  {index > 0 && (
+                    <span className="h-4 w-0.5 rounded-full bg-neutral-050" />
+                  )}
+                  <span className="flex items-center gap-1 text-sm font-semibold text-neutral-400">
+                    <Icon size={18} className="text-neutral-400" />
+                    {label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="px-4">
+          <a
+            href={bookLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-4 text-base font-medium text-white transition-colors hover:bg-savana-700"
+          >
+            {t("lodge.bookNow")}
+          </a>
+        </div>
       </div>
+      <Link
+        href={`/rooms/${room.slug}`}
+        className="text-base font-medium text-neutral-400 transition-colors hover:text-savana-800"
+      >
+        {t("lodge.seeDetails")}
+      </Link>
     </div>
   );
 }
@@ -113,6 +147,7 @@ export default function RoomDetail({
   otherRooms: Room[];
 }) {
   const [activeImage, setActiveImage] = useState(0);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const { t } = useLang();
 
   const bookMessage = `Hello Waerebo Lodge!\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
@@ -122,18 +157,44 @@ export default function RoomDetail({
   const emailLink = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(
     `Booking ${room.title}`
   )}&body=${encodeURIComponent(bookMessage)}`;
+  const orderedOtherRooms = [
+    ...MORE_ROOM_ORDER.map((slug) =>
+      otherRooms.find((otherRoom) => otherRoom.slug === slug)
+    ).filter((otherRoom): otherRoom is Room => Boolean(otherRoom)),
+    ...otherRooms.filter(
+      (otherRoom) => !MORE_ROOM_ORDER.includes(otherRoom.slug)
+    ),
+  ].slice(0, 6);
 
-  const showPreviousImage = () => {
+  const showPreviousImage = useCallback(() => {
     setActiveImage((current) =>
       current === 0 ? room.images.length - 1 : current - 1
     );
-  };
+  }, [room.images.length]);
 
-  const showNextImage = () => {
+  const showNextImage = useCallback(() => {
     setActiveImage((current) =>
       current === room.images.length - 1 ? 0 : current + 1
     );
+  }, [room.images.length]);
+
+  const openPreview = (imageIndex = activeImage) => {
+    setActiveImage(imageIndex);
+    setIsPreviewOpen(true);
   };
+
+  useEffect(() => {
+    if (!isPreviewOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsPreviewOpen(false);
+      if (event.key === "ArrowLeft") showPreviousImage();
+      if (event.key === "ArrowRight") showNextImage();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isPreviewOpen, showNextImage, showPreviousImage]);
 
   return (
     <>
@@ -155,15 +216,27 @@ export default function RoomDetail({
                 <span>{room.title}</span>
               </nav>
 
-              <div className="relative aspect-[1.74] min-h-[260px] overflow-hidden rounded-lg bg-savana-200 shadow-sm">
-                <Image
-                  src={room.images[activeImage]}
-                  alt={room.title}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 55vw, 100vw"
-                  className="object-cover"
-                />
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => openPreview()}
+                  aria-label="Open room image preview"
+                  className="group relative block aspect-[1.74] min-h-[260px] w-full overflow-hidden rounded-lg bg-savana-200 text-left shadow-sm"
+                >
+                  <Image
+                    src={room.images[activeImage]}
+                    alt={room.title}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 55vw, 100vw"
+                    className="object-cover"
+                  />
+                  <span className="absolute right-4 bottom-4 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-savana-800 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+                    <IoExpandOutline size={18} />
+                    Preview
+                  </span>
+                </button>
+
                 {room.images.length > 1 && (
                   <>
                     <button
@@ -187,12 +260,13 @@ export default function RoomDetail({
               </div>
 
               {room.images.length > 1 && (
-                <div className="mt-3 flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="mt-3 flex [scrollbar-width:none] gap-3 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden">
                   {room.images.map((img, imageIndex) => (
                     <button
                       key={img}
                       type="button"
                       onClick={() => setActiveImage(imageIndex)}
+                      onDoubleClick={() => openPreview(imageIndex)}
                       aria-label={`View image ${imageIndex + 1}`}
                       className={`relative h-24 w-28 flex-none overflow-hidden rounded-lg border transition-all sm:w-32 ${
                         activeImage === imageIndex
@@ -248,10 +322,7 @@ export default function RoomDetail({
                       key={highlight.key}
                       className="flex min-h-16 items-center gap-4 text-lg font-bold text-pale-savana-500"
                     >
-                      <Icon
-                        size={22}
-                        className="flex-none text-savana-500"
-                      />
+                      <Icon size={22} className="flex-none text-savana-500" />
                       {highlight.label}
                     </li>
                   );
@@ -270,10 +341,7 @@ export default function RoomDetail({
                         key={key}
                         className="flex items-center gap-2 text-sm font-bold text-pale-savana-300"
                       >
-                        <Icon
-                          size={16}
-                          className="flex-none text-savana-500"
-                        />
+                        <Icon size={16} className="flex-none text-savana-500" />
                         {label}
                       </div>
                     );
@@ -378,20 +446,106 @@ export default function RoomDetail({
         </div>
       </section>
 
-      {otherRooms.length > 0 && (
-        <section className="bg-white py-12 lg:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 className="mb-8 text-center text-2xl font-bold text-pale-savana-500 lg:mb-10 lg:text-3xl">
-              {t("room.moreRooms")}{" "}
-              <span className="text-savana-500">{t("room.toExplore")}</span>
+      {orderedOtherRooms.length > 0 && (
+        <section className="bg-savana-200 py-16 lg:py-24">
+          <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
+            <h2 className="mb-12 text-center text-4xl leading-tight font-normal text-savana-800 lg:mb-16 lg:text-6xl">
+              {t("room.discoverMore")}{" "}
+              <span className="font-semibold">{t("room.roomOptions")}</span>
             </h2>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {otherRooms.map((otherRoom) => (
+            <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {orderedOtherRooms.map((otherRoom) => (
                 <RoomCard key={otherRoom.slug} room={otherRoom} />
               ))}
             </div>
+            <div className="mt-16 flex justify-center">
+              <Link
+                href="/lodge"
+                className="flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+              >
+                {t("room.seeAllRoom")}
+              </Link>
+            </div>
           </div>
         </section>
+      )}
+
+      {isPreviewOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${room.title} image preview`}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 py-5 backdrop-blur-sm"
+        >
+          <button
+            type="button"
+            aria-label="Close image preview"
+            onClick={() => setIsPreviewOpen(false)}
+            className="absolute top-5 right-5 z-20 grid h-12 w-12 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white"
+          >
+            <IoClose size={28} />
+          </button>
+
+          {room.images.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={showPreviousImage}
+                aria-label="View previous room image"
+                className="absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white lg:left-8"
+              >
+                <IoChevronBack size={28} />
+              </button>
+              <button
+                type="button"
+                onClick={showNextImage}
+                aria-label="View next room image"
+                className="absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white lg:right-8"
+              >
+                <IoChevronForward size={28} />
+              </button>
+            </>
+          )}
+
+          <div className="flex h-full w-full max-w-6xl flex-col justify-center gap-4">
+            <div className="relative min-h-0 flex-1 overflow-hidden rounded-2xl bg-black/40 shadow-2xl">
+              <Image
+                src={room.images[activeImage]}
+                alt={room.title}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+
+            {room.images.length > 1 && (
+              <div className="mx-auto flex max-w-full [scrollbar-width:none] gap-3 overflow-x-auto rounded-2xl bg-black/25 p-2 [&::-webkit-scrollbar]:hidden">
+                {room.images.map((img, imageIndex) => (
+                  <button
+                    key={img}
+                    type="button"
+                    onClick={() => setActiveImage(imageIndex)}
+                    aria-label={`Preview image ${imageIndex + 1}`}
+                    className={`relative h-20 w-28 flex-none overflow-hidden rounded-xl border-2 transition-all sm:h-24 sm:w-36 ${
+                      activeImage === imageIndex
+                        ? "border-white opacity-100"
+                        : "border-transparent opacity-60 hover:opacity-90"
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt=""
+                      fill
+                      sizes="144px"
+                      className="object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </>
   );

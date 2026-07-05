@@ -285,6 +285,9 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.moreRooms": "More Room",
     "room.toExplore": "to Explore",
     "room.seeLodgeDetails": "See Lodge Details",
+    "room.discoverMore": "Discover More",
+    "room.roomOptions": "Room Options",
+    "room.seeAllRoom": "See All Room",
 
     // ── Lodge page (room catalog)
     "lodge.eyebrow": "Enjoy Your Stay in Our",
@@ -583,6 +586,9 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.moreRooms": "Kamar Lainnya",
     "room.toExplore": "untuk Dijelajahi",
     "room.seeLodgeDetails": "Lihat Detail Penginapan",
+    "room.discoverMore": "Temukan Lebih Banyak",
+    "room.roomOptions": "Pilihan Kamar",
+    "room.seeAllRoom": "Lihat Semua Kamar",
 
     // ── Lodge page (room catalog)
     "lodge.eyebrow": "Nikmati Menginap di",

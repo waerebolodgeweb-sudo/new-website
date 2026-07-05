@@ -7,7 +7,7 @@ export default function PurposeSection() {
   const { t } = useLang();
 
   return (
-    <section id="about" className="bg-neutral-050 py-[60px] lg:py-40">
+    <section id="about" className="bg-savana-200 py-[60px] lg:py-40">
       <div className="mx-auto max-w-[1512px] px-5 lg:px-10">
         {/* Mobile-only: large hero image */}
         <div className="relative mb-10 h-[200px] overflow-hidden rounded-3xl shadow-sm lg:hidden">
@@ -46,7 +46,7 @@ export default function PurposeSection() {
 
             {/* Mobile-only: Waerebo Village horizontal card */}
             <div className="mb-10 flex items-stretch gap-5 lg:hidden">
-              <div className="relative w-1/2 min-h-[100px] overflow-hidden rounded-xl shadow-sm shrink-0">
+              <div className="relative min-h-[100px] w-1/2 shrink-0 overflow-hidden rounded-xl shadow-sm">
                 <Image
                   src="/home/about-3.jpg"
                   alt="Traditional cone-shaped Waerebo houses"
@@ -55,11 +55,11 @@ export default function PurposeSection() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-1 flex-col gap-1 justify-center">
+              <div className="flex flex-1 flex-col justify-center gap-1">
                 <h4 className="text-base font-semibold text-pale-savana-500">
                   {t("purpose.village.title")}
                 </h4>
-                <p className="text-sm font-normal leading-[20px] text-pale-savana-500">
+                <p className="text-sm leading-[20px] font-normal text-pale-savana-500">
                   {t("purpose.village.caption")}
                 </p>
               </div>
