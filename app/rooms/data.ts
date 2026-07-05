@@ -257,7 +257,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-twin-1",
     title: "Traditional Twin Room 4",
-    cardTitle: "Wooden Twin 1",
+    cardTitle: "Traditional Twin 1",
     cardImage: "/lodge/rooms/wooden-twin-1.jpg",
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
@@ -270,7 +270,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-twin-2",
     title: "Traditional Twin Room 5",
-    cardTitle: "Wooden Twin 2",
+    cardTitle: "Traditional Twin 2",
     cardImage: "/lodge/rooms/wooden-twin-2.jpg",
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
@@ -283,7 +283,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-double",
     title: "Traditional Double Room 6",
-    cardTitle: "Wooden Double",
+    cardTitle: "Traditional Double",
     cardImage: "/lodge/rooms/wooden-double.jpg",
     description:
       "A warm wooden room with a double bed, perfect for couples seeking a more authentic and relaxing Flores experience.",
@@ -296,7 +296,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-twin-3",
     title: "Traditional Twin Room 7",
-    cardTitle: "Wooden Twin 3",
+    cardTitle: "Traditional Twin 3",
     cardImage: "/lodge/rooms/wooden-twin-3.jpg",
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
