@@ -101,8 +101,8 @@ function RoomCard({ room }: { room: Room }) {
               const Icon = CARD_SPEC_ICON[spec.key];
               const label =
                 spec.key === "people"
-                  ? spec.label.replace("Guests", "People")
-                  : spec.label;
+                  ? t("cardSpec.people", spec.label.replace("Guests", "People"))
+                  : t(`cardSpec.${spec.key}`, spec.label);
 
               return (
                 <div key={spec.key} className="flex items-center gap-3">
@@ -233,7 +233,7 @@ export default function RoomDetail({
                   />
                   <span className="absolute right-4 bottom-4 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-savana-800 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
                     <IoExpandOutline size={18} />
-                    Preview
+                    {t("room.preview")}
                   </span>
                 </button>
 
@@ -294,14 +294,14 @@ export default function RoomDetail({
                   className="flex min-h-14 items-center justify-center gap-2 rounded-md bg-savana-800 px-5 py-3 text-base font-semibold text-white transition-colors hover:bg-savana-green-600"
                 >
                   <IoLogoWhatsapp size={20} />
-                  Book Via Whatsapp
+                  {t("booking.via.whatsapp")}
                 </a>
                 <a
                   href={emailLink}
                   className="flex min-h-14 items-center justify-center gap-2 rounded-md border border-pale-savana-300 px-5 py-3 text-base font-semibold text-pale-savana-500 transition-colors hover:bg-white"
                 >
                   <IoMailOutline size={20} />
-                  Book Via Email
+                  {t("booking.via.email")}
                 </a>
               </div>
             </div>
@@ -311,7 +311,7 @@ export default function RoomDetail({
                 {room.title}
               </h1>
               <p className="mt-3 max-w-xl text-base leading-relaxed font-medium text-pale-savana-300">
-                {room.description}
+                {t(`rooms.${room.slug}.description`, room.description)}
               </p>
 
               <ul className="mt-8 divide-y divide-savana-200/70 border-b border-savana-200/70">
@@ -323,7 +323,10 @@ export default function RoomDetail({
                       className="flex min-h-16 items-center gap-4 text-lg font-bold text-pale-savana-500"
                     >
                       <Icon size={22} className="flex-none text-savana-500" />
-                      {highlight.label}
+                      {t(
+                        `rooms.${room.slug}.highlight.${highlight.key}`,
+                        highlight.label
+                      )}
                     </li>
                   );
                 })}
@@ -331,7 +334,7 @@ export default function RoomDetail({
 
               <section className="mt-10">
                 <h2 className="text-2xl font-extrabold text-pale-savana-500">
-                  Room Facility
+                  {t("room.facility")}
                 </h2>
                 <div className="mt-5 grid grid-cols-2 gap-x-7 gap-y-4 sm:grid-cols-3">
                   {room.facilities.map((key) => {
@@ -342,7 +345,7 @@ export default function RoomDetail({
                         className="flex items-center gap-2 text-sm font-bold text-pale-savana-300"
                       >
                         <Icon size={16} className="flex-none text-savana-500" />
-                        {label}
+                        {t(`facility.${key}`, label)}
                       </div>
                     );
                   })}
@@ -351,21 +354,20 @@ export default function RoomDetail({
 
               <section className="mt-10">
                 <h2 className="text-2xl font-extrabold text-pale-savana-500">
-                  Dining Arrangements
+                  {t("room.diningArrangements")}
                 </h2>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <div className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-savana-200 px-4 text-sm font-bold text-pale-savana-500">
                     <IoCafeOutline size={18} />
-                    Breakfast Included
+                    {t("room.breakfastIncluded")}
                   </div>
                   <div className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-savana-200 px-4 text-sm font-bold text-pale-savana-500">
                     <IoFastFoodOutline size={18} />
-                    Dinner Included
+                    {t("room.dinnerIncluded")}
                   </div>
                 </div>
                 <p className="mt-4 text-sm leading-relaxed font-bold text-red-400 italic">
-                  *Lunch is not included in this package. However, it is
-                  available for an additional charge.
+                  {t("room.lunchNote")}
                 </p>
               </section>
 
@@ -389,13 +391,13 @@ export default function RoomDetail({
                 <section className="mt-12">
                   <div className="mb-6 flex items-center justify-between gap-4">
                     <h2 className="text-2xl font-extrabold text-pale-savana-500">
-                      Latest Review
+                      {t("room.latestReview")}
                     </h2>
                     <Link
                       href="/#testimonials"
                       className="text-sm font-medium text-pale-savana-300 transition-colors hover:text-savana-800"
                     >
-                      See all
+                      {t("room.seeAll")}
                     </Link>
                   </div>
                   <div className="space-y-8">

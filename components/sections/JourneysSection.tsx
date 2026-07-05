@@ -84,15 +84,6 @@ const tripDefs: JourneyCardDef[] = [
   },
 ];
 
-const featuredRoomSlugs = [
-  "standard-double",
-  "wooden-twin-1",
-  "deluxe-twin-1",
-  "standard-twin-2",
-  "wooden-double",
-  "deluxe-double-2",
-];
-
 const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], IconType> = {
   people: IoPeopleOutline,
   ac: IoSnowOutline,
@@ -101,18 +92,15 @@ const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], IconType> = {
   bed: IoBedOutline,
 };
 
-const lodgeDefs: LodgeCardDef[] = featuredRoomSlugs
-  .map((slug) => rooms.find((room) => room.slug === slug))
-  .filter((room): room is Room => Boolean(room))
-  .map((room) => ({
-    slug: room.slug,
-    title: room.cardTitle ?? room.title,
-    image: room.cardImage ?? room.images[0],
-    meta: room.cardSpecs.map((spec) => ({
-      icon: roomSpecIcon[spec.key],
-      label: spec.label.replace("Guests", "People"),
-    })),
-  }));
+const lodgeDefs: LodgeCardDef[] = rooms.map((room) => ({
+  slug: room.slug,
+  title: room.cardTitle ?? room.title,
+  image: room.cardImage ?? room.images[0],
+  meta: room.cardSpecs.map((spec) => ({
+    icon: roomSpecIcon[spec.key],
+    label: spec.label.replace("Guests", "People"),
+  })),
+}));
 
 const transportDefs: TransportCardDef[] = [
   {
@@ -239,7 +227,6 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
 function LodgePreview() {
   const { t } = useLang();
   const [startIndex, setStartIndex] = useState(0);
-  const pageCount = Math.ceil(lodgeDefs.length / 3);
   const visibleRooms = [...lodgeDefs, ...lodgeDefs].slice(
     startIndex,
     startIndex + 3
@@ -247,14 +234,12 @@ function LodgePreview() {
 
   const goToPrevious = () => {
     setStartIndex((current) =>
-      current === 0 ? Math.max(lodgeDefs.length - 3, 0) : current - 3
+      current === 0 ? lodgeDefs.length - 1 : current - 1
     );
   };
 
   const goToNext = () => {
-    setStartIndex((current) =>
-      current + 3 >= lodgeDefs.length ? 0 : current + 3
-    );
+    setStartIndex((current) => (current + 1) % lodgeDefs.length);
   };
 
   return (
@@ -283,16 +268,16 @@ function LodgePreview() {
       </div>
 
       <div className="mt-7 flex justify-center gap-1.5">
-        {Array.from({ length: pageCount }).map((_, index) => (
+        {lodgeDefs.map((def, index) => (
           <button
-            key={index}
+            key={def.slug}
             type="button"
-            aria-label={`Show room group ${index + 1}`}
-            onClick={() => setStartIndex(index * 3)}
-            className={`h-1.5 w-12 rounded-full transition-colors ${
-              index === Math.floor(startIndex / 3)
-                ? "bg-savana-800"
-                : "bg-savana-800/25"
+            aria-label={`Show ${def.title}`}
+            onClick={() => setStartIndex(index)}
+            className={`h-1.5 rounded-full transition-colors ${
+              index === startIndex
+                ? "w-12 bg-savana-800"
+                : "w-6 bg-savana-800/25"
             }`}
           />
         ))}
@@ -335,12 +320,6 @@ function TransportPreview() {
               <p className="mt-3 line-clamp-3 min-h-[72px] text-base leading-6 font-normal text-neutral-500">
                 {t(def.descKey)}
               </p>
-              <Link
-                href="/transport"
-                className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-5 text-base font-medium text-white transition-colors hover:bg-savana-700"
-              >
-                {t("journeys.seeVehicleDetails")}
-              </Link>
             </div>
           </article>
         ))}
@@ -350,7 +329,7 @@ function TransportPreview() {
         href="/transport"
         className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
       >
-        {t("journeys.findAllVehicles")}
+        {t("journeys.seeTransportDetails")}
       </Link>
     </div>
   );
@@ -361,7 +340,7 @@ function RestaurantPreview() {
 
   return (
     <article className="overflow-hidden rounded-[32px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
-      <div className="grid min-h-[460px] lg:grid-cols-[0.58fr_1fr]">
+      <div className="grid min-h-[460px] gap-3 lg:grid-cols-[0.58fr_1fr]">
         <div className="flex flex-col px-5 py-7 lg:px-8 lg:py-10">
           <h3 className="text-3xl leading-tight font-semibold text-savana-800">
             Waerebo Lodge Restaurant
@@ -369,9 +348,26 @@ function RestaurantPreview() {
           <p className="mt-4 max-w-md text-lg leading-7 font-normal text-pale-savana-400">
             {t("journeys.restaurant.desc")}
           </p>
-          <ul className="mt-4 list-disc pl-6 text-lg leading-7 text-pale-savana-400">
-            <li>....</li>
-          </ul>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="relative h-28 overflow-hidden rounded-2xl">
+              <Image
+                src="/restaurant/favourite%20menu.png"
+                alt="Favourite menu at Waerebo Lodge Restaurant"
+                fill
+                className="object-cover"
+                sizes="180px"
+              />
+            </div>
+            <div className="relative h-28 overflow-hidden rounded-2xl">
+              <Image
+                src="/restaurant/Fresh%20Grilled%20Fish.jpg"
+                alt="Fresh grilled fish at Waerebo Lodge Restaurant"
+                fill
+                className="object-cover"
+                sizes="180px"
+              />
+            </div>
+          </div>
           <Link
             href="/restaurant"
             className="mt-auto flex min-h-14 w-full max-w-[430px] items-center justify-center rounded-xl bg-savana-800 px-5 text-lg font-medium text-white transition-colors hover:bg-savana-700"
@@ -382,7 +378,7 @@ function RestaurantPreview() {
 
         <div className="relative min-h-[320px] overflow-hidden rounded-[24px] lg:min-h-full">
           <Image
-            src="/restaurant/hero.jpg"
+            src="/restaurant/hero-image.jpg"
             alt="Guests sharing a meal at Waerebo Lodge Restaurant"
             fill
             className="object-cover"

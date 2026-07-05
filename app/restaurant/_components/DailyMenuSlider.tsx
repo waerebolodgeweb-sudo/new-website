@@ -3,41 +3,38 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { useLang } from "@/lib/i18n";
 
 const menuItems = [
   {
-    title: "Fried Eggplant",
-    description:
-      "Eggplant slices fried to a golden crisp, served as a savory crunch to complete the main dish.",
+    titleKey: "restaurant.menu.eggplant.title",
+    descriptionKey: "restaurant.menu.eggplant.description",
     image: "/restaurant/Fried%20Eggplant.jpg",
   },
   {
-    title: "Sautéed Greens",
-    description:
-      "Freshly picked, seasonal vegetables stir-fried with aromatic garlic and traditional spices.",
+    titleKey: "restaurant.menu.greens.title",
+    descriptionKey: "restaurant.menu.greens.description",
     image: "/restaurant/Saut%C3%A9ed%20Greens.jpg",
   },
   {
-    title: "Fresh Grilled Fish",
-    description:
-      "Locally sourced fish, marinated in our signature blend of island spices and grilled to perfection.",
+    titleKey: "restaurant.menu.fish.title",
+    descriptionKey: "restaurant.menu.fish.description",
     image: "/restaurant/Fresh%20Grilled%20Fish.jpg",
   },
   {
-    title: "Lodge Breakfast Plate",
-    description:
-      "A comforting start to your day featuring eggs, toast, sweet local bananas, and a warm cup of Waerebo coffee.",
+    titleKey: "restaurant.menu.breakfast.title",
+    descriptionKey: "restaurant.menu.breakfast.description",
     image: "/restaurant/Lodge%20Breakfast%20Plate.jpg",
   },
   {
-    title: "Red Rice",
-    description:
-      "Nutritious, earthy, and grown in the region. The perfect pairing for rich, local flavors.",
+    titleKey: "restaurant.menu.rice.title",
+    descriptionKey: "restaurant.menu.rice.description",
     image: "/restaurant/Red-Rice.jpg",
   },
 ];
 
 export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
+  const { t } = useLang();
   const cardRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(1);
   const [stepWidth, setStepWidth] = useState(324);
@@ -60,7 +57,8 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
   return (
     <section className="pt-20 text-center lg:pt-24">
       <h2 className="text-4xl leading-tight font-normal text-savana-800 sm:text-5xl">
-        Savor Our <span className="font-semibold">Daily Menu</span>
+        {t("restaurant.menu.heading1")}{" "}
+        <span className="font-semibold">{t("restaurant.menu.heading2")}</span>
       </h2>
 
       <div className="relative mt-10 overflow-hidden py-2">
@@ -94,44 +92,48 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
             }px - ${stepWidth / 2 - 12}px))`,
           }}
         >
-          {menuItems.map((item, index) => (
-            <article
-              key={item.title}
-              ref={index === 0 ? cardRef : undefined}
-              data-menu-card
-              className={`w-[min(300px,78vw)] flex-none overflow-hidden rounded-2xl bg-white text-left shadow-xl shadow-black/10 transition-all duration-500 ${
-                index === activeIndex
-                  ? "scale-100 opacity-100"
-                  : "scale-[0.98] opacity-70"
-              }`}
-            >
-              <div className="relative h-[250px]">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="300px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="px-5 py-5">
-                <h3 className="text-2xl font-semibold text-neutral-900">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed font-medium text-neutral-400">
-                  {item.description}
-                </p>
-              </div>
-            </article>
-          ))}
+          {menuItems.map((item, index) => {
+            const title = t(item.titleKey);
+
+            return (
+              <article
+                key={item.titleKey}
+                ref={index === 0 ? cardRef : undefined}
+                data-menu-card
+                className={`w-[min(300px,78vw)] flex-none overflow-hidden rounded-2xl bg-white text-left shadow-xl shadow-black/10 transition-all duration-500 ${
+                  index === activeIndex
+                    ? "scale-100 opacity-100"
+                    : "scale-[0.98] opacity-70"
+                }`}
+              >
+                <div className="relative h-[250px]">
+                  <Image
+                    src={item.image}
+                    alt={title}
+                    fill
+                    sizes="300px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="px-5 py-5">
+                  <h3 className="text-2xl font-semibold text-neutral-900">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed font-medium text-neutral-400">
+                    {t(item.descriptionKey)}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-8 flex justify-center gap-2">
           {menuItems.map((item, index) => (
             <button
               type="button"
-              key={item.title}
-              aria-label={`Show ${item.title}`}
+              key={item.titleKey}
+              aria-label={`Show ${t(item.titleKey)}`}
               onClick={() => selectMenu(index)}
               className={`h-1 w-12 rounded-full transition-colors ${
                 index === activeIndex ? "bg-savana-800" : "bg-savana-200"
@@ -147,7 +149,7 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
         rel="noopener noreferrer"
         className="mx-auto mt-8 flex min-h-14 w-full max-w-[300px] items-center justify-center rounded-lg bg-savana-800 px-6 text-base font-semibold text-white transition-colors hover:bg-savana-700"
       >
-        Book Restaurant Now
+        {t("restaurant.bookNow")}
       </a>
     </section>
   );

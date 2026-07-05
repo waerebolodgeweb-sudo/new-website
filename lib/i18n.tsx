@@ -134,6 +134,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.seeRestaurantDetails": "See Restaurant Details",
     "journeys.seeVehicleDetails": "See Vehicle Details",
     "journeys.findAllVehicles": "Find All Available Vehicle",
+    "journeys.seeTransportDetails": "See Our Transport Details",
     // Trip cards
     "journeys.trip1.title": "1 Day Trekking",
     "journeys.trip1.meta0": "1 Day",
@@ -184,6 +185,61 @@ const dict: Record<Lang, Record<string, string>> = {
       "We offer two vehicle options: an otopool — a diesel truck fitted with wooden bench seating in the back — and a Toyota Innova. Guided by Pak Martin himself, transport can be arranged as part of a full lodge-and-trekking package, or booked as a standalone vehicle rental for your own journey.",
     "transport.bookLabel": "Book Transport",
     "transport.viewLabel": "View Transport",
+    "transport.page.heading": "Transportation Services",
+    "transport.page.subtitle":
+      "Waerebo Lodge offers transportation services that can be booked either as part of your trip package or as a standalone service.",
+    "transport.choose.heading": "Choose Your Ride",
+    "transport.choose.body1":
+      "Choose a vehicle that fits your travel style and group size. For a comfortable, private journey, the Toyota Innova is ideal for couples, families, and small groups with luggage.",
+    "transport.choose.body2":
+      "For an authentic local experience, we offer the Oto Colt, a traditional Flores transport vehicle used for generations. Fitting up to 20 passengers, it is perfect for larger groups, community visits, and cultural adventures.",
+    "transport.choose.body3":
+      "All services operate on request and can be fully customized to your itinerary. We can arrange airport transfers, trips directly to Waerebo, or travel to other destinations across Flores.",
+    "transport.oto.description":
+      "A traditional open-air truck that is perfect for large groups (up to 20 passengers) and cultural adventures.",
+    "transport.innova.description":
+      "A comfortable and private journey. Ideal for couples, families, or small groups traveling with extra luggage.",
+
+    // ── Restaurant page
+    "restaurant.page.heading": "Waerebo Lodge Restaurant",
+    "restaurant.page.subtitle":
+      "Open to everyone-whether you're staying at the lodge, exploring Waerebo Village, or simply passing through Dintor for a peaceful, home-cooked meal.",
+    "restaurant.taste.heading": "A Genuine Taste of Flores",
+    "restaurant.taste.body1":
+      "Every day, our kitchen prepares fresh home cooked dishes using locally sourced ingredients from the surrounding area. Meals are simple, wholesome, and full of local flavor, typically served with white or red rice, fresh vegetables, and a seasonal protein.",
+    "restaurant.taste.body2":
+      "Take your time, enjoy the view, and experience the slower pace of life in rural Flores. Surrounded by rice fields, mountain scenery, and fresh countryside air.",
+    "restaurant.taste.body3":
+      "Dining at Waerebo Lodge is about more than just food, it's about enjoying a genuine taste of Flores.",
+    "restaurant.favorite.heading": "Favourite Menu",
+    "restaurant.favorite.body1":
+      'Guest favorite is our freshly grilled fish, with our signature "Sambal Mati Tempat" a spicy local chili relish that captures the bold flavors of Flores.',
+    "restaurant.favorite.body2":
+      "Depending on the season and the daily catch, we may also serve our delicious home-style free-range chicken, prepared with the same care and freshness.",
+    "restaurant.daily.heading": "Your Daily Meals",
+    "restaurant.daily.body":
+      "Whether you are dining in or heading out, we have you covered:",
+    "restaurant.daily.item1": "Served fresh for breakfast, lunch, and dinner.",
+    "restaurant.daily.item2":
+      "Certain meals are included with your room reservation.",
+    "restaurant.menu.heading1": "Savor Our",
+    "restaurant.menu.heading2": "Daily Menu",
+    "restaurant.menu.eggplant.title": "Fried Eggplant",
+    "restaurant.menu.eggplant.description":
+      "Eggplant slices fried to a golden crisp, served as a savory crunch to complete the main dish.",
+    "restaurant.menu.greens.title": "Sautéed Greens",
+    "restaurant.menu.greens.description":
+      "Freshly picked, seasonal vegetables stir-fried with aromatic garlic and traditional spices.",
+    "restaurant.menu.fish.title": "Fresh Grilled Fish",
+    "restaurant.menu.fish.description":
+      "Locally sourced fish, marinated in our signature blend of island spices and grilled to perfection.",
+    "restaurant.menu.breakfast.title": "Lodge Breakfast Plate",
+    "restaurant.menu.breakfast.description":
+      "A comforting start to your day featuring eggs, toast, sweet local bananas, and a warm cup of Waerebo coffee.",
+    "restaurant.menu.rice.title": "Red Rice",
+    "restaurant.menu.rice.description":
+      "Nutritious, earthy, and grown in the region. The perfect pairing for rich, local flavors.",
+    "restaurant.bookNow": "Book Restaurant Now",
 
     // ── About page — Story
     "about.story.heading1": "The Story",
@@ -298,6 +354,103 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.discoverMore": "Discover More",
     "room.roomOptions": "Room Options",
     "room.seeAllRoom": "See All Room",
+    "room.preview": "Preview",
+    "room.facility": "Room Facility",
+    "room.diningArrangements": "Dining Arrangements",
+    "room.breakfastIncluded": "Breakfast Included",
+    "room.dinnerIncluded": "Dinner Included",
+    "room.lunchNote":
+      "*Lunch is not included in this package. However, it is available for an additional charge.",
+    "room.latestReview": "Latest Review",
+    "room.seeAll": "See all",
+    "cardSpec.people": "2 People",
+    "cardSpec.ac": "AC",
+    "cardSpec.fan": "Fan",
+    "cardSpec.shower": "Hot Water",
+    "cardSpec.bed": "Bed",
+    "facility.wifi": "Wifi",
+    "facility.ac": "Air Conditioning",
+    "facility.fan": "Fan",
+    "facility.shower": "Shower",
+    "facility.hotShower": "Hot Shower",
+    "facility.parking": "Free Parking",
+    "facility.westernToilet": "Western Toilet",
+    "facility.mosquitoNet": "Mosquito Net",
+    "facility.washBasin": "Wash Basin",
+    "facility.waterTub": "Traditional Water Tub & Dipper",
+    "facility.towel": "Towel",
+    "facility.toothbrush": "Toothbrush",
+    "facility.soap": "Soap",
+    "facility.amenities": "Amenities",
+    "facility.toilet": "Bathroom",
+    "rooms.standard-twin-1.description":
+      "Two single beds with a fan and private bathroom. A comfortable and practical choice for friends or trekking partners looking to rest before or after their Waerebo adventure.",
+    "rooms.standard-double.description":
+      "A cozy room with a double bed, fan, and private bathroom. Ideal for couples or solo travelers seeking a peaceful stay surrounded by nature.",
+    "rooms.standard-twin-2.description":
+      "Two single beds with a fan and private bathroom. A comfortable and practical choice for friends or trekking partners looking to rest before or after their Waerebo adventure.",
+    "rooms.wooden-twin-1.description":
+      "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
+    "rooms.wooden-twin-2.description":
+      "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
+    "rooms.wooden-double.description":
+      "A warm wooden room with a double bed, perfect for couples seeking a more authentic and relaxing Flores experience.",
+    "rooms.wooden-twin-3.description":
+      "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
+    "rooms.deluxe-double-1.description":
+      "A spacious air-conditioned room featuring a double bed and private hot shower. Perfect for guests who appreciate extra comfort after a long journey through Flores.",
+    "rooms.deluxe-twin-1.description":
+      "Two single beds with air conditioning and a private hot shower. A comfortable choice for friends and trekking companions looking to recharge before their next adventure.",
+    "rooms.deluxe-double-2.description":
+      "A spacious air-conditioned room featuring a double bed and private hot shower. Perfect for guests who appreciate extra comfort after a long journey through Flores.",
+    "rooms.deluxe-twin-2.description":
+      "Two single beds with air conditioning and a private hot shower. A comfortable choice for friends and trekking companions looking to recharge before their next adventure.",
+    "rooms.standard-twin-1.highlight.capacity": "2 Guests",
+    "rooms.standard-twin-1.highlight.couples": "Perfect for trekking partners",
+    "rooms.standard-twin-1.highlight.bedroom": "Twin Bed",
+    "rooms.standard-twin-1.highlight.bathroom": "Private Bathroom",
+    "rooms.standard-double.highlight.capacity": "2 Guests",
+    "rooms.standard-double.highlight.couples": "Perfect for couples",
+    "rooms.standard-double.highlight.bedroom": "Double Bed",
+    "rooms.standard-double.highlight.bathroom": "Private Bathroom",
+    "rooms.standard-twin-2.highlight.capacity": "2 Guests",
+    "rooms.standard-twin-2.highlight.couples": "Perfect for trekking partners",
+    "rooms.standard-twin-2.highlight.bedroom": "Twin Bed",
+    "rooms.standard-twin-2.highlight.bathroom": "Private Bathroom",
+    "rooms.wooden-twin-1.highlight.capacity": "2 Guests",
+    "rooms.wooden-twin-1.highlight.couples": "Traditional Wooden Room",
+    "rooms.wooden-twin-1.highlight.bedroom": "Twin Bed",
+    "rooms.wooden-twin-1.highlight.bathroom": "Private Bathroom",
+    "rooms.wooden-twin-2.highlight.capacity": "2 Guests",
+    "rooms.wooden-twin-2.highlight.couples": "Traditional Wooden Room",
+    "rooms.wooden-twin-2.highlight.bedroom": "Twin Bed",
+    "rooms.wooden-twin-2.highlight.bathroom": "Private Bathroom",
+    "rooms.wooden-double.highlight.capacity": "2 Guests",
+    "rooms.wooden-double.highlight.couples": "Perfect for couples",
+    "rooms.wooden-double.highlight.bedroom": "Double Bed",
+    "rooms.wooden-double.highlight.bathroom": "Private Bathroom",
+    "rooms.wooden-twin-3.highlight.capacity": "2 Guests",
+    "rooms.wooden-twin-3.highlight.couples": "Traditional Wooden Room",
+    "rooms.wooden-twin-3.highlight.bedroom": "Twin Bed",
+    "rooms.wooden-twin-3.highlight.bathroom": "Private Bathroom",
+    "rooms.deluxe-double-1.highlight.capacity": "2 Guests",
+    "rooms.deluxe-double-1.highlight.couples": "Perfect for couples",
+    "rooms.deluxe-double-1.highlight.bedroom": "Double Bed",
+    "rooms.deluxe-double-1.highlight.bathroom":
+      "Private Bathroom with Hot Shower",
+    "rooms.deluxe-twin-1.highlight.capacity": "2 Guests",
+    "rooms.deluxe-twin-1.highlight.couples": "Perfect for trekking partners",
+    "rooms.deluxe-twin-1.highlight.bedroom": "Twin Bed",
+    "rooms.deluxe-twin-1.highlight.bathroom": "Private Hot Shower",
+    "rooms.deluxe-double-2.highlight.capacity": "2 Guests",
+    "rooms.deluxe-double-2.highlight.couples": "Perfect for couples",
+    "rooms.deluxe-double-2.highlight.bedroom": "Double Bed",
+    "rooms.deluxe-double-2.highlight.bathroom":
+      "Private Bathroom with Hot Shower",
+    "rooms.deluxe-twin-2.highlight.capacity": "2 Guests",
+    "rooms.deluxe-twin-2.highlight.couples": "Perfect for trekking partners",
+    "rooms.deluxe-twin-2.highlight.bedroom": "Twin Bed",
+    "rooms.deluxe-twin-2.highlight.bathroom": "Private Hot Shower",
 
     // ── Lodge page (room catalog)
     "lodge.eyebrow": "Enjoy Your Stay in Our",
@@ -444,6 +597,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.seeRestaurantDetails": "Lihat Detail Restoran",
     "journeys.seeVehicleDetails": "Lihat Detail Kendaraan",
     "journeys.findAllVehicles": "Lihat Semua Kendaraan",
+    "journeys.seeTransportDetails": "Lihat Detail Transportasi Kami",
     // Trip cards
     "journeys.trip1.title": "Trekking 1 Hari",
     "journeys.trip1.meta0": "1 Hari",
@@ -494,6 +648,62 @@ const dict: Record<Lang, Record<string, string>> = {
       "Kami menyediakan dua pilihan kendaraan: otopool — truk diesel dengan kursi kayu di bagian belakang — dan Toyota Innova. Dipandu langsung oleh Pak Martin, transportasi bisa dipadukan dalam paket lodge dan trekking, atau disewa tersendiri tanpa paket apapun.",
     "transport.bookLabel": "Pesan Transportasi",
     "transport.viewLabel": "Lihat Transportasi",
+    "transport.page.heading": "Layanan Transportasi",
+    "transport.page.subtitle":
+      "Waerebo Lodge menyediakan layanan transportasi yang dapat dipesan sebagai bagian dari paket perjalanan Anda atau sebagai layanan terpisah.",
+    "transport.choose.heading": "Pilih Kendaraan Anda",
+    "transport.choose.body1":
+      "Pilih kendaraan yang sesuai dengan gaya perjalanan dan ukuran rombongan Anda. Untuk perjalanan yang nyaman dan privat, Toyota Innova cocok untuk pasangan, keluarga, dan grup kecil dengan bagasi.",
+    "transport.choose.body2":
+      "Untuk pengalaman lokal yang autentik, kami menyediakan Oto Colt, kendaraan tradisional Flores yang telah digunakan selama beberapa generasi. Dengan kapasitas hingga 20 penumpang, kendaraan ini cocok untuk rombongan besar, kunjungan komunitas, dan perjalanan budaya.",
+    "transport.choose.body3":
+      "Semua layanan beroperasi berdasarkan permintaan dan dapat disesuaikan dengan itinerary Anda. Kami dapat mengatur transfer bandara, perjalanan langsung ke Waerebo, atau perjalanan ke destinasi lain di Flores.",
+    "transport.oto.description":
+      "Truk terbuka tradisional yang cocok untuk rombongan besar hingga 20 penumpang dan perjalanan budaya.",
+    "transport.innova.description":
+      "Perjalanan yang nyaman dan privat. Ideal untuk pasangan, keluarga, atau grup kecil yang membawa bagasi tambahan.",
+
+    // ── Restaurant page
+    "restaurant.page.heading": "Restoran Waerebo Lodge",
+    "restaurant.page.subtitle":
+      "Terbuka untuk semua orang, baik Anda menginap di lodge, menjelajahi Desa Waerebo, atau hanya singgah di Dintor untuk menikmati makanan rumahan yang tenang.",
+    "restaurant.taste.heading": "Cita Rasa Flores yang Autentik",
+    "restaurant.taste.body1":
+      "Setiap hari, dapur kami menyiapkan hidangan rumahan segar menggunakan bahan lokal dari sekitar lodge. Makanannya sederhana, sehat, dan penuh cita rasa lokal, biasanya disajikan dengan nasi putih atau nasi merah, sayuran segar, dan lauk musiman.",
+    "restaurant.taste.body2":
+      "Nikmati waktu Anda, pemandangan sekitar, dan ritme hidup pedesaan Flores yang lebih tenang, dikelilingi sawah, pegunungan, dan udara segar.",
+    "restaurant.taste.body3":
+      "Makan di Waerebo Lodge bukan hanya tentang makanan, tetapi tentang menikmati cita rasa Flores yang sesungguhnya.",
+    "restaurant.favorite.heading": "Menu Favorit",
+    "restaurant.favorite.body1":
+      'Favorit tamu adalah ikan bakar segar dengan sambal khas kami, "Sambal Mati Tempat", sambal lokal pedas yang menangkap rasa kuat khas Flores.',
+    "restaurant.favorite.body2":
+      "Tergantung musim dan hasil tangkapan harian, kami juga dapat menyajikan ayam kampung rumahan yang dimasak dengan perhatian dan kesegaran yang sama.",
+    "restaurant.daily.heading": "Makanan Harian Anda",
+    "restaurant.daily.body":
+      "Baik Anda makan di tempat atau bersiap untuk perjalanan, kami menyediakan:",
+    "restaurant.daily.item1":
+      "Disajikan segar untuk sarapan, makan siang, dan makan malam.",
+    "restaurant.daily.item2":
+      "Beberapa makanan sudah termasuk dalam reservasi kamar Anda.",
+    "restaurant.menu.heading1": "Nikmati",
+    "restaurant.menu.heading2": "Menu Harian Kami",
+    "restaurant.menu.eggplant.title": "Terong Goreng",
+    "restaurant.menu.eggplant.description":
+      "Irisan terong yang digoreng hingga renyah keemasan, menjadi pelengkap gurih untuk hidangan utama.",
+    "restaurant.menu.greens.title": "Sayur Tumis",
+    "restaurant.menu.greens.description":
+      "Sayuran musiman segar yang ditumis dengan bawang putih aromatik dan bumbu tradisional.",
+    "restaurant.menu.fish.title": "Ikan Bakar Segar",
+    "restaurant.menu.fish.description":
+      "Ikan lokal yang dimarinasi dengan racikan rempah pulau khas kami, lalu dibakar hingga matang sempurna.",
+    "restaurant.menu.breakfast.title": "Sarapan Lodge",
+    "restaurant.menu.breakfast.description":
+      "Awal hari yang hangat dengan telur, roti panggang, pisang lokal manis, dan secangkir kopi Waerebo.",
+    "restaurant.menu.rice.title": "Nasi Merah",
+    "restaurant.menu.rice.description":
+      "Bergizi, bercita rasa alami, dan tumbuh di wilayah ini. Pasangan sempurna untuk rasa lokal yang kaya.",
+    "restaurant.bookNow": "Pesan Restoran Sekarang",
 
     // ── About page — Story
     "about.story.heading1": "Kisah di Balik",
@@ -609,6 +819,103 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.discoverMore": "Temukan Lebih Banyak",
     "room.roomOptions": "Pilihan Kamar",
     "room.seeAllRoom": "Lihat Semua Kamar",
+    "room.preview": "Pratinjau",
+    "room.facility": "Fasilitas Kamar",
+    "room.diningArrangements": "Pengaturan Makan",
+    "room.breakfastIncluded": "Termasuk Sarapan",
+    "room.dinnerIncluded": "Termasuk Makan Malam",
+    "room.lunchNote":
+      "*Makan siang belum termasuk dalam paket ini. Namun, tersedia dengan biaya tambahan.",
+    "room.latestReview": "Ulasan Terbaru",
+    "room.seeAll": "Lihat semua",
+    "cardSpec.people": "2 Orang",
+    "cardSpec.ac": "AC",
+    "cardSpec.fan": "Kipas",
+    "cardSpec.shower": "Air Panas",
+    "cardSpec.bed": "Tempat Tidur",
+    "facility.wifi": "Wifi",
+    "facility.ac": "AC",
+    "facility.fan": "Kipas",
+    "facility.shower": "Shower",
+    "facility.hotShower": "Shower Air Panas",
+    "facility.parking": "Parkir Gratis",
+    "facility.westernToilet": "Toilet Duduk",
+    "facility.mosquitoNet": "Kelambu",
+    "facility.washBasin": "Wastafel",
+    "facility.waterTub": "Bak Air Tradisional & Gayung",
+    "facility.towel": "Handuk",
+    "facility.toothbrush": "Sikat Gigi",
+    "facility.soap": "Sabun",
+    "facility.amenities": "Amenitas",
+    "facility.toilet": "Kamar Mandi",
+    "rooms.standard-twin-1.description":
+      "Dua tempat tidur single dengan kipas angin dan kamar mandi pribadi. Pilihan nyaman dan praktis untuk teman atau pasangan trekking yang ingin beristirahat sebelum atau setelah petualangan ke Waerebo.",
+    "rooms.standard-double.description":
+      "Kamar nyaman dengan tempat tidur double, kipas angin, dan kamar mandi pribadi. Ideal untuk pasangan atau solo traveler yang mencari suasana tenang di tengah alam.",
+    "rooms.standard-twin-2.description":
+      "Dua tempat tidur single dengan kipas angin dan kamar mandi pribadi. Pilihan nyaman dan praktis untuk teman atau pasangan trekking yang ingin beristirahat sebelum atau setelah petualangan ke Waerebo.",
+    "rooms.wooden-twin-1.description":
+      "Menginap di kamar kayu yang hangat dan mencerminkan karakter tradisional pedesaan Flores. Dilengkapi twin bed dan kamar mandi pribadi untuk pengalaman lodge yang autentik.",
+    "rooms.wooden-twin-2.description":
+      "Menginap di kamar kayu yang hangat dan mencerminkan karakter tradisional pedesaan Flores. Dilengkapi twin bed dan kamar mandi pribadi untuk pengalaman lodge yang autentik.",
+    "rooms.wooden-double.description":
+      "Kamar kayu yang hangat dengan tempat tidur double, cocok untuk pasangan yang mencari pengalaman Flores yang lebih autentik dan menenangkan.",
+    "rooms.wooden-twin-3.description":
+      "Menginap di kamar kayu yang hangat dan mencerminkan karakter tradisional pedesaan Flores. Dilengkapi twin bed dan kamar mandi pribadi untuk pengalaman lodge yang autentik.",
+    "rooms.deluxe-double-1.description":
+      "Kamar luas ber-AC dengan tempat tidur double dan shower air panas pribadi. Cocok untuk tamu yang menginginkan kenyamanan ekstra setelah perjalanan panjang melintasi Flores.",
+    "rooms.deluxe-twin-1.description":
+      "Dua tempat tidur single dengan AC dan shower air panas pribadi. Pilihan nyaman untuk teman atau rekan trekking yang ingin memulihkan energi sebelum petualangan berikutnya.",
+    "rooms.deluxe-double-2.description":
+      "Kamar luas ber-AC dengan tempat tidur double dan shower air panas pribadi. Cocok untuk tamu yang menginginkan kenyamanan ekstra setelah perjalanan panjang melintasi Flores.",
+    "rooms.deluxe-twin-2.description":
+      "Dua tempat tidur single dengan AC dan shower air panas pribadi. Pilihan nyaman untuk teman atau rekan trekking yang ingin memulihkan energi sebelum petualangan berikutnya.",
+    "rooms.standard-twin-1.highlight.capacity": "2 Tamu",
+    "rooms.standard-twin-1.highlight.couples": "Cocok untuk rekan trekking",
+    "rooms.standard-twin-1.highlight.bedroom": "Twin Bed",
+    "rooms.standard-twin-1.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.standard-double.highlight.capacity": "2 Tamu",
+    "rooms.standard-double.highlight.couples": "Cocok untuk pasangan",
+    "rooms.standard-double.highlight.bedroom": "Double Bed",
+    "rooms.standard-double.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.standard-twin-2.highlight.capacity": "2 Tamu",
+    "rooms.standard-twin-2.highlight.couples": "Cocok untuk rekan trekking",
+    "rooms.standard-twin-2.highlight.bedroom": "Twin Bed",
+    "rooms.standard-twin-2.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.wooden-twin-1.highlight.capacity": "2 Tamu",
+    "rooms.wooden-twin-1.highlight.couples": "Kamar Kayu Tradisional",
+    "rooms.wooden-twin-1.highlight.bedroom": "Twin Bed",
+    "rooms.wooden-twin-1.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.wooden-twin-2.highlight.capacity": "2 Tamu",
+    "rooms.wooden-twin-2.highlight.couples": "Kamar Kayu Tradisional",
+    "rooms.wooden-twin-2.highlight.bedroom": "Twin Bed",
+    "rooms.wooden-twin-2.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.wooden-double.highlight.capacity": "2 Tamu",
+    "rooms.wooden-double.highlight.couples": "Cocok untuk pasangan",
+    "rooms.wooden-double.highlight.bedroom": "Double Bed",
+    "rooms.wooden-double.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.wooden-twin-3.highlight.capacity": "2 Tamu",
+    "rooms.wooden-twin-3.highlight.couples": "Kamar Kayu Tradisional",
+    "rooms.wooden-twin-3.highlight.bedroom": "Twin Bed",
+    "rooms.wooden-twin-3.highlight.bathroom": "Kamar Mandi Pribadi",
+    "rooms.deluxe-double-1.highlight.capacity": "2 Tamu",
+    "rooms.deluxe-double-1.highlight.couples": "Cocok untuk pasangan",
+    "rooms.deluxe-double-1.highlight.bedroom": "Double Bed",
+    "rooms.deluxe-double-1.highlight.bathroom":
+      "Kamar Mandi Pribadi dengan Shower Air Panas",
+    "rooms.deluxe-twin-1.highlight.capacity": "2 Tamu",
+    "rooms.deluxe-twin-1.highlight.couples": "Cocok untuk rekan trekking",
+    "rooms.deluxe-twin-1.highlight.bedroom": "Twin Bed",
+    "rooms.deluxe-twin-1.highlight.bathroom": "Shower Air Panas Pribadi",
+    "rooms.deluxe-double-2.highlight.capacity": "2 Tamu",
+    "rooms.deluxe-double-2.highlight.couples": "Cocok untuk pasangan",
+    "rooms.deluxe-double-2.highlight.bedroom": "Double Bed",
+    "rooms.deluxe-double-2.highlight.bathroom":
+      "Kamar Mandi Pribadi dengan Shower Air Panas",
+    "rooms.deluxe-twin-2.highlight.capacity": "2 Tamu",
+    "rooms.deluxe-twin-2.highlight.couples": "Cocok untuk rekan trekking",
+    "rooms.deluxe-twin-2.highlight.bedroom": "Twin Bed",
+    "rooms.deluxe-twin-2.highlight.bathroom": "Shower Air Panas Pribadi",
 
     // ── Lodge page (room catalog)
     "lodge.eyebrow": "Nikmati Menginap di",
