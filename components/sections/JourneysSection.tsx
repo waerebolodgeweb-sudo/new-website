@@ -117,6 +117,25 @@ const transportDefs: TransportCardDef[] = [
   },
 ];
 
+const restaurantSliderImages = [
+  {
+    src: "/restaurant/hero-image.jpg",
+    alt: "Guests sharing a meal at Waerebo Lodge Restaurant",
+  },
+  {
+    src: "/restaurant/favourite%20menu.png",
+    alt: "Favourite menu at Waerebo Lodge Restaurant",
+  },
+  {
+    src: "/restaurant/Fresh%20Grilled%20Fish.jpg",
+    alt: "Fresh grilled fish at Waerebo Lodge Restaurant",
+  },
+  {
+    src: "/restaurant/Lodge%20Breakfast%20Plate.jpg",
+    alt: "Breakfast plate at Waerebo Lodge Restaurant",
+  },
+];
+
 function Card({
   def,
   href,
@@ -337,6 +356,17 @@ function TransportPreview() {
 
 function RestaurantPreview() {
   const { t } = useLang();
+  const [activeImage, setActiveImage] = useState(0);
+
+  const goToPreviousImage = () => {
+    setActiveImage((current) =>
+      current === 0 ? restaurantSliderImages.length - 1 : current - 1
+    );
+  };
+
+  const goToNextImage = () => {
+    setActiveImage((current) => (current + 1) % restaurantSliderImages.length);
+  };
 
   return (
     <article className="overflow-hidden rounded-[32px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
@@ -348,26 +378,6 @@ function RestaurantPreview() {
           <p className="mt-4 max-w-md text-lg leading-7 font-normal text-pale-savana-400">
             {t("journeys.restaurant.desc")}
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <div className="relative h-28 overflow-hidden rounded-2xl">
-              <Image
-                src="/restaurant/favourite%20menu.png"
-                alt="Favourite menu at Waerebo Lodge Restaurant"
-                fill
-                className="object-cover"
-                sizes="180px"
-              />
-            </div>
-            <div className="relative h-28 overflow-hidden rounded-2xl">
-              <Image
-                src="/restaurant/Fresh%20Grilled%20Fish.jpg"
-                alt="Fresh grilled fish at Waerebo Lodge Restaurant"
-                fill
-                className="object-cover"
-                sizes="180px"
-              />
-            </div>
-          </div>
           <Link
             href="/restaurant"
             className="mt-auto flex min-h-14 w-full max-w-[430px] items-center justify-center rounded-xl bg-savana-800 px-5 text-lg font-medium text-white transition-colors hover:bg-savana-700"
@@ -378,18 +388,37 @@ function RestaurantPreview() {
 
         <div className="relative min-h-[320px] overflow-hidden rounded-[24px] lg:min-h-full">
           <Image
-            src="/restaurant/hero-image.jpg"
-            alt="Guests sharing a meal at Waerebo Lodge Restaurant"
+            src={restaurantSliderImages[activeImage].src}
+            alt={restaurantSliderImages[activeImage].alt}
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 60vw, 100vw"
           />
+          <button
+            type="button"
+            onClick={goToPreviousImage}
+            aria-label="Previous restaurant image"
+            className="absolute top-1/2 left-5 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-500 shadow-lg transition-colors hover:text-savana-800"
+          >
+            <IoChevronBack size={26} />
+          </button>
+          <button
+            type="button"
+            onClick={goToNextImage}
+            aria-label="Next restaurant image"
+            className="absolute top-1/2 right-5 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-500 shadow-lg transition-colors hover:text-savana-800"
+          >
+            <IoChevronForward size={26} />
+          </button>
           <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-            {[0, 1, 2, 3].map((item) => (
-              <span
-                key={item}
+            {restaurantSliderImages.map((item, index) => (
+              <button
+                key={item.src}
+                type="button"
+                aria-label={`Show restaurant image ${index + 1}`}
+                onClick={() => setActiveImage(index)}
                 className={`h-1 w-12 rounded-full ${
-                  item === 1 ? "bg-white" : "bg-white/35"
+                  index === activeImage ? "bg-white" : "bg-white/35"
                 }`}
               />
             ))}
