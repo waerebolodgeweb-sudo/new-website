@@ -126,7 +126,7 @@ export default function ContactSection() {
               <p className="text-2xl font-semibold text-white">
                 {t("contact.tile.heartTitle")}
               </p>
-              <p className="text-sm italic text-white/90">
+              <p className="text-sm text-white/90 italic">
                 {t("contact.tile.heartCaption")}
               </p>
             </Link>
@@ -183,7 +183,7 @@ export default function ContactSection() {
                 <p className="text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
                   {t("contact.tile.dintor")}
                 </p>
-                <p className="text-sm italic text-white/90 [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
+                <p className="text-sm text-white/90 italic [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
                   {t("contact.tile.dintorCaption")}
                 </p>
               </div>

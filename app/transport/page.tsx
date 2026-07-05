@@ -50,9 +50,9 @@ export default function TransportPage() {
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-[32px] border-[8px] border-white bg-white shadow-xl shadow-black/10">
-              <div className="grid lg:grid-cols-[540px_1fr]">
-                <div className="bg-savana-200 px-7 py-8 lg:px-8">
+            <div className="overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-xl shadow-black/10">
+              <div className="grid gap-2 lg:grid-cols-[540px_1fr]">
+                <div className="rounded-[28px] bg-savana-200 px-7 py-8 lg:px-8">
                   <h2 className="text-3xl leading-tight font-semibold text-savana-800">
                     Choose Your Ride
                   </h2>
@@ -79,14 +79,14 @@ export default function TransportPage() {
                   </div>
                 </div>
 
-                <div className="relative min-h-[320px] lg:min-h-[440px]">
+                <div className="relative min-h-[320px] rounded-[28px] border-white bg-white lg:min-h-[440px]">
                   <Image
                     src="/transport/hero.jpg"
                     alt="Guests riding local transport to Waerebo Lodge"
                     fill
                     priority
                     sizes="(min-width: 1024px) 65vw, 100vw"
-                    className="object-cover"
+                    className="rounded-[28px] object-cover"
                   />
                 </div>
               </div>
@@ -96,7 +96,7 @@ export default function TransportPage() {
               {rides.map((ride) => (
                 <article
                   key={ride.title}
-                  className="grid overflow-hidden rounded-[32px] border-[8px] border-white bg-white shadow-xl shadow-black/10 sm:grid-cols-[1fr_1.1fr]"
+                  className="grid gap-2 overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-xl shadow-black/10 sm:grid-cols-[1fr_1.1fr]"
                 >
                   <div className="relative min-h-[240px] sm:min-h-[220px]">
                     <Image
@@ -104,10 +104,10 @@ export default function TransportPage() {
                       alt={ride.alt}
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover"
+                      className="rounded-[28px] object-cover"
                     />
                   </div>
-                  <div className="flex flex-col justify-center px-7 py-7">
+                  <div className="flex flex-col justify-center rounded-[28px] bg-savana-50 px-7 py-7">
                     <h2 className="text-3xl font-semibold text-savana-800">
                       {ride.title}
                     </h2>
@@ -118,7 +118,7 @@ export default function TransportPage() {
                       href={bookHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-7 flex min-h-12 items-center justify-center rounded-lg bg-savana-green-700 px-6 text-base font-semibold text-white transition-colors hover:bg-savana-green-600"
+                      className="mt-7 flex min-h-12 items-center justify-center rounded-lg bg-savana-800 px-6 text-base font-semibold text-white transition-colors hover:bg-savana-green-600"
                     >
                       Book Transport
                     </a>

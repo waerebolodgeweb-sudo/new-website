@@ -108,6 +108,9 @@ const deluxeDouble1Gallery = [
 ];
 
 const deluxeDouble2Gallery = [
+  "/lodge/rooms/deluxe-double-2/deluxe-double-2.webp",
+  "/lodge/rooms/deluxe-double-2/IMG_4780.webp",
+  "/lodge/rooms/deluxe-double-2/IMG_4807.webp",
   "/lodge/rooms/deluxe-double-2/IMG_0204 1.png",
   "/lodge/rooms/deluxe-double-2/IMG_0209 1.png",
   "/lodge/rooms/deluxe-double-2/IMG_20240228_160811 1.png",
@@ -341,7 +344,7 @@ export const rooms: Room[] = [
     slug: "deluxe-double-2",
     title: "Deluxe Double Room 10",
     cardTitle: "Deluxe Double 2",
-    cardImage: "/lodge/rooms/deluxe-double-2.jpg",
+    cardImage: "/lodge/rooms/deluxe-double-2.webp",
     description:
       "A spacious air-conditioned room featuring a double bed and private hot shower. Perfect for guests who appreciate extra comfort after a long journey through Flores.",
     cardSpecs: acCardSpecs,

@@ -35,8 +35,8 @@ export default function RestaurantPage() {
               </p>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-[1fr_1.72fr]">
-              <div className="rounded-[32px] border-[8px] border-white bg-white px-7 py-7 shadow-xl shadow-black/10 lg:min-h-[488px]">
+            <div className="grid gap-6 rounded-[36px] bg-white p-2 shadow-xl shadow-black/10 lg:grid-cols-[1fr_1.72fr]">
+              <div className="rounded-[28px] bg-savana-50 px-7 py-7 lg:min-h-[488px]">
                 <h2 className="text-3xl leading-tight font-semibold text-savana-800">
                   A Genuine Taste of Flores
                 </h2>
@@ -60,7 +60,7 @@ export default function RestaurantPage() {
                 </div>
               </div>
 
-              <div className="relative min-h-[340px] overflow-hidden rounded-[32px] border-[8px] border-white bg-white shadow-xl shadow-black/10 lg:min-h-[488px]">
+              <div className="relative min-h-[340px] overflow-hidden rounded-[28px] border-white bg-white lg:min-h-[488px]">
                 <Image
                   src="/restaurant/hero-image.jpg"
                   alt="Guests sharing a home-cooked meal at Waerebo Lodge Restaurant"
@@ -77,36 +77,37 @@ export default function RestaurantPage() {
               </div>
             </div>
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-[1.18fr_0.94fr_0.98fr]">
-              <div className="relative min-h-[250px] overflow-hidden rounded-[32px] border-[8px] border-white bg-white shadow-xl shadow-black/10">
-                <Image
-                  src="/restaurant/favourite%20menu.png"
-                  alt="Fresh fish favourite menu at Waerebo Lodge Restaurant"
-                  fill
-                  sizes="(min-width: 1024px) 36vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
+            <div className="mt-6 flex w-full flex-col gap-6 md:flex-row">
+              <div className="grid rounded-[36px] border-white bg-white shadow-xl shadow-black/10 md:w-2/3 lg:grid-cols-2">
+                <div className="relative min-h-[250px] overflow-hidden rounded-[28px] border-[8px] border-white bg-white">
+                  <Image
+                    src="/restaurant/favourite%20menu.png"
+                    alt="Fresh fish favourite menu at Waerebo Lodge Restaurant"
+                    fill
+                    sizes="(min-width: 1024px) 36vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
 
-              <div className="rounded-[32px] border-[8px] border-white bg-savana-200 px-7 py-7 shadow-xl shadow-black/10">
-                <h2 className="text-3xl font-semibold text-savana-800">
-                  Favourite Menu
-                </h2>
-                <div className="mt-3 space-y-5 text-base leading-relaxed font-medium text-pale-savana-300">
-                  <p>
-                    Guest favorite is our freshly grilled fish, with our
-                    signature &quot;Sambal Mati Tempat&quot; a spicy local chili
-                    relish that captures the bold flavors of Flores.
-                  </p>
-                  <p>
-                    Depending on the season and the daily catch, we may also
-                    serve our delicious home-style free-range chicken, prepared
-                    with the same care and freshness.
-                  </p>
+                <div className="rounded-[32px] border-[8px] border-white bg-savana-200 px-7 py-7">
+                  <h2 className="text-3xl font-semibold text-savana-800">
+                    Favourite Menu
+                  </h2>
+                  <div className="mt-3 space-y-5 text-base leading-relaxed font-medium text-pale-savana-300">
+                    <p>
+                      Guest favorite is our freshly grilled fish, with our
+                      signature &quot;Sambal Mati Tempat&quot; a spicy local
+                      chili relish that captures the bold flavors of Flores.
+                    </p>
+                    <p>
+                      Depending on the season and the daily catch, we may also
+                      serve our delicious home-style free-range chicken,
+                      prepared with the same care and freshness.
+                    </p>
+                  </div>
                 </div>
               </div>
-
-              <div className="rounded-[32px] border-[8px] border-white bg-white px-7 py-7 shadow-xl shadow-black/10">
+              <div className="rounded-[36px] border-8 border-white bg-savana-50 px-7 py-7 shadow-xl shadow-black/10 md:w-1/3">
                 <h2 className="text-3xl font-semibold text-savana-800">
                   Your Daily Meals
                 </h2>

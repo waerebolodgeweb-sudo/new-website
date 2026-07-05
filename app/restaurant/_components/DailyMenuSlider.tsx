@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 const menuItems = [
@@ -38,60 +38,72 @@ const menuItems = [
 ];
 
 export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
-  const trackRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(1);
+  const [stepWidth, setStepWidth] = useState(324);
 
-  const scrollMenu = (direction: -1 | 1) => {
-    const track = trackRef.current;
-    if (!track) return;
+  useEffect(() => {
+    const updateStepWidth = () => {
+      const cardWidth = cardRef.current?.offsetWidth ?? 300;
+      setStepWidth(cardWidth + 24);
+    };
 
-    const card = track.querySelector<HTMLElement>("[data-menu-card]");
-    const scrollAmount = (card?.offsetWidth ?? 300) + 24;
-    const nextIndex = Math.min(
-      menuItems.length - 1,
-      Math.max(0, activeIndex + direction)
-    );
+    updateStepWidth();
+    window.addEventListener("resize", updateStepWidth);
+    return () => window.removeEventListener("resize", updateStepWidth);
+  }, []);
 
-    setActiveIndex(nextIndex);
-    track.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+  const selectMenu = (index: number) => {
+    setActiveIndex(Math.min(menuItems.length - 1, Math.max(0, index)));
   };
 
   return (
-    <section className="pt-20 text-center">
-      <h2 className="text-5xl leading-tight font-normal text-savana-800">
+    <section className="pt-20 text-center lg:pt-24">
+      <h2 className="text-4xl leading-tight font-normal text-savana-800 sm:text-5xl">
         Savor Our <span className="font-semibold">Daily Menu</span>
       </h2>
 
-      <div className="relative mt-10">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-36 bg-gradient-to-r from-[#f8f6ef] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-36 bg-gradient-to-l from-[#f8f6ef] to-transparent" />
+      <div className="relative mt-10 overflow-hidden py-2">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#f8f6ef] to-transparent sm:w-28 lg:w-40" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#f8f6ef] to-transparent sm:w-28 lg:w-40" />
 
         <button
           type="button"
           aria-label="Previous menu item"
-          onClick={() => scrollMenu(-1)}
-          className="absolute top-1/2 left-8 z-20 grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-lg transition-colors hover:text-savana-800"
+          onClick={() => selectMenu(activeIndex - 1)}
+          disabled={activeIndex === 0}
+          className="absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-lg transition-colors hover:text-savana-800 disabled:pointer-events-none disabled:opacity-40 sm:left-8 sm:h-14 sm:w-14"
         >
           <IoChevronBack size={28} />
         </button>
         <button
           type="button"
           aria-label="Next menu item"
-          onClick={() => scrollMenu(1)}
-          className="absolute top-1/2 right-8 z-20 grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-lg transition-colors hover:text-savana-800"
+          onClick={() => selectMenu(activeIndex + 1)}
+          disabled={activeIndex === menuItems.length - 1}
+          className="absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-lg transition-colors hover:text-savana-800 disabled:pointer-events-none disabled:opacity-40 sm:right-8 sm:h-14 sm:w-14"
         >
           <IoChevronForward size={28} />
         </button>
 
         <div
-          ref={trackRef}
-          className="-mx-6 flex snap-x snap-mandatory [scrollbar-width:none] gap-6 overflow-x-auto scroll-smooth px-6 lg:-mx-10 lg:px-10 [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 transition-transform duration-500 ease-out"
+          style={{
+            transform: `translateX(calc(50% - ${
+              activeIndex * stepWidth
+            }px - ${stepWidth / 2 - 12}px))`,
+          }}
         >
-          {menuItems.map((item) => (
+          {menuItems.map((item, index) => (
             <article
               key={item.title}
+              ref={index === 0 ? cardRef : undefined}
               data-menu-card
-              className="w-[300px] flex-none snap-center overflow-hidden rounded-2xl bg-white text-left shadow-xl shadow-black/10"
+              className={`w-[min(300px,78vw)] flex-none overflow-hidden rounded-2xl bg-white text-left shadow-xl shadow-black/10 transition-all duration-500 ${
+                index === activeIndex
+                  ? "scale-100 opacity-100"
+                  : "scale-[0.98] opacity-70"
+              }`}
             >
               <div className="relative h-[250px]">
                 <Image
@@ -116,8 +128,11 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
 
         <div className="mt-8 flex justify-center gap-2">
           {menuItems.map((item, index) => (
-            <span
+            <button
+              type="button"
               key={item.title}
+              aria-label={`Show ${item.title}`}
+              onClick={() => selectMenu(index)}
               className={`h-1 w-12 rounded-full transition-colors ${
                 index === activeIndex ? "bg-savana-800" : "bg-savana-200"
               }`}

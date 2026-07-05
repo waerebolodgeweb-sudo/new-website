@@ -9,7 +9,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* ── Neutral ── */
+  /* Neutral */
   --color-neutral-000: #ffffff;
   --color-neutral-050: #eaeded;
   --color-neutral-100: #cbd0d0;
@@ -23,7 +23,14 @@
   --color-neutral-800: #202526;
   --color-neutral-900: #101313;
 
-  /* ── Grey ── */
+  /* Grey */
+  --color-grey-1: #a5aca4;
+  --color-grey-2: #878f86;
+  --color-grey-3: #6a7169;
+  --color-grey-4: #4c544b;
+  --color-grey-5: #2f362e;
+  --color-grey-6: #262b25;
+  --color-grey-7: #1c201c;
   --color-grey-100: #a5aca4;
   --color-grey-200: #878f86;
   --color-grey-300: #6a7169;
@@ -32,7 +39,14 @@
   --color-grey-600: #262b25;
   --color-grey-700: #1c201c;
 
-  /* ── Light Green ── */
+  /* Light Green */
+  --color-light-green-1: #e9eadb;
+  --color-light-green-3: #bcc193;
+  --color-light-green-5: #90984b;
+  --color-light-green-6: #737a3c;
+  --color-light-green-7: #565b2d;
+  --color-light-green-8: #3a3d1e;
+  --color-light-green-9: #1d1e0f;
   --color-light-green-100: #e9eadb;
   --color-light-green-300: #bcc193;
   --color-light-green-500: #90984b;
@@ -41,13 +55,25 @@
   --color-light-green-800: #3a3d1e;
   --color-light-green-900: #1d1e0f;
 
-  /* ── Green ── */
+  /* Green */
+  --color-green-1: #739d7c;
+  --color-green-2: #5a7c61;
+  --color-green-3: #405a45;
+  --color-green-4: #27392a;
   --color-green-100: #739d7c;
   --color-green-200: #5a7c61;
   --color-green-300: #405a45;
   --color-green-400: #27392a;
 
-  /* ── Pale Green ── */
+  /* Pale Green */
+  --color-pale-green-1: #a8baab;
+  --color-pale-green-2: #8a9d8d;
+  --color-pale-green-3: #6c7f70;
+  --color-pale-green-4: #4e6252;
+  --color-pale-green-5: #304534;
+  --color-pale-green-6: #26372a;
+  --color-pale-green-7: #1d291f;
+  --color-pale-green-8: #131c15;
   --color-pale-green-100: #a8baab;
   --color-pale-green-200: #8a9d8d;
   --color-pale-green-300: #6c7f70;
@@ -57,7 +83,14 @@
   --color-pale-green-700: #1d291f;
   --color-pale-green-800: #131c15;
 
-  /* ── Cream ── */
+  /* Cream */
+  --color-cream-2: #f0e3d3;
+  --color-cream-3: #e9d5bc;
+  --color-cream-5: #dab990;
+  --color-cream-6: #b89b77;
+  --color-cream-7: #977d5d;
+  --color-cream-9: #54412a;
+  --color-cream-10: #322311;
   --color-cream-200: #f0e3d3;
   --color-cream-300: #e9d5bc;
   --color-cream-500: #dab990;
@@ -66,7 +99,17 @@
   --color-cream-900: #54412a;
   --color-cream-1000: #322311;
 
-  /* ── Brown ── */
+  /* Brown */
+  --color-brown-1: #ddcab1;
+  --color-brown-2: #c6ae8d;
+  --color-brown-3: #ae9169;
+  --color-brown-4: #977545;
+  --color-brown-5: #805821;
+  --color-brown-6: #66461a;
+  --color-brown-7: #4d3514;
+  --color-brown-8: #33230d;
+  --color-brown-8_5: #261a0a;
+  --color-brown-9: #1a1207;
   --color-brown-100: #ddcab1;
   --color-brown-200: #c6ae8d;
   --color-brown-300: #ae9169;
@@ -78,7 +121,16 @@
   --color-brown-850: #261a0a;
   --color-brown-900: #1a1207;
 
-  /* ── Yellow ── */
+  /* Yellow */
+  --color-yellow-1: #f3f1d6;
+  --color-yellow-3: #dad685;
+  --color-yellow-4: #cec85c;
+  --color-yellow-5: #c2ba33;
+  --color-yellow-6: #9b9529;
+  --color-yellow-7: #74701f;
+  --color-yellow-8: #4e4a14;
+  --color-yellow-8_5: #3a380f;
+  --color-yellow-9: #27250a;
   --color-yellow-100: #f3f1d6;
   --color-yellow-300: #dad685;
   --color-yellow-400: #cec85c;
@@ -89,21 +141,39 @@
   --color-yellow-850: #3a380f;
   --color-yellow-900: #27250a;
 
-  /* ── Savana ── */
+  /* Savana */
+  --color-savana-0_5: #faf8f2;
+  --color-savana-2: #ded6b1;
+  --color-savana-5: #ac983b;
+  --color-savana-6: #8a7a2f;
+  --color-savana-7: #675b23;
+  --color-savana-8: #453d18;
+  --color-savana-50: #faf8f2;
   --color-savana-200: #ded6b1;
   --color-savana-500: #ac983b;
   --color-savana-600: #8a7a2f;
   --color-savana-700: #675b23;
   --color-savana-800: #453d18;
 
-  /* ── Pale Savana ── */
+  /* Pale Savana */
+  --color-pale-savana-2: #868167;
+  --color-pale-savana-3: #66614c;
+  --color-pale-savana-4: #464231;
+  --color-pale-savana-5: #262316;
+  --color-pale-savana-6: #1e1c12;
   --color-pale-savana-200: #868167;
   --color-pale-savana-300: #66614c;
   --color-pale-savana-400: #464231;
   --color-pale-savana-500: #262316;
   --color-pale-savana-600: #1e1c12;
 
-  /* ── Savana Green ── */
+  /* Savana Green */
+  --color-savana-green-2: #939763;
+  --color-savana-green-3: #727649;
+  --color-savana-green-4: #52562e;
+  --color-savana-green-5: #323514;
+  --color-savana-green-6: #282a10;
+  --color-savana-green-7: #1e200c;
   --color-savana-green-200: #939763;
   --color-savana-green-300: #727649;
   --color-savana-green-400: #52562e;
@@ -121,7 +191,7 @@ body {
   color: var(--foreground);
 }
 
-/* ── Appear-on-scroll animation (applied via <ScrollReveal />) ── */
+/* Appear-on-scroll animation (applied via <ScrollReveal />) */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
