@@ -5,15 +5,17 @@ import Link from "next/link";
 import { useState } from "react";
 import type { IconType } from "react-icons";
 import {
+  IoChevronBack,
+  IoChevronForward,
   IoFlag,
   IoPartlySunny,
   IoPeopleOutline,
   IoBedOutline,
-  IoArrowForwardOutline,
-  IoLogoWhatsapp,
+  IoSnowOutline,
+  IoThermometerOutline,
+  IoLeafOutline,
 } from "react-icons/io5";
-import { restaurantShowcase } from "@/app/restaurant/data";
-import { transportShowcase } from "@/app/transport/data";
+import { rooms, type Room } from "@/app/rooms/data";
 import { useLang } from "@/lib/i18n";
 
 type TabKey = "trip" | "lodge" | "restaurant" | "transport";
@@ -29,6 +31,23 @@ interface JourneyCardDef {
   titleKey: string;
   image: string;
   meta: [CardMetaDef, CardMetaDef];
+  descKey: string;
+}
+
+interface LodgeCardDef {
+  slug: string;
+  title: string;
+  image: string;
+  meta: {
+    icon: IconType;
+    label: string;
+  }[];
+}
+
+interface TransportCardDef {
+  id: string;
+  title: string;
+  image: string;
   descKey: string;
 }
 
@@ -65,36 +84,48 @@ const tripDefs: JourneyCardDef[] = [
   },
 ];
 
-const lodgeDefs: JourneyCardDef[] = [
+const featuredRoomSlugs = [
+  "standard-double",
+  "wooden-twin-1",
+  "deluxe-twin-1",
+  "standard-twin-2",
+  "wooden-double",
+  "deluxe-double-2",
+];
+
+const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], IconType> = {
+  people: IoPeopleOutline,
+  ac: IoSnowOutline,
+  fan: IoLeafOutline,
+  shower: IoThermometerOutline,
+  bed: IoBedOutline,
+};
+
+const lodgeDefs: LodgeCardDef[] = featuredRoomSlugs
+  .map((slug) => rooms.find((room) => room.slug === slug))
+  .filter((room): room is Room => Boolean(room))
+  .map((room) => ({
+    slug: room.slug,
+    title: room.cardTitle ?? room.title,
+    image: room.cardImage ?? room.images[0],
+    meta: room.cardSpecs.map((spec) => ({
+      icon: roomSpecIcon[spec.key],
+      label: spec.label.replace("Guests", "People"),
+    })),
+  }));
+
+const transportDefs: TransportCardDef[] = [
   {
-    id: "twin-ac",
-    titleKey: "journeys.lodge1.title",
-    image: "/lodge/hero-1.jpg",
-    meta: [
-      { icon: IoPeopleOutline, textKey: "journeys.lodge1.meta0" },
-      { icon: IoBedOutline, textKey: "journeys.lodge1.meta1" },
-    ],
-    descKey: "journeys.lodge1.desc",
+    id: "oto-colt",
+    title: "Oto Colt",
+    image: "/transport/oto colt.jpg",
+    descKey: "journeys.transport.oto.desc",
   },
   {
-    id: "double-ac",
-    titleKey: "journeys.lodge2.title",
-    image: "/lodge/hero-2.jpg",
-    meta: [
-      { icon: IoPeopleOutline, textKey: "journeys.lodge2.meta0" },
-      { icon: IoBedOutline, textKey: "journeys.lodge2.meta1" },
-    ],
-    descKey: "journeys.lodge2.desc",
-  },
-  {
-    id: "family-ac",
-    titleKey: "journeys.lodge3.title",
-    image: "/lodge/hero-3.jpg",
-    meta: [
-      { icon: IoPeopleOutline, textKey: "journeys.lodge3.meta0" },
-      { icon: IoBedOutline, textKey: "journeys.lodge3.meta1" },
-    ],
-    descKey: "journeys.lodge3.desc",
+    id: "toyota-innova",
+    title: "Toyota Innova",
+    image: "/transport/toyota innova.jpg",
+    descKey: "journeys.transport.innova.desc",
   },
 ];
 
@@ -159,67 +190,217 @@ function Card({
   );
 }
 
-function ServicePreview({ showcaseKey }: { showcaseKey: "restaurant" | "transport" }) {
+function LodgeCard({ def }: { def: LodgeCardDef }) {
   const { t } = useLang();
-  const data = showcaseKey === "restaurant" ? restaurantShowcase : transportShowcase;
-  const subtitle = t(`${showcaseKey}.subtitle`);
-  const buttonLabel = t(`${showcaseKey}.bookLabel`);
-  const viewLabel = t(`${showcaseKey}.viewLabel`);
 
   return (
-    <div className="grid items-stretch gap-6 lg:grid-cols-2">
-      {/* Hero image */}
-      <div className="relative min-h-[300px] overflow-hidden rounded-[2rem] shadow-sm">
+    <article className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
+      <div className="relative aspect-[1.35] overflow-hidden rounded-[20px]">
         <Image
-          src={data.heroImage}
-          alt={`${data.titleHead}${data.titleTail}`}
+          src={def.image}
+          alt={def.title}
           fill
           className="object-cover"
+          sizes="(min-width: 1024px) 33vw, 100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-        <h3 className="absolute right-6 bottom-6 left-6 text-2xl font-semibold text-white lg:text-3xl">
-          {data.titleHead}
-          <span className="text-pale-green-100">{data.titleTail}</span>
+      </div>
+      <div className="px-3 pt-5 pb-2">
+        <h3 className="text-2xl leading-tight font-semibold text-neutral-900">
+          {def.title}
         </h3>
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-sm font-medium text-neutral-400">
+          {def.meta.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={`${def.slug}-${item.label}`}
+                className="flex items-center gap-3"
+              >
+                {index > 0 && <span className="h-4 w-px bg-neutral-100" />}
+                <span className="flex items-center gap-1.5">
+                  <Icon className="h-4 w-4 text-neutral-200" />
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <Link
+          href={`/rooms/${def.slug}`}
+          className="mt-6 flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-5 text-base font-medium text-white transition-colors hover:bg-savana-700"
+        >
+          {t("journeys.seeLodgeDetails")}
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+function LodgePreview() {
+  const { t } = useLang();
+  const [startIndex, setStartIndex] = useState(0);
+  const pageCount = Math.ceil(lodgeDefs.length / 3);
+  const visibleRooms = [...lodgeDefs, ...lodgeDefs].slice(
+    startIndex,
+    startIndex + 3
+  );
+
+  const goToPrevious = () => {
+    setStartIndex((current) =>
+      current === 0 ? Math.max(lodgeDefs.length - 3, 0) : current - 3
+    );
+  };
+
+  const goToNext = () => {
+    setStartIndex((current) =>
+      current + 3 >= lodgeDefs.length ? 0 : current + 3
+    );
+  };
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={goToPrevious}
+        aria-label="Previous rooms"
+        className="absolute top-[42%] left-0 z-20 hidden h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-white text-savana-500 shadow-[0_12px_35px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 lg:flex"
+      >
+        <IoChevronBack size={28} />
+      </button>
+      <button
+        type="button"
+        onClick={goToNext}
+        aria-label="Next rooms"
+        className="absolute top-[42%] right-0 z-20 hidden h-14 w-14 translate-x-1/2 items-center justify-center rounded-full bg-white text-savana-500 shadow-[0_12px_35px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 lg:flex"
+      >
+        <IoChevronForward size={28} />
+      </button>
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {visibleRooms.map((def) => (
+          <LodgeCard key={`${startIndex}-${def.slug}`} def={def} />
+        ))}
       </div>
 
-      {/* Details */}
-      <div className="flex flex-col">
-        <p className="text-sm leading-relaxed text-neutral-500 lg:text-base">
-          {subtitle}
-        </p>
+      <div className="mt-7 flex justify-center gap-1.5">
+        {Array.from({ length: pageCount }).map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            aria-label={`Show room group ${index + 1}`}
+            onClick={() => setStartIndex(index * 3)}
+            className={`h-1.5 w-12 rounded-full transition-colors ${
+              index === Math.floor(startIndex / 3)
+                ? "bg-savana-800"
+                : "bg-savana-800/25"
+            }`}
+          />
+        ))}
+      </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
-          {data.thumbnails.map((thumb) => (
-            <div
-              key={thumb.src}
-              className="relative h-24 overflow-hidden rounded-2xl shadow-sm lg:h-28"
-            >
-              <Image src={thumb.src} alt={thumb.alt} fill className="object-cover" />
+      <Link
+        href="/lodge"
+        className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+      >
+        {t("journeys.discoverAllRoom")}
+      </Link>
+    </div>
+  );
+}
+
+function TransportPreview() {
+  const { t } = useLang();
+
+  return (
+    <div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        {transportDefs.map((def) => (
+          <article
+            key={def.id}
+            className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
+          >
+            <div className="relative aspect-[1.86] overflow-hidden rounded-[20px]">
+              <Image
+                src={def.image}
+                alt={def.title}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
             </div>
-          ))}
-        </div>
+            <div className="px-3 pt-5 pb-2">
+              <h3 className="text-2xl leading-tight font-semibold text-neutral-900">
+                {def.title}
+              </h3>
+              <p className="mt-3 line-clamp-3 min-h-[72px] text-base leading-6 font-normal text-neutral-500">
+                {t(def.descKey)}
+              </p>
+              <Link
+                href="/transport"
+                className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-5 text-base font-medium text-white transition-colors hover:bg-savana-700"
+              >
+                {t("journeys.seeVehicleDetails")}
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={data.bookHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-[12px] bg-savana-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-savana-700"
-          >
-            <IoLogoWhatsapp className="h-5 w-5" />
-            {buttonLabel}
-          </a>
+      <Link
+        href="/transport"
+        className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+      >
+        {t("journeys.findAllVehicles")}
+      </Link>
+    </div>
+  );
+}
+
+function RestaurantPreview() {
+  const { t } = useLang();
+
+  return (
+    <article className="overflow-hidden rounded-[32px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
+      <div className="grid min-h-[460px] lg:grid-cols-[0.58fr_1fr]">
+        <div className="flex flex-col px-5 py-7 lg:px-8 lg:py-10">
+          <h3 className="text-3xl leading-tight font-semibold text-savana-800">
+            Waerebo Lodge Restaurant
+          </h3>
+          <p className="mt-4 max-w-md text-lg leading-7 font-normal text-pale-savana-400">
+            {t("journeys.restaurant.desc")}
+          </p>
+          <ul className="mt-4 list-disc pl-6 text-lg leading-7 text-pale-savana-400">
+            <li>....</li>
+          </ul>
           <Link
-            href={data.href}
-            className="inline-flex items-center gap-1.5 rounded-[12px] border border-pale-green-100 px-5 py-3 text-base font-medium text-neutral-900 transition-colors hover:bg-light-green-100"
+            href="/restaurant"
+            className="mt-auto flex min-h-14 w-full max-w-[430px] items-center justify-center rounded-xl bg-savana-800 px-5 text-lg font-medium text-white transition-colors hover:bg-savana-700"
           >
-            {viewLabel}
-            <IoArrowForwardOutline className="h-4 w-4" />
+            {t("journeys.seeRestaurantDetails")}
           </Link>
         </div>
+
+        <div className="relative min-h-[320px] overflow-hidden rounded-[24px] lg:min-h-full">
+          <Image
+            src="/restaurant/hero.jpg"
+            alt="Guests sharing a meal at Waerebo Lodge Restaurant"
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 60vw, 100vw"
+          />
+          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+            {[0, 1, 2, 3].map((item) => (
+              <span
+                key={item}
+                className={`h-1 w-12 rounded-full ${
+                  item === 1 ? "bg-white" : "bg-white/35"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -241,7 +422,9 @@ export default function JourneysSection() {
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <h2 className="text-3xl leading-tight text-neutral-900 lg:text-5xl">
                 {t(`journeys.${activeTab}.head`)}
-                <span className="font-semibold">{t(`journeys.${activeTab}.emph`)}</span>
+                <span className="font-semibold">
+                  {t(`journeys.${activeTab}.emph`)}
+                </span>
               </h2>
 
               <div className="flex gap-0 overflow-x-auto overflow-y-hidden border-b border-neutral-100">
@@ -249,9 +432,9 @@ export default function JourneysSection() {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`-mb-px border-b-2 px-5 pb-3 text-sm md:text-lg font-semibold whitespace-nowrap transition-colors ${
+                    className={`-mb-px border-b-2 px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors md:text-lg ${
                       activeTab === tab
-                        ? "border-savana-600 border-b-4 text-neutral-900"
+                        ? "border-b-4 border-savana-600 text-neutral-900"
                         : "border-transparent text-neutral-300 hover:text-neutral-900"
                     }`}
                   >
@@ -278,26 +461,11 @@ export default function JourneysSection() {
           </div>
         )}
 
-        {activeTab === "lodge" && (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {lodgeDefs.map((def) => (
-              <Card
-                key={def.id}
-                def={def}
-                href="/lodge"
-                labelKey="journeys.seeLodgeDetails"
-              />
-            ))}
-          </div>
-        )}
+        {activeTab === "lodge" && <LodgePreview />}
 
-        {activeTab === "restaurant" && (
-          <ServicePreview showcaseKey="restaurant" />
-        )}
+        {activeTab === "restaurant" && <RestaurantPreview />}
 
-        {activeTab === "transport" && (
-          <ServicePreview showcaseKey="transport" />
-        )}
+        {activeTab === "transport" && <TransportPreview />}
       </div>
     </section>
   );

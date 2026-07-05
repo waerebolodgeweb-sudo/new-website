@@ -118,18 +118,22 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.trip.eyebrow": "The Adventure",
     "journeys.trip.head": "Curated Highland ",
     "journeys.trip.emph": "Journeys",
-    "journeys.lodge.eyebrow": "The Stay",
-    "journeys.lodge.head": "Rooms at the ",
-    "journeys.lodge.emph": "Lodge",
-    "journeys.restaurant.eyebrow": "The Table",
-    "journeys.restaurant.head": "A Taste of ",
-    "journeys.restaurant.emph": "Flores",
-    "journeys.transport.eyebrow": "On the Road",
-    "journeys.transport.head": "Getting You ",
-    "journeys.transport.emph": "There",
+    "journeys.lodge.eyebrow": "Your Stay",
+    "journeys.lodge.head": "Rest Before the ",
+    "journeys.lodge.emph": "Ascent.",
+    "journeys.restaurant.eyebrow": "Food & Beverage",
+    "journeys.restaurant.head": "Authentic Local ",
+    "journeys.restaurant.emph": "Flavors.",
+    "journeys.transport.eyebrow": "Transportation",
+    "journeys.transport.head": "Effortless ",
+    "journeys.transport.emph": "Travel Solutions.",
     "journeys.available": "Available",
     "journeys.seeTripDetails": "See Trip Details",
-    "journeys.seeLodgeDetails": "See Lodge Details",
+    "journeys.seeLodgeDetails": "See Details",
+    "journeys.discoverAllRoom": "Discover All Room",
+    "journeys.seeRestaurantDetails": "See Restaurant Details",
+    "journeys.seeVehicleDetails": "See Vehicle Details",
+    "journeys.findAllVehicles": "Find All Available Vehicle",
     // Trip cards
     "journeys.trip1.title": "1 Day Trekking",
     "journeys.trip1.meta0": "1 Day",
@@ -162,6 +166,12 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.lodge3.meta1": "Fan · Shower",
     "journeys.lodge3.desc":
       "Two single beds cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. Simple, clean, and everything you need before your ascent.",
+    "journeys.restaurant.desc":
+      "Enjoy meals prepared directly for your adventure, including breakfast and dinner at the lodge. We also provide practical lunch boxes for your trekking journey and authentic Waerebo coffee to complete your cultural experience.",
+    "journeys.transport.oto.desc":
+      "For larger groups or travelers looking for a more authentic local experience, we also offer the OTO COLT a traditional Flores transport vehicle that has been part of daily life in the region for generations. With capacity for up to 20 passengers, it is perfect for groups.",
+    "journeys.transport.innova.desc":
+      "Comfortable and private journey, we provide a Toyota Innova, ideal for couples, families, or small groups with luggage.",
 
     // ── Restaurant showcase
     "restaurant.subtitle":
@@ -419,17 +429,21 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.trip.head": "Paket Perjalanan Highland ",
     "journeys.trip.emph": "Pilihan",
     "journeys.lodge.eyebrow": "Tempat Menginap",
-    "journeys.lodge.head": "Kamar di ",
-    "journeys.lodge.emph": "Lodge",
-    "journeys.restaurant.eyebrow": "Sajian Meja",
-    "journeys.restaurant.head": "Cita Rasa ",
-    "journeys.restaurant.emph": "Flores",
-    "journeys.transport.eyebrow": "Di Perjalanan",
-    "journeys.transport.head": "Mengantar ",
-    "journeys.transport.emph": "Anda",
+    "journeys.lodge.head": "Istirahat Sebelum ",
+    "journeys.lodge.emph": "Pendakian.",
+    "journeys.restaurant.eyebrow": "Makanan & Minuman",
+    "journeys.restaurant.head": "Cita Rasa Lokal ",
+    "journeys.restaurant.emph": "Autentik.",
+    "journeys.transport.eyebrow": "Transportasi",
+    "journeys.transport.head": "Solusi Perjalanan ",
+    "journeys.transport.emph": "Mudah.",
     "journeys.available": "Tersedia",
     "journeys.seeTripDetails": "Lihat Detail Trip",
-    "journeys.seeLodgeDetails": "Lihat Detail Penginapan",
+    "journeys.seeLodgeDetails": "Lihat Detail",
+    "journeys.discoverAllRoom": "Lihat Semua Kamar",
+    "journeys.seeRestaurantDetails": "Lihat Detail Restoran",
+    "journeys.seeVehicleDetails": "Lihat Detail Kendaraan",
+    "journeys.findAllVehicles": "Lihat Semua Kendaraan",
     // Trip cards
     "journeys.trip1.title": "Trekking 1 Hari",
     "journeys.trip1.meta0": "1 Hari",
@@ -462,6 +476,12 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.lodge3.meta1": "Kipas · Shower",
     "journeys.lodge3.desc":
       "Dua kasur tunggal dengan kipas angin dan kamar mandi pribadi — shower dan bak mandi tradisional. Sederhana, bersih, dan semua yang Anda butuhkan sebelum pendakian.",
+    "journeys.restaurant.desc":
+      "Nikmati hidangan yang disiapkan langsung untuk perjalanan Anda, termasuk sarapan dan makan malam di lodge. Kami juga menyediakan kotak makan siang praktis untuk trekking dan kopi Waerebo autentik untuk melengkapi pengalaman budaya Anda.",
+    "journeys.transport.oto.desc":
+      "Untuk rombongan besar atau wisatawan yang ingin pengalaman lokal yang lebih autentik, kami menyediakan OTO COLT, kendaraan tradisional Flores yang telah menjadi bagian dari kehidupan sehari-hari di wilayah ini. Dengan kapasitas hingga 20 penumpang, kendaraan ini cocok untuk rombongan.",
+    "journeys.transport.innova.desc":
+      "Perjalanan yang nyaman dan privat dengan Toyota Innova, ideal untuk pasangan, keluarga, atau grup kecil dengan bagasi.",
 
     // ── Restaurant showcase
     "restaurant.subtitle":

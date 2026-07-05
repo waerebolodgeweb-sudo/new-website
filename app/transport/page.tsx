@@ -14,7 +14,7 @@ const rides = [
   {
     title: "Oto Colt",
     description:
-      "A traditional open-air truck that is perfect for large groups (up to 10 passengers) and cultural adventures.",
+      "A traditional open-air truck that is perfect for large groups (up to 20 passengers) and cultural adventures.",
     image: "/transport/oto colt.jpg",
     alt: "Travelers boarding the Oto Colt transport truck",
   },
