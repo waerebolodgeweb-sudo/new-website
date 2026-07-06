@@ -262,7 +262,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Sincere greetings from the heart of Flores. We are Martin and Isabela Anggo, and we built Waerebo Lodge after being inspired by community-based ecotourism in 2007. Our goal is to provide a comfortable resting place for travelers while giving back to the Waerebo community. Come and take a break with us before your ascent.",
     "about.story.martinName.old": "Mr. Martin",
     "about.story.martinBio":
-      "Mr. Martin was born in Waerebo in 1969 and has been a dedicated local guide since 2003. His wife, Isabela, is the general manager who loves cooking and is always excited to try recipes from her guests’ home countries!",
+      "Born in Waerebo Village in 1969, Martin has been a dedicated local guide since 2003. For more than two decades, he has introduced visitors from around the world to the culture, traditions, and natural beauty of Waerebo. As the founder of Waerebo Lodge, Martin enjoys sharing stories about village life and helping guests experience the authentic spirit of Waerebo and Flores.",
 
     // ── About page — Offer grid
     "about.offer.eyebrow": "Our Services",
@@ -299,7 +299,7 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── FAQ page
     "about.story.body":
-      "We are Martin and Isabela Anggo, the founders of Waerebo Lodge.\n\nWhat began as a simple idea to welcome travelers visiting Waerebo grew into Waerebo Lodge in 2010, a peaceful resting place before and after the journey to the mountain village. Rooted in the heart of Flores, the lodge was created to offer comfort, hospitality, and a genuine connection to the local community.\n\nWaerebo Lodge was built with a simple purpose: to provide a comfortable place for travelers to rest while sharing the journey to Waerebo Village. We support local families, preserve culture, and help every guest experience Flores with warmth and care.\n\nWe invite you to slow down, experience the peaceful beauty of rural Flores, enjoy genuine local hospitality, and become part of the story that continues to grow here.",
+      "We are Martin and Isabela Anggo, the founders of Waerebo Lodge.\n\nWhat began as a simple dream to welcome travelers visiting Waerebo grew into Waerebo Lodge in 2010, starting with just three modest guest rooms. Isabela, known for her warm hospitality and love of local cooking, has always been at the heart of the guest experience. As more travelers discovered the beauty of Waerebo, the lodge gradually expanded into the eleven-room property you see today.\n\nWaerebo Lodge was built with a simple purpose: to provide a comfortable place for travelers to rest before and after their journey to Waerebo Village, while supporting community-based tourism and creating benefits for local families.\n\nWe invite you to slow down, experience the peaceful beauty of rural Flores, enjoy genuine local hospitality, and become part of the story that continues to grow here.",
     "about.story.martinName": "Mr. Martin & Mrs. Isabela",
     "about.history.eyebrow": "Our History",
     "about.history.heading1": "The Journey of",
@@ -773,7 +773,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Salam tulus dari jantung Flores. Kami adalah Martin dan Isabela Anggo, yang membangun Waerebo Lodge terinspirasi dari ekowisata berbasis komunitas pada tahun 2007. Tujuan kami adalah menyediakan tempat istirahat yang nyaman bagi wisatawan sambil memberi kembali kepada komunitas Waerebo. Singgahlah bersama kami sebelum pendakianmu.",
     "about.story.martinName.old": "Pak Martin",
     "about.story.martinBio":
-      "Pak Martin lahir di Waerebo pada tahun 1969 dan telah menjadi pemandu lokal yang berdedikasi sejak 2003. Istrinya, Isabela, adalah manajer umum yang gemar memasak dan selalu antusias mencoba resep dari negara asal para tamunya!",
+      "Lahir di Desa Waerebo pada tahun 1969, Martin telah menjadi pemandu lokal yang berdedikasi sejak 2003. Selama lebih dari dua dekade, ia memperkenalkan budaya, tradisi, dan keindahan alam Waerebo kepada pengunjung dari seluruh dunia. Sebagai pendiri Waerebo Lodge, Martin senang berbagi cerita tentang kehidupan desa dan membantu tamu merasakan semangat autentik Waerebo dan Flores.",
 
     // ── About page — Offer grid
     "about.offer.eyebrow": "Layanan Kami",
@@ -810,7 +810,7 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── FAQ page
     "about.story.body":
-      "Kami adalah Martin dan Isabela Anggo, pendiri Waerebo Lodge.\n\nBerawal dari gagasan sederhana untuk menyambut wisatawan yang berkunjung ke Waerebo, Waerebo Lodge tumbuh pada tahun 2010 menjadi tempat beristirahat yang tenang sebelum dan sesudah perjalanan menuju desa di pegunungan. Berakar di jantung Flores, lodge ini dibuat untuk menghadirkan kenyamanan, keramahan, dan hubungan yang tulus dengan masyarakat setempat.\n\nWaerebo Lodge dibangun dengan tujuan sederhana: menyediakan tempat istirahat yang nyaman bagi wisatawan sambil berbagi perjalanan menuju Desa Waerebo. Kami mendukung keluarga lokal, menjaga budaya, dan membantu setiap tamu merasakan Flores dengan hangat dan penuh perhatian.\n\nKami mengundang Anda untuk melambat sejenak, menikmati keindahan Flores yang damai, merasakan keramahan lokal yang tulus, dan menjadi bagian dari cerita yang terus tumbuh di sini.",
+      "Kami adalah Martin dan Isabela Anggo, pendiri Waerebo Lodge.\n\nBerawal dari mimpi sederhana untuk menyambut wisatawan yang berkunjung ke Waerebo, Waerebo Lodge berdiri pada tahun 2010 dengan hanya tiga kamar tamu sederhana. Isabela, yang dikenal dengan keramahan hangat dan kecintaannya pada masakan lokal, selalu menjadi bagian penting dari pengalaman para tamu. Seiring semakin banyak wisatawan menemukan keindahan Waerebo, lodge ini perlahan berkembang menjadi properti sebelas kamar seperti yang Anda lihat hari ini.\n\nWaerebo Lodge dibangun dengan tujuan sederhana: menyediakan tempat yang nyaman bagi wisatawan untuk beristirahat sebelum dan sesudah perjalanan mereka ke Desa Waerebo, sambil mendukung pariwisata berbasis komunitas dan menciptakan manfaat bagi keluarga lokal.\n\nKami mengundang Anda untuk melambat sejenak, menikmati keindahan Flores yang damai, merasakan keramahan lokal yang tulus, dan menjadi bagian dari cerita yang terus tumbuh di sini.",
     "about.story.martinName": "Pak Martin & Ibu Isabela",
     "about.history.eyebrow": "Sejarah Kami",
     "about.history.heading1": "Perjalanan",
