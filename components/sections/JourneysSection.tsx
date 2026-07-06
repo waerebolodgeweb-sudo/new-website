@@ -210,7 +210,7 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
 
   return (
     <article className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
-      <div className="relative aspect-[1.35] overflow-hidden rounded-[20px]">
+      <div className="relative aspect-[7.62/4] overflow-hidden rounded-[20px]">
         <Image
           src={def.image}
           alt={def.title}

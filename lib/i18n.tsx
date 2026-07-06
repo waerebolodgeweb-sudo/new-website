@@ -258,9 +258,9 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── About page — Story
     "about.story.heading1": "The Story",
     "about.story.heading2": "Behind the Lodge",
-    "about.story.body":
+    "about.story.body.old":
       "Sincere greetings from the heart of Flores. We are Martin and Isabela Anggo, and we built Waerebo Lodge after being inspired by community-based ecotourism in 2007. Our goal is to provide a comfortable resting place for travelers while giving back to the Waerebo community. Come and take a break with us before your ascent.",
-    "about.story.martinName": "Mr. Martin",
+    "about.story.martinName.old": "Mr. Martin",
     "about.story.martinBio":
       "Mr. Martin was born in Waerebo in 1969 and has been a dedicated local guide since 2003. His wife, Isabela, is the general manager who loves cooking and is always excited to try recipes from her guests’ home countries!",
 
@@ -285,19 +285,52 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── About page — History
     "about.history.heading": "Our History",
-    "about.history.body":
+    "about.history.body.old":
       "From a single shelter at the trailhead to a beloved basecamp — a look back at the milestones that shaped Waerebo Lodge and its bond with the community.",
-    "about.history.m1.title": "Where It All Began",
-    "about.history.m1.text":
+    "about.history.m1.title.old": "Where It All Began",
+    "about.history.m1.text.old":
       "Inspired by community-based ecotourism, Martin and Isabela laid the first stones of Waerebo Lodge — a humble resting place at the foot of the trail.",
-    "about.history.m2.title": "Growing With the Village",
-    "about.history.m2.text":
+    "about.history.m2.title.old": "Growing With the Village",
+    "about.history.m2.text.old":
       "As more travelers discovered Wae Rebo, the lodge grew alongside the community — adding comfortable rooms, a kitchen, and trusted local guides.",
-    "about.history.m3.title": "A Living Gateway to the Clouds",
-    "about.history.m3.text":
+    "about.history.m3.title.old": "A Living Gateway to the Clouds",
+    "about.history.m3.text.old":
       "Today the lodge welcomes guests from around the world, giving back to the Waerebo community while offering the perfect basecamp before the ascent.",
 
     // ── FAQ page
+    "about.story.body":
+      "We are Martin and Isabela Anggo, the founders of Waerebo Lodge.\n\nWhat began as a simple idea to welcome travelers visiting Waerebo grew into Waerebo Lodge in 2010, a peaceful resting place before and after the journey to the mountain village. Rooted in the heart of Flores, the lodge was created to offer comfort, hospitality, and a genuine connection to the local community.\n\nWaerebo Lodge was built with a simple purpose: to provide a comfortable place for travelers to rest while sharing the journey to Waerebo Village. We support local families, preserve culture, and help every guest experience Flores with warmth and care.\n\nWe invite you to slow down, experience the peaceful beauty of rural Flores, enjoy genuine local hospitality, and become part of the story that continues to grow here.",
+    "about.story.martinName": "Mr. Martin & Mrs. Isabela",
+    "about.history.eyebrow": "Our History",
+    "about.history.heading1": "The Journey of",
+    "about.history.heading2": "Waerebo Lodge",
+    "about.history.body":
+      "The journey of Waerebo Lodge is about more than building a place to stay. Growing alongside the Waerebo community, the lodge has evolved from a humble family-run guesthouse into a gateway for travelers seeking the natural beauty of Flores, the richness of local culture, and the genuine hospitality passed down through generations.",
+    "about.history.m1.title": "Where It All Began",
+    "about.history.m1.text":
+      "Inspired by the spirit of community-based ecotourism, Martin and Isabela founded Waerebo Lodge as a simple resting place for travelers visiting Waerebo Village. At the time, the lodge consisted of just three guest rooms and was entirely managed by the family.",
+    "about.history.m2.title": "More Travelers, More Stories",
+    "about.history.m2.text":
+      "As word of Waerebo's beauty began to spread, more travelers made the journey to this remote mountain village. To welcome them, four additional wooden rooms were added, allowing more guests to rest comfortably before and after their trek.",
+    "about.history.m3.title": "A Home Away from Home",
+    "about.history.m3.text":
+      "With visitor numbers continuing to grow, so did the stories, friendships, and cultural exchanges taking place at the lodge. Two more rooms were added, and Waerebo Lodge gradually became known as a gathering place for travelers from around the world seeking an authentic Flores experience.",
+    "about.history.m4.title": "Comfort for Modern Travelers",
+    "about.history.m4.text":
+      "After years of welcoming trekkers and adventurers, we introduced two new rooms featuring air conditioning and hot showers. These additions provided extra comfort for guests while maintaining the warm and personal atmosphere that defines Waerebo Lodge.",
+    "about.history.m5.title": "Growing Together with the Community",
+    "about.history.m5.text":
+      "The journey of Waerebo Lodge has always been closely connected to the people of Dintor and Waerebo. Together with local guides, farmers, fishermen, and village families, we continue to build a tourism experience that supports the local economy while preserving the region's culture and traditions.",
+    "about.history.m6.title": "Welcoming a New Generation of Travelers",
+    "about.history.m6.text":
+      "As travel expectations evolved, some of our rooms were thoughtfully renovated to provide greater comfort and convenience while preserving the simple charm and relaxed atmosphere that guests have come to love.",
+    "about.history.m7.title": "Preserving Tradition, Improving Comfort",
+    "about.history.m7.text":
+      "Our journey continues. Additional room upgrades were completed to enhance the guest experience while staying true to the values that have guided us from the beginning: genuine hospitality, simplicity, and a deep connection to nature and local culture.",
+    "about.history.m8.title": "The Gateway to Waerebo",
+    "about.history.m8.text":
+      "Today, Waerebo Lodge welcomes guests from all over the world. More than just a place to stay, it serves as a gateway to Waerebo Village, a place where local culture, the natural beauty of Flores, and heartfelt hospitality come together to create unforgettable experiences.",
+
     "faq.heading1": "Got Questions?",
     "faq.heading2": "We’ve Got Answers.",
     "faq.cat.trip": "Trip",
@@ -736,9 +769,9 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── About page — Story
     "about.story.heading1": "Kisah di Balik",
     "about.story.heading2": "Lodge Ini",
-    "about.story.body":
+    "about.story.body.old":
       "Salam tulus dari jantung Flores. Kami adalah Martin dan Isabela Anggo, yang membangun Waerebo Lodge terinspirasi dari ekowisata berbasis komunitas pada tahun 2007. Tujuan kami adalah menyediakan tempat istirahat yang nyaman bagi wisatawan sambil memberi kembali kepada komunitas Waerebo. Singgahlah bersama kami sebelum pendakianmu.",
-    "about.story.martinName": "Pak Martin",
+    "about.story.martinName.old": "Pak Martin",
     "about.story.martinBio":
       "Pak Martin lahir di Waerebo pada tahun 1969 dan telah menjadi pemandu lokal yang berdedikasi sejak 2003. Istrinya, Isabela, adalah manajer umum yang gemar memasak dan selalu antusias mencoba resep dari negara asal para tamunya!",
 
@@ -763,19 +796,52 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── About page — History
     "about.history.heading": "Sejarah Kami",
-    "about.history.body":
+    "about.history.body.old":
       "Dari sebuah tempat singgah kecil di awal jalur hingga menjadi basecamp yang dicintai — kilas balik tonggak-tonggak yang membentuk Waerebo Lodge dan keterikatan kami dengan komunitas.",
-    "about.history.m1.title": "Di Sinilah Segalanya Bermula",
-    "about.history.m1.text":
+    "about.history.m1.title.old": "Di Sinilah Segalanya Bermula",
+    "about.history.m1.text.old":
       "Terinspirasi oleh ekowisata berbasis komunitas, Martin dan Isabela meletakkan batu pertama Waerebo Lodge — tempat istirahat sederhana di kaki jalur pendakian.",
-    "about.history.m2.title": "Tumbuh Bersama Desa",
-    "about.history.m2.text":
+    "about.history.m2.title.old": "Tumbuh Bersama Desa",
+    "about.history.m2.text.old":
       "Seiring semakin banyak wisatawan yang menemukan Wae Rebo, lodge ini tumbuh bersama komunitas — menambah kamar-kamar nyaman, dapur, dan pemandu lokal terpercaya.",
-    "about.history.m3.title": "Gerbang Hidup Menuju Awan",
-    "about.history.m3.text":
+    "about.history.m3.title.old": "Gerbang Hidup Menuju Awan",
+    "about.history.m3.text.old":
       "Kini lodge ini menyambut tamu dari seluruh dunia, memberi kembali kepada komunitas Waerebo sambil menawarkan basecamp terbaik sebelum pendakian.",
 
     // ── FAQ page
+    "about.story.body":
+      "Kami adalah Martin dan Isabela Anggo, pendiri Waerebo Lodge.\n\nBerawal dari gagasan sederhana untuk menyambut wisatawan yang berkunjung ke Waerebo, Waerebo Lodge tumbuh pada tahun 2010 menjadi tempat beristirahat yang tenang sebelum dan sesudah perjalanan menuju desa di pegunungan. Berakar di jantung Flores, lodge ini dibuat untuk menghadirkan kenyamanan, keramahan, dan hubungan yang tulus dengan masyarakat setempat.\n\nWaerebo Lodge dibangun dengan tujuan sederhana: menyediakan tempat istirahat yang nyaman bagi wisatawan sambil berbagi perjalanan menuju Desa Waerebo. Kami mendukung keluarga lokal, menjaga budaya, dan membantu setiap tamu merasakan Flores dengan hangat dan penuh perhatian.\n\nKami mengundang Anda untuk melambat sejenak, menikmati keindahan Flores yang damai, merasakan keramahan lokal yang tulus, dan menjadi bagian dari cerita yang terus tumbuh di sini.",
+    "about.story.martinName": "Pak Martin & Ibu Isabela",
+    "about.history.eyebrow": "Sejarah Kami",
+    "about.history.heading1": "Perjalanan",
+    "about.history.heading2": "Waerebo Lodge",
+    "about.history.body":
+      "Perjalanan Waerebo Lodge bukan hanya tentang membangun tempat menginap. Tumbuh bersama komunitas Waerebo, lodge ini berkembang dari penginapan keluarga yang sederhana menjadi gerbang bagi wisatawan yang mencari keindahan alam Flores, kekayaan budaya lokal, dan keramahan tulus yang diwariskan lintas generasi.",
+    "about.history.m1.title": "Di Sinilah Segalanya Bermula",
+    "about.history.m1.text":
+      "Terinspirasi oleh semangat ekowisata berbasis komunitas, Martin dan Isabela mendirikan Waerebo Lodge sebagai tempat istirahat sederhana bagi wisatawan yang mengunjungi Desa Waerebo. Saat itu lodge hanya memiliki tiga kamar dan dikelola sepenuhnya oleh keluarga.",
+    "about.history.m2.title": "Lebih Banyak Tamu, Lebih Banyak Cerita",
+    "about.history.m2.text":
+      "Ketika keindahan Waerebo mulai dikenal lebih luas, semakin banyak wisatawan melakukan perjalanan menuju desa pegunungan ini. Untuk menyambut mereka, empat kamar kayu tambahan dibangun agar lebih banyak tamu dapat beristirahat dengan nyaman sebelum dan sesudah trekking.",
+    "about.history.m3.title": "Rumah Kedua yang Hangat",
+    "about.history.m3.text":
+      "Seiring jumlah pengunjung terus bertambah, begitu pula cerita, persahabatan, dan pertukaran budaya yang terjadi di lodge. Dua kamar lagi ditambahkan, dan Waerebo Lodge perlahan dikenal sebagai tempat berkumpul wisatawan dari berbagai negara yang mencari pengalaman Flores yang autentik.",
+    "about.history.m4.title": "Kenyamanan untuk Wisatawan Modern",
+    "about.history.m4.text":
+      "Setelah bertahun-tahun menyambut para trekker dan petualang, kami menambahkan dua kamar baru dengan fasilitas AC dan air panas. Tambahan ini memberi kenyamanan lebih bagi tamu, sambil tetap menjaga suasana hangat dan personal khas Waerebo Lodge.",
+    "about.history.m5.title": "Tumbuh Bersama Komunitas",
+    "about.history.m5.text":
+      "Perjalanan Waerebo Lodge selalu terhubung erat dengan masyarakat Dintor dan Waerebo. Bersama pemandu lokal, petani, nelayan, dan keluarga desa, kami terus membangun pengalaman wisata yang mendukung ekonomi lokal sekaligus menjaga budaya dan tradisi daerah.",
+    "about.history.m6.title": "Menyambut Generasi Baru Wisatawan",
+    "about.history.m6.text":
+      "Seiring berubahnya harapan wisatawan, beberapa kamar kami direnovasi dengan cermat untuk menghadirkan kenyamanan dan kemudahan yang lebih baik, tanpa menghilangkan kesederhanaan dan suasana santai yang disukai para tamu.",
+    "about.history.m7.title": "Menjaga Tradisi, Meningkatkan Kenyamanan",
+    "about.history.m7.text":
+      "Perjalanan kami terus berlanjut. Peningkatan kamar tambahan dilakukan untuk memperkaya pengalaman tamu sambil tetap setia pada nilai-nilai yang membimbing kami sejak awal: keramahan yang tulus, kesederhanaan, dan hubungan mendalam dengan alam serta budaya lokal.",
+    "about.history.m8.title": "Gerbang Menuju Waerebo",
+    "about.history.m8.text":
+      "Hari ini, Waerebo Lodge menyambut tamu dari berbagai belahan dunia. Lebih dari sekadar tempat menginap, lodge ini menjadi gerbang menuju Desa Waerebo, tempat budaya lokal, keindahan alam Flores, dan keramahan sepenuh hati berpadu menciptakan pengalaman yang tak terlupakan.",
+
     "faq.heading1": "Punya Pertanyaan?",
     "faq.heading2": "Kami Punya Jawabannya.",
     "faq.cat.trip": "Trip",

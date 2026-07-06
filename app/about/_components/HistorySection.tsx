@@ -1,71 +1,203 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 
-const banner = "/about/story-left.jpg";
+const aboutAsset = (file: string) => `/About%20Us/${file}`;
 
-const milestoneImages = ["/trip/stop-1.jpg", "/lodge/hero-1.jpg", "/about/story-mid.jpg"];
-const milestoneYears = ["2011", "2022", "2026"];
-const milestoneKeys = ["m1", "m2", "m3"] as const;
+const milestones = [
+  {
+    key: "m1",
+    year: "2010",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2010.webp"),
+  },
+  {
+    key: "m2",
+    year: "2012",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2012.webp"),
+  },
+  {
+    key: "m3",
+    year: "2013",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2013.webp"),
+  },
+  {
+    key: "m4",
+    year: "2021",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2021.webp"),
+  },
+  {
+    key: "m5",
+    year: "2022",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2022.webp"),
+  },
+  {
+    key: "m6",
+    year: "2025",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2025.webp"),
+  },
+  {
+    key: "m7",
+    year: "2026",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2026.webp"),
+  },
+  {
+    key: "m8",
+    year: "Now",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-Now.webp"),
+  },
+] as const;
 
 export default function HistorySection() {
   const { t } = useLang();
+  const [activeMilestone, setActiveMilestone] = useState(0);
+  const milestoneRefs = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    const observedItems = milestoneRefs.current.filter(
+      (item): item is HTMLElement => Boolean(item)
+    );
+    if (observedItems.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              second.intersectionRatio - first.intersectionRatio
+          )[0];
+
+        if (!visibleEntry) return;
+
+        const nextIndex = Number(
+          (visibleEntry.target as HTMLElement).dataset.milestoneIndex
+        );
+
+        if (Number.isFinite(nextIndex)) {
+          setActiveMilestone(nextIndex);
+        }
+      },
+      {
+        rootMargin: "-35% 0px -35% 0px",
+        threshold: [0.1, 0.35, 0.6],
+      }
+    );
+
+    observedItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="history" className="bg-light-green-100 py-12 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Banner */}
-        <div className="relative mb-10 h-52 overflow-hidden rounded-3xl shadow-sm lg:mb-14 lg:h-96">
-          <Image src={banner} alt="Waerebo highlands" fill className="object-cover" />
-        </div>
-
-        {/* Section header */}
-        <div className="mb-10 grid gap-3 lg:mb-16 lg:grid-cols-2 lg:gap-12">
-          <h2 className="text-3xl font-bold text-neutral-900 lg:text-5xl">
-            {t("about.history.heading")}
-          </h2>
-          <p className="text-sm leading-relaxed text-neutral-300 lg:pt-2">
+    <section id="history" className="bg-savana-50 py-14 lg:py-24">
+      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-10">
+        <div className="grid gap-7 lg:grid-cols-[1fr_0.95fr] lg:gap-28">
+          <div>
+            <p className="mb-2 text-[12px] font-medium text-savana-600">
+              {t("about.history.eyebrow")}
+            </p>
+            <h2 className="text-3xl leading-tight font-normal text-savana-800 lg:text-[40px]">
+              {t("about.history.heading1")}{" "}
+              <span className="font-semibold">
+                {t("about.history.heading2")}
+              </span>
+            </h2>
+          </div>
+          <p className="text-sm leading-relaxed font-medium text-neutral-700 lg:text-base">
             {t("about.history.body")}
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="space-y-12 lg:space-y-20">
-          {milestoneKeys.map((mk, i) => {
-            const reversed = i % 2 === 1;
-            return (
-              <div
-                key={mk}
-                data-reveal
-                className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12"
-              >
-                <div
-                  className={`relative h-56 overflow-hidden rounded-3xl shadow-sm lg:h-96 ${
-                    reversed ? "lg:order-2" : ""
-                  }`}
-                >
+        <div className="mt-9 lg:mt-16 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-24">
+          <div className="hidden lg:block">
+            <div className="sticky top-28">
+              <div className="relative aspect-[1.76] overflow-hidden rounded-2xl border-[6px] border-white bg-white shadow-[0_18px_45px_rgba(38,35,22,0.16)]">
+                {milestones.map((milestone, index) => (
                   <Image
-                    src={milestoneImages[i]}
-                    alt={t(`about.history.${mk}.title`)}
+                    key={milestone.key}
+                    src={milestone.image}
+                    alt={t(`about.history.${milestone.key}.title`)}
                     fill
-                    className="object-cover"
+                    priority={index === 0}
+                    sizes="52vw"
+                    className={`object-cover transition-opacity duration-700 ${
+                      index === activeMilestone ? "opacity-100" : "opacity-0"
+                    }`}
                   />
-                </div>
-                <div className={reversed ? "lg:order-1" : ""}>
-                  <p className="mb-1 text-lg font-bold text-green-200">
-                    {milestoneYears[i]}
-                  </p>
-                  <h3 className="mb-3 text-xl font-bold text-neutral-900 lg:text-2xl">
-                    {t(`about.history.${mk}.title`)}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-neutral-300">
-                    {t(`about.history.${mk}.text`)}
-                  </p>
+                ))}
+                <div className="absolute inset-x-0 bottom-5 flex items-center justify-center gap-2">
+                  {milestones.map((milestone, index) => (
+                    <button
+                      key={milestone.key}
+                      type="button"
+                      aria-label={`Show ${milestone.year} history image`}
+                      onClick={() => {
+                        setActiveMilestone(index);
+                        milestoneRefs.current[index]?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "center",
+                        });
+                      }}
+                      className={`h-1 rounded-full transition-all ${
+                        index === activeMilestone
+                          ? "w-12 bg-white"
+                          : "w-6 bg-white/45 hover:bg-white/75"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute top-0 bottom-0 left-[18px] w-px bg-savana-200 lg:left-[-48px]" />
+            <div className="space-y-8 lg:space-y-28">
+              {milestones.map((milestone, index) => (
+                <article
+                  key={milestone.key}
+                  ref={(element) => {
+                    milestoneRefs.current[index] = element;
+                  }}
+                  data-milestone-index={index}
+                  data-reveal
+                  className="relative pl-11 lg:pl-0"
+                >
+                  <span
+                    className={`absolute top-36 left-[11px] z-10 h-4 w-4 rounded-full border-4 border-savana-50 transition-colors lg:top-10 lg:left-[-55px] ${
+                      index === activeMilestone
+                        ? "bg-savana-500"
+                        : "bg-savana-200"
+                    }`}
+                  />
+
+                  <div className="overflow-hidden rounded-xl bg-white shadow-[0_16px_38px_rgba(38,35,22,0.12)] lg:rounded-2xl">
+                    <div className="relative aspect-[1.58] lg:hidden">
+                      <Image
+                        src={milestone.image}
+                        alt={t(`about.history.${milestone.key}.title`)}
+                        fill
+                        sizes="82vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-5 lg:p-9">
+                      <p className="mb-2 text-sm font-semibold text-savana-500">
+                        {milestone.year}
+                      </p>
+                      <h3 className="text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
+                        {t(`about.history.${milestone.key}.title`)}
+                      </h3>
+                      <p className="mt-4 text-[13px] leading-relaxed font-medium text-neutral-500 lg:text-sm">
+                        {t(`about.history.${milestone.key}.text`)}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

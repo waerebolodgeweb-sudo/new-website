@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { IoArrowForwardOutline } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
 type TileKey =
@@ -15,23 +14,54 @@ type TileKey =
   | "nusa-molas"
   | "restaurant";
 
-type Tile =
-  | { kind: "image"; key: TileKey; src: string }
-  | { kind: "quote" }
-  | { kind: "spacer" };
+type Tile = { kind: "image"; key: TileKey; src: string } | { kind: "spacer" };
+
+const aboutAsset = (file: string) => `/About%20Us/${file}`;
 
 const tiles: Tile[] = [
-  { kind: "image", key: "waerebo-village", src: "/about/tile-waerebo-village.jpg" },
-  { kind: "quote" },
-  { kind: "image", key: "pleas-waterfall", src: "/about/tile-pleas-waterfall.jpg" },
-  { kind: "image", key: "waerebo-lodge", src: "/about/tile-waerebo-lodge.jpg" },
+  {
+    kind: "image",
+    key: "waerebo-village",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-01.webp"),
+  },
   { kind: "spacer" },
-  { kind: "image", key: "hobbit-cave", src: "/about/tile-hobbit-cave.jpg" },
-  { kind: "image", key: "waerebo-house", src: "/about/tile-waerebo-house.jpg" },
-  { kind: "image", key: "double-bed", src: "/about/tile-double-bed.jpg" },
-  { kind: "image", key: "nusa-molas", src: "/about/tile-nusa-molas.jpg" },
+  {
+    kind: "image",
+    key: "pleas-waterfall",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-03.webp"),
+  },
+  {
+    kind: "image",
+    key: "waerebo-lodge",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-04.webp"),
+  },
   { kind: "spacer" },
-  { kind: "image", key: "restaurant", src: "/about/tile-restaurant.jpg" },
+  {
+    kind: "image",
+    key: "hobbit-cave",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-06.webp"),
+  },
+  {
+    kind: "image",
+    key: "waerebo-house",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-07.webp"),
+  },
+  {
+    kind: "image",
+    key: "double-bed",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-08.webp"),
+  },
+  {
+    kind: "image",
+    key: "nusa-molas",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-09.webp"),
+  },
+  { kind: "spacer" },
+  {
+    kind: "image",
+    key: "restaurant",
+    src: aboutAsset("About-Us-Waerebo-Lodge-Explore-Our-Services-11.webp"),
+  },
 ];
 
 function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
@@ -40,7 +70,7 @@ function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
   return (
     <div
       data-reveal
-      className="group relative aspect-square overflow-hidden rounded-2xl shadow-sm"
+      className="group bg-savana-300 relative aspect-[0.88] overflow-hidden rounded-xl shadow-[0_16px_32px_rgba(38,35,22,0.18)] lg:aspect-square lg:rounded-[22px]"
     >
       <Image
         src={src}
@@ -49,29 +79,8 @@ function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      <p className="absolute right-3 bottom-3 left-3 text-sm font-semibold text-white drop-shadow">
+      <p className="absolute right-3 bottom-3 left-3 text-sm leading-tight font-semibold text-white drop-shadow lg:text-base">
         {label}
-      </p>
-    </div>
-  );
-}
-
-function QuoteCard() {
-  const { t } = useLang();
-  return (
-    <div
-      data-reveal
-      className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-neutral-900 p-5 lg:p-6"
-    >
-      <IoArrowForwardOutline
-        size={22}
-        className="absolute top-5 right-5 -rotate-45 text-pale-green-100"
-      />
-      <h3 className="mb-2 text-base font-bold text-cream-200 lg:text-lg">
-        {t("about.offer.quote.heading")}
-      </h3>
-      <p className="text-[11px] leading-relaxed text-pale-green-100 lg:text-xs">
-        {t("about.offer.quote.body")}
       </p>
     </div>
   );
@@ -81,37 +90,38 @@ export default function OfferGrid() {
   const { t } = useLang();
 
   return (
-    <section id="offer" className="bg-white py-12 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+    <section id="offer" className="bg-savana-200 py-12 lg:py-24">
+      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-7">
           {/* Heading cell */}
           <div className="col-span-2 flex flex-col justify-center py-2 lg:col-span-1 lg:aspect-square">
-            <p className="mb-3 text-[11px] font-semibold tracking-[0.2em] text-green-200 uppercase">
+            <p className="mb-3 text-[12px] font-medium text-savana-600 lg:text-sm">
               {t("about.offer.eyebrow")}
             </p>
-            <h2 className="mb-3 text-2xl leading-tight font-bold text-neutral-900 lg:text-3xl">
-              {t("about.offer.heading1")}
-              <br className="hidden lg:block" /> {t("about.offer.heading2")}
+            <h2 className="mb-4 text-3xl leading-tight font-normal text-savana-800 lg:text-[52px]">
+              <span className="font-semibold">{t("about.offer.heading1")}</span>{" "}
+              {t("about.offer.heading2")}
             </h2>
-            <p className="mb-5 text-xs leading-relaxed text-neutral-300 lg:text-sm">
+            <p className="mb-6 max-w-sm text-sm leading-relaxed font-medium text-pale-savana-300 lg:text-base">
               {t("about.offer.body")}
             </p>
             <Link
               href="#contact"
-              className="inline-flex w-fit rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-400"
+              className="inline-flex min-h-9 w-fit items-center justify-center rounded-md bg-savana-800 px-5 text-sm font-semibold text-white transition-colors hover:bg-savana-700"
             >
               {t("about.offer.cta")}
             </Link>
           </div>
 
           {/* Tiles */}
-          {tiles.map((tile, i) =>
-            tile.kind === "quote" ? (
-              <QuoteCard key={i} />
-            ) : tile.kind === "spacer" ? (
-              <div key={i} className="hidden lg:block" />
+          {tiles.map((tile, index) =>
+            tile.kind === "spacer" ? (
+              <div
+                key={`spacer-${index}`}
+                className="bg-savana-300/35 hidden rounded-[22px] lg:block lg:aspect-square"
+              />
             ) : (
-              <ImageTile key={i} tileKey={tile.key} src={tile.src} />
+              <ImageTile key={tile.key} tileKey={tile.key} src={tile.src} />
             )
           )}
         </div>

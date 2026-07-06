@@ -27,7 +27,7 @@ export default function LodgeCard({ room }: { room: Room }) {
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-3xl bg-white px-2 pt-2 pb-5 shadow-md">
-      <div className="relative h-72 w-full overflow-hidden rounded-[20px] bg-neutral-100">
+      <div className="relative aspect-[7.62/4] w-full overflow-hidden rounded-[20px] bg-neutral-100">
         <Image
           src={cardImage}
           alt={cardTitle}
