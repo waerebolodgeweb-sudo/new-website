@@ -48,21 +48,23 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Services (home accordion)
     "services.eyebrow": "Our Services",
     "services.heading": "Everything You Need.",
+    "services.headingStrong": "Everything",
+    "services.headingRest": "You Need.",
     "services.body":
-      "We handle the logistics so you can focus on the experience. Explore our services to make your journey to the Waerebo village adventurous, safe, and unforgettable.",
+      "We offer more than just a stay. Enjoy warm Flores hospitality, expert local guides, and thoughtfully planned journeys so you can focus on the moments that matter",
     "services.learnMore": "Learn More",
     "services.trip.label": "Waerebo Trip",
     "services.trip.content":
-      "Guided trekking packages to Wae Rebo village, ranging from day trips to multi-day immersive experiences with local guides and porters.",
+      "Pick from our curated 1 to 4-day guided trekking routes. Dive deep into Manggarai culture, sleep inside the iconic Village Houses, and explore the highlands safely",
     "services.lodge.label": "Lodge",
     "services.lodge.content":
-      "Comfortable accommodation in our highland lodge, featuring both AC and fan rooms with stunning mountain views and traditional Flores-inspired design.",
+      "Recharge at our dedicated valley basecamp located in Dintor. Enjoy clean, comfortable rooms with stunning ocean views, giving you the perfect rest before your climb.",
     "services.restaurant.label": "Restaurant",
     "services.restaurant.content":
-      "Home-cooked meals served fresh every day — rice, vegetables, and seasonal protein (fish or chicken). Priced per person; non-guests are welcome to dine.",
+      "Savor the authentic taste of Flores with our daily home-cooked meals. From hearty breakfasts to dinner, we use fresh, local ingredients to fuel your adventure.",
     "services.transport.label": "Transport",
     "services.transport.content":
-      "Two vehicle options — otopool and Toyota Innova — guided by Pak Martin. Available as part of a lodge package or as a standalone rental.",
+      "Travel your way across Flores with our reliable transport services. Choose a comfortable options for airport transfers, basecamp drop-offs, and custom itineraries.",
 
     // ── Testimonials
     "testimonials.eyebrow": "Travelers Review",
@@ -512,21 +514,23 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Services (home accordion)
     "services.eyebrow": "Layanan Kami",
     "services.heading": "Semua yang Anda Butuhkan.",
+    "services.headingStrong": "Semua",
+    "services.headingRest": "yang Anda Butuhkan.",
     "services.body":
-      "Kami mengurus semua logistik agar Anda bisa fokus pada pengalaman. Jelajahi layanan kami untuk menjadikan perjalanan ke Desa Waerebo penuh petualangan, aman, dan tak terlupakan.",
+      "Kami menawarkan lebih dari sekadar tempat menginap. Nikmati keramahan Flores, pemandu lokal berpengalaman, dan perjalanan yang dirancang dengan baik agar Anda bisa fokus pada momen yang berarti.",
     "services.learnMore": "Pelajari Lebih Lanjut",
     "services.trip.label": "Paket Trip Waerebo",
     "services.trip.content":
-      "Paket trekking dengan pemandu ke Desa Wae Rebo, mulai dari tur sehari hingga pengalaman beberapa hari dengan pemandu dan porter lokal.",
+      "Pilih rute trekking berpemandu 1 hingga 4 hari yang telah kami susun. Selami budaya Manggarai, bermalam di rumah adat ikonik, dan jelajahi dataran tinggi dengan aman.",
     "services.lodge.label": "Penginapan",
     "services.lodge.content":
-      "Akomodasi nyaman di lodge pegunungan kami, tersedia kamar ber-AC dan kipas angin dengan pemandangan gunung yang menakjubkan dan desain khas Flores.",
+      "Beristirahatlah di basecamp lembah kami di Dintor. Nikmati kamar yang bersih dan nyaman dengan pemandangan laut yang indah, tempat terbaik sebelum pendakian Anda.",
     "services.restaurant.label": "Restoran",
     "services.restaurant.content":
-      "Makanan rumahan segar setiap hari — nasi, sayur, dan lauk musiman (ikan atau ayam). Dihitung per orang; tamu luar pun bisa makan di sini tanpa menginap.",
+      "Nikmati cita rasa Flores yang autentik melalui hidangan rumahan harian kami. Dari sarapan hangat hingga makan malam, kami memakai bahan lokal segar untuk menemani petualangan Anda.",
     "services.transport.label": "Transportasi",
     "services.transport.content":
-      "Dua pilihan kendaraan — otopool dan Toyota Innova — dipandu Pak Martin. Tersedia sebagai paket lodge atau sewa mandiri.",
+      "Jelajahi Flores dengan layanan transportasi kami yang andal. Pilih opsi nyaman untuk transfer bandara, antar ke basecamp, dan itinerary khusus.",
 
     // ── Testimonials
     "testimonials.eyebrow": "Ulasan Wisatawan",

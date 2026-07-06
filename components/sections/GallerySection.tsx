@@ -12,7 +12,7 @@ import { useLang } from "@/lib/i18n";
 const videos = [
   {
     id: "Rp7MpKgdeWA",
-    title: "Nic From Singapore",
+    title: "Nic Singapore",
     caption:
       "Taking a moment to soak in the golden rice terraces and coastal breeze at Dintor before hiking up to the sky village",
     url: "https://youtu.be/Rp7MpKgdeWA",
@@ -23,6 +23,41 @@ const videos = [
     caption:
       "Sharing their Waerebo Lodge experience before continuing the journey through the heart of Flores.",
     url: "https://youtu.be/uT3myORIxcs",
+  },
+  {
+    id: "7q3DuaYQcfI",
+    title: "Daisy & Edy Indonesia",
+    caption:
+      "Daisy and Edy share their review of Waerebo Lodge after experiencing the stay, food, and highland atmosphere.",
+    url: "https://youtu.be/7q3DuaYQcfI",
+  },
+  {
+    id: "3xFSsOk7SL8",
+    title: "Irish Germany",
+    caption:
+      "A traveler from Germany shares impressions from Waerebo Lodge and the journey around Dintor.",
+    url: "https://youtu.be/3xFSsOk7SL8",
+  },
+  {
+    id: "8dUNAZ-vhB8",
+    title: "Florian & Christoph - Austria",
+    caption:
+      "Florian and Christoph from Austria talk about their Waerebo Lodge experience in Flores.",
+    url: "https://youtu.be/8dUNAZ-vhB8",
+  },
+  {
+    id: "KErr-2E1I_g",
+    title: "Christoph A - Austria",
+    caption:
+      "Christoph A shares a short review of Waerebo Lodge after his visit.",
+    url: "https://youtube.com/shorts/KErr-2E1I_g",
+  },
+  {
+    id: "xSXuJHTuqgc",
+    title: "Irish Germany",
+    caption:
+      "A short Waerebo review from Irish Germany, captured during the lodge experience.",
+    url: "https://youtube.com/shorts/xSXuJHTuqgc?feature=share",
   },
 ];
 
@@ -35,7 +70,7 @@ export default function GallerySection() {
   const next = () => setCurrent((c) => (c + 1) % videos.length);
 
   return (
-    <section className="bg-neutral-050 py-16 lg:py-24">
+    <section className="bg-neutral-050 py-16 lg:py-24" id="testimonials">
       <div className="mx-auto max-w-[1920px]">
         <div className="ml-auto max-w-[1512px]">
           <div className="relative overflow-hidden rounded-l-3xl shadow-sm">

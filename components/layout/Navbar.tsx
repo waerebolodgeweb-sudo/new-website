@@ -29,7 +29,7 @@ const navLinks: NavLink[] = [
       { key: "nav.transport", href: "/transport" },
     ],
   },
-  { key: "nav.testimonials", href: "/#reviews" },
+  { key: "nav.testimonials", href: "/#testimonials" },
   { key: "nav.reviews", href: "/#reviews" },
   { key: "nav.faq", href: "/faq" },
 ];

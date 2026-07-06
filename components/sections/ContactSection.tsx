@@ -2,11 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { IoArrowForwardOutline, IoArrowUpOutline } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
+const lodgeThumbnailSlides = [
+  "/lodge/rooms/Waerebo-Lodge-Room-Standard-Twin-1-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Standard-Double-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Standard-Twin-2-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Twin-1-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Twin-2-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Twin-3-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Double-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Double-1-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Double-2-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Twin-1-01.webp",
+  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Twin-2-01.webp",
+];
+
 export default function ContactSection() {
   const { t } = useLang();
+  const [activeLodgeSlide, setActiveLodgeSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveLodgeSlide(
+        (current) => (current + 1) % lodgeThumbnailSlides.length
+      );
+    }, 2500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <section id="contact" className="bg-white py-20 lg:py-28">
@@ -152,13 +178,18 @@ export default function ContactSection() {
               href="/lodge"
               className="relative h-[200px] overflow-hidden rounded-[20px]"
             >
-              <Image
-                src="/home/contact-tiles/explore-lodge.jpg"
-                alt={t("contact.tile.exploreLodge")}
-                fill
-                sizes="(min-width: 1024px) 20vw, 50vw"
-                className="object-cover"
-              />
+              {lodgeThumbnailSlides.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={t("contact.tile.exploreLodge")}
+                  fill
+                  sizes="(min-width: 1024px) 20vw, 50vw"
+                  className={`object-cover transition-opacity duration-700 ${
+                    index === activeLodgeSlide ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
                 {t("contact.tile.exploreLodge")}

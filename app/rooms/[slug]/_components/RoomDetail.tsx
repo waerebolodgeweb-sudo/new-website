@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { IconType } from "react-icons";
@@ -148,6 +148,8 @@ export default function RoomDetail({
 }) {
   const [activeImage, setActiveImage] = useState(0);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const previewThumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const { t } = useLang();
 
   const bookMessage = `Hello Waerebo Lodge!\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
@@ -195,6 +197,24 @@ export default function RoomDetail({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isPreviewOpen, showNextImage, showPreviousImage]);
+
+  useEffect(() => {
+    thumbnailRefs.current[activeImage]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }, [activeImage]);
+
+  useEffect(() => {
+    if (!isPreviewOpen) return;
+
+    previewThumbnailRefs.current[activeImage]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }, [activeImage, isPreviewOpen]);
 
   return (
     <>
@@ -264,6 +284,9 @@ export default function RoomDetail({
                   {room.images.map((img, imageIndex) => (
                     <button
                       key={img}
+                      ref={(element) => {
+                        thumbnailRefs.current[imageIndex] = element;
+                      }}
                       type="button"
                       onClick={() => setActiveImage(imageIndex)}
                       onDoubleClick={() => openPreview(imageIndex)}
@@ -526,6 +549,9 @@ export default function RoomDetail({
                 {room.images.map((img, imageIndex) => (
                   <button
                     key={img}
+                    ref={(element) => {
+                      previewThumbnailRefs.current[imageIndex] = element;
+                    }}
                     type="button"
                     onClick={() => setActiveImage(imageIndex)}
                     aria-label={`Preview image ${imageIndex + 1}`}

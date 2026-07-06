@@ -92,77 +92,17 @@ const roomHighlights = (
   { key: "bathroom", label: bathroom },
 ];
 
-const numberedGallery = (slug: string) =>
+const roomThumbnail = (fileName: string) => `/lodge/rooms/${fileName}`;
+
+const roomGallery = (folderName: string, filePrefix: string) =>
   Array.from(
-    { length: 6 },
-    (_, index) => `/lodge/rooms/${slug}/${index + 1}.jpg`
+    { length: 9 },
+    (_, index) =>
+      `/lodge/rooms/${folderName}/${filePrefix}-${String(index + 1).padStart(
+        2,
+        "0"
+      )}.webp`
   );
-
-const deluxeDouble1Gallery = [
-  "/lodge/rooms/deluxe-double-1/IMG_2181 1.png",
-  "/lodge/rooms/deluxe-double-1/IMG_2497 1.png",
-  "/lodge/rooms/deluxe-double-1/IMG_4609 1.png",
-  "/lodge/rooms/deluxe-double-1/IMG_4610 1.png",
-  "/lodge/rooms/deluxe-double-1/IMG_4611 1.png",
-  "/lodge/rooms/deluxe-double-1/IMG_4612 1.png",
-];
-
-const deluxeDouble2Gallery = [
-  "/lodge/rooms/deluxe-double-2/deluxe-double-2.webp",
-  "/lodge/rooms/deluxe-double-2/IMG_4780.webp",
-  "/lodge/rooms/deluxe-double-2/IMG_4807.webp",
-  "/lodge/rooms/deluxe-double-2/IMG_0204 1.png",
-  "/lodge/rooms/deluxe-double-2/IMG_0209 1.png",
-  "/lodge/rooms/deluxe-double-2/IMG_20240228_160811 1.png",
-  "/lodge/rooms/deluxe-double-2/IMG_7358 1.png",
-  "/lodge/rooms/deluxe-double-2/IMG_7359 1.png",
-  "/lodge/rooms/deluxe-double-2/Salinan dji_fly_20260602_140828_0306_1780382022377_photo 1.png",
-];
-
-const deluxeTwin1Gallery = [
-  "/lodge/rooms/deluxe-twin-1/IMG_4566 1.png",
-  "/lodge/rooms/deluxe-twin-1/IMG_4570 1.png",
-  "/lodge/rooms/deluxe-twin-1/IMG_4574 1.png",
-  "/lodge/rooms/deluxe-twin-1/IMG_4575 1.png",
-  "/lodge/rooms/deluxe-twin-1/IMG_4576 1.png",
-  "/lodge/rooms/deluxe-twin-1/IMG_4577 1.png",
-];
-
-const deluxeTwin2Gallery = [
-  "/lodge/rooms/deluxe-twin-2/IMG_0189 1.png",
-  "/lodge/rooms/deluxe-twin-2/IMG_0194 1.png",
-  "/lodge/rooms/deluxe-twin-2/IMG_7354 1.png",
-  "/lodge/rooms/deluxe-twin-2/IMG_7355 1.png",
-  "/lodge/rooms/deluxe-twin-2/IMG_7356 1.png",
-  "/lodge/rooms/deluxe-twin-2/IMG_7357 1.png",
-];
-
-const traditionalDoubleGallery = [
-  "/lodge/rooms/traditional-double-room/IMG_0387 1.png",
-  "/lodge/rooms/traditional-double-room/IMG_0388 1.png",
-  "/lodge/rooms/traditional-double-room/IMG_0389 1.png",
-  "/lodge/rooms/traditional-double-room/IMG_4591 1.png",
-  "/lodge/rooms/traditional-double-room/IMG_4592 3.png",
-  "/lodge/rooms/traditional-double-room/IMG_4593 1.png",
-];
-
-const traditionalTwin1Gallery = [
-  "/lodge/rooms/traditional-twin-room-1/IMG_1605 1.png",
-  "/lodge/rooms/traditional-twin-room-1/IMG_1606 1.png",
-  "/lodge/rooms/traditional-twin-room-1/IMG_1607 1.png",
-  "/lodge/rooms/traditional-twin-room-1/IMG_4657 1.png",
-  "/lodge/rooms/traditional-twin-room-1/IMG_4663 1.png",
-  "/lodge/rooms/traditional-twin-room-1/IMG_4669 1.png",
-];
-
-const traditionalTwin2Gallery = [
-  "/lodge/rooms/traditional-twin-room-2/IMG_4592 2.png",
-  "/lodge/rooms/traditional-twin-room-2/IMG_4640 1.png",
-  "/lodge/rooms/traditional-twin-room-2/IMG_4642 2.png",
-  "/lodge/rooms/traditional-twin-room-2/IMG_4643 2.png",
-  "/lodge/rooms/traditional-twin-room-2/IMG_4644 1.png",
-  "/lodge/rooms/traditional-twin-room-2/IMG_4646 2.png",
-];
 
 const fanFacilities: FacilityKey[] = [
   "wifi",
@@ -219,98 +159,119 @@ export const rooms: Room[] = [
     slug: "standard-twin-1",
     title: "Standard Twin Room 1",
     cardTitle: "Standard Twin 1",
-    cardImage: "/lodge/rooms/standard-twin-1.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Standard-Twin-1-01.webp"),
     description:
       "Two single beds with a fan and private bathroom. A comfortable and practical choice for friends or trekking partners looking to rest before or after their Waerebo adventure.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Perfect for trekking partners", "Twin Bed"),
     facilities: fanFacilities,
-    images: numberedGallery("standard-twin-1"),
+    images: roomGallery(
+      "1-Standard Twin 1",
+      "Waerebo-Lodge-Room-Standard-Twin-1"
+    ),
     reviews: baseReviews,
   },
   {
     slug: "standard-double",
     title: "Standard Double Room 2",
     cardTitle: "Standard Double",
-    cardImage: "/lodge/rooms/standard-double.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Standard-Double-01.webp"),
     description:
       "A cozy room with a double bed, fan, and private bathroom. Ideal for couples or solo travelers seeking a peaceful stay surrounded by nature.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Perfect for couples", "Double Bed"),
     facilities: fanFacilities,
-    images: numberedGallery("standard-double"),
+    images: roomGallery(
+      "2-Standard Double",
+      "Waerebo-Lodge-Room-Standard-Double"
+    ),
     reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "standard-twin-2",
     title: "Standard Twin Room 3",
     cardTitle: "Standard Twin 2",
-    cardImage: "/lodge/rooms/standard-twin-2.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Standard-Twin-2-01.webp"),
     description:
       "Two single beds with a fan and private bathroom. A comfortable and practical choice for friends or trekking partners looking to rest before or after their Waerebo adventure.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Perfect for trekking partners", "Twin Bed"),
     facilities: fanFacilities,
-    images: numberedGallery("standard-twin-2"),
+    images: roomGallery(
+      "3-Standard Twin 2",
+      "Waerebo-Lodge-Room-Standard-Twin-2"
+    ),
     reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "wooden-twin-1",
     title: "Traditional Twin Room 4",
     cardTitle: "Traditional Twin 1",
-    cardImage: "/lodge/rooms/wooden-twin-1.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Twin-1-01.webp"),
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Traditional Wooden Room", "Twin Bed"),
     facilities: traditionalFacilities,
-    images: numberedGallery("wooden-twin-1"),
+    images: roomGallery(
+      "4-Traditional Twin Room 1",
+      "Waerebo-Lodge-Room-Traditional-Twin-1"
+    ),
     reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "wooden-twin-2",
     title: "Traditional Twin Room 5",
     cardTitle: "Traditional Twin 2",
-    cardImage: "/lodge/rooms/wooden-twin-2.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Twin-2-01.webp"),
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Traditional Wooden Room", "Twin Bed"),
     facilities: traditionalFacilities,
-    images: traditionalTwin1Gallery,
+    images: roomGallery(
+      "5-Traditional Twin Room 2",
+      "Waerebo-Lodge-Room-Traditional-Twin-2"
+    ),
     reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "wooden-double",
     title: "Traditional Double Room 6",
     cardTitle: "Traditional Double",
-    cardImage: "/lodge/rooms/wooden-double.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Double-01.webp"),
     description:
       "A warm wooden room with a double bed, perfect for couples seeking a more authentic and relaxing Flores experience.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Perfect for couples", "Double Bed"),
     facilities: traditionalFacilities,
-    images: traditionalDoubleGallery,
+    images: roomGallery(
+      "6-Traditional Double Room",
+      "Waerebo-Lodge-Room-Traditional-Double"
+    ),
     reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "wooden-twin-3",
     title: "Traditional Twin Room 7",
     cardTitle: "Traditional Twin 3",
-    cardImage: "/lodge/rooms/wooden-twin-3.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Twin-3-01.webp"),
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
     cardSpecs: fanCardSpecs,
     highlights: roomHighlights("Traditional Wooden Room", "Twin Bed"),
     facilities: traditionalFacilities,
-    images: traditionalTwin2Gallery,
+    images: roomGallery(
+      "7-Traditional Twin Room 3",
+      "Waerebo-Lodge-Room-Traditional-Twin-3"
+    ),
     reviews: baseReviews.slice(0, 3),
   },
   {
     slug: "deluxe-double-1",
     title: "Deluxe Double Room 8",
     cardTitle: "Deluxe Double 1",
-    cardImage: "/lodge/rooms/deluxe-double-1.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Deluxe-Double-1-01.webp"),
     description:
       "A spacious air-conditioned room featuring a double bed and private hot shower. Perfect for guests who appreciate extra comfort after a long journey through Flores.",
     cardSpecs: acCardSpecs,
@@ -320,14 +281,17 @@ export const rooms: Room[] = [
       "Private Bathroom with Hot Shower"
     ),
     facilities: acFacilities,
-    images: deluxeDouble1Gallery,
+    images: roomGallery(
+      "8-Deluxe Double 1",
+      "Waerebo-Lodge-Room-Deluxe-Double-1"
+    ),
     reviews: baseReviews,
   },
   {
     slug: "deluxe-twin-1",
     title: "Deluxe Twin Room 9",
     cardTitle: "Deluxe Twin 1",
-    cardImage: "/lodge/rooms/deluxe-twin-1.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Deluxe-Twin-1-01.webp"),
     description:
       "Two single beds with air conditioning and a private hot shower. A comfortable choice for friends and trekking companions looking to recharge before their next adventure.",
     cardSpecs: acCardSpecs,
@@ -337,14 +301,14 @@ export const rooms: Room[] = [
       "Private Hot Shower"
     ),
     facilities: acFacilities,
-    images: deluxeTwin1Gallery,
+    images: roomGallery("9-Deluxe Twin 1", "Waerebo-Lodge-Room-Deluxe-Twin-1"),
     reviews: baseReviews,
   },
   {
     slug: "deluxe-double-2",
     title: "Deluxe Double Room 10",
     cardTitle: "Deluxe Double 2",
-    cardImage: "/lodge/rooms/deluxe-double-2.webp",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Deluxe-Double-2-01.webp"),
     description:
       "A spacious air-conditioned room featuring a double bed and private hot shower. Perfect for guests who appreciate extra comfort after a long journey through Flores.",
     cardSpecs: acCardSpecs,
@@ -354,14 +318,17 @@ export const rooms: Room[] = [
       "Private Bathroom with Hot Shower"
     ),
     facilities: acFacilities,
-    images: deluxeDouble2Gallery,
+    images: roomGallery(
+      "10-Deluxe Double 2",
+      "Waerebo-Lodge-Room-Deluxe-Double-2"
+    ),
     reviews: baseReviews,
   },
   {
     slug: "deluxe-twin-2",
     title: "Deluxe Twin Room 11",
     cardTitle: "Deluxe Twin 2",
-    cardImage: "/lodge/rooms/deluxe-twin-2.jpg",
+    cardImage: roomThumbnail("Waerebo-Lodge-Room-Deluxe-Twin-2-01.webp"),
     description:
       "Two single beds with air conditioning and a private hot shower. A comfortable choice for friends and trekking companions looking to recharge before their next adventure.",
     cardSpecs: acCardSpecs,
@@ -371,7 +338,7 @@ export const rooms: Room[] = [
       "Private Hot Shower"
     ),
     facilities: acFacilities,
-    images: deluxeTwin2Gallery,
+    images: roomGallery("11-Deluxe Twin 2", "Waerebo-Lodge-Room-Deluxe-Twin-2"),
     reviews: baseReviews,
   },
 ];
