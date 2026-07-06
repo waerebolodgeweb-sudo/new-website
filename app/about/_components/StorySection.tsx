@@ -45,7 +45,7 @@ export default function StorySection() {
 
   return (
     <section id="story" className="bg-savana-50 pt-7 pb-14 lg:pt-14 lg:pb-24">
-      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-[1512px] lg:px-10">
         <div className="lg:hidden">
           <div className="grid justify-items-end gap-3">
             <Image
@@ -58,13 +58,13 @@ export default function StorySection() {
             />
           </div>
 
-          <div className="mt-7">
+          <div className="mt-7 px-4 sm:px-6">
             <h1 className="text-2xl leading-tight font-semibold text-neutral-900">
               {t("about.story.heading1")}
               <br />
               {t("about.story.heading2")}
             </h1>
-            <div className="mt-4 space-y-4 text-[13px] leading-relaxed font-medium text-neutral-500">
+            <div className="mt-4 space-y-4 text-sm leading-relaxed font-medium text-neutral-500">
               {t("about.story.body")
                 .split("\n\n")
                 .map((paragraph) => (
@@ -73,7 +73,7 @@ export default function StorySection() {
             </div>
           </div>
 
-          <div className="mt-7">
+          <div className="mt-7 px-4 sm:px-6">
             <Image
               src={mobilePhotos.founder.src}
               alt="Mr. Martin and Mrs. Isabela"
@@ -85,7 +85,7 @@ export default function StorySection() {
             <p className="mt-4 text-sm font-bold text-neutral-900">
               {t("about.story.martinName")}
             </p>
-            <p className="mt-2 text-[12px] leading-relaxed font-medium text-neutral-500">
+            <p className="mt-2 text-sm leading-relaxed font-medium text-neutral-500">
               {t("about.story.martinBio")}
             </p>
           </div>
