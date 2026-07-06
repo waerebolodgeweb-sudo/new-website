@@ -106,33 +106,41 @@ const transportDefs: TransportCardDef[] = [
   {
     id: "oto-colt",
     title: "Oto Colt",
-    image: "/transport/oto colt.jpg",
+    image: "/transport/Waerebo-Transport-Options-Oto-Colt.webp",
     descKey: "journeys.transport.oto.desc",
   },
   {
     id: "toyota-innova",
     title: "Toyota Innova",
-    image: "/transport/toyota innova.jpg",
+    image: "/transport/Waerebo-Transport-Options-Toyota-Innova.webp",
     descKey: "journeys.transport.innova.desc",
   },
 ];
 
 const restaurantSliderImages = [
   {
-    src: "/restaurant/hero-image.jpg",
-    alt: "Guests sharing a meal at Waerebo Lodge Restaurant",
+    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-01.webp",
+    alt: "Guests sharing lunch at Waerebo Lodge Restaurant",
   },
   {
-    src: "/restaurant/favourite%20menu.png",
-    alt: "Favourite menu at Waerebo Lodge Restaurant",
+    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-02.webp",
+    alt: "Restaurant guests enjoying local food at Waerebo Lodge",
   },
   {
-    src: "/restaurant/Fresh%20Grilled%20Fish.jpg",
-    alt: "Fresh grilled fish at Waerebo Lodge Restaurant",
+    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-03.webp",
+    alt: "Home-cooked Flores meal at Waerebo Lodge Restaurant",
   },
   {
-    src: "/restaurant/Lodge%20Breakfast%20Plate.jpg",
-    alt: "Breakfast plate at Waerebo Lodge Restaurant",
+    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-04.webp",
+    alt: "Dining table at Waerebo Lodge Restaurant",
+  },
+  {
+    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-05.webp",
+    alt: "Guests dining together in Waerebo Lodge Restaurant",
+  },
+  {
+    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-06.webp",
+    alt: "Lunch gathering at Waerebo Lodge Restaurant",
   },
 ];
 

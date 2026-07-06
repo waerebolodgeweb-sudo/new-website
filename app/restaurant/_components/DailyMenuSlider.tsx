@@ -7,36 +7,62 @@ import { useLang } from "@/lib/i18n";
 
 const menuItems = [
   {
-    titleKey: "restaurant.menu.eggplant.title",
-    descriptionKey: "restaurant.menu.eggplant.description",
-    image: "/restaurant/Fried%20Eggplant.jpg",
-  },
-  {
-    titleKey: "restaurant.menu.greens.title",
-    descriptionKey: "restaurant.menu.greens.description",
-    image: "/restaurant/Saut%C3%A9ed%20Greens.jpg",
+    titleKey: "restaurant.menu.rice.title",
+    descriptionKey: "restaurant.menu.rice.description",
+    image: "/restaurant/Waerebo-Restaurant-Food-Menu-01-Red-Rice.webp",
   },
   {
     titleKey: "restaurant.menu.fish.title",
     descriptionKey: "restaurant.menu.fish.description",
-    image: "/restaurant/Fresh%20Grilled%20Fish.jpg",
+    image:
+      "/restaurant/Waerebo-Restaurant-Food-Menu-02-Fresh-Grilled-Fish.webp",
+  },
+  {
+    titleKey: "restaurant.menu.chicken.title",
+    descriptionKey: "restaurant.menu.chicken.description",
+    image:
+      "/restaurant/Waerebo-Restaurant-Food-Menu-04-Homestyle-Fried-Chicken.webp",
+  },
+  {
+    titleKey: "restaurant.menu.greens.title",
+    descriptionKey: "restaurant.menu.greens.description",
+    image: "/restaurant/Waerebo-Restaurant-Food-Menu-05-Sauteed-Greens.webp",
+  },
+  {
+    titleKey: "restaurant.menu.tempeh.title",
+    descriptionKey: "restaurant.menu.tempeh.description",
+    image:
+      "/restaurant/Waerebo-Restaurant-Food-Menu-06-Crispy-Fried-Tempeh.webp",
+  },
+  {
+    titleKey: "restaurant.menu.eggplant.title",
+    descriptionKey: "restaurant.menu.eggplant.description",
+    image: "/restaurant/Waerebo-Restaurant-Food-Menu-07-Fried-Eggplant.webp",
+  },
+  {
+    titleKey: "restaurant.menu.bananas.title",
+    descriptionKey: "restaurant.menu.bananas.description",
+    image:
+      "/restaurant/Waerebo-Restaurant-Food-Menu-08-Fresh-Local-Bananas.webp",
   },
   {
     titleKey: "restaurant.menu.breakfast.title",
     descriptionKey: "restaurant.menu.breakfast.description",
-    image: "/restaurant/Lodge%20Breakfast%20Plate.jpg",
+    image:
+      "/restaurant/Waerebo-Restaurant-Food-Menu-09-Lodge-Breakfast-Plate.webp",
   },
   {
-    titleKey: "restaurant.menu.rice.title",
-    descriptionKey: "restaurant.menu.rice.description",
-    image: "/restaurant/Red-Rice.jpg",
+    titleKey: "restaurant.menu.friedRice.title",
+    descriptionKey: "restaurant.menu.friedRice.description",
+    image:
+      "/restaurant/Waerebo-Restaurant-Food-Menu-10-Signature-Fried-Rice.webp",
   },
 ];
 
 export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
   const { t } = useLang();
   const cardRef = useRef<HTMLElement>(null);
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [stepWidth, setStepWidth] = useState(324);
 
   useEffect(() => {

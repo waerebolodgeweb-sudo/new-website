@@ -59,11 +59,6 @@ export default function BookingModal({
     travelers: "",
   });
 
-  // Sync program when parent selection changes
-  useEffect(() => {
-    setForm((prev) => ({ ...prev, program: defaultProgramId }));
-  }, [defaultProgramId]);
-
   // Prevent body scroll when open
   useEffect(() => {
     if (isOpen) {
@@ -143,7 +138,10 @@ Thank you!`;
           </Field>
 
           {/* Origin */}
-          <Field icon={<IoLocationOutline size={16} />} label={t("booking.origin")}>
+          <Field
+            icon={<IoLocationOutline size={16} />}
+            label={t("booking.origin")}
+          >
             <input
               type="text"
               placeholder={t("booking.origin.placeholder")}
@@ -176,7 +174,10 @@ Thank you!`;
           </Field>
 
           {/* Trip Program */}
-          <Field icon={<IoListOutline size={16} />} label={t("booking.program")}>
+          <Field
+            icon={<IoListOutline size={16} />}
+            label={t("booking.program")}
+          >
             <select
               value={form.program}
               onChange={set("program")}
@@ -194,7 +195,10 @@ Thank you!`;
           </Field>
 
           {/* Trip Date */}
-          <Field icon={<IoCalendarOutline size={16} />} label={t("booking.date")}>
+          <Field
+            icon={<IoCalendarOutline size={16} />}
+            label={t("booking.date")}
+          >
             <input
               type="date"
               value={form.date}
@@ -205,7 +209,10 @@ Thank you!`;
           </Field>
 
           {/* Travelers */}
-          <Field icon={<IoPeopleOutline size={16} />} label={t("booking.travelers")}>
+          <Field
+            icon={<IoPeopleOutline size={16} />}
+            label={t("booking.travelers")}
+          >
             <select
               value={form.travelers}
               onChange={set("travelers")}

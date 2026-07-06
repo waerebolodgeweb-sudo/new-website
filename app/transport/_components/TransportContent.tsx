@@ -14,13 +14,13 @@ const rides = [
   {
     title: "Oto Colt",
     descriptionKey: "transport.oto.description",
-    image: "/transport/oto colt.jpg",
+    image: "/transport/Waerebo-Transport-Options-Oto-Colt.webp",
     alt: "Travelers boarding the Oto Colt transport truck",
   },
   {
     title: "Toyota Innova",
     descriptionKey: "transport.innova.description",
-    image: "/transport/toyota innova.jpg",
+    image: "/transport/Waerebo-Transport-Options-Toyota-Innova.webp",
     alt: "Toyota Innova private transport vehicle",
   },
 ];
@@ -56,7 +56,7 @@ export default function TransportContent() {
 
               <div className="relative min-h-[320px] rounded-[28px] border-white bg-white lg:min-h-[440px]">
                 <Image
-                  src="/transport/hero.jpg"
+                  src="/transport/Waerebo-Transport-Photo-Oto-Colt-Main.webp"
                   alt="Guests riding local transport to Waerebo Lodge"
                   fill
                   priority

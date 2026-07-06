@@ -55,7 +55,9 @@ function StopText({ stop }: { stop: Stop }) {
       <dl className="mb-4 space-y-2">
         {stop.time && (
           <div className="flex gap-3 text-base">
-            <dt className="min-w-[80px] font-normal text-neutral-400">{t("trips.time")}</dt>
+            <dt className="min-w-[80px] font-normal text-neutral-400">
+              {t("trips.time")}
+            </dt>
             <dd className="font-semibold text-[#9B9529]">{stop.time}</dd>
           </div>
         )}
@@ -276,6 +278,7 @@ export default function TripContent() {
 
       {/* ── Booking modal ── */}
       <BookingModal
+        key={activeId}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         programs={tripPrograms}

@@ -75,13 +75,9 @@ function RoomCard({ room }: { room: Room }) {
   const { t } = useLang();
   const cardTitle = room.cardTitle ?? room.title;
   const cardImage = room.cardImage ?? room.images[0];
-  const bookMessage = `Hello Waerebo Lodge!\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
-  const bookLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    bookMessage
-  )}`;
 
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div>
       <div className="flex w-full flex-col gap-4 rounded-3xl bg-white px-2 pt-2 pb-5 shadow-xl shadow-black/10">
         <div className="relative h-[310px] w-full overflow-hidden rounded-[20px] bg-neutral-100">
           <Image
@@ -119,22 +115,14 @@ function RoomCard({ room }: { room: Room }) {
           </div>
         </div>
         <div className="px-4">
-          <a
-            href={bookLink}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={`/rooms/${room.slug}`}
             className="flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-4 text-base font-medium text-white transition-colors hover:bg-savana-700"
           >
-            {t("lodge.bookNow")}
-          </a>
+            {t("lodge.seeDetails")}
+          </Link>
         </div>
       </div>
-      <Link
-        href={`/rooms/${room.slug}`}
-        className="text-base font-medium text-neutral-400 transition-colors hover:text-savana-800"
-      >
-        {t("lodge.seeDetails")}
-      </Link>
     </div>
   );
 }

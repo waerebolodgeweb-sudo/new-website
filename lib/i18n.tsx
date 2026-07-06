@@ -235,12 +235,24 @@ const dict: Record<Lang, Record<string, string>> = {
     "restaurant.menu.fish.title": "Fresh Grilled Fish",
     "restaurant.menu.fish.description":
       "Locally sourced fish, marinated in our signature blend of island spices and grilled to perfection.",
+    "restaurant.menu.chicken.title": "Homestyle Fried Chicken",
+    "restaurant.menu.chicken.description":
+      "Tender local chicken cooked homestyle until crisp and savory, perfect with rice and sambal.",
     "restaurant.menu.breakfast.title": "Lodge Breakfast Plate",
     "restaurant.menu.breakfast.description":
       "A comforting start to your day featuring eggs, toast, sweet local bananas, and a warm cup of Waerebo coffee.",
     "restaurant.menu.rice.title": "Red Rice",
     "restaurant.menu.rice.description":
       "Nutritious, earthy, and grown in the region. The perfect pairing for rich, local flavors.",
+    "restaurant.menu.tempeh.title": "Crispy Fried Tempeh",
+    "restaurant.menu.tempeh.description":
+      "Golden fried tempeh with a satisfying crunch, a simple local favorite rich in flavor.",
+    "restaurant.menu.bananas.title": "Fresh Local Bananas",
+    "restaurant.menu.bananas.description":
+      "Sweet local bananas served fresh as a light finish or easy trekking energy.",
+    "restaurant.menu.friedRice.title": "Signature Fried Rice",
+    "restaurant.menu.friedRice.description":
+      "A comforting plate of fried rice cooked with local seasoning and simple Flores warmth.",
     "restaurant.bookNow": "Book Restaurant Now",
 
     // ── About page — Story
@@ -701,12 +713,24 @@ const dict: Record<Lang, Record<string, string>> = {
     "restaurant.menu.fish.title": "Ikan Bakar Segar",
     "restaurant.menu.fish.description":
       "Ikan lokal yang dimarinasi dengan racikan rempah pulau khas kami, lalu dibakar hingga matang sempurna.",
+    "restaurant.menu.chicken.title": "Ayam Goreng Rumahan",
+    "restaurant.menu.chicken.description":
+      "Ayam lokal yang dimasak rumahan hingga gurih dan renyah, cocok disantap dengan nasi dan sambal.",
     "restaurant.menu.breakfast.title": "Sarapan Lodge",
     "restaurant.menu.breakfast.description":
       "Awal hari yang hangat dengan telur, roti panggang, pisang lokal manis, dan secangkir kopi Waerebo.",
     "restaurant.menu.rice.title": "Nasi Merah",
     "restaurant.menu.rice.description":
       "Bergizi, bercita rasa alami, dan tumbuh di wilayah ini. Pasangan sempurna untuk rasa lokal yang kaya.",
+    "restaurant.menu.tempeh.title": "Tempe Goreng Renyah",
+    "restaurant.menu.tempeh.description":
+      "Tempe goreng keemasan dengan tekstur renyah, lauk lokal sederhana yang kaya rasa.",
+    "restaurant.menu.bananas.title": "Pisang Lokal Segar",
+    "restaurant.menu.bananas.description":
+      "Pisang lokal manis yang disajikan segar sebagai penutup ringan atau energi sebelum trekking.",
+    "restaurant.menu.friedRice.title": "Nasi Goreng Khas",
+    "restaurant.menu.friedRice.description":
+      "Sepiring nasi goreng hangat dengan bumbu lokal dan cita rasa rumahan khas Flores.",
     "restaurant.bookNow": "Pesan Restoran Sekarang",
 
     // ── About page — Story
@@ -956,12 +980,11 @@ const LangContext = createContext<LangContextValue | null>(null);
 const STORAGE_KEY = "waerebo-lang";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
-
-  useEffect(() => {
+  const [lang, setLangState] = useState<Lang>(() => {
+    if (typeof window === "undefined") return "en";
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === "en" || saved === "id") setLangState(saved);
-  }, []);
+    return saved === "en" || saved === "id" ? saved : "en";
+  });
 
   useEffect(() => {
     document.documentElement.lang = lang;

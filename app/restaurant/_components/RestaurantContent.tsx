@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import ContactSection from "@/components/sections/ContactSection";
 import { useLang } from "@/lib/i18n";
@@ -11,8 +12,26 @@ const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
   bookMessage
 )}`;
 
+const heroImages = [
+  "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-01.webp",
+  "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-02.webp",
+  "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-03.webp",
+  "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-04.webp",
+  "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-05.webp",
+  "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-06.webp",
+];
+
 export default function RestaurantContent() {
   const { t } = useLang();
+  const [activeHero, setActiveHero] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveHero((current) => (current + 1) % heroImages.length);
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <main className="pt-16 lg:pt-20">
@@ -40,18 +59,33 @@ export default function RestaurantContent() {
             </div>
 
             <div className="relative min-h-[340px] overflow-hidden rounded-[28px] border-white bg-white lg:min-h-[488px]">
-              <Image
-                src="/restaurant/hero-image.jpg"
-                alt="Guests sharing a home-cooked meal at Waerebo Lodge Restaurant"
-                fill
-                priority
-                sizes="(min-width: 1024px) 65vw, 100vw"
-                className="object-cover"
-              />
+              {heroImages.map((image, index) => (
+                <Image
+                  key={image}
+                  src={image}
+                  alt="Guests sharing a home-cooked meal at Waerebo Lodge Restaurant"
+                  fill
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 65vw, 100vw"
+                  className={`object-cover transition-opacity duration-700 ${
+                    index === activeHero ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
               <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2">
-                <span className="h-1 w-14 rounded-full bg-white/70" />
-                <span className="h-1 w-14 rounded-full bg-white" />
-                <span className="h-1 w-14 rounded-full bg-white/30" />
+                {heroImages.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    aria-label={`Show restaurant photo ${index + 1}`}
+                    onClick={() => setActiveHero(index)}
+                    className={`h-1 rounded-full transition-all ${
+                      index === activeHero
+                        ? "w-14 bg-white"
+                        : "w-10 bg-white/35 hover:bg-white/70"
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -60,7 +94,7 @@ export default function RestaurantContent() {
             <div className="grid rounded-[36px] border-white bg-white shadow-xl shadow-black/10 md:w-2/3 lg:grid-cols-2">
               <div className="relative min-h-[250px] overflow-hidden rounded-[28px] border-[8px] border-white bg-white">
                 <Image
-                  src="/restaurant/favourite%20menu.png"
+                  src="/restaurant/Waerebo-Restaurant-Photo-Eating-Favorite-Food.webp"
                   alt="Fresh fish favourite menu at Waerebo Lodge Restaurant"
                   fill
                   sizes="(min-width: 1024px) 36vw, 100vw"
