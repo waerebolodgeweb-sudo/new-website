@@ -25,25 +25,35 @@ const milestones = [
   {
     key: "m4",
     year: "2021",
-    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2021.webp"),
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2021-1.webp"),
   },
   {
     key: "m5",
+    year: "2021",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2021-2.webp"),
+  },
+  {
+    key: "m6",
     year: "2022",
     image: aboutAsset("Our-History-Waerebo-Lodge-Year-2022.webp"),
   },
   {
-    key: "m6",
+    key: "m7",
     year: "2025",
-    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2025.webp"),
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2025-1.webp"),
   },
   {
-    key: "m7",
+    key: "m8",
+    year: "2025",
+    image: aboutAsset("Our-History-Waerebo-Lodge-Year-2025-2.webp"),
+  },
+  {
+    key: "m9",
     year: "2026",
     image: aboutAsset("Our-History-Waerebo-Lodge-Year-2026.webp"),
   },
   {
-    key: "m8",
+    key: "m10",
     year: "Now",
     image: aboutAsset("Our-History-Waerebo-Lodge-Year-Now.webp"),
   },

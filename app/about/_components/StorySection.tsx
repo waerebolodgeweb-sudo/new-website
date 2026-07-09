@@ -33,11 +33,6 @@ const mobilePhotos = {
     width: 1179,
     height: 1560,
   },
-  main: {
-    src: aboutAsset("Mobile-About-Us-Waerebo-Lodge-Photo-Main.webp"),
-    width: 1179,
-    height: 1326,
-  },
 };
 
 export default function StorySection() {
@@ -47,15 +42,27 @@ export default function StorySection() {
     <section id="story" className="bg-savana-50 pt-7 pb-14 lg:pt-14 lg:pb-24">
       <div className="mx-auto max-w-[1512px] lg:px-20">
         <div className="lg:hidden">
-          <div className="grid justify-items-end gap-3">
-            <Image
-              src={mobilePhotos.main.src}
-              alt="Waerebo Lodge in the rice fields"
-              width={mobilePhotos.main.width}
-              height={mobilePhotos.main.height}
-              priority
-              className="h-auto w-full"
-            />
+          <div className="overflow-hidden">
+            <div className="flex w-max min-w-full -translate-x-1/2 flex-row-reverse justify-center gap-3 pl-[50%]">
+              <Image
+                src={desktopPhotos.landscape.src}
+                alt="Flores coastline near Waerebo Lodge"
+                width={desktopPhotos.landscape.width}
+                height={desktopPhotos.landscape.height}
+                priority
+                sizes="42vw"
+                className="h-[320px] w-auto shrink-0"
+              />
+              <Image
+                src={desktopPhotos.lodge.src}
+                alt="Waerebo Lodge in the rice fields"
+                width={desktopPhotos.lodge.width}
+                height={desktopPhotos.lodge.height}
+                priority
+                sizes="75vw"
+                className="h-[320px] w-auto shrink-0"
+              />
+            </div>
           </div>
 
           <div className="mt-7 px-4 sm:px-6">
@@ -91,14 +98,14 @@ export default function StorySection() {
           </div>
         </div>
 
-        <div className="hidden items-start gap-6 lg:grid lg:grid-cols-[1fr_0.92fr_0.74fr_0.82fr] xl:gap-8">
-          <div className="pt-12">
-            <h1 className="text-[56px] leading-[0.98] font-semibold tracking-[-0.02em] text-neutral-900">
-              {t("about.story.heading1")}
+        <div className="hidden items-start gap-8 lg:grid lg:grid-cols-[1fr_0.86fr_0.56fr_0.72fr] xl:gap-10">
+          <div className="pt-24">
+            <h1 className="text-[52px] leading-[1.04] font-normal text-neutral-900">
+              <span className="font-semibold">{t("about.story.heading1")}</span>
               <br />
               {t("about.story.heading2")}
             </h1>
-            <div className="mt-8 space-y-6 text-[15px] leading-relaxed font-medium text-neutral-700">
+            <div className="mt-8 space-y-6 text-[17px] leading-[1.55] font-normal text-neutral-900">
               {t("about.story.body")
                 .split("\n\n")
                 .map((paragraph) => (
@@ -117,11 +124,11 @@ export default function StorySection() {
               sizes="25vw"
               className="h-auto w-full"
             />
-            <div className="pt-3">
-              <p className="text-base leading-tight font-bold text-neutral-900">
+            <div className="pt-6">
+              <p className="text-xl leading-tight font-bold text-neutral-900">
                 {t("about.story.martinName")}
               </p>
-              <p className="mt-1.5 text-[12px] leading-relaxed font-medium text-neutral-500">
+              <p className="mt-2 text-[15px] leading-relaxed font-normal text-neutral-900">
                 {t("about.story.martinBio")}
               </p>
             </div>
@@ -132,8 +139,8 @@ export default function StorySection() {
             alt="Flores coastline near Waerebo Lodge"
             width={desktopPhotos.landscape.width}
             height={desktopPhotos.landscape.height}
-            sizes="20vw"
-            className="mt-20 h-auto w-full"
+            sizes="18vw"
+            className="mt-32 h-auto w-full"
           />
 
           <Image

@@ -315,20 +315,26 @@ const dict: Record<Lang, Record<string, string>> = {
     "about.history.m3.title": "A Home Away from Home",
     "about.history.m3.text":
       "With visitor numbers continuing to grow, so did the stories, friendships, and cultural exchanges taking place at the lodge. Two more rooms were added, and Waerebo Lodge gradually became known as a gathering place for travelers from around the world seeking an authentic Flores experience.",
-    "about.history.m4.title": "Comfort for Modern Travelers",
+    "about.history.m4.title": "Building for the Future",
     "about.history.m4.text":
-      "After years of welcoming trekkers and adventurers, we introduced two new rooms featuring air conditioning and hot showers. These additions provided extra comfort for guests while maintaining the warm and personal atmosphere that defines Waerebo Lodge.",
-    "about.history.m5.title": "Growing Together with the Community",
+      "With guest numbers continuing to grow, more rooms and supporting facilities were gradually added, helping the lodge become a stronger and more reliable base for travelers.",
+    "about.history.m5.title": "Comfort for Modern Travelers",
     "about.history.m5.text":
-      "The journey of Waerebo Lodge has always been closely connected to the people of Dintor and Waerebo. Together with local guides, farmers, fishermen, and village families, we continue to build a tourism experience that supports the local economy while preserving the region's culture and traditions.",
-    "about.history.m6.title": "Welcoming a New Generation of Travelers",
+      "After years of welcoming trekkers and adventurers, we introduced two new rooms featuring air conditioning and hot showers. These additions provided extra comfort for guests while maintaining the warm and personal atmosphere that defines Waerebo Lodge.",
+    "about.history.m6.title": "Growing Together with the Community",
     "about.history.m6.text":
-      "As travel expectations evolved, some of our rooms were thoughtfully renovated to provide greater comfort and convenience while preserving the simple charm and relaxed atmosphere that guests have come to love.",
-    "about.history.m7.title": "Preserving Tradition, Improving Comfort",
+      "The journey of Waerebo Lodge has always been closely connected to the people of Dintor and Waerebo. Together with local guides, farmers, fishermen, and village families, we continue to build a tourism experience that supports the local economy while preserving the region's culture and traditions.",
+    "about.history.m7.title": "Welcoming a New Generation of Travelers",
     "about.history.m7.text":
-      "Our journey continues. Additional room upgrades were completed to enhance the guest experience while staying true to the values that have guided us from the beginning: genuine hospitality, simplicity, and a deep connection to nature and local culture.",
-    "about.history.m8.title": "The Gateway to Waerebo",
+      "As travel expectations evolved, some of our rooms were thoughtfully renovated to provide greater comfort and convenience while preserving the simple charm and relaxed atmosphere that guests have come to love.",
+    "about.history.m8.title": "Thoughtful Renovations",
     "about.history.m8.text":
+      "Some of our rooms were thoughtfully renovated to provide greater comfort and convenience while preserving the simple charm and relaxed atmosphere that guests have come to love.",
+    "about.history.m9.title": "Preserving Tradition, Improving Comfort",
+    "about.history.m9.text":
+      "Our journey continues. Additional room upgrades were completed to enhance the guest experience while staying true to the values that have guided us from the beginning: genuine hospitality, simplicity, and a deep connection to nature and local culture.",
+    "about.history.m10.title": "The Gateway to Waerebo",
+    "about.history.m10.text":
       "Today, Waerebo Lodge welcomes guests from all over the world. More than just a place to stay, it serves as a gateway to Waerebo Village, a place where local culture, the natural beauty of Flores, and heartfelt hospitality come together to create unforgettable experiences.",
 
     "faq.heading1": "Got Questions?",
@@ -826,20 +832,26 @@ const dict: Record<Lang, Record<string, string>> = {
     "about.history.m3.title": "Rumah Kedua yang Hangat",
     "about.history.m3.text":
       "Seiring jumlah pengunjung terus bertambah, begitu pula cerita, persahabatan, dan pertukaran budaya yang terjadi di lodge. Dua kamar lagi ditambahkan, dan Waerebo Lodge perlahan dikenal sebagai tempat berkumpul wisatawan dari berbagai negara yang mencari pengalaman Flores yang autentik.",
-    "about.history.m4.title": "Kenyamanan untuk Wisatawan Modern",
+    "about.history.m4.title": "Membangun untuk Masa Depan",
     "about.history.m4.text":
-      "Setelah bertahun-tahun menyambut para trekker dan petualang, kami menambahkan dua kamar baru dengan fasilitas AC dan air panas. Tambahan ini memberi kenyamanan lebih bagi tamu, sambil tetap menjaga suasana hangat dan personal khas Waerebo Lodge.",
-    "about.history.m5.title": "Tumbuh Bersama Komunitas",
+      "Seiring jumlah tamu terus bertambah, kamar dan fasilitas pendukung ditambahkan secara bertahap, membantu lodge menjadi basecamp yang lebih kuat dan lebih nyaman bagi wisatawan.",
+    "about.history.m5.title": "Kenyamanan untuk Wisatawan Modern",
     "about.history.m5.text":
-      "Perjalanan Waerebo Lodge selalu terhubung erat dengan masyarakat Dintor dan Waerebo. Bersama pemandu lokal, petani, nelayan, dan keluarga desa, kami terus membangun pengalaman wisata yang mendukung ekonomi lokal sekaligus menjaga budaya dan tradisi daerah.",
-    "about.history.m6.title": "Menyambut Generasi Baru Wisatawan",
+      "Setelah bertahun-tahun menyambut para trekker dan petualang, kami menambahkan dua kamar baru dengan fasilitas AC dan air panas. Tambahan ini memberi kenyamanan lebih bagi tamu, sambil tetap menjaga suasana hangat dan personal khas Waerebo Lodge.",
+    "about.history.m6.title": "Tumbuh Bersama Komunitas",
     "about.history.m6.text":
-      "Seiring berubahnya harapan wisatawan, beberapa kamar kami direnovasi dengan cermat untuk menghadirkan kenyamanan dan kemudahan yang lebih baik, tanpa menghilangkan kesederhanaan dan suasana santai yang disukai para tamu.",
-    "about.history.m7.title": "Menjaga Tradisi, Meningkatkan Kenyamanan",
+      "Perjalanan Waerebo Lodge selalu terhubung erat dengan masyarakat Dintor dan Waerebo. Bersama pemandu lokal, petani, nelayan, dan keluarga desa, kami terus membangun pengalaman wisata yang mendukung ekonomi lokal sekaligus menjaga budaya dan tradisi daerah.",
+    "about.history.m7.title": "Menyambut Generasi Baru Wisatawan",
     "about.history.m7.text":
-      "Perjalanan kami terus berlanjut. Peningkatan kamar tambahan dilakukan untuk memperkaya pengalaman tamu sambil tetap setia pada nilai-nilai yang membimbing kami sejak awal: keramahan yang tulus, kesederhanaan, dan hubungan mendalam dengan alam serta budaya lokal.",
-    "about.history.m8.title": "Gerbang Menuju Waerebo",
+      "Seiring berubahnya harapan wisatawan, beberapa kamar kami direnovasi dengan cermat untuk menghadirkan kenyamanan dan kemudahan yang lebih baik, tanpa menghilangkan kesederhanaan dan suasana santai yang disukai para tamu.",
+    "about.history.m8.title": "Renovasi yang Penuh Pertimbangan",
     "about.history.m8.text":
+      "Beberapa kamar direnovasi secara bertahap untuk menghadirkan kenyamanan dan kemudahan yang lebih baik, tanpa menghilangkan kesederhanaan serta suasana santai yang disukai para tamu.",
+    "about.history.m9.title": "Menjaga Tradisi, Meningkatkan Kenyamanan",
+    "about.history.m9.text":
+      "Perjalanan kami terus berlanjut. Peningkatan kamar tambahan dilakukan untuk memperkaya pengalaman tamu sambil tetap setia pada nilai-nilai yang membimbing kami sejak awal: keramahan yang tulus, kesederhanaan, dan hubungan mendalam dengan alam serta budaya lokal.",
+    "about.history.m10.title": "Gerbang Menuju Waerebo",
+    "about.history.m10.text":
       "Hari ini, Waerebo Lodge menyambut tamu dari berbagai belahan dunia. Lebih dari sekadar tempat menginap, lodge ini menjadi gerbang menuju Desa Waerebo, tempat budaya lokal, keindahan alam Flores, dan keramahan sepenuh hati berpadu menciptakan pengalaman yang tak terlupakan.",
 
     "faq.heading1": "Punya Pertanyaan?",
