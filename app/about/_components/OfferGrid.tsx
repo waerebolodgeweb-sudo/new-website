@@ -91,7 +91,7 @@ export default function OfferGrid() {
 
   return (
     <section id="offer" className="bg-savana-200 py-12 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-20">
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-7">
           {/* Heading cell */}
           <div className="col-span-2 flex flex-col justify-center py-2 lg:col-span-1 lg:aspect-square">

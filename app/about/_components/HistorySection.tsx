@@ -91,7 +91,7 @@ export default function HistorySection() {
 
   return (
     <section id="history" className="bg-savana-50 py-14 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-20">
         <div className="grid gap-7 lg:grid-cols-[1fr_0.95fr] lg:gap-28">
           <div>
             <p className="mb-2 text-[12px] font-medium text-savana-600">

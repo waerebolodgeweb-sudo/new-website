@@ -2,41 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { IoArrowForwardOutline, IoArrowUpOutline } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
-const lodgeThumbnailSlides = [
-  "/lodge/rooms/Waerebo-Lodge-Room-Standard-Twin-1-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Standard-Double-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Standard-Twin-2-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Twin-1-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Twin-2-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Twin-3-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Traditional-Double-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Double-1-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Double-2-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Twin-1-01.webp",
-  "/lodge/rooms/Waerebo-Lodge-Room-Deluxe-Twin-2-01.webp",
-];
-
 export default function ContactSection() {
   const { t } = useLang();
-  const [activeLodgeSlide, setActiveLodgeSlide] = useState(0);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveLodgeSlide(
-        (current) => (current + 1) % lodgeThumbnailSlides.length
-      );
-    }, 2500);
-
-    return () => window.clearInterval(interval);
-  }, []);
 
   return (
     <section id="contact" className="bg-white py-20 lg:py-28">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
         {/* Heading + contact info row */}
         <div className="mb-10 flex flex-col gap-8 lg:mb-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
           <div className="lg:flex-1">
@@ -127,11 +101,18 @@ export default function ContactSection() {
           {/* Large lodge image */}
           <div className="relative h-72 w-full overflow-hidden rounded-[20px] shadow-sm lg:h-auto lg:flex-1">
             <Image
-              src="/home/about-3.jpg"
+              src="/homepage/Homepage-Footer-Waerebo-Lodge-Village-Desktop.webp"
               alt={t("contact.tile.village")}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover"
+              className="hidden object-cover sm:block"
+            />
+            <Image
+              src="/homepage/Homepage-Footer-Waerebo-Lodge-Village-Mobile.webp"
+              alt={t("contact.tile.village")}
+              fill
+              sizes="100vw"
+              className="object-cover sm:hidden"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
@@ -162,11 +143,18 @@ export default function ContactSection() {
               className="relative h-[200px] overflow-hidden rounded-[20px]"
             >
               <Image
-                src="/home/contact-tiles/trekking-program.jpg"
+                src="/homepage/Homepage-Footer-Waerebo-Lodge-Trip-Desktop.webp"
                 alt={t("contact.tile.trekking")}
                 fill
                 sizes="(min-width: 1024px) 20vw, 50vw"
-                className="object-cover"
+                className="hidden object-cover sm:block"
+              />
+              <Image
+                src="/homepage/Homepage-Footer-Waerebo-Lodge-Trip-Mobile.webp"
+                alt={t("contact.tile.trekking")}
+                fill
+                sizes="50vw"
+                className="object-cover sm:hidden"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
@@ -178,18 +166,20 @@ export default function ContactSection() {
               href="/lodge"
               className="relative h-[200px] overflow-hidden rounded-[20px]"
             >
-              {lodgeThumbnailSlides.map((src, index) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt={t("contact.tile.exploreLodge")}
-                  fill
-                  sizes="(min-width: 1024px) 20vw, 50vw"
-                  className={`object-cover transition-opacity duration-700 ${
-                    index === activeLodgeSlide ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-              ))}
+              <Image
+                src="/homepage/Homepage-Footer-Waerebo-Lodge-Room-Desktop.webp"
+                alt={t("contact.tile.exploreLodge")}
+                fill
+                sizes="(min-width: 1024px) 20vw, 50vw"
+                className="hidden object-cover sm:block"
+              />
+              <Image
+                src="/homepage/Homepage-Footer-Waerebo-Lodge-Room-Mobile.webp"
+                alt={t("contact.tile.exploreLodge")}
+                fill
+                sizes="50vw"
+                className="object-cover sm:hidden"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
                 {t("contact.tile.exploreLodge")}
@@ -202,12 +192,19 @@ export default function ContactSection() {
               rel="noopener noreferrer"
               className="relative h-[200px] overflow-hidden rounded-[20px]"
             >
-              <iframe
-                title="Map to Waerebo Lodge"
-                src="https://www.google.com/maps?q=-8.8465902,120.3055812&z=15&output=embed"
-                className="pointer-events-none absolute inset-0 h-full w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+              <Image
+                src="/homepage/Homepage-Footer-Waerebo-Lodge-Location-Desktop.webp"
+                alt={t("contact.tile.dintor")}
+                fill
+                sizes="(min-width: 1024px) 20vw, 50vw"
+                className="hidden object-cover sm:block"
+              />
+              <Image
+                src="/homepage/Homepage-Footer-Waerebo-Lodge-Location-Mobile.webp"
+                alt={t("contact.tile.dintor")}
+                fill
+                sizes="50vw"
+                className="object-cover sm:hidden"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-5 left-5">

@@ -56,28 +56,32 @@ const baseReviews: RoomReview[] = [
     location: "Italy",
     rating: 5,
     text: "Wonderful place with an amazing view. Rooms are very clean, and perfect for diving right after. The place is the food and the eating place. A kindness of the family is remarkable.",
-    avatar: "/home/review-1.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-01-al-Garnier.webp",
   },
   {
     name: "Julia Kytyluck",
     location: "Italy",
     rating: 5,
     text: "A unique combination of mountains, rice fields and sea. Highly recommended to visit. The owner is a great storyteller!",
-    avatar: "/home/review-2.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-02-Julia-Kyryluck.webp",
   },
   {
     name: "Rionn Marvellous",
     location: "Germany",
     rating: 5,
     text: "One of the best places to stay before the Waerebo trek - not far from the trailhead and the village.",
-    avatar: "/home/review-3.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-03-Flores-Marvelous.webp",
   },
   {
     name: "Farisa Margiati",
     location: "Indonesia",
     rating: 5,
     text: "Nicest place. It is the most relaxed lodge before the trek. The staff are super friendly. The lodge is a real gem - a perfect basecamp.",
-    avatar: "/home/review-4.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-04-Felina-Margiati.webp",
   },
 ];
 

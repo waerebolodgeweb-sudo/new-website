@@ -11,28 +11,32 @@ const testimonials = [
     name: "al Garnier",
     rating: 5,
     text: "Wonderful place with an amazing view. Rooms are very simple, but perfectly clean with airco. The plus is the food and the atmosphere / kindness of this family-owned place",
-    avatar: "/home/review-1.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-01-al-Garnier.webp",
   },
   {
     id: 2,
     name: "Julia Kyryluck",
     rating: 5,
     text: "A unique combination of mountains, rice fields and sea in 1 place! Plus, Martin, the owner, is a great storyteller! Highly recommended to visit :)",
-    avatar: "/home/review-2.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-02-Julia-Kyryluck.webp",
   },
   {
     id: 3,
     name: "Flores Marvelous",
     rating: 5,
     text: "One Of The Best Place To Staying For Countryside Trip. not that hard to Find the Place, the View is Great and the Rooms are Great.",
-    avatar: "/home/review-3.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-03-Flores-Marvelous.webp",
   },
   {
     id: 4,
     name: "Felina Margiati",
     rating: 5,
     text: "Nice place, it's in the middle of rice field but at the same time you can see the sea from here. Clean room, staff and owner are friendly. Electricity is out at 10PM, no mobile network, a perfect getaways.",
-    avatar: "/home/review-4.jpg",
+    avatar:
+      "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-04-Felina-Margiati.webp",
   },
 ];
 
@@ -48,19 +52,25 @@ export default function TestimonialsSection() {
 
   return (
     <section id="reviews" className="bg-neutral-050 py-12 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
         <div className="relative overflow-hidden rounded-[36px]">
           {/* Rice-field background + dark olive overlay */}
           <Image
-            src="/home/testimonials-bg.jpg"
+            src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
             alt=""
             fill
-            className="object-cover"
+            className="hidden object-cover sm:block"
+          />
+          <Image
+            src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Mobile.webp"
+            alt=""
+            fill
+            className="object-cover sm:hidden"
           />
           <div className="absolute inset-0 bg-[#312805]/45" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-[#453D18]/60" />
 
-          <div className="relative z-10 px-6 pt-16 pb-12 sm:px-8 lg:px-10 lg:pt-24 lg:pb-12">
+          <div className="relative z-10 px-6 pt-16 pb-12 sm:px-8 lg:px-20 lg:pt-24 lg:pb-12">
             {/* Header */}
             <div className="mb-10 flex items-end justify-between gap-6 lg:mb-16">
               <div>
@@ -142,7 +152,7 @@ export default function TestimonialsSection() {
             style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
           >
             <Image
-              src="/home/testimonials-bg.jpg"
+              src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
               alt=""
               fill
               className="object-cover object-bottom"

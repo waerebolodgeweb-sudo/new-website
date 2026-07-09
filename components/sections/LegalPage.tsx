@@ -259,7 +259,7 @@ export default function LegalPage({ pageType }: LegalPageProps) {
     <>
       <Navbar />
       <main className="bg-white pt-16 lg:pt-20">
-        <section className="mx-auto max-w-3xl px-6 pt-12 pb-20 lg:px-10 lg:pt-20 lg:pb-28">
+        <section className="mx-auto max-w-3xl px-6 pt-12 pb-20 lg:px-20 lg:pt-20 lg:pb-28">
           <p className="mb-3 text-base font-normal text-savana-600">
             {t("legal.eyebrow")}
           </p>

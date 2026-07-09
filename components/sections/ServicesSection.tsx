@@ -18,23 +18,43 @@ const serviceHrefs: Record<ServiceId, string> = {
 };
 
 const serviceThumbs: Record<ServiceId, string> = {
-  trip: "/home/our-services/trip/f20edc724b0e817b8db3b9dc030546c10d16ecb0.jpg",
+  trip: "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Small-01-Trip.webp",
   lodge:
-    "/home/our-services/lodge/82ebccc56f4d43f058a2d3a1e812faef1bacd25e%20(1).jpg",
+    "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Small-02-Lodge.webp",
   restaurant:
-    "/home/our-services/restaurant/3ec678255ed0c4e1b6975503f4a3a9496c310682.png",
+    "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Small-03-Restaurant.webp",
   transport:
-    "/home/our-services/transportation/922525baf8d0eee8d731639d9d31f1a71f298a3e.jpg",
+    "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Small-04-Transport.webp",
 };
 
-const serviceHeroImages: Record<ServiceId, string> = {
-  trip: "/home/our-services/trip/838a3e2b7aaed1c1c6b0629e63061b3711a8c3c8.jpg",
-  lodge:
-    "/home/our-services/lodge/1bb4723a9717c1c2d356c0670d5591e2abea24a2.png",
-  restaurant:
-    "/home/our-services/restaurant/61d8917f0d4f838c4dd8f68f982522f7df148c67.jpg",
-  transport:
-    "/home/our-services/transportation/64fe1a88bbc83d82b7725004b853abfd873b9b07.jpg",
+const serviceHeroImages: Record<
+  ServiceId,
+  { desktop: string; mobile: string }
+> = {
+  trip: {
+    desktop:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-01-Trip.webp",
+    mobile:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-01-Trip-Mobile.webp",
+  },
+  lodge: {
+    desktop:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-02-Lodge.webp",
+    mobile:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-02-Lodge-Mobile.webp",
+  },
+  restaurant: {
+    desktop:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-03-Restaurant.webp",
+    mobile:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-03-Restaurant-Mobile.webp",
+  },
+  transport: {
+    desktop:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-04-Transport.webp",
+    mobile:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-04-Transport-Transport.webp",
+  },
 };
 
 export default function ServicesSection() {
@@ -43,8 +63,8 @@ export default function ServicesSection() {
 
   return (
     <section id="services" className="bg-savana-50 py-16 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
-        <div className="rounded-[28px] bg-[#f8f6ef] px-6 py-10 lg:rounded-[32px] lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
+        <div className="rounded-[28px] bg-[#f8f6ef] px-6 py-10 lg:rounded-[32px] lg:px-20 lg:py-20">
           <div className="mb-10 grid gap-6 lg:mb-14 lg:grid-cols-[1fr_1fr] lg:items-end">
             <div>
               <p className="mb-2 text-base font-normal text-savana-600">
@@ -119,12 +139,20 @@ export default function ServicesSection() {
 
             <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-[0_18px_38px_rgba(38,35,22,0.16)] lg:h-[486px]">
               <Image
-                key={open}
-                src={serviceHeroImages[open]}
+                key={`${open}-desktop`}
+                src={serviceHeroImages[open].desktop}
                 alt={t(`services.${open}.label`)}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
+                className="hidden object-cover sm:block"
+              />
+              <Image
+                key={`${open}-mobile`}
+                src={serviceHeroImages[open].mobile}
+                alt={t(`services.${open}.label`)}
+                fill
+                sizes="100vw"
+                className="object-cover sm:hidden"
               />
             </div>
           </div>

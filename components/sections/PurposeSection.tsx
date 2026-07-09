@@ -8,11 +8,11 @@ export default function PurposeSection() {
 
   return (
     <section id="about" className="bg-savana-200 py-[60px] lg:py-40">
-      <div className="mx-auto max-w-[1512px] px-5 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
         {/* Mobile-only: large hero image */}
         <div className="relative mb-10 h-[200px] overflow-hidden rounded-3xl shadow-sm lg:hidden">
           <Image
-            src="/home/about-1.png"
+            src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-01.webp"
             alt="Waerebo Lodge sign"
             fill
             sizes="100vw"
@@ -48,7 +48,7 @@ export default function PurposeSection() {
             <div className="mb-10 flex items-stretch gap-5 lg:hidden">
               <div className="relative min-h-[100px] w-1/2 shrink-0 overflow-hidden rounded-xl shadow-sm">
                 <Image
-                  src="/home/about-3.jpg"
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-03.webp"
                   alt="Traditional cone-shaped Waerebo houses"
                   fill
                   sizes="50vw"
@@ -82,7 +82,7 @@ export default function PurposeSection() {
               <div className="h-24 rounded-3xl bg-transparent" />
               <div className="relative h-72 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
-                  src="/home/about-1.png"
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-01.webp"
                   alt="Waerebo Lodge sign"
                   fill
                   sizes="20vw"
@@ -97,7 +97,7 @@ export default function PurposeSection() {
               <div className="h-40 rounded-3xl bg-transparent" />
               <div className="relative h-72 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
-                  src="/home/about-2.png"
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-02.webp"
                   alt="Aerial view of Waerebo village"
                   fill
                   sizes="20vw"
@@ -110,7 +110,7 @@ export default function PurposeSection() {
             <div className="flex w-[40%] flex-col gap-5">
               <div className="relative h-96 shrink-0 overflow-hidden rounded-3xl shadow-sm">
                 <Image
-                  src="/home/about-3.jpg"
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-03.webp"
                   alt="Traditional cone-shaped Waerebo houses"
                   fill
                   sizes="25vw"

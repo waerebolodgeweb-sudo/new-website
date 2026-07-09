@@ -45,7 +45,7 @@ export default function StorySection() {
 
   return (
     <section id="story" className="bg-savana-50 pt-7 pb-14 lg:pt-14 lg:pb-24">
-      <div className="mx-auto max-w-[1512px] lg:px-10">
+      <div className="mx-auto max-w-[1512px] lg:px-20">
         <div className="lg:hidden">
           <div className="grid justify-items-end gap-3">
             <Image

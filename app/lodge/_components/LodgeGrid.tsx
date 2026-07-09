@@ -31,7 +31,7 @@ export default function LodgeGrid({ rooms }: { rooms: Room[] }) {
 
   return (
     <section className="bg-neutral-050 py-16 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
         <div className="mb-12 text-center lg:mb-16">
           <p className="mb-2 text-3xl font-normal text-savana-800">
             {t("lodge.eyebrow")}

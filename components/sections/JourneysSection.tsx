@@ -55,7 +55,8 @@ const tripDefs: JourneyCardDef[] = [
   {
     id: "1-day",
     titleKey: "journeys.trip1.title",
-    image: "/home/1-day-trekking.jpg",
+    image:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-01-Trip.webp",
     meta: [
       { icon: IoPartlySunny, textKey: "journeys.trip1.meta0" },
       { icon: IoFlag, textKey: "journeys.trip1.meta1" },
@@ -65,7 +66,7 @@ const tripDefs: JourneyCardDef[] = [
   {
     id: "2d1n",
     titleKey: "journeys.trip2.title",
-    image: "/home/2d-1n-trekking.jpg",
+    image: "/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Desktop.webp",
     meta: [
       { icon: IoPartlySunny, textKey: "journeys.trip2.meta0" },
       { icon: IoFlag, textKey: "journeys.trip2.meta1" },
@@ -75,7 +76,8 @@ const tripDefs: JourneyCardDef[] = [
   {
     id: "3d2n",
     titleKey: "journeys.trip3.title",
-    image: "/home/3d-2n-trekking.jpg",
+    image:
+      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Small-01-Trip.webp",
     meta: [
       { icon: IoPartlySunny, textKey: "journeys.trip3.meta0" },
       { icon: IoFlag, textKey: "journeys.trip3.meta1" },
@@ -106,40 +108,40 @@ const transportDefs: TransportCardDef[] = [
   {
     id: "oto-colt",
     title: "Oto Colt",
-    image: "/transport/Waerebo-Transport-Options-Oto-Colt.webp",
+    image: "/homepage/Homepage-Our-Services-Waerebo-Transport-Picture-01.webp",
     descKey: "journeys.transport.oto.desc",
   },
   {
     id: "toyota-innova",
     title: "Toyota Innova",
-    image: "/transport/Waerebo-Transport-Options-Toyota-Innova.webp",
+    image: "/homepage/Homepage-Our-Services-Waerebo-Transport-Picture-02.webp",
     descKey: "journeys.transport.innova.desc",
   },
 ];
 
 const restaurantSliderImages = [
   {
-    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-01.webp",
+    src: "/homepage/Homepage-Waerebo-Restaurant-Photo-Eating-Lunch-01.webp",
     alt: "Guests sharing lunch at Waerebo Lodge Restaurant",
   },
   {
-    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-02.webp",
+    src: "/homepage/Homepage-Waerebo-Restaurant-Photo-Eating-Lunch-02.webp",
     alt: "Restaurant guests enjoying local food at Waerebo Lodge",
   },
   {
-    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-03.webp",
+    src: "/homepage/Homepage-Waerebo-Restaurant-Photo-Eating-Lunch-03.webp",
     alt: "Home-cooked Flores meal at Waerebo Lodge Restaurant",
   },
   {
-    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-04.webp",
+    src: "/homepage/Homepage-Waerebo-Restaurant-Photo-Eating-Lunch-04.webp",
     alt: "Dining table at Waerebo Lodge Restaurant",
   },
   {
-    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-05.webp",
+    src: "/homepage/Homepage-Waerebo-Restaurant-Photo-Eating-Lunch-05.webp",
     alt: "Guests dining together in Waerebo Lodge Restaurant",
   },
   {
-    src: "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-06.webp",
+    src: "/homepage/Homepage-Waerebo-Restaurant-Photo-Eating-Lunch-06.webp",
     alt: "Lunch gathering at Waerebo Lodge Restaurant",
   },
 ];
@@ -446,7 +448,7 @@ export default function JourneysSection() {
       id="journeys"
       className="bg-neutral-050 pt-0 pb-24 lg:pt-0 lg:pb-28"
     >
-      <div className="relative mx-auto max-w-[1512px] px-6 lg:px-10">
+      <div className="relative mx-auto max-w-[1512px] px-6 lg:px-20">
         <div className="relative z-10 -mt-16 lg:-mt-24">
           <div className="overflow-hidden rounded-[2rem] border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)] lg:p-8">
             <p className="mb-2 text-base font-normal text-savana-600">
@@ -480,7 +482,7 @@ export default function JourneysSection() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-[1512px] px-6 lg:px-10">
+      <div className="mx-auto mt-10 max-w-[1512px] px-6 lg:px-20">
         {activeTab === "trip" && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tripDefs.map((def) => (

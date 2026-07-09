@@ -461,7 +461,7 @@ export default function RoomDetail({
 
       {orderedOtherRooms.length > 0 && (
         <section className="bg-savana-200 py-16 lg:py-24">
-          <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
+          <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
             <h2 className="mb-12 text-center text-4xl leading-tight font-normal text-savana-800 lg:mb-16 lg:text-6xl">
               {t("room.discoverMore")}{" "}
               <span className="font-semibold">{t("room.roomOptions")}</span>

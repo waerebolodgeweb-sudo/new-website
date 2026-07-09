@@ -36,7 +36,7 @@ export default function RestaurantContent() {
   return (
     <main className="pt-16 lg:pt-20">
       <section className="overflow-hidden bg-[#f8f6ef] py-12 lg:py-16">
-        <div className="mx-auto max-w-[1512px] px-6 lg:px-10">
+        <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
           <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_590px] lg:items-center">
             <h1 className="text-5xl leading-tight font-semibold text-savana-800 lg:text-[56px]">
               {t("restaurant.page.heading")}

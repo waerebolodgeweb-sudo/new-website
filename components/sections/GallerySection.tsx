@@ -13,6 +13,7 @@ const videos = [
   {
     id: "Rp7MpKgdeWA",
     title: "Nic Singapore",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-01.webp",
     caption:
       "Taking a moment to soak in the golden rice terraces and coastal breeze at Dintor before hiking up to the sky village",
     url: "https://youtu.be/Rp7MpKgdeWA",
@@ -20,6 +21,7 @@ const videos = [
   {
     id: "uT3myORIxcs",
     title: "Christophe & Jean - Franch",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-02.webp",
     caption:
       "Sharing their Waerebo Lodge experience before continuing the journey through the heart of Flores.",
     url: "https://youtu.be/uT3myORIxcs",
@@ -27,6 +29,7 @@ const videos = [
   {
     id: "7q3DuaYQcfI",
     title: "Daisy & Edy Indonesia",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-03.webp",
     caption:
       "Daisy and Edy share their review of Waerebo Lodge after experiencing the stay, food, and highland atmosphere.",
     url: "https://youtu.be/7q3DuaYQcfI",
@@ -34,6 +37,7 @@ const videos = [
   {
     id: "3xFSsOk7SL8",
     title: "Irish Germany",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-04.webp",
     caption:
       "A traveler from Germany shares impressions from Waerebo Lodge and the journey around Dintor.",
     url: "https://youtu.be/3xFSsOk7SL8",
@@ -41,6 +45,7 @@ const videos = [
   {
     id: "8dUNAZ-vhB8",
     title: "Florian & Christoph - Austria",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-05.webp",
     caption:
       "Florian and Christoph from Austria talk about their Waerebo Lodge experience in Flores.",
     url: "https://youtu.be/8dUNAZ-vhB8",
@@ -48,6 +53,7 @@ const videos = [
   {
     id: "KErr-2E1I_g",
     title: "Christoph A - Austria",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-06.webp",
     caption:
       "Christoph A shares a short review of Waerebo Lodge after his visit.",
     url: "https://youtube.com/shorts/KErr-2E1I_g",
@@ -55,6 +61,7 @@ const videos = [
   {
     id: "xSXuJHTuqgc",
     title: "Irish Germany",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-07.webp",
     caption:
       "A short Waerebo review from Irish Germany, captured during the lodge experience.",
     url: "https://youtube.com/shorts/xSXuJHTuqgc?feature=share",
@@ -75,11 +82,18 @@ export default function GallerySection() {
         <div className="ml-auto max-w-[1512px]">
           <div className="relative overflow-hidden rounded-l-3xl shadow-sm">
             <Image
-              src="/home/bg-moment.jpg"
+              src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Desktop.webp"
               alt=""
               fill
               priority
-              className="object-cover"
+              className="hidden object-cover sm:block"
+            />
+            <Image
+              src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Mobile.webp"
+              alt=""
+              fill
+              priority
+              className="object-cover sm:hidden"
             />
             <div className="absolute inset-0 w-1/2 bg-gradient-to-r from-black/30 to-[#666666]/0 backdrop-blur-[2px]" />
 
@@ -134,7 +148,7 @@ export default function GallerySection() {
                         className="group relative block h-full w-full overflow-hidden rounded-2xl shadow-lg"
                       >
                         <Image
-                          src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
+                          src={video.thumbnail}
                           alt={video.title}
                           fill
                           sizes="(min-width: 1024px) 900px, 85vw"
