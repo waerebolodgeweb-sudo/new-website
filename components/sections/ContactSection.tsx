@@ -2,11 +2,29 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { IoArrowForwardOutline, IoArrowUpOutline } from "react-icons/io5";
+import { rooms } from "@/app/rooms/data";
 import { useLang } from "@/lib/i18n";
+
+const lodgeThumbnailSlides = rooms.map((room) => ({
+  src: room.cardImage ?? room.images[0],
+  alt: room.cardTitle ?? room.title,
+}));
 
 export default function ContactSection() {
   const { t } = useLang();
+  const [activeLodgeSlide, setActiveLodgeSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveLodgeSlide(
+        (current) => (current + 1) % lodgeThumbnailSlides.length
+      );
+    }, 4500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <section id="contact" className="bg-white py-20 lg:py-28">
@@ -99,20 +117,20 @@ export default function ContactSection() {
         {/* Image tile grid */}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-stretch">
           {/* Large lodge image */}
-          <div className="relative h-72 w-full overflow-hidden rounded-[20px] shadow-sm lg:h-auto lg:flex-1">
+          <div className="group relative h-72 w-full overflow-hidden rounded-[20px] shadow-sm lg:h-auto lg:flex-1">
             <Image
               src="/homepage/Homepage-Footer-Waerebo-Lodge-Village-Desktop.webp"
               alt={t("contact.tile.village")}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="hidden object-cover sm:block"
+              className="hidden object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:block"
             />
             <Image
               src="/homepage/Homepage-Footer-Waerebo-Lodge-Village-Mobile.webp"
               alt={t("contact.tile.village")}
               fill
               sizes="100vw"
-              className="object-cover sm:hidden"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:hidden"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
@@ -140,21 +158,21 @@ export default function ContactSection() {
 
             <Link
               href="/trips"
-              className="relative h-[200px] overflow-hidden rounded-[20px]"
+              className="group relative h-[200px] overflow-hidden rounded-[20px]"
             >
               <Image
                 src="/homepage/Homepage-Footer-Waerebo-Lodge-Trip-Desktop.webp"
                 alt={t("contact.tile.trekking")}
                 fill
                 sizes="(min-width: 1024px) 20vw, 50vw"
-                className="hidden object-cover sm:block"
+                className="hidden object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:block"
               />
               <Image
                 src="/homepage/Homepage-Footer-Waerebo-Lodge-Trip-Mobile.webp"
                 alt={t("contact.tile.trekking")}
                 fill
                 sizes="50vw"
-                className="object-cover sm:hidden"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:hidden"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
@@ -164,22 +182,20 @@ export default function ContactSection() {
 
             <Link
               href="/lodge"
-              className="relative h-[200px] overflow-hidden rounded-[20px]"
+              className="group relative h-[200px] overflow-hidden rounded-[20px]"
             >
-              <Image
-                src="/homepage/Homepage-Footer-Waerebo-Lodge-Room-Desktop.webp"
-                alt={t("contact.tile.exploreLodge")}
-                fill
-                sizes="(min-width: 1024px) 20vw, 50vw"
-                className="hidden object-cover sm:block"
-              />
-              <Image
-                src="/homepage/Homepage-Footer-Waerebo-Lodge-Room-Mobile.webp"
-                alt={t("contact.tile.exploreLodge")}
-                fill
-                sizes="50vw"
-                className="object-cover sm:hidden"
-              />
+              {lodgeThumbnailSlides.map((slide, index) => (
+                <Image
+                  key={slide.src}
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  sizes="(min-width: 1024px) 20vw, 50vw"
+                  className={`object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-105 ${
+                    index === activeLodgeSlide ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
                 {t("contact.tile.exploreLodge")}
@@ -190,21 +206,21 @@ export default function ContactSection() {
               href="https://www.google.com/maps/@-8.8465902,120.3055812,17z"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative h-[200px] overflow-hidden rounded-[20px]"
+              className="group relative h-[200px] overflow-hidden rounded-[20px]"
             >
               <Image
                 src="/homepage/Homepage-Footer-Waerebo-Lodge-Location-Desktop.webp"
                 alt={t("contact.tile.dintor")}
                 fill
                 sizes="(min-width: 1024px) 20vw, 50vw"
-                className="hidden object-cover sm:block"
+                className="hidden object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:block"
               />
               <Image
                 src="/homepage/Homepage-Footer-Waerebo-Lodge-Location-Mobile.webp"
                 alt={t("contact.tile.dintor")}
                 fill
                 sizes="50vw"
-                className="object-cover sm:hidden"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:hidden"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-5 left-5">

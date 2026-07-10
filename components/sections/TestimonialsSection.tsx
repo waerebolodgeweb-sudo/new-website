@@ -53,26 +53,23 @@ export default function TestimonialsSection() {
   return (
     <section id="reviews" className="bg-neutral-050 py-12 lg:py-24">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
-        <div className="relative overflow-hidden rounded-[36px]">
-          {/* Rice-field background + dark olive overlay */}
+        <div className="relative aspect-[1179/2352] sm:aspect-[2784/1530]">
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
             alt=""
             fill
-            className="hidden object-cover sm:block"
+            className="hidden object-fill sm:block"
           />
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Mobile.webp"
             alt=""
             fill
-            className="object-cover sm:hidden"
+            className="object-fill sm:hidden"
           />
-          <div className="absolute inset-0 bg-[#312805]/45" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-[#453D18]/60" />
 
-          <div className="relative z-10 px-6 pt-16 pb-12 sm:px-8 lg:px-20 lg:pt-24 lg:pb-12">
+          <div className="absolute inset-0 z-10 px-[6%] pt-[7%] pb-[12%]">
             {/* Header */}
-            <div className="mb-10 flex items-end justify-between gap-6 lg:mb-16">
+            <div className="mb-8 flex items-end justify-between gap-6 lg:mb-10">
               <div>
                 <p className="mb-2 text-sm font-normal text-white/90 lg:text-base">
                   {t("testimonials.eyebrow")}
@@ -146,21 +143,6 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Chat-bubble triangle tail — desktop only (hidden on mobile per Figma) */}
-        <div className="hidden pl-8 sm:pl-12 lg:block lg:pl-[100px]">
-          <div
-            className="relative h-12 w-20 sm:h-16 sm:w-28 lg:h-20 lg:w-[150px]"
-            style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
-          >
-            <Image
-              src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
-              alt=""
-              fill
-              className="object-cover object-bottom"
-            />
-            <div className="absolute inset-0 bg-[#312805]/45" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#453D18]/70" />
-          </div>
-        </div>
       </div>
     </section>
   );

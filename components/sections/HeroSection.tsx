@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import type { SyntheticEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLang } from "@/lib/i18n";
 
 const desktopVideos = [
@@ -17,42 +18,136 @@ const mobileVideos = [
   "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-4.mp4",
 ];
 
-export default function HeroSection() {
-  const { t } = useLang();
-  const [activeVideo, setActiveVideo] = useState(0);
+const TRANSITION_LEAD_SECONDS = 2.5;
+const CROSSFADE_MS = 900;
+
+function useDesktopHeroVideo() {
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveVideo((current) => (current + 1) % desktopVideos.length);
-    }, 9000);
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mediaQuery.matches);
 
-    return () => window.clearInterval(interval);
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
   }, []);
 
+  return isDesktop;
+}
+
+export default function HeroSection() {
+  const { t } = useLang();
+  const isDesktop = useDesktopHeroVideo();
+  const videos = isDesktop ? desktopVideos : mobileVideos;
+  const poster = isDesktop
+    ? "/homepage/Homepage-Waerebo-Lodge-Hero-Overlay-Desktop-1.webp"
+    : "/homepage/Homepage-Waerebo-Lodge-Hero-Overlay-Mobile-1.webp";
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const transitionTimeoutRef = useRef<number | null>(null);
+  const [activeVideo, setActiveVideo] = useState(0);
+  const [incomingVideo, setIncomingVideo] = useState<number | null>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const activeElement = videoRefs.current[activeVideo];
+    if (!activeElement) return;
+
+    void activeElement.play();
+  }, [activeVideo, videos]);
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current !== null) {
+        window.clearTimeout(transitionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const startTransition = useCallback(
+    (nextIndex: number) => {
+      if (incomingVideo !== null || nextIndex === activeVideo) return;
+
+      const currentElement = videoRefs.current[activeVideo];
+      const nextElement = videoRefs.current[nextIndex];
+
+      setIncomingVideo(nextIndex);
+
+      if (nextElement) {
+        nextElement.currentTime = 0;
+        void nextElement.play();
+      }
+
+      if (transitionTimeoutRef.current !== null) {
+        window.clearTimeout(transitionTimeoutRef.current);
+      }
+
+      transitionTimeoutRef.current = window.setTimeout(() => {
+        currentElement?.pause();
+        if (currentElement) {
+          currentElement.currentTime = 0;
+        }
+        setActiveVideo(nextIndex);
+        setIncomingVideo(null);
+        setProgress(0);
+      }, CROSSFADE_MS);
+    },
+    [activeVideo, incomingVideo]
+  );
+
+  const goToNextVideo = useCallback(() => {
+    startTransition((activeVideo + 1) % videos.length);
+  }, [activeVideo, startTransition, videos.length]);
+
+  const handleTimeUpdate = (
+    event: SyntheticEvent<HTMLVideoElement>,
+    index: number
+  ) => {
+    if (index !== activeVideo || incomingVideo !== null) return;
+
+    const video = event.currentTarget;
+    const duration = video.duration;
+
+    if (!Number.isFinite(duration) || duration <= 0) return;
+
+    setProgress(Math.min(video.currentTime / duration, 1));
+
+    if (duration - video.currentTime <= TRANSITION_LEAD_SECONDS) {
+      goToNextVideo();
+    }
+  };
+
   return (
-    <section className="relative flex h-screen min-h-[600px] items-center">
-      <video
-        key={`desktop-${desktopVideos[activeVideo]}`}
-        className="absolute inset-0 hidden h-full w-full object-cover md:block"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/homepage/Homepage-Waerebo-Lodge-Hero-Overlay-Desktop-1.webp"
-      >
-        <source src={desktopVideos[activeVideo]} type="video/mp4" />
-      </video>
-      <video
-        key={`mobile-${mobileVideos[activeVideo]}`}
-        className="absolute inset-0 h-full w-full object-cover md:hidden"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/homepage/Homepage-Waerebo-Lodge-Hero-Overlay-Mobile-1.webp"
-      >
-        <source src={mobileVideos[activeVideo]} type="video/mp4" />
-      </video>
+    <section className="relative flex h-screen min-h-[600px] items-center bg-neutral-900">
+      {videos.map((video, index) => (
+        <video
+          key={`${isDesktop ? "desktop" : "mobile"}-${video}`}
+          ref={(element) => {
+            videoRefs.current[index] = element;
+          }}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
+            index === incomingVideo
+              ? "z-20 opacity-100"
+              : index === activeVideo
+                ? "z-10 opacity-100"
+                : "z-0 opacity-0"
+          }`}
+          autoPlay={index === 0}
+          muted
+          playsInline
+          preload="auto"
+          poster={poster}
+          onTimeUpdate={(event) => handleTimeUpdate(event, index)}
+          onEnded={() => {
+            if (index === activeVideo) {
+              goToNextVideo();
+            }
+          }}
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+      ))}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
       <div className="relative z-10 mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 lg:py-28">
@@ -66,6 +161,29 @@ export default function HeroSection() {
         <p className="mt-5 max-w-md text-sm leading-relaxed font-normal text-white/75 lg:text-base">
           {t("hero.subtitle")}
         </p>
+        <div className="mt-8 flex w-full max-w-[220px] items-center gap-2">
+          {videos.map((video, index) => (
+            <button
+              key={`progress-${video}`}
+              type="button"
+              aria-label={`Show hero video ${index + 1}`}
+              onClick={() => startTransition(index)}
+              className="h-1 flex-1 overflow-hidden rounded-full bg-white/30"
+            >
+              <span
+                className="block h-full rounded-full bg-white transition-[width] duration-150 ease-linear"
+                style={{
+                  width:
+                    index === activeVideo
+                      ? `${Math.max(progress * 100, 8)}%`
+                      : index === incomingVideo
+                        ? "100%"
+                        : "0%",
+                }}
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
