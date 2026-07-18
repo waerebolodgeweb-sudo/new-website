@@ -100,7 +100,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap xl:gap-7 lg:flex">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.key} className="group relative">
