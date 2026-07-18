@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IoChevronBackOutline,
   IoChevronForwardOutline,
@@ -75,6 +75,15 @@ export default function GallerySection() {
 
   const prev = () => setCurrent((c) => (c - 1 + videos.length) % videos.length);
   const next = () => setCurrent((c) => (c + 1) % videos.length);
+
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
+    const duration = isDesktop ? 6000 : 5000;
+    const id = window.setInterval(() => {
+      setCurrent((c) => (c + 1) % videos.length);
+    }, duration);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <section className="bg-neutral-050 py-16 lg:py-24" id="testimonials">

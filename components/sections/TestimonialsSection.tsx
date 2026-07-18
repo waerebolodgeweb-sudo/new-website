@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
@@ -49,6 +49,21 @@ export default function TestimonialsSection() {
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
+    const duration = isDesktop ? 15000 : 6000;
+    const id = window.setInterval(() => {
+      const el = scrollRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      el.scrollTo({
+        left: atEnd ? 0 : el.scrollLeft + el.clientWidth * 0.8,
+        behavior: "smooth",
+      });
+    }, duration);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <section id="reviews" className="bg-neutral-050 py-12 lg:py-24">

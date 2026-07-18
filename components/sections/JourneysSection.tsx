@@ -482,7 +482,7 @@ export default function JourneysSection() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-[1512px] px-6 lg:px-20">
+      <div className="mx-auto mt-10 max-w-[1512px] px-6 lg:min-h-[720px] lg:px-20">
         {activeTab === "trip" && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tripDefs.map((def) => (

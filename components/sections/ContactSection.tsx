@@ -141,12 +141,12 @@ export default function ContactSection() {
           {/* 2x2 tile grid */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:w-[584px] lg:flex-shrink-0">
             <Link
-              href="/about"
-              className="relative flex h-[200px] flex-col justify-end gap-0.5 overflow-hidden rounded-[20px] bg-neutral-800 p-5"
+              href="/trips"
+              className="group relative flex h-[200px] flex-col justify-end gap-0.5 overflow-hidden rounded-[20px] bg-neutral-800 p-5"
             >
               <IoArrowUpOutline
                 size={24}
-                className="absolute top-4 right-4 rotate-45 text-white"
+                className="absolute top-4 right-4 rotate-45 text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               />
               <p className="text-2xl font-semibold text-white">
                 {t("contact.tile.heartTitle")}

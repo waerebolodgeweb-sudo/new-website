@@ -30,6 +30,7 @@ const navLinks: NavLink[] = [
     ],
   },
   { key: "nav.testimonials", href: "/#testimonials" },
+  { key: "nav.gallery", href: "/gallery" },
   { key: "nav.reviews", href: "/#reviews" },
   { key: "nav.faq", href: "/faq" },
 ];

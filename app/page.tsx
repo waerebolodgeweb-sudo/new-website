@@ -4,6 +4,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import JourneysSection from "@/components/sections/JourneysSection";
 import PurposeSection from "@/components/sections/PurposeSection";
 import GallerySection from "@/components/sections/GallerySection";
+import MomentsSection from "@/components/sections/MomentsSection";
 import VideoSection from "@/components/sections/VideoSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
@@ -28,6 +29,10 @@ export default function Home() {
 
         <ScrollReveal variant="fadeIn" duration={900}>
           <GallerySection />
+        </ScrollReveal>
+
+        <ScrollReveal variant="fadeIn" duration={900}>
+          <MomentsSection />
         </ScrollReveal>
 
         <ScrollReveal variant="fadeUp">
