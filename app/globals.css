@@ -207,3 +207,13 @@ body {
     transform: none;
   }
 }
+
+/* Gallery hero photo strip marquee */
+@keyframes gallery-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

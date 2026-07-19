@@ -10,16 +10,12 @@ export interface IconicDestination {
   caption: Localized;
 }
 
-/** Hero photo cluster — top of the page */
-export const heroPhotos: string[] = [
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-01.webp`,
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-02.webp`,
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-03.webp`,
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-04.webp`,
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-05.webp`,
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-06.webp`,
-  `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-07.webp`,
-];
+/** Hero photo strip — all 12 carousel pictures */
+export const heroPhotos: string[] = Array.from(
+  { length: 12 },
+  (_, i) =>
+    `${G}/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-${String(i + 1).padStart(2, "0")}.webp`
+);
 
 /** "Discover the Beauty of Flores" iconic destination carousel */
 export const iconicDestinations: IconicDestination[] = [
@@ -111,12 +107,28 @@ export const captionTiles: Localized[] = [
     en: "Dive into the ultimate adventure. Our tours weave together trekking, culture, and comfort into one seamless journey.",
     id: "Selami petualangan terbaik. Tur kami memadukan trekking, budaya, dan kenyamanan dalam satu perjalanan utuh.",
   },
+  {
+    en: "Savor the authentic taste of Flores. Enjoy home-cooked meals and freshly brewed local coffee straight from the highlands.",
+    id: "Cicipi cita rasa asli Flores. Nikmati masakan rumahan dan kopi lokal yang diseduh segar langsung dari dataran tinggi.",
+  },
+  {
+    en: "Every journey ends with stories worth telling. Take home memories of misty mountains, warm smiles, and timeless traditions.",
+    id: "Setiap perjalanan berakhir dengan cerita yang layak dibagikan. Bawa pulang kenangan gunung berkabut, senyum hangat, dan tradisi abadi.",
+  },
+  {
+    en: "Witness ceremonies passed down through generations, connect deeply with our vibrant local culture.",
+    id: "Saksikan upacara yang diwariskan lintas generasi, terhubung erat dengan budaya lokal kami yang hidup.",
+  },
 ];
 
 /** Two full-bleed feature images with overlay captions */
 export const featureMbaruNiang = {
   desktop: `${G}/Waerebo-Lodge-Gallery-Mbaru-Niang-House-Desktop.webp`,
   mobile: `${G}/Waerebo-Lodge-Gallery-Mbaru-Niang-House-Mobile.webp`,
+  label: {
+    en: "Mbaru Niang Houses",
+    id: "Rumah Mbaru Niang",
+  } as Localized,
   caption: {
     en: "A perfect photo for guests against the misty backdrop of the iconic Mbaru Niang.",
     id: "Foto sempurna bagi tamu dengan latar berkabut Mbaru Niang yang ikonik.",
@@ -126,8 +138,12 @@ export const featureMbaruNiang = {
 export const featureIkat = {
   desktop: `${G}/Waerebo-Lodge-Gallery-Ikat-Weaving-Desktop.webp`,
   mobile: `${G}/Waerebo-Lodge-Gallery-Ikat-Weaving-Mobile.webp`,
+  label: {
+    en: "Traditional Weaving",
+    id: "Tenun Tradisional",
+  } as Localized,
   caption: {
-    en: "Witnessing the intricate, generational art of Manggarai ikat weaving right beneath a traditional house.",
+    en: "Witnessing the intricate, generation-old art of Manggarai Ikat weaving right beneath a traditional house.",
     id: "Menyaksikan seni tenun ikat Manggarai yang rumit dan turun-temurun tepat di bawah rumah adat.",
   } as Localized,
 };
