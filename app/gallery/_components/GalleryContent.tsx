@@ -173,8 +173,8 @@ const bentoA: Cell[] = [
   { kind: "photo", index: 2, span: "sq" },
   { kind: "photo", index: 4, span: "tall" },
   { kind: "photo", index: 5, span: "sq" },
-  { kind: "tile", index: 2 },
   { kind: "photo", index: 3, span: "wide" },
+  { kind: "tile", index: 2 },
 ];
 
 /* Figma Frame 176 — bento B: 5 photos + 2 tiles */
@@ -195,8 +195,8 @@ const bentoC: Cell[] = [
   { kind: "photo", index: 12, span: "wide" },
   { kind: "photo", index: 13, span: "big" },
   { kind: "photo", index: 14, span: "sq" },
-  { kind: "tile", index: 6 },
   { kind: "photo", index: 15, span: "tall" },
+  { kind: "tile", index: 6 },
 ];
 
 /* ────────────────────────────────────────────────
@@ -291,17 +291,22 @@ function IconicCarousel({ lang }: { lang: Lang }) {
       </div>
 
       <div className="flex gap-3">
-        {/* Featured — 592w equivalent */}
+        {/* Featured — all images stacked, crossfade on change */}
         <div className="relative h-[300px] flex-1 overflow-hidden rounded-[20px] lg:h-[400px]">
-          <Image
-            src={`${featured.image}-Desktop.webp`}
-            alt={featured.title}
-            fill
-            sizes="(min-width: 1024px) 592px, 100vw"
-            className="object-cover"
-          />
+          {iconicDestinations.map((dest, i) => (
+            <Image
+              key={dest.title}
+              src={`${dest.image}-Desktop.webp`}
+              alt={dest.title}
+              fill
+              sizes="(min-width: 1024px) 592px, 100vw"
+              className={`object-cover transition-all duration-700 ease-out ${
+                i === start ? "scale-100 opacity-100" : "scale-105 opacity-0"
+              }`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          <div className="absolute bottom-5 left-5 max-w-md">
+          <div key={featured.title} className="iconic-fade absolute bottom-5 left-5 max-w-md">
             <h3 className="text-lg font-semibold text-white">
               {featured.title}
             </h3>
@@ -311,8 +316,8 @@ function IconicCarousel({ lang }: { lang: Lang }) {
           </div>
         </div>
 
-        {/* 5 narrow cards — 140x400, desktop only */}
-        <div className="hidden gap-3 lg:flex">
+        {/* 5 narrow cards — 140x400, desktop only, re-animate on change */}
+        <div key={start} className="iconic-fade hidden gap-3 lg:flex">
           {rest.map((dest) => (
             <button
               key={dest.title}
@@ -361,7 +366,7 @@ export default function GalleryContent() {
       </section>
 
       {/* Hero photo strip */}
-      <section className="overflow-hidden bg-neutral-050">
+      <section className="overflow-hidden bg-neutral-050 pb-10 lg:pb-[60px]">
         <HeroStrip />
       </section>
 
