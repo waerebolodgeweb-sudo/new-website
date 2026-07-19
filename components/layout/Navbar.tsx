@@ -88,14 +88,12 @@ export default function Navbar() {
             aria-label="Waerebo Lodge — Home"
           >
             <Image
-              src="/logo.png"
+              src={transparent ? "/logo-white.png" : "/logo.png"}
               alt="Waerebo Lodge"
               width={508}
               height={168}
               priority
-              className={`h-9 w-auto transition-[filter] duration-300 lg:h-10 ${
-                transparent ? "" : "brightness-0"
-              }`}
+              className="h-9 w-auto lg:h-10"
             />
           </Link>
 
