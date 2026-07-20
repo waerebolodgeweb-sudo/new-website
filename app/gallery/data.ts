@@ -8,6 +8,7 @@ export interface IconicDestination {
   image: string;
   title: string;
   caption: Localized;
+  slug: string;
 }
 
 /** Hero photo strip — all 12 carousel pictures */
@@ -21,6 +22,7 @@ export const heroPhotos: string[] = Array.from(
 export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-01`,
+    slug: "waerebo-village",
     title: "Waerebo Village",
     caption: {
       en: "Sleep beneath the stars in a UNESCO-listed “village above the clouds” and share our authentic coffee before your ascent to Mbaru Niang.",
@@ -29,6 +31,7 @@ export const iconicDestinations: IconicDestination[] = [
   },
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-02`,
+    slug: "nusa-molas",
     title: "Nusa Molas",
     caption: {
       en: "A quiet islet framed by turquoise water — the calm before the highlands.",
@@ -37,6 +40,7 @@ export const iconicDestinations: IconicDestination[] = [
   },
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-03`,
+    slug: "pleas-waterfall",
     title: "Pleas Waterfall",
     caption: {
       en: "A hidden cascade tucked deep in the Flores jungle.",
@@ -45,6 +49,7 @@ export const iconicDestinations: IconicDestination[] = [
   },
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-04`,
+    slug: "lingko-spider-web",
     title: "Lembor Rice Fields",
     caption: {
       en: "Endless emerald paddies stretching across the valley floor.",
@@ -53,6 +58,7 @@ export const iconicDestinations: IconicDestination[] = [
   },
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-05`,
+    slug: "liang-bua",
     title: "Liang Bua (Hobbit Cave)",
     caption: {
       en: "The famous cave where the “Hobbit” Homo floresiensis was found.",
@@ -61,6 +67,7 @@ export const iconicDestinations: IconicDestination[] = [
   },
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-06`,
+    slug: "padar-island",
     title: "Padar Island",
     caption: {
       en: "Iconic ridgeline views over the bays of the Komodo archipelago.",

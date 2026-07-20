@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoArrowForwardOutline, IoArrowUpOutline } from "react-icons/io5";
 import { rooms } from "@/app/rooms/data";
+import { destinationAssets, destinations } from "@/app/destination/data";
 import { useLang } from "@/lib/i18n";
 
 const lodgeThumbnailSlides = rooms.map((room) => ({
@@ -12,9 +13,16 @@ const lodgeThumbnailSlides = rooms.map((room) => ({
   alt: room.cardTitle ?? room.title,
 }));
 
+const destinationSlides = destinations.map((destination) => ({
+  slug: destination.slug,
+  name: destination.name,
+  ...destinationAssets(destination.stem),
+}));
+
 export default function ContactSection() {
   const { t } = useLang();
   const [activeLodgeSlide, setActiveLodgeSlide] = useState(0);
+  const [activeDestination, setActiveDestination] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -22,6 +30,14 @@ export default function ContactSection() {
         (current) => (current + 1) % lodgeThumbnailSlides.length
       );
     }, 4500);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveDestination((current) => (current + 1) % destinationSlides.length);
+    }, 45000);
 
     return () => window.clearInterval(interval);
   }, []);
@@ -116,27 +132,45 @@ export default function ContactSection() {
 
         {/* Image tile grid */}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-stretch">
-          {/* Large lodge image */}
-          <div className="group relative h-72 w-full overflow-hidden rounded-[20px] shadow-sm lg:h-auto lg:flex-1">
-            <Image
-              src="/homepage/Homepage-Footer-Waerebo-Lodge-Village-Desktop.webp"
-              alt={t("contact.tile.village")}
-              fill
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="hidden object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:block"
-            />
-            <Image
-              src="/homepage/Homepage-Footer-Waerebo-Lodge-Village-Mobile.webp"
-              alt={t("contact.tile.village")}
-              fill
-              sizes="100vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:hidden"
-            />
+          {/* Large tile — destination slider (45s), click → destination page */}
+          <Link
+            href={`/destination/${destinationSlides[activeDestination].slug}`}
+            className="group relative block h-72 w-full overflow-hidden rounded-[20px] shadow-sm lg:h-auto lg:flex-1"
+          >
+            {destinationSlides.map((slide, index) => (
+              <span key={slide.slug}>
+                <Image
+                  src={slide.heroDesktop}
+                  alt={slide.name}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className={`hidden object-cover transition-all duration-1000 ease-out group-hover:scale-105 sm:block ${
+                    index === activeDestination
+                      ? "scale-100 opacity-100"
+                      : "scale-105 opacity-0"
+                  }`}
+                />
+                <Image
+                  src={slide.heroMobile}
+                  alt={slide.name}
+                  fill
+                  sizes="100vw"
+                  className={`object-cover transition-all duration-1000 ease-out group-hover:scale-105 sm:hidden ${
+                    index === activeDestination
+                      ? "scale-100 opacity-100"
+                      : "scale-105 opacity-0"
+                  }`}
+                />
+              </span>
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <p className="absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]">
-              {t("contact.tile.village")}
+            <p
+              key={destinationSlides[activeDestination].slug}
+              className="iconic-fade absolute bottom-5 left-5 text-2xl font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)]"
+            >
+              {destinationSlides[activeDestination].name}
             </p>
-          </div>
+          </Link>
 
           {/* 2x2 tile grid */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:w-[584px] lg:flex-shrink-0">

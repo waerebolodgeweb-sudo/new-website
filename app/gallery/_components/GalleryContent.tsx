@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
@@ -306,14 +307,18 @@ function IconicCarousel({ lang }: { lang: Lang }) {
             />
           ))}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          <div key={featured.title} className="iconic-fade absolute bottom-5 left-5 max-w-md">
-            <h3 className="text-lg font-semibold text-white">
+          <Link
+            href={`/destination/${featured.slug}`}
+            key={featured.title}
+            className="iconic-fade absolute bottom-5 left-5 max-w-md"
+          >
+            <h3 className="text-lg font-semibold text-white underline-offset-4 hover:underline">
               {featured.title}
             </h3>
             <p className="mt-1 text-sm text-white/85">
               {featured.caption[lang]}
             </p>
-          </div>
+          </Link>
         </div>
 
         {/* 5 narrow cards — 140x400, desktop only, re-animate on change */}

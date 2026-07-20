@@ -69,7 +69,9 @@ export default function Navbar() {
 
   // Transparent only at the very top of pages with a full-bleed hero
   const heroRoutes = ["/", "/trips"];
-  const transparent = heroRoutes.includes(pathname) && !scrolled && !open;
+  const hasHero =
+    heroRoutes.includes(pathname) || pathname.startsWith("/destination");
+  const transparent = hasHero && !scrolled && !open;
 
   return (
     <nav
