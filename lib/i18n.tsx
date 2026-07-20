@@ -41,7 +41,12 @@ const dict: Record<Lang, Record<string, string>> = {
     "purpose.body1.post": '".',
     "purpose.body2":
       "But our mission goes beyond our walls. We commit 10% of your room rate to directly support the social and cultural initiatives of the Waerebo community. By staying with us, your adventure leaves a positive, lasting mark on the highlands.",
-    "purpose.cta": "Learn More About Us",
+    "purpose.cta": "Learn More",
+    "purpose.mapCta": "Open Map",
+    "purpose.mapCtaMobile": "Open Location Map",
+    "purpose.location.title": "Waerebo Lodge",
+    "purpose.location.address":
+      "Flores, Desa Dintor, Satar Lenda, Satar Mese Barat, Manggarai Regency, East Nusa Tenggara",
     "purpose.village.title": "Waerebo Village",
     "purpose.village.caption":
       "Discover the iconic Wae Rebo houses, sustained by responsible and mindful travel choices.",
@@ -72,9 +77,9 @@ const dict: Record<Lang, Record<string, string>> = {
     "testimonials.heading": "Word on the Trail.",
 
     // ── Gallery
-    "gallery.eyebrow": "The Experience",
-    "gallery.head1": "What They ",
-    "gallery.head2": "Says.",
+    "gallery.eyebrow": "Guest Experiences",
+    "gallery.head1": "Hear From Our ",
+    "gallery.head2": "Guest.",
     "moments.eyebrow": "Our Gallery",
     "moments.head1": "Moments ",
     "moments.head2": "Captured.",
@@ -562,7 +567,12 @@ const dict: Record<Lang, Record<string, string>> = {
     "purpose.body1.post": '".',
     "purpose.body2":
       "Namun misi kami melampaui dinding lodge ini. Kami mengalokasikan 10% dari tarif kamar untuk mendukung langsung inisiatif sosial dan budaya komunitas Waerebo. Dengan menginap bersama kami, petualanganmu meninggalkan jejak positif yang bermakna di pegunungan ini.",
-    "purpose.cta": "Pelajari Tentang Kami",
+    "purpose.cta": "Pelajari",
+    "purpose.mapCta": "Buka Peta Lokasi",
+    "purpose.mapCtaMobile": "Buka Peta Lokasi",
+    "purpose.location.title": "Waerebo Lodge",
+    "purpose.location.address":
+      "Flores, Desa Dintor, Satar Lenda, Satar Mese Barat, Kabupaten Manggarai, Nusa Tenggara Timur",
     "purpose.village.title": "Desa Waerebo",
     "purpose.village.caption":
       "Temukan keunikan rumah adat Wae Rebo, yang terjaga oleh pilihan perjalanan yang bertanggung jawab.",
@@ -593,9 +603,9 @@ const dict: Record<Lang, Record<string, string>> = {
     "testimonials.heading": "Cerita dari Jalur Pendakian.",
 
     // ── Gallery
-    "gallery.eyebrow": "Pengalaman Wisata",
-    "gallery.head1": "Apa Kata ",
-    "gallery.head2": "Mereka.",
+    "gallery.eyebrow": "Pengalaman Tamu",
+    "gallery.head1": "Cerita Dari ",
+    "gallery.head2": "Tamu.",
     "moments.eyebrow": "Galeri Kami",
     "moments.head1": "Momen yang ",
     "moments.head2": "Diabadikan.",

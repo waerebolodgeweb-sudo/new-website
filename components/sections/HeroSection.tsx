@@ -21,6 +21,15 @@ const mobileVideos = [
 const TRANSITION_LEAD_SECONDS = 2.5;
 const CROSSFADE_MS = 900;
 
+/** Play a video, ignoring the AbortError thrown when the element is
+ *  removed from the DOM (e.g. desktop/mobile source swap) mid-play. */
+function safePlay(element: HTMLVideoElement | null | undefined) {
+  const result = element?.play();
+  if (result && typeof result.catch === "function") {
+    result.catch(() => {});
+  }
+}
+
 function useDesktopHeroVideo() {
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -54,7 +63,7 @@ export default function HeroSection() {
     const activeElement = videoRefs.current[activeVideo];
     if (!activeElement) return;
 
-    void activeElement.play();
+    safePlay(activeElement);
   }, [activeVideo, videos]);
 
   useEffect(() => {
@@ -76,7 +85,7 @@ export default function HeroSection() {
 
       if (nextElement) {
         nextElement.currentTime = 0;
-        void nextElement.play();
+        safePlay(nextElement);
       }
 
       if (transitionTimeoutRef.current !== null) {
@@ -119,7 +128,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative flex h-screen min-h-[600px] items-center bg-neutral-900">
+    <section className="relative isolate flex h-screen min-h-[600px] items-start bg-neutral-900 lg:h-[89svh] lg:items-center">
       {videos.map((video, index) => (
         <video
           key={`${isDesktop ? "desktop" : "mobile"}-${video}`}
@@ -150,7 +159,7 @@ export default function HeroSection() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-      <div className="relative z-10 mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 lg:py-28">
+      <div className="relative z-10 mx-auto w-full px-4 pt-24 pb-16 sm:px-6 lg:px-8 lg:py-28">
         <h1 className="max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
           {t("hero.line1")}
           <br />
@@ -174,11 +183,13 @@ export default function HeroSection() {
                 className="block h-full rounded-full bg-white transition-[width] duration-150 ease-linear"
                 style={{
                   width:
-                    index === activeVideo
-                      ? `${Math.max(progress * 100, 8)}%`
-                      : index === incomingVideo
-                        ? "100%"
-                        : "0%",
+                    index < activeVideo
+                      ? "100%"
+                      : index === activeVideo
+                        ? `${Math.max(progress * 100, 8)}%`
+                        : index === incomingVideo
+                          ? "100%"
+                          : "0%",
                 }}
               />
             </button>

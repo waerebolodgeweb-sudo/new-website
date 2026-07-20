@@ -370,8 +370,8 @@ export default function GalleryContent() {
         </div>
       </section>
 
-      {/* Hero photo strip */}
-      <section className="overflow-hidden bg-neutral-050 pb-10 lg:pb-[60px]">
+      {/* Hero photo strip — no bottom padding, flows straight into the band (figma) */}
+      <section className="overflow-hidden bg-neutral-050">
         <HeroStrip />
       </section>
 

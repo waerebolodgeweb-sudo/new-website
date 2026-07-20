@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties, TouchEvent } from "react";
 import type { IconType } from "react-icons";
 import {
   IoChevronBack,
@@ -20,6 +21,7 @@ import { useLang } from "@/lib/i18n";
 
 type TabKey = "trip" | "lodge" | "restaurant" | "transport";
 const tabKeys: TabKey[] = ["trip", "lodge", "restaurant", "transport"];
+const SLIDE_DURATION_MS = 45000;
 
 interface CardMetaDef {
   icon: IconType;
@@ -146,6 +148,107 @@ const restaurantSliderImages = [
   },
 ];
 
+function getVisibleSlides<T>(items: T[], activeIndex: number, count: number) {
+  return [...items, ...items].slice(activeIndex, activeIndex + count);
+}
+
+function useAutoSlider(total: number, isActive = true) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!isActive || total <= 1) return;
+
+    const id = window.setTimeout(() => {
+      setActiveIndex((current) => (current + 1) % total);
+    }, SLIDE_DURATION_MS);
+
+    return () => window.clearTimeout(id);
+  }, [activeIndex, isActive, total]);
+
+  const goToPrevious = () => {
+    setActiveIndex((current) => (current === 0 ? total - 1 : current - 1));
+  };
+
+  const goToNext = () => {
+    setActiveIndex((current) => (current + 1) % total);
+  };
+
+  return { activeIndex, setActiveIndex, goToPrevious, goToNext };
+}
+
+function SliderPagination({
+  items,
+  activeIndex,
+  onSelect,
+  getLabel,
+  tone = "dark",
+}: {
+  items: { id: string }[];
+  activeIndex: number;
+  onSelect: (index: number) => void;
+  getLabel: (index: number) => string;
+  tone?: "dark" | "light";
+}) {
+  const baseClass = tone === "light" ? "bg-white/35" : "bg-savana-800/25";
+  const fillClass = tone === "light" ? "bg-white" : "bg-savana-800";
+
+  return (
+    <div className="flex justify-center gap-2">
+      {items.map((item, index) => (
+        <button
+          key={item.id}
+          type="button"
+          aria-label={getLabel(index)}
+          onClick={() => onSelect(index)}
+          className={`relative h-1.5 w-12 overflow-hidden rounded-full ${baseClass}`}
+        >
+          {index < activeIndex && (
+            <span className={`absolute inset-0 ${fillClass}`} />
+          )}
+          {index === activeIndex && (
+            <span
+              key={activeIndex}
+              className={`journey-pagination-fill absolute inset-y-0 left-0 ${fillClass}`}
+              style={
+                {
+                  "--journey-slide-duration": `${SLIDE_DURATION_MS}ms`,
+                } as CSSProperties
+              }
+            />
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function SliderArrow({
+  direction,
+  onClick,
+  label,
+}: {
+  direction: "previous" | "next";
+  onClick: () => void;
+  label: string;
+}) {
+  const Icon = direction === "previous" ? IoChevronBack : IoChevronForward;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={`absolute top-[43%] z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-[0_10px_28px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 md:h-12 md:w-12 ${
+        direction === "previous"
+          ? "left-0 -translate-x-1/2 md:-left-11"
+          : "right-0 translate-x-1/2 md:-right-11"
+      }`}
+    >
+      <Icon size={24} />
+    </button>
+  );
+}
+
 function Card({
   def,
   href,
@@ -255,61 +358,38 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
 
 function LodgePreview() {
   const { t } = useLang();
-  const [startIndex, setStartIndex] = useState(0);
-  const visibleRooms = [...lodgeDefs, ...lodgeDefs].slice(
-    startIndex,
-    startIndex + 3
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext } = useAutoSlider(
+    lodgeDefs.length
   );
-
-  const goToPrevious = () => {
-    setStartIndex((current) =>
-      current === 0 ? lodgeDefs.length - 1 : current - 1
-    );
-  };
-
-  const goToNext = () => {
-    setStartIndex((current) => (current + 1) % lodgeDefs.length);
-  };
+  const visibleRooms = getVisibleSlides(lodgeDefs, activeIndex, 3);
 
   return (
     <div className="relative">
-      <button
-        type="button"
-        onClick={goToPrevious}
-        aria-label="Previous rooms"
-        className="absolute top-[42%] left-0 z-20 hidden h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-white text-savana-500 shadow-[0_12px_35px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 lg:flex"
-      >
-        <IoChevronBack size={28} />
-      </button>
-      <button
-        type="button"
-        onClick={goToNext}
-        aria-label="Next rooms"
-        className="absolute top-[42%] right-0 z-20 hidden h-14 w-14 translate-x-1/2 items-center justify-center rounded-full bg-white text-savana-500 shadow-[0_12px_35px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 lg:flex"
-      >
-        <IoChevronForward size={28} />
-      </button>
-
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {visibleRooms.map((def) => (
-          <LodgeCard key={`${startIndex}-${def.slug}`} def={def} />
+        <SliderArrow
+          direction="previous"
+          onClick={goToPrevious}
+          label="Previous rooms"
+        />
+        <SliderArrow direction="next" onClick={goToNext} label="Next rooms" />
+
+        {visibleRooms.map((def, index) => (
+          <div
+            key={`${activeIndex}-${def.slug}`}
+            className={index === 0 ? "" : "hidden md:block"}
+          >
+            <LodgeCard def={def} />
+          </div>
         ))}
       </div>
 
-      <div className="mt-7 flex justify-center gap-1.5">
-        {lodgeDefs.map((def, index) => (
-          <button
-            key={def.slug}
-            type="button"
-            aria-label={`Show ${def.title}`}
-            onClick={() => setStartIndex(index)}
-            className={`h-1.5 rounded-full transition-colors ${
-              index === startIndex
-                ? "w-12 bg-savana-800"
-                : "w-6 bg-savana-800/25"
-            }`}
-          />
-        ))}
+      <div className="mt-7">
+        <SliderPagination
+          items={lodgeDefs.map((def) => ({ id: def.slug }))}
+          activeIndex={activeIndex}
+          onSelect={setActiveIndex}
+          getLabel={(index) => `Show ${lodgeDefs[index].title}`}
+        />
       </div>
 
       <Link
@@ -318,6 +398,45 @@ function LodgePreview() {
       >
         {t("journeys.discoverAllRoom")}
       </Link>
+    </div>
+  );
+}
+
+function TripSlider() {
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext } = useAutoSlider(
+    tripDefs.length
+  );
+  const visibleTrips = getVisibleSlides(tripDefs, activeIndex, 3);
+  const { t } = useLang();
+
+  return (
+    <div className="relative">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <SliderArrow
+          direction="previous"
+          onClick={goToPrevious}
+          label="Previous trips"
+        />
+        <SliderArrow direction="next" onClick={goToNext} label="Next trips" />
+
+        {visibleTrips.map((def, index) => (
+          <div
+            key={`${activeIndex}-${def.id}`}
+            className={index === 0 ? "" : "hidden md:block"}
+          >
+            <Card def={def} href="/trips" labelKey="journeys.seeTripDetails" />
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-7">
+        <SliderPagination
+          items={tripDefs}
+          activeIndex={activeIndex}
+          onSelect={setActiveIndex}
+          getLabel={(index) => t(tripDefs[index].titleKey)}
+        />
+      </div>
     </div>
   );
 }
@@ -343,10 +462,10 @@ function TransportPreview() {
               />
             </div>
             <div className="px-3 pt-5 pb-2">
-              <h3 className="text-2xl leading-tight font-semibold text-neutral-900">
+              <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
                 {def.title}
               </h3>
-              <p className="mt-3 line-clamp-3 min-h-[72px] text-base leading-6 font-normal text-neutral-500">
+              <p className="mt-3 line-clamp-3 text-sm leading-6 font-normal text-neutral-500 md:min-h-[72px] md:text-base">
                 {t(def.descKey)}
               </p>
             </div>
@@ -366,76 +485,93 @@ function TransportPreview() {
 
 function RestaurantPreview() {
   const { t } = useLang();
-  const [activeImage, setActiveImage] = useState(0);
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext } = useAutoSlider(
+    restaurantSliderImages.length
+  );
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
-  const goToPreviousImage = () => {
-    setActiveImage((current) =>
-      current === 0 ? restaurantSliderImages.length - 1 : current - 1
-    );
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
   };
 
-  const goToNextImage = () => {
-    setActiveImage((current) => (current + 1) % restaurantSliderImages.length);
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (!touchStartRef.current) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const isHorizontalSwipe =
+      Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY);
+
+    if (isHorizontalSwipe) {
+      if (deltaX > 0) {
+        goToPrevious();
+      } else {
+        goToNext();
+      }
+    }
+
+    touchStartRef.current = null;
   };
 
   return (
-    <article className="overflow-hidden rounded-[32px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
-      <div className="grid min-h-[460px] gap-3 lg:grid-cols-[0.58fr_1fr]">
-        <div className="flex flex-col px-5 py-7 lg:px-8 lg:py-10">
-          <h3 className="text-3xl leading-tight font-semibold text-savana-800">
-            Waerebo Lodge Restaurant
-          </h3>
-          <p className="mt-4 max-w-md text-lg leading-7 font-normal text-pale-savana-400">
-            {t("journeys.restaurant.desc")}
-          </p>
-          <Link
-            href="/restaurant"
-            className="mt-auto flex min-h-14 w-full max-w-[430px] items-center justify-center rounded-xl bg-savana-800 px-5 text-lg font-medium text-white transition-colors hover:bg-savana-700"
-          >
-            {t("journeys.seeRestaurantDetails")}
-          </Link>
-        </div>
+    <div className="relative">
+      <SliderArrow
+        direction="previous"
+        onClick={goToPrevious}
+        label="Previous restaurant image"
+      />
+      <SliderArrow
+        direction="next"
+        onClick={goToNext}
+        label="Next restaurant image"
+      />
 
-        <div className="relative min-h-[320px] overflow-hidden rounded-[24px] lg:min-h-full">
-          <Image
-            src={restaurantSliderImages[activeImage].src}
-            alt={restaurantSliderImages[activeImage].alt}
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 60vw, 100vw"
-          />
-          <button
-            type="button"
-            onClick={goToPreviousImage}
-            aria-label="Previous restaurant image"
-            className="absolute top-1/2 left-5 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-500 shadow-lg transition-colors hover:text-savana-800"
+      <article className="overflow-hidden rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)] lg:rounded-[32px]">
+        <div className="flex flex-col-reverse gap-3 lg:min-h-[460px] lg:flex-row">
+          <div className="flex flex-col justify-center px-4 py-5 lg:px-8 lg:py-10">
+            <h3 className="text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
+              Waerebo Lodge Restaurant
+            </h3>
+            <p className="mt-3 max-w-md text-sm leading-6 font-normal text-pale-savana-400 lg:mt-4 lg:text-lg lg:leading-7">
+              {t("journeys.restaurant.desc")}
+            </p>
+            <Link
+              href="/restaurant"
+              className="mt-6 flex min-h-12 w-full max-w-[430px] items-center justify-center rounded-xl bg-savana-800 px-5 text-base font-medium text-white transition-colors hover:bg-savana-700 lg:mt-auto lg:min-h-14 lg:text-lg"
+            >
+              {t("journeys.seeRestaurantDetails")}
+            </Link>
+          </div>
+
+          <div
+            className="relative mx-auto aspect-[7/4] w-full touch-pan-y overflow-hidden rounded-[22px] lg:mx-0 lg:min-h-full lg:flex-1 lg:rounded-[24px]"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
-            <IoChevronBack size={26} />
-          </button>
-          <button
-            type="button"
-            onClick={goToNextImage}
-            aria-label="Next restaurant image"
-            className="absolute top-1/2 right-5 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-500 shadow-lg transition-colors hover:text-savana-800"
-          >
-            <IoChevronForward size={26} />
-          </button>
-          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-            {restaurantSliderImages.map((item, index) => (
-              <button
-                key={item.src}
-                type="button"
-                aria-label={`Show restaurant image ${index + 1}`}
-                onClick={() => setActiveImage(index)}
-                className={`h-1 w-12 rounded-full ${
-                  index === activeImage ? "bg-white" : "bg-white/35"
-                }`}
-              />
-            ))}
+            <Image
+              src={restaurantSliderImages[activeIndex].src}
+              alt={restaurantSliderImages[activeIndex].alt}
+              fill
+              className="object-cover object-center"
+              sizes="(min-width: 1024px) 60vw, 100vw"
+            />
           </div>
         </div>
+      </article>
+
+      <div className="mt-7">
+        <SliderPagination
+          items={restaurantSliderImages.map((item) => ({ id: item.src }))}
+          activeIndex={activeIndex}
+          onSelect={setActiveIndex}
+          getLabel={(index) => `Show restaurant image ${index + 1}`}
+        />
       </div>
-    </article>
+    </div>
   );
 }
 
@@ -443,58 +579,54 @@ export default function JourneysSection() {
   const [activeTab, setActiveTab] = useState<TabKey>("trip");
   const { t } = useLang();
 
+  const tabBar = (className: string) => (
+    <div
+      className={`flex scrollbar-none items-center justify-center gap-0 overflow-x-auto overflow-y-hidden border-b border-neutral-100 ${className}`}
+    >
+      {tabKeys.map((tab) => (
+        <button
+          key={tab}
+          onClick={() => setActiveTab(tab)}
+          className={`-mb-px border-b-2 px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors md:text-lg ${
+            activeTab === tab
+              ? "border-b-4 border-savana-600 text-neutral-900"
+              : "border-transparent text-neutral-300 hover:text-neutral-900"
+          }`}
+        >
+          {t(`journeys.tab.${tab}`)}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <section
       id="journeys"
-      className="bg-neutral-050 pt-0 pb-24 lg:pt-0 lg:pb-28"
+      className="relative z-30 bg-transparent pt-0 pb-24 lg:pt-0 lg:pb-28"
     >
-      <div className="relative mx-auto max-w-[1512px] px-6 lg:px-20">
-        <div className="relative z-10 -mt-16 lg:-mt-24">
-          <div className="overflow-hidden rounded-[2rem] border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)] lg:p-8">
+      <div className="relative mx-auto max-w-[1312px] px-6 lg:px-20">
+        <div className="relative z-40 -mt-24 lg:-mt-16">
+          <div className="overflow-hidden rounded-2xl border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
             <p className="mb-2 text-base font-normal text-savana-600">
               {t(`journeys.${activeTab}.eyebrow`)}
             </p>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <h2 className="text-3xl leading-tight text-neutral-900 lg:text-5xl">
+              <h2 className="text-2xl leading-tight text-neutral-900 lg:text-4xl">
                 {t(`journeys.${activeTab}.head`)}
                 <span className="font-semibold">
                   {t(`journeys.${activeTab}.emph`)}
                 </span>
               </h2>
-
-              <div className="flex gap-0 overflow-x-auto overflow-y-hidden border-b border-neutral-100">
-                {tabKeys.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`-mb-px border-b-2 px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors md:text-lg ${
-                      activeTab === tab
-                        ? "border-b-4 border-savana-600 text-neutral-900"
-                        : "border-transparent text-neutral-300 hover:text-neutral-900"
-                    }`}
-                  >
-                    {t(`journeys.tab.${tab}`)}
-                  </button>
-                ))}
-              </div>
+              {tabBar("hidden lg:flex")}
             </div>
           </div>
         </div>
+
+        {tabBar("mt-8 lg:hidden")}
       </div>
 
-      <div className="mx-auto mt-10 max-w-[1512px] px-6 lg:min-h-[720px] lg:px-20">
-        {activeTab === "trip" && (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {tripDefs.map((def) => (
-              <Card
-                key={def.id}
-                def={def}
-                href="/trips"
-                labelKey="journeys.seeTripDetails"
-              />
-            ))}
-          </div>
-        )}
+      <div className="mx-auto mt-8 max-w-[1512px] px-6 lg:mt-10 lg:min-h-[720px] lg:px-20">
+        {activeTab === "trip" && <TripSlider />}
 
         {activeTab === "lodge" && <LodgePreview />}
 
