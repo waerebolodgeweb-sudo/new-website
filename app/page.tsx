@@ -18,33 +18,25 @@ export default function Home() {
       <main>
         {/* Hero — no animation, already in viewport on load */}
         <HeroSection />
-
         <JourneysSection />
-
         <ScrollReveal variant="fadeUp">
           <PurposeSection />
         </ScrollReveal>
-
         <ScrollReveal variant="fadeUp">
           <ServicesSection />
         </ScrollReveal>
-
         <ScrollReveal variant="fadeIn" duration={900}>
           <GallerySection />
         </ScrollReveal>
-
         <ScrollReveal variant="fadeIn" duration={900}>
           <MomentsSection />
         </ScrollReveal>
-
         <ScrollReveal variant="fadeUp">
           <VideoSection />
         </ScrollReveal>
-
         <ScrollReveal variant="fadeIn" duration={900}>
           <TestimonialsSection />
         </ScrollReveal>
-
         <ScrollReveal variant="fadeUp">
           <ContactSection />
         </ScrollReveal>

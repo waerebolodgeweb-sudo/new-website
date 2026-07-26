@@ -9,89 +9,150 @@ export default function PurposeSection() {
   return (
     <section
       id="about"
-      className="bg-savana-200 py-[168px] lg:flex lg:min-h-screen lg:items-center lg:py-0"
+      className="bg-savana-200 py-20 xl:flex xl:min-h-screen xl:items-center xl:py-0"
     >
-      <div className="mx-auto w-full max-w-[1920px] px-7 sm:px-8 lg:px-11">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(440px,548px)] lg:items-center lg:gap-20">
-          <div>
-            <div className="relative mx-auto h-[1036px] max-w-[620px] sm:h-[980px] md:h-[720px] md:max-w-[900px] lg:h-[690px] lg:max-w-none">
+      <div className="mx-auto w-full max-w-[1512px] px-7 sm:px-8 xl:px-11">
+        <div className="grid gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(440px,548px)] xl:items-center xl:gap-20">
+          {/* Image section */}
+          <div className="w-full">
+            {/* Mobile layout */}
+            <div className="flex flex-col gap-4 md:hidden">
+              {/* Gambar 1 — paling besar di atas */}
               <Image
-                src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-01.webp"
+                src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-01.webp"
                 alt="Waerebo Lodge sign"
-                width={1083}
-                height={1320}
-                sizes="(min-width: 1024px) 31vw, 90vw"
-                className="absolute top-0 left-0 h-auto w-full md:w-[48%] lg:w-[36.22%]"
+                width={680}
+                height={810}
                 priority
-              />
-              <Image
-                src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-02.webp"
-                alt="Aerial view of Waerebo Lodge among rice fields"
-                width={909}
-                height={1560}
-                sizes="(min-width: 1024px) 25vw, 55vw"
-                className="absolute top-[618px] left-0 h-auto w-[55%] sm:top-[580px] md:top-[292px] md:left-[35%] md:w-[32%] lg:top-[163px] lg:left-[36.2%] lg:w-[29.57%]"
-              />
-              <Image
-                src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-03.webp"
-                alt="Waerebo Lodge cabins in rice fields"
-                width={909}
-                height={1476}
-                sizes="(min-width: 1024px) 25vw, 42vw"
-                className="absolute top-[572px] right-0 h-auto w-[40%] sm:top-[540px] md:top-[190px] md:w-[30%] lg:top-[97px] lg:right-0 lg:w-[29.57%]"
+                sizes="100vw"
+                className="h-auto w-full rounded-[24px] object-cover"
               />
 
-              <div className="absolute top-[568px] left-0 hidden lg:block">
-                <h4 className="text-[28px] leading-tight font-semibold text-pale-savana-500">
-                  {t("purpose.location.title")}
-                </h4>
-                <p className="mt-3 max-w-[440px] text-xl leading-snug font-normal text-pale-savana-500">
-                  {t("purpose.location.address")}
-                </p>
+              {/* Gambar 2 dan 3 */}
+              <div className="flex min-h-[300px] items-stretch gap-4">
+                {/* Gambar 2 — rata bawah, lebih besar */}
+                <div className="w-[58%] self-end">
+                  <Image
+                    src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-02.webp"
+                    alt="Aerial view of Waerebo Lodge among rice fields"
+                    width={420}
+                    height={500}
+                    sizes="58vw"
+                    className="h-auto w-full rounded-[24px] object-cover"
+                  />
+                </div>
+
+                {/* Gambar 3 — rata atas, lebih kecil */}
+                <div className="w-[42%] self-start">
+                  <Image
+                    src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-03.webp"
+                    alt="Waerebo Lodge cabins in rice fields"
+                    width={320}
+                    height={370}
+                    sizes="42vw"
+                    className="h-auto w-full rounded-[24px] object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Tablet dan desktop */}
+            <div className="hidden w-full items-stretch gap-6 md:flex md:h-[560px] xl:h-[520px]">
+              {/* Kiri — rata atas */}
+              <div className="w-[38%] self-start">
+                <Image
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-01.webp"
+                  alt="Waerebo Lodge sign"
+                  width={340}
+                  height={410}
+                  priority
+                  sizes="(min-width: 1280px) 22vw, 38vw"
+                  className="h-auto w-full rounded-[24px] object-cover"
+                />
+                <div className="mb-8 hidden md:block">
+                  <h4 className="text-[20px] leading-tight font-semibold text-pale-savana-500">
+                    {t("purpose.location.title")}
+                  </h4>
+
+                  <p className="mt-2 text-[14px] leading-relaxed font-normal text-pale-savana-500">
+                    {t("purpose.location.address")}
+                  </p>
+                </div>
+              </div>
+
+              {/* Tengah — rata bawah */}
+              <div className="w-[32%] self-end">
+                <Image
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-02.webp"
+                  alt="Aerial view of Waerebo Lodge among rice fields"
+                  width={290}
+                  height={340}
+                  sizes="(min-width: 1280px) 19vw, 32vw"
+                  className="h-auto w-full rounded-[24px] object-cover"
+                />
+              </div>
+
+              {/* Kanan — rata tengah */}
+              <div className="w-[30%] self-center">
+                <Image
+                  src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-03.webp"
+                  alt="Waerebo Lodge cabins in rice fields"
+                  width={280}
+                  height={320}
+                  sizes="(min-width: 1280px) 18vw, 30vw"
+                  className="h-auto w-full rounded-[24px] object-cover"
+                />
               </div>
             </div>
           </div>
 
-          <div className="lg:translate-y-20">
-            <p className="mb-2 text-base font-normal text-savana-600 lg:mb-4 lg:text-xl">
+          {/* Content */}
+          <div className="xl:translate-y-20">
+            <p className="mb-2 text-base font-normal text-savana-600 xl:mb-4 xl:text-xl">
               {t("purpose.eyebrow")}
             </p>
-            <h3 className="mb-6 max-w-xl text-[34px] leading-[1.12] font-semibold text-savana-800 sm:text-[40px] lg:text-[52px] lg:leading-[1.05]">
+
+            <h3 className="mb-6 max-w-xl text-[34px] leading-[1.12] font-semibold text-savana-800 sm:text-[40px] xl:text-[52px] xl:leading-[1.05]">
               {t("purpose.heading")}
             </h3>
-            <p className="mb-5 text-xl leading-[1.35] font-normal text-pale-savana-500 lg:text-[22px]">
+
+            <p className="mb-5 text-xl leading-[1.35] font-normal text-pale-savana-500 xl:text-[22px]">
               {t("purpose.body1.pre")}
               <span className="font-semibold">{t("purpose.body1.bold")}</span>
               {t("purpose.body1.post")}
             </p>
-            <p className="mb-8 text-xl leading-[1.35] font-normal text-pale-savana-500 lg:mb-14 lg:text-[22px]">
+
+            <p className="mb-8 text-xl leading-[1.35] font-normal text-pale-savana-500 xl:mb-14 xl:text-[22px]">
               {t("purpose.body2")}
             </p>
 
-            <div className="mb-8 lg:hidden">
-              <h4 className="text-[28px] leading-tight font-semibold text-pale-savana-500">
+            {/* Location mobile and tablet */}
+            <div className="mb-8 md:hidden">
+              <h4 className="text-[20px] leading-tight font-semibold text-pale-savana-500">
                 {t("purpose.location.title")}
               </h4>
-              <p className="mt-3 text-lg leading-snug font-normal text-pale-savana-500">
+
+              <p className="mt-2 text-[14px] leading-relaxed font-normal text-pale-savana-500">
                 {t("purpose.location.address")}
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:gap-5">
+            <div className="grid gap-4 sm:grid-cols-2 xl:gap-5">
               <a
                 href="/about"
-                className="inline-flex min-h-16 items-center justify-center rounded-lg bg-savana-800 px-8 text-xl font-medium text-white transition-colors hover:bg-savana-700 lg:min-h-20 lg:text-2xl"
+                className="inline-flex min-h-16 items-center justify-center rounded-lg bg-savana-800 px-8 text-xl font-medium text-white transition-colors hover:bg-savana-700 xl:min-h-20 xl:text-2xl"
               >
                 {t("purpose.cta")}
               </a>
+
               <a
                 href="https://www.google.com/maps/@-8.8465902,120.3055812,17z"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-16 items-center justify-center rounded-lg border border-savana-800 px-8 text-xl font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white lg:min-h-20 lg:text-2xl"
+                className="inline-flex min-h-16 items-center justify-center rounded-lg border border-savana-800 px-8 text-xl font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white xl:min-h-20 xl:text-2xl"
               >
-                <span className="lg:hidden">{t("purpose.mapCtaMobile")}</span>
-                <span className="hidden lg:inline">{t("purpose.mapCta")}</span>
+                <span className="xl:hidden">{t("purpose.mapCtaMobile")}</span>
+                <span className="hidden xl:inline">{t("purpose.mapCta")}</span>
               </a>
             </div>
           </div>
