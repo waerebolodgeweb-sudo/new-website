@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { useEffect, useRef, useState } from "react";
+import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
 const G = "/Gallery";
@@ -82,7 +82,16 @@ const moments: { src: string; caption: { en: string; id: string } }[] = [
 
 export default function MomentsSection() {
   const [current, setCurrent] = useState(0);
+  const [modalMoment, setModalMoment] = useState<
+    (typeof moments)[number] | null
+  >(null);
   const { t, lang } = useLang();
+  const dragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    dragged: boolean;
+  } | null>(null);
   const total = moments.length;
   const visibleMoments = Array.from({ length: total }, (_, index) => {
     const momentIndex = (current + index) % total;
@@ -92,11 +101,15 @@ export default function MomentsSection() {
   const prev = () => setCurrent((c) => (c - 1 + total) % total);
   const next = () => setCurrent((c) => (c + 1) % total);
 
+  const openMoment = (moment: (typeof moments)[number]) => {
+    if (dragRef.current?.dragged) return;
+    setModalMoment(moment);
+  };
+
   useEffect(() => {
-    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
     const id = window.setInterval(
       () => setCurrent((c) => (c + 1) % total),
-      isDesktop ? 6000 : 5000
+      6000
     );
     return () => window.clearInterval(id);
   }, [total]);
@@ -165,8 +178,54 @@ export default function MomentsSection() {
               ))}
             </div>
 
-            <div className="overflow-hidden lg:-mx-[110px] lg:overflow-visible">
-              <div className="flex items-start gap-7 transition-transform duration-500 ease-out">
+            <div
+              className="overflow-hidden lg:-mx-[110px] lg:overflow-visible"
+              onPointerDown={(event) => {
+                dragRef.current = {
+                  pointerId: event.pointerId,
+                  startX: event.clientX,
+                  startY: event.clientY,
+                  dragged: false,
+                };
+                event.currentTarget.setPointerCapture(event.pointerId);
+              }}
+              onPointerMove={(event) => {
+                const drag = dragRef.current;
+                if (!drag || drag.pointerId !== event.pointerId) return;
+                const deltaX = event.clientX - drag.startX;
+                const deltaY = event.clientY - drag.startY;
+                if (
+                  Math.abs(deltaX) > 14 &&
+                  Math.abs(deltaX) > Math.abs(deltaY)
+                ) {
+                  drag.dragged = true;
+                }
+              }}
+              onPointerUp={(event) => {
+                const drag = dragRef.current;
+                if (!drag || drag.pointerId !== event.pointerId) return;
+                const deltaX = event.clientX - drag.startX;
+                const deltaY = event.clientY - drag.startY;
+                const isSwipe =
+                  Math.abs(deltaX) > 48 && Math.abs(deltaX) > Math.abs(deltaY);
+
+                if (isSwipe) {
+                  if (deltaX > 0) {
+                    prev();
+                  } else {
+                    next();
+                  }
+                }
+
+                window.setTimeout(() => {
+                  dragRef.current = null;
+                }, 0);
+              }}
+              onPointerCancel={() => {
+                dragRef.current = null;
+              }}
+            >
+              <div className="flex cursor-grab touch-pan-y items-start gap-7 transition-transform duration-500 ease-out active:cursor-grabbing">
                 <button
                   onClick={prev}
                   className="hidden w-[6%] flex-shrink-0 translate-x-[-28%] text-left opacity-55 lg:block"
@@ -189,7 +248,9 @@ export default function MomentsSection() {
                   return (
                     <button
                       key={m.src}
-                      onClick={() => setCurrent(m.momentIndex)}
+                      onClick={() =>
+                        active ? openMoment(m) : setCurrent(m.momentIndex)
+                      }
                       className={`flex-shrink-0 text-left ${
                         !active ? "hidden lg:block" : ""
                       } ${active ? "w-full lg:w-[42%]" : "w-[23.5%]"}`}
@@ -227,7 +288,7 @@ export default function MomentsSection() {
                   );
                 })}
               </div>
-              <div className="mt-6 flex justify-center gap-3 lg:hidden">
+              <div className="mt-6 hidden justify-center gap-3">
                 <button
                   onClick={prev}
                   aria-label="Previous moment"
@@ -247,6 +308,30 @@ export default function MomentsSection() {
           </div>
         </div>
       </div>
+      {modalMoment && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/78 px-4 py-8">
+          <div className="relative w-full max-w-5xl">
+            <button
+              type="button"
+              onClick={() => setModalMoment(null)}
+              aria-label="Close photo"
+              className="absolute -top-14 right-0 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 shadow-lg"
+            >
+              <IoClose size={24} />
+            </button>
+            <div className="relative max-h-[82vh] overflow-hidden rounded-[24px] bg-black">
+              <Image
+                src={modalMoment.src}
+                alt={modalMoment.caption[lang]}
+                width={1400}
+                height={940}
+                className="h-auto max-h-[82vh] w-full object-contain"
+                sizes="100vw"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

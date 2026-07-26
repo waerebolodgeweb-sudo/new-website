@@ -81,7 +81,7 @@ export default function ServicesSection() {
           </div>
 
           <div className="grid items-center gap-10 lg:grid-cols-[0.93fr_1fr] lg:gap-10">
-            <div className="flex flex-col">
+            <div className="flex min-h-[610px] flex-col sm:min-h-[430px] lg:min-h-[496px]">
               {serviceIds.map((id, i) => {
                 const isOpen = open === id;
                 return (
@@ -109,9 +109,9 @@ export default function ServicesSection() {
                     </button>
 
                     {isOpen && (
-                      <div className="mb-5 grid gap-5 rounded-3xl bg-white p-3 shadow-[0_16px_36px_rgba(38,35,22,0.12)] sm:grid-cols-[1fr_180px] sm:items-stretch lg:mb-6">
+                      <div className="mb-5 grid min-h-[330px] gap-5 rounded-3xl bg-white p-3 shadow-[0_16px_36px_rgba(38,35,22,0.12)] sm:min-h-[204px] sm:grid-cols-[1fr_180px] sm:items-stretch lg:mb-6">
                         <div className="flex min-h-[152px] flex-col justify-between gap-6 px-2 py-2 sm:px-3">
-                          <p className="text-base leading-relaxed font-normal text-neutral-500 lg:text-lg">
+                          <p className="line-clamp-3 text-base leading-relaxed font-normal text-neutral-500 lg:text-lg">
                             {t(`services.${id}.content`)}
                           </p>
                           <Link

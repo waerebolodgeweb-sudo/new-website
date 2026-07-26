@@ -2,20 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
-import {
-  destinationAssets,
-  destinations,
-  type Destination,
-} from "../../data";
+import { destinationAssets, destinations, type Destination } from "../../data";
 
 const labels = {
   breadcrumbHome: { en: "Home", id: "Beranda" },
   eyebrow: { en: "Iconic Destination", id: "Destinasi Ikonik" },
-  discoverTrip: { en: "Discover Our Trip", id: "Lihat Trip Kami" },
-  openMap: { en: "Open Map", id: "Buka Peta" },
+  discoverTrip: { en: "Discover Our Trips", id: "Lihat Trip Kami" },
+  openMap: { en: "Open Location Map", id: "Buka Peta Lokasi" },
 };
 
 const AUTO_ADVANCE_MS = 45000;
@@ -27,12 +23,11 @@ export default function DestinationDetail({
   destination: Destination;
 }) {
   const { lang } = useLang();
-  const [index, setIndex] = useState(() =>
-    Math.max(
-      0,
-      destinations.findIndex((d) => d.slug === initial.slug)
-    )
+  const initialIndex = Math.max(
+    0,
+    destinations.findIndex((d) => d.slug === initial.slug)
   );
+  const [index, setIndex] = useState(initialIndex);
 
   const destination = destinations[index];
   const assets = destinationAssets(destination.stem);
@@ -47,8 +42,6 @@ export default function DestinationDetail({
   }, [destination.slug]);
 
   /* Auto-advance every 45s — only while the page sits at the very top */
-  const indexRef = useRef(index);
-  indexRef.current = index;
   useEffect(() => {
     const id = window.setInterval(() => {
       if (window.scrollY <= TOP_THRESHOLD) {
@@ -61,7 +54,7 @@ export default function DestinationDetail({
   return (
     <>
       {/* ── Hero slider ── */}
-      <section className="relative h-[480px] w-full overflow-hidden lg:h-[720px]">
+      <section className="relative h-svh max-h-[900px] min-h-[640px] w-full overflow-hidden sm:h-[600px] sm:max-h-none sm:min-h-0 lg:h-[720px]">
         {destinations.map((d, i) => {
           const a = destinationAssets(d.stem);
           return (
@@ -75,7 +68,7 @@ export default function DestinationDetail({
                 src={a.heroDesktop}
                 alt={d.heroTitle.en}
                 fill
-                priority={i === 0}
+                priority={i === initialIndex}
                 sizes="100vw"
                 className={`hidden object-cover transition-transform duration-[1200ms] ease-out sm:block ${
                   i === index ? "scale-100" : "scale-105"
@@ -85,10 +78,10 @@ export default function DestinationDetail({
                 src={a.heroMobile}
                 alt={d.heroTitle.en}
                 fill
-                priority={i === 0}
+                priority={i === initialIndex}
                 sizes="100vw"
                 className={`object-cover transition-transform duration-[1200ms] ease-out sm:hidden ${
-                  i === index ? "scale-100" : "scale-105"
+                  i === index ? "scale-100" : "scale-100 sm:scale-105"
                 }`}
               />
             </div>
@@ -102,72 +95,77 @@ export default function DestinationDetail({
         <button
           onClick={prev}
           aria-label="Previous destination"
-          className="absolute top-1/2 left-4 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-neutral-900 lg:left-10 lg:h-[52px] lg:w-[52px]"
+          className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-white transition-colors hover:text-white/75 sm:left-6 lg:left-10 lg:h-[52px] lg:w-[52px] lg:rounded-full lg:bg-white/20 lg:backdrop-blur-sm lg:hover:bg-white lg:hover:text-neutral-900"
         >
           <IoChevronBack size={22} />
         </button>
         <button
           onClick={next}
           aria-label="Next destination"
-          className="absolute top-1/2 right-4 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-neutral-900 lg:right-10 lg:h-[52px] lg:w-[52px]"
+          className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-white transition-colors hover:text-white/75 sm:right-6 lg:right-10 lg:h-[52px] lg:w-[52px] lg:rounded-full lg:bg-white/20 lg:backdrop-blur-sm lg:hover:bg-white lg:hover:text-neutral-900"
         >
           <IoChevronForward size={22} />
         </button>
 
-        {/* Breadcrumb + title */}
-        <div className="absolute right-6 bottom-8 left-6 lg:right-20 lg:bottom-12 lg:left-20">
-          <div key={destination.slug} className="iconic-fade">
-            <p className="mb-2 text-sm text-white/80">
-              <Link href="/" className="hover:underline">
-                {labels.breadcrumbHome[lang]}
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="font-medium text-white">{destination.name}</span>
-            </p>
-            <div className="flex items-end justify-between gap-6">
-              <h1 className="text-3xl leading-tight font-semibold text-white lg:text-5xl">
-                {destination.heroTitle[lang]}
-              </h1>
-              {/* Pagination dots */}
-              <div className="mb-2 hidden gap-1 lg:flex">
-                {destinations.map((d, i) => (
-                  <button
-                    key={d.slug}
-                    onClick={() => setIndex(i)}
-                    aria-label={d.heroTitle.en}
-                    className={`h-1 w-7 rounded-full transition-colors ${
-                      i === index
-                        ? "bg-white"
-                        : "bg-white/35 hover:bg-white/60"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+        <p className="absolute top-[68px] right-5 left-5 text-[11px] text-white/75 sm:top-24 sm:right-10 sm:left-10 sm:text-sm lg:top-auto lg:right-20 lg:bottom-[116px] lg:left-20">
+          <Link href="/" className="hover:underline">
+            {labels.breadcrumbHome[lang]}
+          </Link>
+          <span className="mx-2">/</span>
+          <span className="font-medium text-white">{destination.name}</span>
+        </p>
+
+        <div
+          key={destination.slug}
+          className="iconic-fade absolute right-5 bottom-7 left-5 sm:right-10 sm:bottom-10 sm:left-10 lg:right-20 lg:bottom-12 lg:left-20 lg:flex lg:items-end lg:justify-between lg:gap-6"
+        >
+          <h1 className="max-w-[330px] text-[29px] leading-[1.08] font-semibold text-white sm:text-4xl lg:max-w-none lg:text-5xl">
+            {destination.heroTitle[lang]}
+          </h1>
+          <div className="mt-3 flex gap-1.5 lg:mt-0 lg:mb-2">
+            {destinations.map((d, i) => (
+              <button
+                key={d.slug}
+                onClick={() => setIndex(i)}
+                aria-label={d.heroTitle.en}
+                className="h-1 flex-1 overflow-hidden rounded-full bg-white/30 sm:w-10 sm:flex-none lg:w-7"
+              >
+                <span
+                  key={`${destination.slug}-${d.slug}`}
+                  className={`block h-full rounded-full bg-white ${
+                    i < index
+                      ? "w-full"
+                      : i === index
+                        ? "journey-pagination-fill"
+                        : "w-0"
+                  }`}
+                />
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ── Content — follows the active slide ── */}
-      <section className="bg-neutral-050 py-[60px] lg:py-[120px]">
-        <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
+      <section className="bg-savana-50 py-12 sm:py-[60px] lg:py-[120px]">
+        <div className="mx-auto max-w-[1512px] px-5 sm:px-8 lg:px-20">
           <div
             key={destination.slug}
             className="iconic-fade flex flex-col gap-10 lg:flex-row lg:gap-[60px]"
           >
-            {/* Photo collage — figma: 321/263/263, staggered */}
-            <div className="flex flex-1 gap-4 lg:gap-5">
-              <div className="w-[38%]">
-                <div className="relative aspect-[321/400] w-full overflow-hidden rounded-3xl">
+            {/* Mobile: one main image, then a staggered secondary pair. */}
+            <div className="flex flex-1 flex-col gap-6 sm:flex-row sm:gap-4 lg:gap-5">
+              <div className="w-full sm:w-[38%]">
+                <div className="relative aspect-[226/255] w-full overflow-hidden rounded-[20px] shadow-[0_8px_16px_rgba(38,35,22,0.12)] sm:aspect-[321/400] sm:rounded-3xl sm:shadow-none">
                   <Image
                     src={assets.photos[0]}
                     alt={destination.name}
                     fill
-                    sizes="(min-width: 1024px) 321px, 38vw"
+                    sizes="(min-width: 1024px) 321px, (min-width: 640px) 38vw, calc(100vw - 40px)"
                     className="object-cover"
                   />
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 hidden sm:block">
                   <p className="text-base font-semibold text-pale-savana-500">
                     {destination.name}
                   </p>
@@ -176,48 +174,58 @@ export default function DestinationDetail({
                   </p>
                 </div>
               </div>
-              <div className="flex w-[31%] flex-col justify-center pt-24 lg:pt-[192px]">
-                <div className="relative aspect-[263/300] w-full overflow-hidden rounded-3xl">
-                  <Image
-                    src={assets.photos[1]}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 263px, 31vw"
-                    className="object-cover"
-                  />
+              <div className="grid grid-cols-[1.22fr_0.88fr] items-start gap-5 sm:contents">
+                <div className="flex w-full flex-col justify-center pt-10 sm:w-[31%] sm:pt-24 lg:pt-[192px]">
+                  <div className="relative aspect-[193/243] w-full overflow-hidden rounded-[18px] shadow-[0_8px_16px_rgba(38,35,22,0.12)] sm:aspect-[263/300] sm:rounded-3xl sm:shadow-none">
+                    <Image
+                      src={assets.photos[1]}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 263px, (min-width: 640px) 31vw, 52vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex w-[31%] flex-col pt-12 lg:pt-[96px]">
-                <div className="relative aspect-[263/300] w-full overflow-hidden rounded-3xl">
-                  <Image
-                    src={assets.photos[2]}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 263px, 31vw"
-                    className="object-cover"
-                  />
+                <div className="flex w-full flex-col sm:w-[31%] sm:pt-12 lg:pt-[96px]">
+                  <div className="relative aspect-[140/200] w-full overflow-hidden rounded-[18px] shadow-[0_8px_16px_rgba(38,35,22,0.12)] sm:aspect-[263/300] sm:rounded-3xl sm:shadow-none">
+                    <Image
+                      src={assets.photos[2]}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 263px, (min-width: 640px) 31vw, 38vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Text column */}
             <div className="flex flex-col justify-center lg:w-[405px] lg:flex-shrink-0">
-              <p className="mb-2 text-base font-normal text-savana-600">
+              <p className="mb-1 text-xs font-normal text-savana-600 sm:mb-2 sm:text-base">
                 {labels.eyebrow[lang]}
               </p>
-              <h2 className="mb-4 text-3xl leading-none font-semibold text-savana-800 lg:text-4xl">
+              <h2 className="mb-4 text-xl leading-tight font-semibold text-savana-800 sm:text-3xl sm:leading-none lg:text-4xl">
                 {destination.heading[lang]}
               </h2>
-              <p className="mb-4 text-base leading-relaxed text-pale-savana-500">
+              <p className="mb-4 text-[13px] leading-[1.55] text-pale-savana-500 sm:text-base sm:leading-relaxed">
                 {destination.body1[lang]}
               </p>
-              <p className="mb-8 text-base leading-relaxed text-pale-savana-500">
+              <p className="mb-5 text-[13px] leading-[1.55] text-pale-savana-500 sm:mb-8 sm:text-base sm:leading-relaxed">
                 {destination.body2[lang]}
               </p>
-              <div className="flex gap-3">
+              <div className="mb-5 sm:hidden">
+                <p className="text-lg font-semibold text-pale-savana-500">
+                  {destination.name}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-pale-savana-300">
+                  {destination.address}
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/trips"
-                  className="flex flex-1 items-center justify-center rounded-xl bg-savana-800 px-5 py-4 text-base font-medium text-white transition-colors hover:bg-savana-700"
+                  className="flex flex-1 items-center justify-center rounded-md bg-savana-800 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-savana-700 sm:rounded-xl sm:py-4 sm:text-base"
                 >
                   {labels.discoverTrip[lang]}
                 </Link>
@@ -225,7 +233,7 @@ export default function DestinationDetail({
                   href={destination.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-1 items-center justify-center rounded-xl border border-savana-800 px-5 py-4 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+                  className="flex flex-1 items-center justify-center rounded-md border border-savana-800 px-5 py-3 text-sm font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white sm:rounded-xl sm:py-4 sm:text-base"
                 >
                   {labels.openMap[lang]}
                 </a>

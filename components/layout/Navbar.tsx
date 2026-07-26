@@ -8,6 +8,11 @@ import {
   IoMenuOutline,
   IoCloseOutline,
   IoChevronDownOutline,
+  IoChevronUpOutline,
+  IoArrowUndoOutline,
+  IoLogoInstagram,
+  IoLogoTiktok,
+  IoLogoYoutube,
 } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
@@ -19,20 +24,39 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
   { key: "nav.home", href: "/" },
-  { key: "nav.about", href: "/about" },
   {
     key: "nav.services",
     href: "/#services",
     children: [
+      { key: "nav.trip", href: "/trips" },
       { key: "nav.lodge", href: "/lodge" },
       { key: "nav.restaurant", href: "/restaurant" },
       { key: "nav.transport", href: "/transport" },
     ],
   },
+  { key: "nav.about", href: "/about" },
   { key: "nav.testimonials", href: "/#testimonials" },
   { key: "nav.gallery", href: "/gallery" },
   { key: "nav.reviews", href: "/#reviews" },
   { key: "nav.faq", href: "/faq" },
+];
+
+const mobileSocialLinks = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/waerebolodge.official",
+    Icon: IoLogoInstagram,
+  },
+  {
+    label: "Youtube",
+    href: "https://www.youtube.com",
+    Icon: IoLogoYoutube,
+  },
+  {
+    label: "Tik Tok",
+    href: "https://www.tiktok.com/@waerebolodge.official",
+    Icon: IoLogoTiktok,
+  },
 ];
 
 function LangToggle({ transparent }: { transparent: boolean }) {
@@ -56,6 +80,7 @@ function LangToggle({ transparent }: { transparent: boolean }) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { t } = useLang();
@@ -67,11 +92,27 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   // Transparent only at the very top of pages with a full-bleed hero
   const heroRoutes = ["/", "/trips"];
   const hasHero =
     heroRoutes.includes(pathname) || pathname.startsWith("/destination");
   const transparent = hasHero && !scrolled && !open;
+  const servicesLink = navLinks.find((link) => link.key === "nav.services");
+  const servicePaths = servicesLink?.children?.map((child) => child.href) ?? [];
+  const servicesActive =
+    mobileServicesOpen || servicePaths.some((href) => pathname === href);
+
+  const isActivePath = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href;
+  };
 
   return (
     <nav
@@ -82,7 +123,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between lg:h-20">
+        <div className="relative flex h-20 items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
@@ -95,12 +136,12 @@ export default function Navbar() {
               width={508}
               height={168}
               priority
-              className="h-9 w-auto lg:h-10"
+              className="h-10 w-auto"
             />
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap xl:gap-7 lg:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap lg:flex xl:gap-7">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.key} className="group relative">
@@ -167,68 +208,133 @@ export default function Navbar() {
           <div className="flex items-center gap-2 lg:hidden">
             <LangToggle transparent={transparent} />
             <button
-              className={`p-2 ${transparent ? "text-white" : "text-green-400"}`}
-              onClick={() => setOpen(!open)}
+              className={`p-2 text-[32px] ${transparent ? "text-white" : "text-savana-green-500"}`}
+              onClick={() => setOpen((current) => !current)}
               aria-label="Toggle menu"
+              aria-expanded={open}
             >
               {open ? (
-                <IoCloseOutline size={26} />
+                <IoCloseOutline size={32} />
               ) : (
-                <IoMenuOutline size={26} />
+                <IoMenuOutline size={32} />
               )}
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile menu */}
-        {open && (
-          <div className="space-y-1 border-t border-pale-green-100/30 py-4 lg:hidden">
-            {navLinks.map((link) =>
-              link.children ? (
-                <div key={link.key}>
+      {/* Mobile menu */}
+      {open && (
+        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 lg:hidden">
+          <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6">
+            <div className="space-y-1">
+              <Link
+                href="/"
+                className={`block rounded-lg px-4 py-3.5 text-base font-medium transition-colors ${
+                  isActivePath("/") && !mobileServicesOpen
+                    ? "bg-savana-200 text-savana-green-500"
+                    : "text-pale-savana-200 hover:bg-savana-200/60"
+                }`}
+                onClick={() => setOpen(false)}
+              >
+                {t("nav.home")}
+              </Link>
+
+              <button
+                type="button"
+                className={`flex w-full items-center justify-between rounded-lg px-4 py-3.5 text-left text-base font-medium transition-colors ${
+                  servicesActive
+                    ? "bg-savana-200 text-savana-green-500"
+                    : "text-pale-savana-200 hover:bg-savana-200/60"
+                }`}
+                aria-expanded={mobileServicesOpen}
+                onClick={() => setMobileServicesOpen((current) => !current)}
+              >
+                <span>{t("nav.services")}</span>
+                {mobileServicesOpen ? (
+                  <IoChevronUpOutline size={16} />
+                ) : (
+                  <IoChevronDownOutline size={16} />
+                )}
+              </button>
+
+              {mobileServicesOpen && (
+                <div className="space-y-1 py-1 pl-6">
+                  {navLinks
+                    .find((link) => link.key === "nav.services")
+                    ?.children?.map((child) => (
+                      <Link
+                        key={child.key}
+                        href={child.href}
+                        className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors hover:bg-savana-200/60 hover:text-savana-green-500 ${
+                          isActivePath(child.href)
+                            ? "text-savana-green-500"
+                            : "text-pale-savana-200"
+                        }`}
+                        onClick={() => setOpen(false)}
+                      >
+                        <IoArrowUndoOutline
+                          size={14}
+                          className={`-rotate-90 ${
+                            isActivePath(child.href)
+                              ? "text-savana-green-500"
+                              : "text-pale-savana-200"
+                          }`}
+                        />
+                        {t(child.key)}
+                      </Link>
+                    ))}
+                </div>
+              )}
+
+              {navLinks
+                .filter(
+                  (link) =>
+                    link.key !== "nav.home" && link.key !== "nav.services"
+                )
+                .map((link) => (
                   <Link
+                    key={link.key}
                     href={link.href}
-                    className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
+                    className={`block rounded-lg px-4 py-3.5 text-base font-medium transition-colors hover:bg-savana-200/60 hover:text-savana-green-500 ${
+                      isActivePath(link.href)
+                        ? "bg-savana-200 text-savana-green-500"
+                        : "text-pale-savana-200"
+                    }`}
                     onClick={() => setOpen(false)}
                   >
                     {t(link.key)}
                   </Link>
-                  <div className="ml-4 border-l border-pale-green-100/30 pl-2">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.key}
-                        href={child.href}
-                        className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
-                        onClick={() => setOpen(false)}
-                      >
-                        {t(child.key)}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  key={link.key}
-                  href={link.href}
-                  className="block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
-                  onClick={() => setOpen(false)}
-                >
-                  {t(link.key)}
-                </Link>
-              )
-            )}
-            <div className="px-4 pt-2">
-              <Link
-                href="/#contact"
-                className="block rounded-full bg-neutral-900 px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-green-400"
-                onClick={() => setOpen(false)}
-              >
-                {t("nav.contact")}
-              </Link>
+                ))}
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="px-4 pb-4">
+            <Link
+              href="/#contact"
+              className="block rounded-lg bg-savana-green-500 px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-savana-green-400"
+              onClick={() => setOpen(false)}
+            >
+              {t("nav.contact")}
+            </Link>
+
+            <div className="mt-5 grid grid-cols-3 border-t border-savana-200 pt-3">
+              {mobileSocialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 text-sm font-medium text-savana-600 transition-opacity hover:opacity-75"
+                >
+                  <Icon size={16} className="text-neutral-400" />
+                  <span>{label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

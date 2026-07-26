@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   IoChevronBackOutline,
   IoChevronForwardOutline,
+  IoClose,
   IoPlay,
 } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
@@ -96,10 +97,19 @@ const videos = [
 export default function GallerySection() {
   const [current, setCurrent] = useState(0);
   const [isTextVisible, setIsTextVisible] = useState(true);
+  const [modalVideo, setModalVideo] = useState<(typeof videos)[number] | null>(
+    null
+  );
   const [slideOffset, setSlideOffset] = useState(0);
   const firstSlideRef = useRef<HTMLDivElement>(null);
   const currentRef = useRef(0);
   const textTimerRef = useRef<number | null>(null);
+  const dragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    dragged: boolean;
+  } | null>(null);
   const { t } = useLang();
   const activeVideo = videos[current];
 
@@ -121,12 +131,15 @@ export default function GallerySection() {
     changeSlide((currentRef.current - 1 + videos.length) % videos.length);
   const next = () => changeSlide((currentRef.current + 1) % videos.length);
 
+  const openVideo = (video: (typeof videos)[number]) => {
+    if (!video.url || dragRef.current?.dragged) return;
+    setModalVideo(video);
+  };
+
   useEffect(() => {
-    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
-    const duration = isDesktop ? 6000 : 5000;
     const id = window.setInterval(() => {
       changeSlide((currentRef.current + 1) % videos.length);
-    }, duration);
+    }, 9000);
     return () => {
       window.clearInterval(id);
       if (textTimerRef.current) {
@@ -230,9 +243,54 @@ export default function GallerySection() {
 
               <div className="relative z-10 min-h-[600px] overflow-hidden sm:min-h-[700px] lg:min-h-0">
                 <div
-                  className="flex h-full gap-0 transition-transform duration-500 ease-out lg:gap-7"
+                  className="flex h-full cursor-grab touch-pan-y gap-0 transition-transform duration-500 ease-out active:cursor-grabbing lg:gap-7"
                   style={{
                     transform: `translateX(-${current * slideOffset}px)`,
+                  }}
+                  onPointerDown={(event) => {
+                    dragRef.current = {
+                      pointerId: event.pointerId,
+                      startX: event.clientX,
+                      startY: event.clientY,
+                      dragged: false,
+                    };
+                    event.currentTarget.setPointerCapture(event.pointerId);
+                  }}
+                  onPointerMove={(event) => {
+                    const drag = dragRef.current;
+                    if (!drag || drag.pointerId !== event.pointerId) return;
+                    const deltaX = event.clientX - drag.startX;
+                    const deltaY = event.clientY - drag.startY;
+                    if (
+                      Math.abs(deltaX) > 14 &&
+                      Math.abs(deltaX) > Math.abs(deltaY)
+                    ) {
+                      drag.dragged = true;
+                    }
+                  }}
+                  onPointerUp={(event) => {
+                    const drag = dragRef.current;
+                    if (!drag || drag.pointerId !== event.pointerId) return;
+                    const deltaX = event.clientX - drag.startX;
+                    const deltaY = event.clientY - drag.startY;
+                    const isSwipe =
+                      Math.abs(deltaX) > 48 &&
+                      Math.abs(deltaX) > Math.abs(deltaY);
+
+                    if (isSwipe) {
+                      if (deltaX > 0) {
+                        prev();
+                      } else {
+                        next();
+                      }
+                    }
+
+                    window.setTimeout(() => {
+                      dragRef.current = null;
+                    }, 0);
+                  }}
+                  onPointerCancel={() => {
+                    dragRef.current = null;
                   }}
                 >
                   {videos.map((video, index) => (
@@ -241,12 +299,11 @@ export default function GallerySection() {
                       ref={index === 0 ? firstSlideRef : undefined}
                       className="h-full w-full flex-shrink-0 lg:w-[26.4vw] lg:max-w-[487px]"
                     >
-                      <a
-                        href={video.url || "#testimonials"}
-                        target={video.url ? "_blank" : undefined}
-                        rel={video.url ? "noopener noreferrer" : undefined}
+                      <button
+                        type="button"
+                        onClick={() => openVideo(video)}
                         aria-label={`Watch ${video.title} on YouTube`}
-                        className={`group relative block h-full min-h-[600px] w-full overflow-hidden rounded-[28px] transition-opacity duration-500 sm:min-h-[700px] lg:min-h-0 lg:rounded-[24px] ${
+                        className={`group relative block h-full min-h-[600px] w-full overflow-hidden rounded-[28px] text-left transition-opacity duration-500 sm:min-h-[700px] lg:min-h-0 lg:rounded-[24px] ${
                           index === current ? "ring-2 ring-white" : "opacity-55"
                         }`}
                       >
@@ -265,11 +322,11 @@ export default function GallerySection() {
                             <IoPlay size={62} className="translate-x-1" />
                           </span>
                         )}
-                      </a>
+                      </button>
                     </div>
                   ))}
                 </div>
-                <div className="pointer-events-none absolute inset-y-0 right-0 left-0 flex items-center justify-between px-6 lg:hidden">
+                <div className="pointer-events-none absolute inset-y-0 right-0 left-0 hidden items-center justify-between px-6">
                   <button
                     onClick={prev}
                     aria-label="Previous video"
@@ -303,6 +360,29 @@ export default function GallerySection() {
           </div>
         </div>
       </div>
+      {modalVideo && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/78 px-4 py-8">
+          <div className="relative w-full max-w-4xl">
+            <button
+              type="button"
+              onClick={() => setModalVideo(null)}
+              aria-label="Close video"
+              className="absolute -top-14 right-0 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 shadow-lg"
+            >
+              <IoClose size={24} />
+            </button>
+            <div className="relative aspect-video overflow-hidden rounded-[24px] bg-black">
+              <iframe
+                src={`https://www.youtube.com/embed/${modalVideo.id}?autoplay=1`}
+                title={modalVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

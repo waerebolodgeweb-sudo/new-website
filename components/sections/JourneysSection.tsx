@@ -21,7 +21,10 @@ import { useLang } from "@/lib/i18n";
 
 type TabKey = "trip" | "lodge" | "restaurant" | "transport";
 const tabKeys: TabKey[] = ["trip", "lodge", "restaurant", "transport"];
-const SLIDE_DURATION_MS = 45000;
+const MOBILE_SLIDE_DURATION_MS = 5000;
+const DEFAULT_DESKTOP_SLIDE_DURATION_MS = 6000;
+const TRIP_DESKTOP_SLIDE_DURATION_MS = 9000;
+const LODGE_DESKTOP_SLIDE_DURATION_MS = 6000;
 
 interface CardMetaDef {
   icon: IconType;
@@ -152,18 +155,40 @@ function getVisibleSlides<T>(items: T[], activeIndex: number, count: number) {
   return [...items, ...items].slice(activeIndex, activeIndex + count);
 }
 
-function useAutoSlider(total: number, isActive = true) {
+function useAutoSlider(
+  total: number,
+  isActive = true,
+  durations: { desktop?: number; mobile?: number } = {}
+) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [duration, setDuration] = useState(
+    durations.desktop ?? DEFAULT_DESKTOP_SLIDE_DURATION_MS
+  );
 
   useEffect(() => {
     if (!isActive || total <= 1) return;
 
     const id = window.setTimeout(() => {
       setActiveIndex((current) => (current + 1) % total);
-    }, SLIDE_DURATION_MS);
+    }, duration);
 
     return () => window.clearTimeout(id);
-  }, [activeIndex, isActive, total]);
+  }, [activeIndex, duration, isActive, total]);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px)");
+    const updateDuration = () => {
+      setDuration(
+        query.matches
+          ? (durations.desktop ?? DEFAULT_DESKTOP_SLIDE_DURATION_MS)
+          : (durations.mobile ?? MOBILE_SLIDE_DURATION_MS)
+      );
+    };
+
+    updateDuration();
+    query.addEventListener("change", updateDuration);
+    return () => query.removeEventListener("change", updateDuration);
+  }, [durations.desktop, durations.mobile]);
 
   const goToPrevious = () => {
     setActiveIndex((current) => (current === 0 ? total - 1 : current - 1));
@@ -173,7 +198,7 @@ function useAutoSlider(total: number, isActive = true) {
     setActiveIndex((current) => (current + 1) % total);
   };
 
-  return { activeIndex, setActiveIndex, goToPrevious, goToNext };
+  return { activeIndex, setActiveIndex, goToPrevious, goToNext, duration };
 }
 
 function SliderPagination({
@@ -181,12 +206,14 @@ function SliderPagination({
   activeIndex,
   onSelect,
   getLabel,
+  duration,
   tone = "dark",
 }: {
   items: { id: string }[];
   activeIndex: number;
   onSelect: (index: number) => void;
   getLabel: (index: number) => string;
+  duration: number;
   tone?: "dark" | "light";
 }) {
   const baseClass = tone === "light" ? "bg-white/35" : "bg-savana-800/25";
@@ -211,7 +238,7 @@ function SliderPagination({
               className={`journey-pagination-fill absolute inset-y-0 left-0 ${fillClass}`}
               style={
                 {
-                  "--journey-slide-duration": `${SLIDE_DURATION_MS}ms`,
+                  "--journey-slide-duration": `${duration}ms`,
                 } as CSSProperties
               }
             />
@@ -358,14 +385,16 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
 
 function LodgePreview() {
   const { t } = useLang();
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext } = useAutoSlider(
-    lodgeDefs.length
-  );
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
+    useAutoSlider(lodgeDefs.length, true, {
+      desktop: LODGE_DESKTOP_SLIDE_DURATION_MS,
+      mobile: MOBILE_SLIDE_DURATION_MS,
+    });
   const visibleRooms = getVisibleSlides(lodgeDefs, activeIndex, 3);
 
   return (
     <div className="relative">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <SliderArrow
           direction="previous"
           onClick={goToPrevious}
@@ -376,7 +405,9 @@ function LodgePreview() {
         {visibleRooms.map((def, index) => (
           <div
             key={`${activeIndex}-${def.slug}`}
-            className={index === 0 ? "" : "hidden md:block"}
+            className={`${index === 1 ? "hidden md:block" : ""} ${
+              index === 2 ? "hidden xl:block" : ""
+            }`}
           >
             <LodgeCard def={def} />
           </div>
@@ -389,6 +420,7 @@ function LodgePreview() {
           activeIndex={activeIndex}
           onSelect={setActiveIndex}
           getLabel={(index) => `Show ${lodgeDefs[index].title}`}
+          duration={duration}
         />
       </div>
 
@@ -403,15 +435,17 @@ function LodgePreview() {
 }
 
 function TripSlider() {
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext } = useAutoSlider(
-    tripDefs.length
-  );
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
+    useAutoSlider(tripDefs.length, true, {
+      desktop: TRIP_DESKTOP_SLIDE_DURATION_MS,
+      mobile: MOBILE_SLIDE_DURATION_MS,
+    });
   const visibleTrips = getVisibleSlides(tripDefs, activeIndex, 3);
   const { t } = useLang();
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <SliderArrow
           direction="previous"
           onClick={goToPrevious}
@@ -422,7 +456,9 @@ function TripSlider() {
         {visibleTrips.map((def, index) => (
           <div
             key={`${activeIndex}-${def.id}`}
-            className={index === 0 ? "" : "hidden md:block"}
+            className={`${index === 1 ? "hidden md:block" : ""} ${
+              index === 2 ? "hidden xl:block" : ""
+            }`}
           >
             <Card def={def} href="/trips" labelKey="journeys.seeTripDetails" />
           </div>
@@ -435,6 +471,7 @@ function TripSlider() {
           activeIndex={activeIndex}
           onSelect={setActiveIndex}
           getLabel={(index) => t(tripDefs[index].titleKey)}
+          duration={duration}
         />
       </div>
     </div>
@@ -443,34 +480,59 @@ function TripSlider() {
 
 function TransportPreview() {
   const { t } = useLang();
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
+    useAutoSlider(transportDefs.length, true, {
+      desktop: DEFAULT_DESKTOP_SLIDE_DURATION_MS,
+      mobile: MOBILE_SLIDE_DURATION_MS,
+    });
+  const activeTransport = transportDefs[activeIndex];
 
   return (
-    <div>
-      <div className="grid gap-6 lg:grid-cols-2">
-        {transportDefs.map((def) => (
-          <article
-            key={def.id}
-            className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
-          >
-            <div className="relative aspect-[1.86] overflow-hidden rounded-[20px]">
-              <Image
-                src={def.image}
-                alt={def.title}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-              />
-            </div>
-            <div className="px-3 pt-5 pb-2">
-              <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
-                {def.title}
-              </h3>
-              <p className="mt-3 line-clamp-3 text-sm leading-6 font-normal text-neutral-500 md:min-h-[72px] md:text-base">
-                {t(def.descKey)}
-              </p>
-            </div>
-          </article>
-        ))}
+    <div className="relative">
+      <div className="mx-auto max-w-[560px]">
+        <SliderArrow
+          direction="previous"
+          onClick={goToPrevious}
+          label="Previous transport"
+        />
+        <SliderArrow
+          direction="next"
+          onClick={goToNext}
+          label="Next transport"
+        />
+
+        <article
+          key={activeTransport.id}
+          className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
+        >
+          <div className="relative aspect-[1.86] overflow-hidden rounded-[20px]">
+            <Image
+              src={activeTransport.image}
+              alt={activeTransport.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 560px, 100vw"
+            />
+          </div>
+          <div className="px-3 pt-5 pb-2">
+            <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
+              {activeTransport.title}
+            </h3>
+            <p className="mt-3 line-clamp-3 min-h-[72px] text-sm leading-6 font-normal text-neutral-500 md:text-base">
+              {t(activeTransport.descKey)}
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div className="mt-7">
+        <SliderPagination
+          items={transportDefs}
+          activeIndex={activeIndex}
+          onSelect={setActiveIndex}
+          getLabel={(index) => `Show ${transportDefs[index].title}`}
+          duration={duration}
+        />
       </div>
 
       <Link
@@ -485,9 +547,11 @@ function TransportPreview() {
 
 function RestaurantPreview() {
   const { t } = useLang();
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext } = useAutoSlider(
-    restaurantSliderImages.length
-  );
+  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
+    useAutoSlider(restaurantSliderImages.length, true, {
+      desktop: DEFAULT_DESKTOP_SLIDE_DURATION_MS,
+      mobile: MOBILE_SLIDE_DURATION_MS,
+    });
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
@@ -569,6 +633,7 @@ function RestaurantPreview() {
           activeIndex={activeIndex}
           onSelect={setActiveIndex}
           getLabel={(index) => `Show restaurant image ${index + 1}`}
+          duration={duration}
         />
       </div>
     </div>
@@ -625,7 +690,7 @@ export default function JourneysSection() {
         {tabBar("mt-8 lg:hidden")}
       </div>
 
-      <div className="mx-auto mt-8 max-w-[1512px] px-6 lg:mt-10 lg:min-h-[720px] lg:px-20">
+      <div className="mx-auto mt-8 min-h-[680px] max-w-[1512px] px-6 md:min-h-[720px] lg:mt-10 lg:px-20">
         {activeTab === "trip" && <TripSlider />}
 
         {activeTab === "lodge" && <LodgePreview />}

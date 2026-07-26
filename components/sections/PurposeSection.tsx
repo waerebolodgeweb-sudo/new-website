@@ -14,14 +14,14 @@ export default function PurposeSection() {
       <div className="mx-auto w-full max-w-[1920px] px-7 sm:px-8 lg:px-11">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(440px,548px)] lg:items-center lg:gap-20">
           <div>
-            <div className="relative h-[1036px] sm:h-[1130px] lg:h-[690px]">
+            <div className="relative mx-auto h-[1036px] max-w-[620px] sm:h-[980px] md:h-[720px] md:max-w-[900px] lg:h-[690px] lg:max-w-none">
               <Image
                 src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-01.webp"
                 alt="Waerebo Lodge sign"
                 width={1083}
                 height={1320}
                 sizes="(min-width: 1024px) 31vw, 90vw"
-                className="absolute top-0 left-0 h-auto w-full lg:w-[36.22%]"
+                className="absolute top-0 left-0 h-auto w-full md:w-[48%] lg:w-[36.22%]"
                 priority
               />
               <Image
@@ -30,7 +30,7 @@ export default function PurposeSection() {
                 width={909}
                 height={1560}
                 sizes="(min-width: 1024px) 25vw, 55vw"
-                className="absolute top-[618px] left-0 h-auto w-[55%] sm:top-[680px] lg:top-[163px] lg:left-[36.2%] lg:w-[29.57%]"
+                className="absolute top-[618px] left-0 h-auto w-[55%] sm:top-[580px] md:top-[292px] md:left-[35%] md:w-[32%] lg:top-[163px] lg:left-[36.2%] lg:w-[29.57%]"
               />
               <Image
                 src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-03.webp"
@@ -38,7 +38,7 @@ export default function PurposeSection() {
                 width={909}
                 height={1476}
                 sizes="(min-width: 1024px) 25vw, 42vw"
-                className="absolute top-[572px] right-0 h-auto w-[40%] sm:top-[630px] lg:top-[97px] lg:right-0 lg:w-[29.57%]"
+                className="absolute top-[572px] right-0 h-auto w-[40%] sm:top-[540px] md:top-[190px] md:w-[30%] lg:top-[97px] lg:right-0 lg:w-[29.57%]"
               />
 
               <div className="absolute top-[568px] left-0 hidden lg:block">
