@@ -480,59 +480,34 @@ function TripSlider() {
 
 function TransportPreview() {
   const { t } = useLang();
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
-    useAutoSlider(transportDefs.length, true, {
-      desktop: DEFAULT_DESKTOP_SLIDE_DURATION_MS,
-      mobile: MOBILE_SLIDE_DURATION_MS,
-    });
-  const activeTransport = transportDefs[activeIndex];
 
   return (
-    <div className="relative">
-      <div className="mx-auto max-w-[560px]">
-        <SliderArrow
-          direction="previous"
-          onClick={goToPrevious}
-          label="Previous transport"
-        />
-        <SliderArrow
-          direction="next"
-          onClick={goToNext}
-          label="Next transport"
-        />
-
-        <article
-          key={activeTransport.id}
-          className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
-        >
-          <div className="relative aspect-[1.86] overflow-hidden rounded-[20px]">
-            <Image
-              src={activeTransport.image}
-              alt={activeTransport.title}
-              fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 560px, 100vw"
-            />
-          </div>
-          <div className="px-3 pt-5 pb-2">
-            <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
-              {activeTransport.title}
-            </h3>
-            <p className="mt-3 line-clamp-3 min-h-[72px] text-sm leading-6 font-normal text-neutral-500 md:text-base">
-              {t(activeTransport.descKey)}
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div className="mt-7">
-        <SliderPagination
-          items={transportDefs}
-          activeIndex={activeIndex}
-          onSelect={setActiveIndex}
-          getLabel={(index) => `Show ${transportDefs[index].title}`}
-          duration={duration}
-        />
+    <div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        {transportDefs.map((def) => (
+          <article
+            key={def.id}
+            className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
+          >
+            <div className="relative aspect-[1.86] overflow-hidden rounded-[20px]">
+              <Image
+                src={def.image}
+                alt={def.title}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+            </div>
+            <div className="px-3 pt-5 pb-2">
+              <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
+                {def.title}
+              </h3>
+              <p className="mt-3 line-clamp-3 min-h-[72px] text-sm leading-6 font-normal text-neutral-500 md:text-base">
+                {t(def.descKey)}
+              </p>
+            </div>
+          </article>
+        ))}
       </div>
 
       <Link
