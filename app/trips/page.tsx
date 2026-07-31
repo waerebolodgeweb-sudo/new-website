@@ -5,9 +5,9 @@ import ContactSection from "@/components/sections/ContactSection";
 import TripContent from "./_components/TripContent";
 
 export const metadata: Metadata = {
-  title: "Waerebo Trekking Programs — Waerebo Lodge",
+  title: "Waerebo Trips & Itineraries — Waerebo Lodge",
   description:
-    "Choose your Waerebo trekking program — 1 day, 2D/1N, 3D/2N, or the full 4-day Whitewater, Cave & Waerebo adventure.",
+    "Choose a one-day Waerebo trek, overnight village experience, Flores nature and culture journey, island escape, heritage route, or a custom itinerary.",
 };
 
 export default function TripsPage() {

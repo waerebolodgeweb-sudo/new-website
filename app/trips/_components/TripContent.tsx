@@ -1,289 +1,586 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { tripPrograms, type Stop } from "../data";
-import BookingModal from "./BookingModal";
-import { useLang } from "@/lib/i18n";
+import { useState } from "react";
+import type { IconType } from "react-icons";
+import {
+  IoBedOutline,
+  IoCalendarClearOutline,
+  IoCarSportOutline,
+  IoCheckmarkCircleOutline,
+  IoChevronBackOutline,
+  IoChevronForwardOutline,
+  IoHomeOutline,
+  IoLogoWhatsapp,
+  IoMailOutline,
+  IoMapOutline,
+  IoPeopleOutline,
+  IoRestaurantOutline,
+  IoSparklesOutline,
+  IoTrailSignOutline,
+} from "react-icons/io5";
+import { tripPrograms, type InfoCard, type TripProgram } from "../data";
 
-/* ── helpers ── */
+const customFeatures: { title: string; Icon: IconType }[] = [
+  { title: "Private & Group Travelers", Icon: IoPeopleOutline },
+  { title: "Local Expert Team", Icon: IoMapOutline },
+  { title: "Flexible Itinerary", Icon: IoCalendarClearOutline },
+  { title: "Waerebo Lodge Package", Icon: IoHomeOutline },
+  { title: "Waerebo Village Overnight Stay", Icon: IoBedOutline },
+  { title: "Iconic & Authentic Experience", Icon: IoSparklesOutline },
+  { title: "Breakfast, Meals, Dinner, etc.", Icon: IoRestaurantOutline },
+  { title: "Personal Accommodation Pickup", Icon: IoCarSportOutline },
+];
 
-const BLOCK_H = 400; // desktop px per stop block
+const whatsappNumber = "6285339021145";
+const email = "waerebolodge@gmail.com";
 
-/* ──────────────────────────────────────────────────────────────────
-   TIMELINE CURVE (Figma "Vector 1") — tuning knobs.
-   These drive BOTH the drawn line and the dots, so the dots always
-   stay glued to the curve wherever you move it. Edit freely:
-     CURVE_LEFT     %  horizontal offset — smaller / negative = more LEFT
-     CURVE_W        %  width of the curve box
-     CURVE_TOP      px vertical offset — larger = more DOWN
-     CURVE_H_SCALE  ×  curve height vs. total timeline height
-                       (>1 = taller / stretches further DOWN)
-   ────────────────────────────────────────────────────────────────── */
-const CURVE_LEFT = -9; // %  (was 0.8 — nudged left)
-const CURVE_W = 63.1; // %
-const CURVE_TOP = 80; // px (was 0 — nudged down)
-const CURVE_H_SCALE = 1; // ×
-
-/* Exact decorative winding connector from Figma (viewBox 910 x 2160) */
-const TIMELINE_PATH =
-  "M819.35 0.0140624C838.6 13.7273 853.58 31.5204 864.713 52.5756C867.162 57.3535 866.624 57.1388 867.535 59.1343C869.209 62.7859 872.134 69.0472 872.446 69.9385C874.553 75.5604 873.17 73.5809 873.427 74.3319C875.995 82.7858 875.906 80.224 878.13 88.4436C880.926 99.2214 882.717 113.509 882.563 126.89C882.453 131.647 882.245 129.491 881.62 139.603C881.415 146.745 878.161 168.518 874.517 178.12C874.307 178.124 874.449 176.809 874.392 176.23C871.166 190.147 869.548 195.398 861.099 213.858C859.671 216.862 858.727 219.697 856.048 224.689C854.396 227.742 853.509 228.931 851.811 231.724C850.725 233.495 849.313 235.91 847.02 239.774C844.923 243.267 843.964 245.584 840.533 250.759C831.185 265.861 807.865 290.43 796.523 299.539C774.764 317.886 761.881 326.759 739.596 338.983C737.895 339.891 741.418 337.505 738.309 339.186C735.174 340.878 732.108 343.081 731.326 343.497C722.919 348.133 704.197 355.821 699.352 357.862C687.474 362.997 699.438 358.472 682.7 365.174C667.05 371.37 644.329 378.121 628.155 382.648C609.189 387.957 603.619 390.407 588.974 392.999C538.89 405.507 487.984 414.809 437.287 424.033C437.393 423.796 437.523 423.555 437.658 423.312C433.67 424.183 429.682 425.053 425.697 425.921C426.274 425.655 426.821 425.394 427.399 425.129C408.699 429.133 391.885 432.474 369.972 436.443C369.544 436.521 370.588 435.888 370.232 435.944C365.291 436.797 359.758 438.194 355.403 438.962C344.83 440.808 326.98 443.518 334.992 443.045C310.425 447.78 281.929 454.588 259.048 460.443C249.015 463.01 245.903 463.212 241.174 464.511C236.466 465.823 239.019 465.695 237.362 466.198C227.525 469.129 210.81 474.516 208.996 474.484C207.091 475.396 205.084 476.358 203.178 477.296C204.244 475.981 173.67 487.577 166.168 491.122C164.727 491.742 164.401 491.54 163.319 492.018C151.321 497.414 148.78 499.223 138.997 504.414C135.53 506.313 140.648 502.919 131.857 507.936C131.126 508.403 131.637 508.503 121.374 514.529C104.71 523.9 75.5973 546.205 60.7665 563.389C59.5262 564.772 62.8387 560.143 57.3435 566.637C55.3992 569.027 56.5779 568.092 51.9354 573.925C34.0208 596.575 20.1496 624.492 13.4138 653.633C13.2876 652.391 15.3533 642.057 11.8171 657.493C11.3138 659.904 12.1024 658.197 11.8738 659.278C10.0525 668.054 8.40896 675.874 7.3436 686.153C7.06144 689.039 7.29334 689.709 7.03227 693.272C6.67966 698.534 6.06493 700.854 5.94218 707.174C5.85234 714.066 6.08332 716.988 5.9355 722.368C5.87996 724.708 5.77386 727.505 5.68111 731.296C7.56059 801.3 51.063 862.074 104.833 904.387C121.083 916.963 135.642 926.678 153.821 937.842C158.968 940.961 159.635 942.053 168.138 946.805C170.001 947.894 184.011 955.066 185.564 957.132C189.524 959.167 191.957 960.453 195.229 962.104C192.83 960.661 190.389 959.176 187.994 957.699C201.763 965.292 213.295 970.6 226.175 976.532C235.654 980.856 228.807 978.164 234.552 980.793C240.225 983.364 242.846 984.447 249.792 988.176C255.718 990.073 259.277 992.17 269.896 996.695C271.013 997.173 277.839 999.765 283.191 1002.01C287.095 1003.65 288.097 1004.51 294.395 1006.97C295.413 1007.38 308.948 1012.17 313.269 1013.76C319.991 1016.28 330.403 1020.75 331.662 1021.22C350.295 1028.22 357.787 1030.3 370.975 1035.84C373.876 1036.32 385.104 1039.9 394.166 1043.02C405.581 1046.98 428.365 1055.58 431.848 1055.53C445.017 1060.32 443.668 1059.57 459.485 1064.61C473.854 1069.21 512.037 1081.56 523.708 1085.1C535.51 1088.7 529.949 1086.33 534.645 1087.7C542.321 1089.94 538.063 1089.09 543.281 1090.7C558.041 1095.26 570.667 1099.08 584.971 1103.36C585.635 1103.9 586.356 1104.46 587.046 1105.01C587.808 1105.14 588.566 1105.26 589.326 1105.39C592.354 1106.35 595.741 1107.4 598.525 1108.29C575.473 1099.57 620.959 1115.44 635.202 1120.18C646.997 1124.04 666.302 1129.76 679.454 1134.17C682.586 1135.21 680.328 1134.8 680.971 1135.01C688.5 1137.53 689.736 1137.7 699.608 1141.26C704.718 1143.11 710.154 1145.55 715.387 1147.51C752.657 1161.49 789.872 1176.29 824.534 1196.02C830.642 1199.53 835.383 1203.06 840.082 1206.1C846.541 1210.32 851.586 1213.29 857.789 1217.99C864.131 1222.75 871.566 1229.91 875.747 1233.95C879.614 1237.7 873.515 1230.81 880.275 1237.92C883.276 1241.2 877.633 1235.73 881.375 1239.74C892.746 1251.37 906.672 1273.29 908.312 1291.9C908.302 1291.07 908.218 1289.95 908.138 1288.95C911.53 1308.28 908.286 1325.51 900.307 1344.58C897.543 1351.28 892.427 1361.53 888.454 1367.75C884.685 1373.72 882.159 1376.66 879.357 1380.53C878.112 1382.22 878.854 1381.75 878.001 1382.89C867.355 1396.88 858.08 1406.33 845.679 1419C838.531 1426.24 830.691 1433.69 822.126 1441.34C776.1 1482.49 732.587 1528.53 698.593 1580.43C697 1582.86 696.27 1584.73 694.027 1588.35C690.597 1593.94 690.15 1594.02 689.674 1594.76C686.625 1599.58 688.098 1597.77 684.187 1604.36C675.496 1618.82 662.771 1642.92 656.057 1658.37C640.387 1693.88 630.435 1725.05 620.664 1761.83C619.97 1764.49 619.971 1762.56 618.75 1767.19C610.49 1799.73 609.345 1806.7 601.158 1847.79C600.11 1853.21 598.97 1859.24 597.752 1865.9C589.493 1908.69 588.196 1974.07 589.598 2016.5C589.597 2016.5 589.596 2016.5 589.595 2016.5C590.939 2031.91 591.646 2051.75 592.034 2068.39C586.542 2000.6 584.464 1933.82 595.917 1865.57C600.919 1838.04 606.559 1810.2 613.478 1781.74C636.813 1677.2 688.123 1570.58 765.249 1492.99C772.4 1485.53 775.533 1483.09 781.623 1476.86C782.651 1475.81 779.682 1478.2 782.842 1475C794.798 1462.96 807.39 1451.15 820.5 1439.52C855.451 1408 888.563 1374.27 902.29 1332.28C906.397 1317.31 906.383 1313.75 906.059 1299.94C906.39 1302.37 906.621 1303.99 906.787 1306.17C906.559 1236.23 831.946 1200.97 775.502 1174.14C772.831 1172.94 772.664 1172.39 769.828 1171.13C764.147 1168.6 758.374 1166.67 753.186 1164.55C746.373 1161.76 745.327 1160.98 739.359 1158.62C736.413 1157.48 737.197 1158.13 730.754 1155.57C730.211 1155.35 729.995 1154.89 725.629 1153.27C713.457 1148.69 689.051 1140.25 678.977 1136.91C666.042 1132.55 655.892 1128.63 651.176 1127.03C638.222 1122.65 638.305 1123.25 627.13 1119.63C547.778 1094.05 472.025 1071.48 391.412 1044.12C386.353 1042.42 367.547 1036.56 358.178 1033.18C355.034 1032.07 338.813 1026.02 336.412 1025.1C326.631 1021.45 318.209 1017.86 312.78 1015.68C302.263 1011.49 290.425 1007.35 284.784 1005.1C274.993 1001.26 257.054 993.495 253.036 991.671C243.107 987.234 246.677 988.054 239.549 985.002C237.454 984.092 239.393 985.591 232.102 982.211C225.809 979.27 223.473 977.698 219.276 975.593C215.075 973.491 207.15 970.245 204.59 968.92C191.307 962.033 185.389 958.458 170.966 950.258C158.722 944.358 106.304 909.012 102.421 904.714C83.6225 890.214 114.54 915.048 116.552 916.064C126.005 923.087 124.45 922.298 134.612 928.62C142.848 936.307 175.603 953.119 183.58 959.158C193.107 962.991 199.749 967.108 209.025 972.01C221.814 978.685 212.238 973.228 221.752 977.833C225.538 979.668 236.243 985.266 241.836 987.696C247.489 990.165 250.026 990.859 257.677 994.172C271.414 1000.09 282.442 1004.83 293.767 1009.89C295.965 1010.54 298.026 1011.12 300.205 1011.75C308.134 1015.13 316.198 1018.48 324.246 1021.76C323.037 1021.1 321.78 1020.42 320.551 1019.75C322.952 1020.64 325.316 1021.5 327.667 1022.35C335.367 1025.53 342.778 1028.53 350.801 1031.73C373.27 1038.59 366.636 1037.2 378.827 1041.6C391.057 1045.96 398.408 1047.77 407.958 1050.95C420.841 1055.23 426.776 1057.09 439.763 1061.34C447.289 1063.8 459.893 1068.46 449.69 1064.19C473.198 1071.66 505.676 1081.48 526.653 1088.39C532.892 1090.45 524.438 1088.14 525.495 1088.51C530.77 1090.33 535.393 1091.25 540.84 1093.01C549.958 1095.96 567.186 1101.71 574.489 1104.09C584.85 1107.45 601.13 1111.91 602.767 1112.39C612.012 1115.04 614.19 1116.3 617.214 1117.23C634.372 1122.51 638.064 1123.52 643.007 1126.31C647.537 1127.27 665.631 1132.46 670.009 1134.83C670.379 1134.18 685.566 1139.51 694.686 1142.58C696.305 1143.38 697.946 1144.2 699.55 1145C719.407 1150.63 757.475 1166.29 781.141 1177.56C781.719 1177.83 783.017 1177.81 786.783 1179.72C787.017 1179.84 786.53 1179.88 789.039 1181.11C797.61 1184.96 826.798 1201.42 830.231 1203.91C842.441 1211.47 844.226 1212.34 851.802 1217.71C861.284 1224.75 862.057 1225.85 870.176 1233.07C874.102 1236.7 877.933 1239.71 883.046 1245.76C886.04 1249.4 885.843 1249.8 888.182 1252.97C896.194 1264.31 900.51 1272.75 903.189 1284.48C905.158 1287.13 905.474 1293.15 905.724 1298.77C907.517 1323.29 895.548 1350.88 883.926 1368.22C874.463 1382.56 865.327 1393.49 853.488 1406.18C843.568 1416.7 832.333 1427.43 819.637 1438.54C797.276 1458.12 775.895 1478.33 754.892 1501.09C747.938 1508.68 746.74 1510.94 739.678 1519.07C736.568 1522.68 732.902 1526.32 727.943 1532.42C723.886 1537.41 718.469 1544.68 713.672 1551.11C712.407 1552.8 711.957 1552.71 710.114 1555.21C696.119 1574.26 683.815 1593.93 672.457 1614.92C668.254 1622.7 665.288 1627.34 666.823 1626.45C665.052 1629.33 663.378 1632.17 661.752 1634.91C656.89 1646.1 652.082 1654.8 645.845 1670.07C645.162 1671.69 641.096 1683.48 638.208 1689.9C638.352 1690.48 639.01 1689.56 639.227 1689.86C636.863 1696.44 632.951 1706.33 631.406 1710.81C629.869 1715.21 629.32 1718.35 628.886 1719.69C627.24 1724.82 627.076 1723.45 626.939 1723.84C618.988 1747.58 620.197 1745.24 617.027 1759.99C616.164 1763.71 609.317 1788.45 608.903 1793.67C608.575 1793.84 608.657 1792.38 608.489 1791.92C606.645 1799.5 604.914 1806.93 603.206 1814.59C603.817 1813.03 604.5 1811.14 605.086 1809.73C601.503 1825.13 599.594 1838.12 597.175 1850.86C595.812 1858.08 595.391 1857.1 594.737 1861.41C594.609 1862.26 595.265 1860.9 594.845 1863.41C594.737 1864.05 594.63 1864.69 594.524 1865.32C591.499 1884.25 590.089 1893.29 588.332 1913.13C587.554 1922.75 587.75 1931.23 586.753 1945.03C586.644 1946.29 585.582 1959.86 586.453 1968.26C586.127 1970.92 585.956 1973.27 585.699 1975.27C587.1 1992.25 585.633 1987.55 585.781 2010.54C585.76 2022.43 587.903 2062.41 589.055 2075.25C589.675 2082.96 590.222 2082.77 590.34 2084.13C591.072 2092.32 590.542 2092.29 591.246 2099.93C591.937 2107.32 593.405 2117.08 594.097 2124.77C594.641 2130.75 593.499 2125.98 594.629 2134.84C594.87 2136.67 594.861 2131.28 595.633 2140.69C595.734 2142.14 596.806 2157.07 597.073 2159.96C595.701 2152.28 592.852 2129.66 591.955 2121.26C585.583 2056.95 576.029 1962.61 591.157 1864.71C609.986 1741.64 657.928 1614.98 714.866 1546.46C723.765 1534.83 730.305 1527.84 736.538 1520.54C742.742 1513.36 737.095 1519.11 742.806 1512.6C748.594 1506.06 753.046 1501.71 758.614 1495.78C777.676 1475.51 797.973 1456.2 818.907 1437.72C840.407 1418.63 857.865 1401.05 873.711 1380.1C881.189 1370.19 888.036 1358.46 892.809 1348.41C894.67 1344.47 895.384 1344.18 896.747 1340.87C912.021 1306.41 902.724 1268.45 876.62 1242.37C865.542 1230.6 853.373 1220.65 840.192 1211.85C830.285 1205.21 817.405 1198.2 807.996 1193.28C802.639 1190.46 799.878 1188.62 797.881 1187.59C790.863 1183.99 793.096 1185.68 789.426 1183.9C778.876 1178.88 774.886 1176.43 765.29 1172.3C761.552 1170.71 761.894 1171.27 756.37 1169.01C749.31 1166.15 752.053 1166.9 746.965 1164.8C746.657 1164.68 747.559 1165.34 744.834 1164.25C728.69 1157.76 706 1149.57 690.081 1143.95C655.466 1131.69 621.273 1120.17 589.158 1109.96C580.95 1107.36 583.014 1108.39 580.394 1107.59C567.683 1103.7 563.44 1101.93 550.305 1098.02C548.12 1097.36 539.186 1095.13 530.779 1092.39C526.253 1090.91 521.115 1088.99 517.3 1087.73C513.48 1086.46 512.725 1086.72 508.096 1085.28C499.66 1082.65 502.217 1083.12 490.104 1079.39C485.236 1077.89 468.761 1073.19 456.29 1069.17C435.868 1062.61 410.613 1053.97 386.67 1045.78C378.473 1042.98 367.778 1039.8 355.022 1035.25C339.479 1029.76 311.095 1019.04 295.389 1012.71C287.389 1009.52 287.024 1008.81 286.082 1008.4C280.067 1005.8 282.304 1007.32 278.258 1005.63C272.69 1003.3 267.476 1000.66 262.402 998.451C259.154 997.037 258.479 997.192 257.774 996.891C232.016 985.842 209.015 974.904 184.514 961.761C94.382 914.362 -1.99125 834.763 0.0313151 722.368C-0.142572 676.183 9.51801 629.056 34.2403 589.608C41.1579 578.816 41.8997 578.812 48.6424 569.908C55.5001 561.102 62.2036 552.352 69.7021 546.943C69.7424 546.557 69.5976 546.447 69.6548 546.077C86.6554 530.415 105.679 516.678 125.09 505.65C139.852 497.292 152.848 491.173 167.279 485.068C179.73 479.929 178.823 480.8 189.715 476.082C245.021 456.14 302.692 443.628 359.623 433.187C372.828 429.693 385.595 427.913 404.13 424.682C406.405 424.286 403.905 424.391 410.651 423.198C419.128 421.699 423.608 421.424 437.888 418.817C441.676 418.131 469.536 412.488 479.931 410.826C490.363 409.183 505.297 406.499 516.084 404.626C514.515 404.711 512.523 404.888 510.795 405.004C516.14 403.909 521.532 402.788 526.86 401.656C527.689 401.761 528.519 401.865 529.32 401.977C532.366 401.087 535.407 400.193 538.465 399.281C545.474 399.197 538.435 400.278 553.373 396.656C560.859 394.82 566.853 393.702 574.451 391.761C577.186 391.059 578.844 390.243 581.844 389.46C589.293 387.504 585.074 389.119 589.693 387.966C594.344 386.794 600.843 384.503 609.105 382.548C600.822 385.958 625.504 378.805 626.482 377.537C629.436 376.67 631.913 375.97 635.141 374.963C632.823 377.938 647.559 371.809 653.561 369.446C659.554 367.129 659.477 367.744 660.889 367.238C664.935 365.767 661.897 366.57 664.735 365.566C683.324 358.951 701.02 352.186 718.691 343.717C721.25 342.482 718.845 343.291 721.827 341.866C724.804 340.433 727.778 339.308 732.054 337.034C733.199 336.423 733.426 335.98 735.201 335.025C772.573 314.827 805.597 289.834 831.242 254.751C833.511 251.598 834.889 248.854 838.971 242.509C841.274 238.905 844.266 234.218 847.147 229.191C849.393 225.277 851.533 221.323 853.308 217.729C854.379 215.55 854.312 214.72 855.738 211.676C860.463 201.454 864.319 192.707 867.932 181.397C873.903 162.639 877.126 141.88 876.798 121.984C876.713 118.231 877.133 118.726 876.831 113.297C876.1 103.873 875.857 107.46 875.583 105.578C874.502 99.5461 874.792 97.3282 873.313 91.5315C873.074 90.625 872.98 92.0185 872.783 91.2028C869.52 78.8844 870.22 77.7692 864.522 65.3458C860.011 54.0666 868.572 72.4509 869.293 74.5156C871.704 79.1785 867.994 65.9062 864.526 58.6069C861.597 52.2283 861.171 52.5946 859.813 50.1336C852.873 37.2594 838.81 20.3433 830.647 12.7448C825.746 7.98141 834.786 16.2478 832.371 13.7652C830.019 11.2957 828.106 9.99335 825.727 7.47089C823.336 4.84269 818.099 -0.304419 819.35 0.0140624ZM15.7694 641.044C18.5998 618.774 48.9392 565.934 74.3115 546.026C93.9792 528.056 114.289 517.717 108.59 518.897C84.8396 534.709 67.0138 550.053 48.3264 573.854C46.2681 576.192 35.5104 591.54 32.4078 597.431C30.6201 600.579 30.2647 600.512 27.9707 604.919C27.4589 605.871 25.1735 611.456 24.259 613.479C20.655 620.44 12.8016 641.041 12.1332 644.341C9.80699 652.9 11.2229 649.763 10.352 653.521C7.86518 665.508 6.86989 666.712 5.20817 679.316C4.92227 681.664 4.57239 689.082 3.82955 698.032C3.50387 701.705 2.84233 708.103 2.77529 711.046C2.67407 714.69 2.64792 718.483 2.695 722.368C2.83011 735.353 4.35889 748.176 6.2243 758.834C8.38732 770.398 7.3766 767.446 8.77059 773.541C10.2433 779.643 13.0901 786.62 14.5591 790.583C16.8348 796.942 19.8357 804.678 20.7343 806.589C38.3649 844.577 63.8265 872.586 94.295 898.452C73.8894 880.878 54.9502 860.802 40.014 838.242C31.285 825.797 35.8043 831.94 30.7907 823.146C27.0277 816.093 25.2664 814.819 20.9733 805.231C20.9768 805.239 20.9804 805.247 20.9839 805.254C18.7813 800.283 14.931 789.293 11.574 778.289C11.4835 777.885 10.6129 777.087 8.57803 768.627C5.58711 755.967 3.21621 739.578 3.21546 722.368C3.18898 713.339 3.54757 704.833 4.14592 697.48C4.69837 691.182 5.02284 692.62 5.9171 685.189C6.64478 679.511 7.11009 672.948 8.87032 664.56C11.1068 654.224 13.2753 649.223 14.3917 641.711C14.9358 641.23 15.1998 641.636 15.7694 641.044ZM534.501 403.3C536.007 403.059 556.219 399.909 550.026 399.947C523.139 405.261 493.919 411.156 465.403 416.073C475.308 415.527 491.762 412 511.571 407.998C511.579 407.996 511.588 407.994 511.596 407.993C512.537 407.802 508.667 408.903 514.005 407.785C516.603 407.243 526.465 404.755 534.501 403.3Z";
-
-/* split title so the word "Waerebo" (or last word) is highlighted */
-function splitTitle(title: string): [string, string] {
-  const idx = title.indexOf("Waerebo");
-  if (idx > 0) return [title.slice(0, idx), title.slice(idx)];
-  const words = title.split(" ");
-  const last = words.pop() ?? "";
-  return [words.join(" ") + " ", last];
-}
-
-/* ── shared text block for a stop ── */
-
-function StopText({ stop }: { stop: Stop }) {
-  const { t } = useLang();
-  return (
-    <div className="flex flex-col justify-center">
-      {stop.day && (
-        <p className="mb-2 text-base font-semibold text-neutral-400">
-          {stop.day}
-        </p>
-      )}
-      <h3 className="mb-4 text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
-        {stop.title}
-      </h3>
-      <dl className="mb-4 space-y-2">
-        {stop.time && (
-          <div className="flex gap-3 text-base">
-            <dt className="min-w-[80px] font-normal text-neutral-400">
-              {t("trips.time")}
-            </dt>
-            <dd className="font-semibold text-[#9B9529]">{stop.time}</dd>
-          </div>
-        )}
-        {stop.transport && (
-          <div className="flex gap-3 text-base">
-            <dt className="min-w-[80px] font-normal text-neutral-400">
-              {t("trips.transport")}
-            </dt>
-            <dd className="font-semibold text-[#9B9529]">{stop.transport}</dd>
-          </div>
-        )}
-      </dl>
-      <p className="text-base leading-relaxed text-neutral-700">
-        {stop.description}
-      </p>
-    </div>
-  );
-}
-
-function StopImage({
-  stop,
-  className = "",
+function Hero({
+  program,
+  onPrevious,
+  onNext,
 }: {
-  stop: Stop;
-  className?: string;
+  program: TripProgram;
+  onPrevious: () => void;
+  onNext: () => void;
 }) {
   return (
-    <div
-      className={`relative h-[220px] w-full overflow-hidden rounded-3xl shadow-md lg:h-[300px] ${className}`}
+    <section
+      className="relative min-h-[485px] overflow-hidden bg-savana-green-700 sm:min-h-[620px] lg:min-h-[720px]"
+      aria-labelledby="trip-heading"
     >
-      <Image src={stop.image} alt={stop.title} fill className="object-cover" />
-    </div>
-  );
-}
+      <Image
+        key={`${program.id}-mobile`}
+        src={program.heroMobile}
+        alt=""
+        fill
+        priority
+        sizes="(max-width: 767px) 100vw, 1px"
+        className="object-cover object-center md:hidden"
+      />
+      <Image
+        key={`${program.id}-desktop`}
+        src={program.heroDesktop}
+        alt=""
+        fill
+        priority
+        sizes="(min-width: 768px) 100vw, 1px"
+        className="hidden object-cover object-center md:block"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/5 to-black/70" />
 
-/* ── desktop winding timeline (alternating sides) ── */
+      <div className="absolute top-24 right-0 left-0 z-10 mx-auto max-w-[1512px] px-5 text-[11px] text-white/70 sm:top-28 sm:px-8 sm:text-sm lg:px-32 xl:px-36">
+        <span>Home</span>
+        <span className="mx-2 text-white/40">/</span>
+        <span className="font-semibold text-white">{program.title}</span>
+      </div>
 
-function DesktopTimeline({ stops }: { stops: Stop[] }) {
-  const totalH = stops.length * BLOCK_H;
-  const pathRef = useRef<SVGPathElement>(null);
-  // Dot positions sampled directly from the curve: { leftPct, topPx }
-  const [dots, setDots] = useState<{ left: number; top: number }[]>([]);
-
-  useEffect(() => {
-    const path = pathRef.current;
-    if (!path) return;
-    const total = path.getTotalLength();
-    const steps = 1000;
-    // Sample only the first pass (the downward edge of the line)
-    const samples: { x: number; y: number }[] = [];
-    for (let s = 0; s <= steps; s++) {
-      const len = (s / steps) * total * 0.5; // first half = down-stroke
-      const pt = path.getPointAtLength(len);
-      samples.push({ x: pt.x, y: pt.y });
-    }
-    const curveH = totalH * CURVE_H_SCALE;
-    const n = stops.length;
-    const next = Array.from({ length: n }, (_, i) => {
-      const targetY = ((i + 0.5) / n) * 2160;
-      let best = samples[0];
-      for (const sm of samples) {
-        if (Math.abs(sm.y - targetY) < Math.abs(best.y - targetY)) best = sm;
-      }
-      return {
-        left: CURVE_LEFT + (best.x / 910) * CURVE_W,
-        top: CURVE_TOP + (targetY / 2160) * curveH,
-      };
-    });
-    setDots(next);
-  }, [stops.length, totalH]);
-
-  return (
-    <div className="relative hidden lg:block" style={{ height: totalH }}>
-      <svg
-        className="pointer-events-none absolute"
-        style={{
-          left: `${CURVE_LEFT}%`,
-          width: `${CURVE_W}%`,
-          top: CURVE_TOP,
-          height: totalH * CURVE_H_SCALE,
-        }}
-        viewBox="0 0 910 2160"
-        preserveAspectRatio="none"
-        aria-hidden="true"
+      <button
+        type="button"
+        onClick={onPrevious}
+        aria-label="Previous trip package"
+        className="absolute top-1/2 left-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:left-8 sm:h-11 sm:w-11"
       >
-        <path ref={pathRef} d={TIMELINE_PATH} fill="#8A7A2F" />
-      </svg>
+        <IoChevronBackOutline size={22} />
+      </button>
+      <button
+        type="button"
+        onClick={onNext}
+        aria-label="Next trip package"
+        className="absolute top-1/2 right-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:right-8 sm:h-11 sm:w-11"
+      >
+        <IoChevronForwardOutline size={22} />
+      </button>
 
-      {/* Marker dots — sampled onto the curve */}
-      {dots.map((d, i) => (
-        <div
-          key={i}
-          className="absolute z-10 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-savana-600 shadow-md"
-          style={{ left: `${d.left}%`, top: d.top }}
-        />
-      ))}
+      <div className="absolute right-0 bottom-16 left-0 z-10 mx-auto max-w-[1512px] px-5 sm:bottom-24 sm:px-8 lg:px-32 xl:px-36">
+        <h1
+          id="trip-heading"
+          className="max-w-[600px] text-[26px] leading-[1.22] font-semibold tracking-[-0.025em] text-white text-shadow-lg sm:text-4xl lg:max-w-[1000px] lg:text-[44px] lg:leading-[1.12]"
+        >
+          {program.heroTitle}
+        </h1>
+      </div>
+    </section>
+  );
+}
 
-      {/* Content blocks */}
-      {stops.map((stop, i) => {
-        const reversed = i % 2 === 1;
-        return (
-          <div
-            key={stop.id}
-            data-reveal
-            className="absolute grid w-full grid-cols-[1fr_8%_1fr] items-center"
-            style={{ top: i * BLOCK_H, height: BLOCK_H }}
-          >
-            {reversed ? (
-              <>
-                <StopText stop={stop} />
-                <div />
-                <StopImage stop={stop} />
-              </>
-            ) : (
-              <>
-                <StopImage stop={stop} />
-                <div />
-                <StopText stop={stop} />
-              </>
-            )}
+function ProgramSelector({
+  activeId,
+  onSelect,
+}: {
+  activeId: string;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <div className="relative z-20 -mt-11 sm:-mt-14">
+      <div className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:grid lg:max-w-[1260px] lg:grid-cols-6 lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
+        {tripPrograms.map((program) => {
+          const active = program.id === activeId;
+          return (
+            <button
+              key={program.id}
+              type="button"
+              aria-pressed={active}
+              onClick={(event) => {
+                onSelect(program.id);
+                event.currentTarget.scrollIntoView({
+                  behavior: window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                  ).matches
+                    ? "auto"
+                    : "smooth",
+                  block: "nearest",
+                  inline: "center",
+                });
+              }}
+              className={`min-h-[86px] w-[210px] flex-none snap-center rounded-xl px-4 py-3 text-left transition-[background-color,color,transform] duration-300 sm:w-[250px] lg:w-auto lg:min-w-0 ${
+                active
+                  ? "bg-white text-savana-800 shadow-[0_5px_8px_rgba(38,35,22,0.16)]"
+                  : "bg-white/92 text-pale-savana-300 shadow-sm hover:-translate-y-0.5 hover:bg-white"
+              }`}
+            >
+              <span className="mb-1 block text-[10px] font-semibold text-savana-500">
+                {program.duration}
+              </span>
+              <span className="block text-[13px] leading-snug font-semibold sm:text-sm">
+                {program.title}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function SummaryList({ program }: { program: TripProgram }) {
+  return (
+    <div className="mt-7 space-y-4">
+      {program.summary.map((item) => (
+        <div key={item.title} className="flex items-start gap-3">
+          <IoCheckmarkCircleOutline
+            aria-hidden="true"
+            size={20}
+            className="mt-0.5 flex-none text-savana-500"
+          />
+          <div>
+            <h3 className="text-[13px] leading-snug font-semibold text-savana-800 sm:text-sm">
+              {item.title}
+            </h3>
+            <p className="mt-0.5 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm">
+              {item.description}
+            </p>
           </div>
-        );
-      })}
-    </div>
-  );
-}
-
-/* ── mobile stacked timeline ── */
-
-function MobileTimeline({ stops }: { stops: Stop[] }) {
-  return (
-    <div className="space-y-10 lg:hidden">
-      {stops.map((stop) => (
-        <div key={stop.id} data-reveal>
-          <StopImage stop={stop} className="mb-5 !h-48" />
-          <StopText stop={stop} />
         </div>
       ))}
     </div>
   );
 }
 
-/* ── main export ── */
-
-export default function TripContent() {
-  const [activeId, setActiveId] = useState("1-day");
-  const [modalOpen, setModalOpen] = useState(false);
-  const { t } = useLang();
-
-  const program =
-    tripPrograms.find((p) => p.id === activeId) ?? tripPrograms[0];
-  const [titleHead, titleTail] = splitTitle(program.title);
-
+function BulletList({ items }: { items: string[] }) {
   return (
-    <>
-      {/* ── Hero ── */}
-      <section className="relative flex h-[70vh] min-h-[480px] items-center justify-center">
-        <Image
-          src={program.heroImage}
-          alt={program.title}
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
-        <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
-          <h1 className="mb-5 text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-            {titleHead}
-            <span className="text-pale-green-100">{titleTail}</span>
-          </h1>
-          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/80 lg:text-base">
-            {program.subtitle}
+    <ul className="mt-4 space-y-3">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="flex gap-3 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm"
+        >
+          <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-savana-500" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function InfoCards({ cards }: { cards: InfoCard[] }) {
+  return (
+    <div
+      className={`mt-4 grid gap-2 sm:gap-3 ${
+        cards.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
+      }`}
+    >
+      {cards.map((card) => (
+        <div
+          key={card.title}
+          className={`rounded-lg px-4 py-3.5 ${
+            card.tone === "accent"
+              ? "bg-savana-200 text-savana-800"
+              : "bg-white text-pale-savana-400"
+          }`}
+        >
+          <h3 className="text-[12px] leading-snug font-semibold sm:text-sm">
+            {card.title}
+          </h3>
+          <p className="mt-1.5 text-[10px] leading-relaxed opacity-80 sm:text-xs">
+            {card.description}
           </p>
         </div>
-      </section>
+      ))}
+    </div>
+  );
+}
 
-      {/* ── Floating program selector ── */}
-      <div className="relative z-30 mx-auto -mt-14 max-w-4xl px-4 sm:px-6 lg:-mt-16">
-        <div className="rounded-3xl border border-pale-green-100/40 bg-white p-5 shadow-xl lg:p-6">
-          <p className="mb-3 text-center text-sm font-bold text-neutral-900 lg:text-left">
-            {t("trips.chooseProgram")}
+function splitDay(day: string) {
+  const [label, ...route] = day.split(" - ");
+  return { label, route: route.join(" - ") };
+}
+
+function TripSidebar({ program }: { program: TripProgram }) {
+  const days = Array.from(new Set(program.stops.map((stop) => stop.day)));
+  const whatsappMessage = encodeURIComponent(
+    `Hello Waerebo Lodge! I would like to book the ${program.title} trip.`
+  );
+  const emailSubject = encodeURIComponent(`Booking request — ${program.title}`);
+
+  return (
+    <aside className="hidden lg:block">
+      <div className="sticky top-24 max-h-[calc(100vh-7rem)] [scrollbar-width:thin] overflow-y-auto pb-3">
+        <nav
+          aria-label={`${program.title} page sections`}
+          className="rounded-xl bg-white px-5 py-5 shadow-[0_4px_8px_rgba(69,61,24,0.10)]"
+        >
+          <div className="space-y-3 text-sm font-semibold text-savana-800">
+            <a href="#trip-summary" className="block hover:text-savana-500">
+              Trip Summary
+            </a>
+            <a href="#accommodation" className="block hover:text-savana-500">
+              Accommodation
+            </a>
+            <a href="#meals-dining" className="block hover:text-savana-500">
+              Meals &amp; Dining
+            </a>
+          </div>
+
+          <div className="mt-5 space-y-5">
+            {days.map((day) => {
+              const { label, route } = splitDay(day);
+              const dayStops = program.stops.filter((stop) => stop.day === day);
+              return (
+                <div key={day}>
+                  <p className="text-[11px] leading-snug font-semibold text-savana-600">
+                    {label}
+                    {route ? ` — ${route}` : ""}
+                  </p>
+                  <div className="mt-2 space-y-1.5">
+                    {dayStops.map((stop) => (
+                      <a
+                        key={stop.id}
+                        href={`#${stop.id}`}
+                        className="flex gap-2 text-[10px] leading-snug text-pale-savana-300 transition-colors hover:text-savana-600"
+                      >
+                        <span aria-hidden="true" className="text-savana-300">
+                          ↳
+                        </span>
+                        <span>{stop.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </nav>
+
+        <div className="mt-3 grid gap-2">
+          <a
+            href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-3 text-[11px] font-semibold text-white transition-colors hover:bg-savana-700"
+          >
+            <IoLogoWhatsapp size={15} />
+            Book Trip via WhatsApp
+          </a>
+          <a
+            href={`mailto:${email}?subject=${emailSubject}`}
+            className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-600 bg-white px-3 text-[11px] font-semibold text-savana-800 transition-colors hover:bg-savana-200"
+          >
+            <IoMailOutline size={15} />
+            Book Trip via Email
+          </a>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function TripOverview({ program }: { program: TripProgram }) {
+  return (
+    <section className="in-view px-5 pt-8 pb-14 sm:px-8 sm:pt-14 sm:pb-20 lg:px-0 lg:pt-16 lg:pb-14">
+      <div id="trip-summary" className="scroll-mt-28">
+        <div>
+          <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
+            Trip Summary
+          </h2>
+          <p className="mt-3 max-w-[65ch] text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+            {program.overview}
           </p>
-          <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
-            {tripPrograms.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => setActiveId(p.id)}
-                className={`rounded-full px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                  activeId === p.id
-                    ? "bg-green-400 text-white"
-                    : "bg-light-green-100 text-neutral-300 hover:bg-pale-green-100/30 hover:text-neutral-900"
+          <SummaryList program={program} />
+        </div>
+
+        <div className="mt-10 space-y-9">
+          <div>
+            <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+              What You Get
+            </h2>
+            <BulletList items={program.experiences} />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+              Travelers Notes
+            </h2>
+            <BulletList items={program.notes} />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-11 grid gap-10">
+        <div id="accommodation" className="scroll-mt-28">
+          <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+            Accommodation
+          </h2>
+          <InfoCards cards={program.accommodation} />
+        </div>
+        <div id="meals-dining" className="scroll-mt-28">
+          <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+            Meals &amp; Dining
+          </h2>
+          <InfoCards cards={program.meals} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Connector({ index }: { index: number }) {
+  const type = (index % 4) + 1;
+  const direction = index % 2 === 0 ? "right" : "left";
+  const mobile = `/Trip Package/Line/Type=${type}, Direction=${direction}, Device=Mobile.svg`;
+  const desktop = `/Trip Package/Line/Type=${type}, Direction=${direction}, Device=Desktop.svg`;
+
+  return (
+    <div
+      aria-hidden="true"
+      className="my-1 h-[112px] sm:h-[150px] lg:h-[210px]"
+    >
+      <Image
+        src={mobile}
+        alt=""
+        width={353}
+        height={201}
+        unoptimized
+        className="h-full w-full object-contain lg:hidden"
+      />
+      <Image
+        src={desktop}
+        alt=""
+        width={910}
+        height={360}
+        unoptimized
+        className="hidden h-full w-full object-contain lg:block"
+      />
+    </div>
+  );
+}
+
+function Itinerary({ program }: { program: TripProgram }) {
+  return (
+    <section className="in-view px-5 pb-20 sm:px-8 sm:pb-28 lg:px-0">
+      <h2 className="mb-10 text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:mb-16 sm:text-3xl lg:mb-14">
+        Itinerary Timeline
+      </h2>
+
+      <div>
+        {program.stops.map((stop, index) => {
+          const newDay =
+            index === 0 || program.stops[index - 1].day !== stop.day;
+          const reverse = index % 2 === 1;
+          const { label: dayLabel, route } = splitDay(stop.day);
+
+          return (
+            <div key={stop.id}>
+              {newDay && (
+                <div className="mb-7 scroll-mt-28 sm:mb-10 lg:mb-12">
+                  <div className="flex items-center gap-3 lg:hidden">
+                    <span className="text-xs font-semibold text-savana-500 sm:text-sm">
+                      Journey {dayLabel}
+                    </span>
+                    <span className="h-px flex-1 bg-savana-200" />
+                  </div>
+                  {route && (
+                    <>
+                      <p className="hidden text-xs font-semibold text-savana-500 lg:block">
+                        Itinerary {dayLabel}
+                      </p>
+                      <h3 className="mt-1 text-lg font-bold text-savana-800 sm:text-xl lg:text-2xl">
+                        {route}
+                      </h3>
+                    </>
+                  )}
+                </div>
+              )}
+
+              <article
+                id={stop.id}
+                className={`flex scroll-mt-28 flex-col gap-4 lg:min-h-[280px] lg:items-center lg:gap-10 ${
+                  reverse ? "lg:flex-row-reverse" : "lg:flex-row"
                 }`}
               >
-                {p.label}
-              </button>
-            ))}
+                <div className="relative h-[175px] w-full sm:h-[230px] lg:h-[260px] lg:w-1/2">
+                  <Image
+                    src={stop.image}
+                    alt={stop.title}
+                    fill
+                    sizes="(min-width: 1024px) 380px, 90vw"
+                    className="object-contain"
+                  />
+                </div>
+
+                <div className="lg:w-1/2">
+                  <h3 className="text-[17px] leading-tight font-semibold tracking-[-0.015em] text-savana-800 sm:text-2xl">
+                    {stop.title}
+                  </h3>
+                  <div className="mt-2 flex items-center gap-2 text-[9px] font-medium text-savana-600 sm:text-xs">
+                    <IoTrailSignOutline aria-hidden="true" size={14} />
+                    <span>{stop.meta}</span>
+                  </div>
+                  <p className="mt-3 max-w-[60ch] text-[10px] leading-[1.7] text-pale-savana-300 sm:text-sm">
+                    {stop.description}
+                  </p>
+                </div>
+              </article>
+
+              {index < program.stops.length - 1 && <Connector index={index} />}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function CustomItinerary() {
+  const whatsappMessage = encodeURIComponent(
+    "Hello Waerebo Lodge! I would like to create a custom Flores and Waerebo itinerary."
+  );
+  const emailSubject = encodeURIComponent("Custom Waerebo itinerary request");
+
+  return (
+    <section className="in-view mx-auto max-w-[880px] px-5 pt-9 pb-20 sm:px-8 sm:pt-16 sm:pb-28 lg:max-w-[780px] lg:px-0 lg:pt-20 lg:pb-32">
+      <div className="max-w-[670px]">
+        <h2 className="text-[25px] leading-[1.08] font-bold tracking-[-0.03em] text-savana-800 sm:text-4xl">
+          Looking for a more flexible trip?
+        </h2>
+        <p className="mt-4 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+          We can help you create a private itinerary based on your travel dates,
+          group size, interests, and preferred pace. Whether you want to combine
+          Waerebo with waterfalls, rice fields, local villages, island trips, or
+          a longer Flores overland journey, our team will shape the experience
+          around you.
+        </p>
+      </div>
+
+      <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {customFeatures.map(({ title, Icon }) => (
+          <div
+            key={title}
+            className="flex min-h-[108px] flex-col items-center justify-center rounded-lg bg-white px-3 py-4 text-center shadow-[0_2px_6px_rgba(69,61,24,0.10)]"
+          >
+            <Icon aria-hidden="true" size={25} className="text-savana-500" />
+            <h3 className="mt-2 text-[10px] leading-snug font-semibold text-savana-800 sm:text-xs">
+              {title}
+            </h3>
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* ── Itinerary ── */}
-      <section className="bg-white py-14 lg:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <DesktopTimeline stops={program.stops} />
-          <MobileTimeline stops={program.stops} />
-        </div>
-      </section>
+      <div className="mt-16">
+        <h2 className="text-[21px] font-bold text-savana-800 sm:text-3xl">
+          Travelers Notes
+        </h2>
+        <p className="mt-2 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+          As this is a fully customized journey, physical requirements and
+          available facilities depend on the final itinerary. Travel to Waerebo
+          and the surrounding Flores region generally involves outdoor
+          activities, changing climates, uneven roads, trekking, and basic
+          village infrastructure with limited electricity.
+        </p>
+        <p className="mt-4 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+          We recommend versatile clothing, comfortable walking or trekking
+          shoes, a flashlight, sun protection, light rain gear, and personal
+          essentials. Our team will provide a detailed packing list once your
+          itinerary is finalized.
+        </p>
+      </div>
 
-      {/* ── Book button ── */}
-      <div className="flex justify-center bg-white pb-16">
-        <button
-          onClick={() => setModalOpen(true)}
-          className="rounded-xl bg-savana-800 px-12 py-5 text-lg font-medium text-white shadow-lg transition-colors hover:bg-savana-700"
+      <div className="mt-10 grid gap-3 sm:grid-cols-2">
+        <a
+          href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex min-h-12 items-center justify-center gap-2 rounded-lg bg-savana-800 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-savana-700 sm:text-sm"
         >
-          {t("trips.bookTrip")}
-        </button>
+          <IoLogoWhatsapp size={18} />
+          Create Custom Trip via WhatsApp
+        </a>
+        <a
+          href={`mailto:${email}?subject=${emailSubject}`}
+          className="flex min-h-12 items-center justify-center gap-2 rounded-lg border border-savana-800 px-5 py-3 text-center text-xs font-semibold text-savana-800 transition-colors hover:bg-savana-200 sm:text-sm"
+        >
+          <IoMailOutline size={18} />
+          Create Custom Trip via Email
+        </a>
       </div>
+    </section>
+  );
+}
 
-      {/* ── Booking modal ── */}
-      <BookingModal
-        key={activeId}
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        programs={tripPrograms}
-        defaultProgramId={activeId}
+function TripDetails({ program }: { program: TripProgram }) {
+  return (
+    <div className="mx-auto max-w-[1180px] lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-16 lg:px-12 xl:px-0">
+      <TripSidebar program={program} />
+      <div className="min-w-0">
+        <TripOverview program={program} />
+        <Itinerary program={program} />
+      </div>
+    </div>
+  );
+}
+
+export default function TripContent() {
+  const [activeId, setActiveId] = useState(tripPrograms[0].id);
+  const activeIndex = Math.max(
+    0,
+    tripPrograms.findIndex((program) => program.id === activeId)
+  );
+  const program = tripPrograms[activeIndex];
+
+  const move = (direction: -1 | 1) => {
+    const nextIndex =
+      (activeIndex + direction + tripPrograms.length) % tripPrograms.length;
+    setActiveId(tripPrograms[nextIndex].id);
+  };
+
+  return (
+    <div className="bg-savana-50">
+      <Hero
+        program={program}
+        onPrevious={() => move(-1)}
+        onNext={() => move(1)}
       />
-    </>
+      <ProgramSelector activeId={activeId} onSelect={setActiveId} />
+
+      <div
+        key={program.id}
+        className="motion-safe:animate-[trip-content-in_500ms_cubic-bezier(0.22,1,0.36,1)]"
+      >
+        {program.custom ? (
+          <CustomItinerary />
+        ) : (
+          <TripDetails program={program} />
+        )}
+      </div>
+    </div>
   );
 }
