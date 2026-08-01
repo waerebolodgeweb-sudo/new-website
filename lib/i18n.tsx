@@ -94,14 +94,15 @@ const dict: Record<Lang, Record<string, string>> = {
     "gallery.photo3.caption":
       "Straw-thatched rooftops of the ancestral village — a living heritage perched on the mountain ridge",
 
-    // ── Video
-    "video.eyebrow": "Local Voices",
-    "video.heading": "The Heart of Waerebo",
-    "video.metrotv.body":
-      "Watch Pak Martin and the Waerebo community share their story in this Metro TV feature — a look at life in the legendary sky village through the eyes of a true local.",
-    "video.kompastv.body":
-      "Sit down with our founder, Pak Martin, in an exclusive interview with Kompas TV. Discover the untold stories, rich traditions, and the true spirit of the sky village from a true local.",
-    "video.cta": "Watch on Instagram",
+    // ── Social Media
+    "social.eyebrow": "Social Media",
+    "social.kompastv.heading": "Discovering Waerebo with Kompas TV",
+    "social.kompastv.body":
+      'Watch the breathtaking coverage of our cultural heritage and stunning mountain landscapes. Discover the magic of the "Village Above the Clouds" as featured on Kompas TV.',
+    "social.metrotv.heading": "Waerebo Lodge Featured on Metro TV",
+    "social.metrotv.body":
+      "Explore the beauty of Flores and the iconic Mbaru Niang traditional houses through this exclusive travel documentary segment by Metro TV.",
+    "social.cta": "Watch on Instagram",
 
     // ── Contact
     "contact.heading": "Contact Us",
@@ -621,14 +622,15 @@ const dict: Record<Lang, Record<string, string>> = {
     "gallery.photo3.caption":
       "Atap jerami desa leluhur — warisan hidup yang berdiri kokoh di punggungan gunung",
 
-    // ── Video
-    "video.eyebrow": "Suara Lokal",
-    "video.heading": "Jiwa Waerebo",
-    "video.metrotv.body":
-      "Saksikan Pak Martin dan komunitas Waerebo berbagi kisah mereka dalam liputan khusus Metro TV — sebuah pandangan tentang kehidupan di desa legendaris di atas awan melalui mata warga asli.",
-    "video.kompastv.body":
-      "Simak wawancara eksklusif dengan pendiri kami, Pak Martin, di Kompas TV. Temukan kisah tersembunyi, tradisi yang kaya, dan jiwa sejati desa di atas awan dari seorang warga asli.",
-    "video.cta": "Tonton di Instagram",
+    // ── Social Media
+    "social.eyebrow": "Media Sosial",
+    "social.kompastv.heading": "Menjelajahi Waerebo bersama Kompas TV",
+    "social.kompastv.body":
+      'Saksikan liputan memukau tentang warisan budaya kami dan lanskap pegunungan yang indah. Temukan pesona "Desa di Atas Awan" seperti yang ditampilkan di Kompas TV.',
+    "social.metrotv.heading": "Waerebo Lodge Tampil di Metro TV",
+    "social.metrotv.body":
+      "Jelajahi keindahan Flores dan rumah adat Mbaru Niang yang ikonik melalui segmen dokumenter perjalanan eksklusif dari Metro TV.",
+    "social.cta": "Tonton di Instagram",
 
     // ── Contact
     "contact.heading": "Hubungi Kami",

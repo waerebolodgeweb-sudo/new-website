@@ -40,7 +40,7 @@ const testimonials = [
   },
 ];
 
-export default function TestimonialsSection() {
+export default function ReviewsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { t } = useLang();
 

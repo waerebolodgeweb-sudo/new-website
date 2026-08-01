@@ -3,11 +3,11 @@ import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import JourneysSection from "@/components/sections/JourneysSection";
 import PurposeSection from "@/components/sections/PurposeSection";
+import GuestExperienceSection from "@/components/sections/GuestExperienceSection";
 import GallerySection from "@/components/sections/GallerySection";
-import MomentsSection from "@/components/sections/MomentsSection";
-import VideoSection from "@/components/sections/VideoSection";
+import SocialMediaSection from "@/components/sections/SocialMediaSection";
 import ServicesSection from "@/components/sections/ServicesSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import ReviewsSection from "@/components/sections/ReviewsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -26,16 +26,16 @@ export default function Home() {
           <ServicesSection />
         </ScrollReveal>
         <ScrollReveal variant="fadeIn" duration={900}>
+          <GuestExperienceSection />
+        </ScrollReveal>
+        <ScrollReveal variant="fadeIn" duration={900}>
           <GallerySection />
         </ScrollReveal>
-        <ScrollReveal variant="fadeIn" duration={900}>
-          <MomentsSection />
-        </ScrollReveal>
         <ScrollReveal variant="fadeUp">
-          <VideoSection />
+          <SocialMediaSection />
         </ScrollReveal>
         <ScrollReveal variant="fadeIn" duration={900}>
-          <TestimonialsSection />
+          <ReviewsSection />
         </ScrollReveal>
         <ScrollReveal variant="fadeUp">
           <ContactSection />

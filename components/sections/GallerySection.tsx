@@ -1,385 +1,405 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  IoChevronBackOutline,
-  IoChevronForwardOutline,
-  IoClose,
-  IoPlay,
-} from "react-icons/io5";
+import { useEffect, useRef, useState } from "react";
+import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
+import type { Swiper as SwiperClass } from "swiper";
+import { A11y, Autoplay, Keyboard } from "swiper/modules";
+import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import { useLang } from "@/lib/i18n";
+import "swiper/css";
 
-const videos = [
+const G = "/homepage/gallery";
+
+type GalleryItem = {
+  src: string;
+  modalSrc: string;
+  caption: { en: string; id: string };
+};
+
+const galleryItems: GalleryItem[] = [
   {
-    id: "Rp7MpKgdeWA",
-    title: "Nic Singapore",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-01.webp",
-    quote: '"I did not expect my stay to be this welcoming."',
-    caption:
-      "Hear why Nic loved his two-night stay, from the incredible home-cooked meals to the owner's guided tours of Waerebo and Mulas Island.",
-    url: "https://youtu.be/Rp7MpKgdeWA",
+    src: `${G}/Gallery-homepage-list-1-1.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-1-1-real.webp`,
+    caption: {
+      en: "Witnessing the tradition of sun-drying fresh Waerebo coffee beans.",
+      id: "Menyaksikan tradisi menjemur biji kopi segar Waerebo di bawah sinar matahari.",
+    },
   },
   {
-    id: "uT3myORIxcs",
-    title: "Christophe & Jean from French",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-02.webp",
-    quote: '"A great place, and the staff is super nice."',
-    caption:
-      "Listen to this wonderful family highlight the kindness, comfort, and amazing service that made their Waerebo Lodge stay memorable.",
-    url: "https://youtu.be/uT3myORIxcs",
+    src: `${G}/Gallery-homepage-list-1-2.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-1-2-real.webp`,
+    caption: {
+      en: "Experiencing a warm, heartfelt welcome ceremony from the local community.",
+      id: "Merasakan sambutan hangat dan penuh ketulusan dari komunitas lokal.",
+    },
   },
   {
-    id: "7q3DuaYQcfI",
-    title: "Daisy & Edy Indonesia",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-03.webp",
-    quote: '"When you open the door, you immediately see this beautiful view."',
-    caption:
-      "Daisy and Edy share why Waerebo Lodge's comfortable rooms, beautiful rice-paddy views, and incredibly attentive staff made their Flores trip unforgettable.",
-    url: "https://youtu.be/7q3DuaYQcfI",
+    src: `${G}/Gallery-homepage-list-1-3.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-1-3-real.webp`,
+    caption: {
+      en: "Learning about the history & heritage of the village from our guides.",
+      id: "Belajar tentang sejarah dan warisan desa dari pemandu kami.",
+    },
   },
   {
-    id: "3xFSsOk7SL8",
-    title: "Iris from Germany",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-04.webp",
-    quote: '"What I told you, I loved, I really love it."',
-    caption:
-      "Iris shares her admiration for the stunning natural scenery, authentic local experiences, and genuine hospitality she found in Waerebo.",
-    url: "https://youtu.be/3xFSsOk7SL8",
+    src: `${G}/Gallery-homepage-list-1-4.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-1-4-real.webp`,
+    caption: {
+      en: "Enjoying a scenic coastal boat ride along the beautiful Flores coastline.",
+      id: "Menikmati perjalanan perahu menyusuri pesisir Flores yang indah.",
+    },
   },
   {
-    id: "8dUNAZ-vhB8",
-    title: "Christoph and Flo",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-05.webp",
-    quote: '"The nicest views with the best people you can meet."',
-    caption:
-      "Hear Christoph and Flo share the magic of Waerebo Lodge: from the beautiful scenic trails and stories to meeting both locals and travelers along the village.",
-    url: "https://youtu.be/8dUNAZ-vhB8",
+    src: `${G}/Gallery-homepage-list-2-1.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-2-1-real.webp`,
+    caption: {
+      en: "Sharing joyful moments and making memories in traditional village attire.",
+      id: "Berbagi momen bahagia dan menciptakan kenangan dalam busana tradisional desa.",
+    },
   },
   {
-    id: "KErr-2E1I_g",
-    title: "NO NAME",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-06.webp",
-    quote: '"If you pass by, stay right here or more."',
-    caption:
-      "This happy traveler explains why Waerebo Lodge became such a wonderful stop in the region, from discovering the places around the area to the warm rooms, restaurant view, and delicious traditional food.",
-    url: "https://youtube.com/shorts/KErr-2E1I_g",
+    src: `${G}/Gallery-homepage-list-2-2.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-2-2-real.webp`,
+    caption: {
+      en: "Capturing unforgettable memories against the majestic backdrop of the Mbaru Niang.",
+      id: "Mengabadikan kenangan tak terlupakan dengan latar megah Mbaru Niang.",
+    },
   },
   {
-    id: "xSXuJHTuqgc",
-    title: "Iris from Germany",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-07.webp",
-    quote: '"To get an amazing, beautiful sunset..."',
-    caption:
-      "Iris shares her highlights from incredible dinner views at the restaurant and sunset to the welcoming staff and clean rooms that made Waerebo special.",
-    url: "https://youtube.com/shorts/xSXuJHTuqgc?feature=share",
+    src: `${G}/Gallery-homepage-list-2-3.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-2-3-real.webp`,
+    caption: {
+      en: "Dressing in authentic Flores woven fabrics for a true cultural immersion.",
+      id: "Mengenakan kain tenun Flores autentik untuk pengalaman budaya yang mendalam.",
+    },
   },
   {
-    id: "missing-video-8",
-    title: "Christoph and Flo",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-08.webp",
-    quote: '"We really felt around here."',
-    caption:
-      "Christoph and Flo share the feeling of arriving at Waerebo Lodge, discovering a scenic place, and the confidence to explore the lodge and nearby areas.",
-    url: "",
+    src: `${G}/Gallery-homepage-list-2-4.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-2-4-real.webp`,
+    caption: {
+      en: "Discovering the intricate, generation-old art of traditional Flores weaving up close.",
+      id: "Mengenal dari dekat seni tenun tradisional Flores yang rumit dan diwariskan turun-temurun.",
+    },
   },
   {
-    id: "missing-video-9",
-    title: "NO NAME",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-09.webp",
-    quote: '"If you are heading to Waerebo, do not forget to come here."',
-    caption:
-      "Discover why these guests highly recommend stopping at Waerebo Lodge to enjoy the beautiful green rice fields and fantastic local meals.",
-    url: "",
+    src: `${G}/Gallery-homepage-list-3-1.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-3-1-real.webp`,
+    caption: {
+      en: "A thrilling close encounter with the legendary Komodo dragons.",
+      id: "Berjumpa dari dekat secara mendebarkan dengan komodo yang legendaris.",
+    },
+  },
+  {
+    src: `${G}/Gallery-homepage-list-3-2.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-3-2-real.webp`,
+    caption: {
+      en: "Capturing shared smiles and unforgettable memories with the welcoming local community.",
+      id: "Mengabadikan senyum bersama dan kenangan tak terlupakan dengan komunitas lokal yang ramah.",
+    },
+  },
+  {
+    src: `${G}/Gallery-homepage-list-3-3.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-3-3-real.webp`,
+    caption: {
+      en: "Exploring the iconic and peaceful grounds of the traditional village.",
+      id: "Menjelajahi kawasan desa adat yang ikonik dan damai.",
+    },
+  },
+  {
+    src: `${G}/Gallery-homepage-list-3-4.webp`,
+    modalSrc: `${G}/Gallery-homepage-list-3-4-real.webp`,
+    caption: {
+      en: "Sharing stories and a hearty, home-cooked meal together at the lodge's open-air dining area.",
+      id: "Berbagi cerita dan hidangan rumahan yang hangat di area makan terbuka lodge.",
+    },
   },
 ];
 
 export default function GallerySection() {
   const [current, setCurrent] = useState(0);
-  const [isTextVisible, setIsTextVisible] = useState(true);
-  const [modalVideo, setModalVideo] = useState<(typeof videos)[number] | null>(
-    null
-  );
-  const [slideOffset, setSlideOffset] = useState(0);
-  const firstSlideRef = useRef<HTMLDivElement>(null);
-  const currentRef = useRef(0);
-  const textTimerRef = useRef<number | null>(null);
-  const dragRef = useRef<{
-    pointerId: number;
-    startX: number;
-    startY: number;
-    dragged: boolean;
-  } | null>(null);
-  const { t } = useLang();
-  const activeVideo = videos[current];
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
+  const { t, lang } = useLang();
+  const swiperRef = useRef<SwiperRef>(null);
+  const modalSwiperRef = useRef<SwiperRef>(null);
 
-  const changeSlide = useCallback((nextIndex: number) => {
-    if (textTimerRef.current) {
-      window.clearTimeout(textTimerRef.current);
-    }
+  const prev = () => swiperRef.current?.swiper.slidePrev();
+  const next = () => swiperRef.current?.swiper.slideNext();
 
-    setIsTextVisible(false);
-    currentRef.current = nextIndex;
-    setCurrent(nextIndex);
-    textTimerRef.current = window.setTimeout(() => {
-      setIsTextVisible(true);
-      textTimerRef.current = null;
-    }, 560);
-  }, []);
+  const handleSlideChange = (swiper: SwiperClass) => {
+    setCurrent(swiper.realIndex);
+  };
 
-  const prev = () =>
-    changeSlide((currentRef.current - 1 + videos.length) % videos.length);
-  const next = () => changeSlide((currentRef.current + 1) % videos.length);
+  const handlePaginationClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    swiperRef.current?.swiper.slideToLoop(
+      Number(event.currentTarget.dataset.slideIndex)
+    );
+  };
 
-  const openVideo = (video: (typeof videos)[number]) => {
-    if (!video.url || dragRef.current?.dragged) return;
-    setModalVideo(video);
+  const openGalleryItem = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setModalIndex(Number(event.currentTarget.dataset.galleryIndex));
+  };
+
+  const closeGalleryModal = () => setModalIndex(null);
+  const prevModal = () => modalSwiperRef.current?.swiper.slidePrev();
+  const nextModal = () => modalSwiperRef.current?.swiper.slideNext();
+
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) closeGalleryModal();
   };
 
   useEffect(() => {
-    const id = window.setInterval(() => {
-      changeSlide((currentRef.current + 1) % videos.length);
-    }, 9000);
+    if (modalIndex === null) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setModalIndex(null);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleEscape);
+
     return () => {
-      window.clearInterval(id);
-      if (textTimerRef.current) {
-        window.clearTimeout(textTimerRef.current);
-      }
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleEscape);
     };
-  }, [changeSlide]);
-
-  useEffect(() => {
-    const updateOffset = () => {
-      const firstSlide = firstSlideRef.current;
-      if (!firstSlide) return;
-      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-      setSlideOffset(
-        firstSlide.getBoundingClientRect().width + (isDesktop ? 28 : 0)
-      );
-    };
-
-    updateOffset();
-    window.addEventListener("resize", updateOffset);
-    return () => window.removeEventListener("resize", updateOffset);
-  }, []);
+  }, [modalIndex]);
 
   return (
-    <section className="bg-neutral-050 py-16 lg:py-20" id="testimonials">
-      <div className="mx-auto max-w-[1920px]">
-        <div className="mx-auto w-[calc(100%-32px)] max-w-[1845px] lg:mr-0 lg:ml-auto lg:w-[90.1vw]">
-          <div className="relative min-h-[980px] overflow-hidden rounded-[40px] shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[1100px] lg:aspect-[1845/998] lg:min-h-0 lg:rounded-l-[48px] lg:rounded-r-none">
-            <Image
-              src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Desktop.webp"
-              alt=""
-              fill
-              priority
-              className="hidden object-cover sm:block"
-            />
-            <Image
-              src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Mobile.webp"
-              alt=""
-              fill
-              priority
-              className="object-cover sm:hidden"
-            />
-            <div className="absolute inset-0 bg-black/28" />
-            <div className="absolute inset-y-0 left-0 w-[50%] bg-gradient-to-r from-black/42 via-black/24 to-transparent backdrop-blur-[2px]" />
-            <div className="absolute inset-x-0 bottom-0 h-[36%] bg-gradient-to-t from-black/45 to-transparent" />
+    <section className="bg-savana-050 py-12 lg:py-20">
+      <div className="mr-auto w-[calc(100%_-_32px)] max-w-[1845px] lg:w-[90.1vw]">
+        <div className="relative min-h-[640px] overflow-hidden rounded-l-none rounded-r-[28px] shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[676px] lg:rounded-r-[36px]">
+          <Image
+            src="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Desktop.webp"
+            alt=""
+            fill
+            className="hidden object-cover sm:block"
+          />
+          <Image
+            src="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Mobile.webp"
+            alt=""
+            fill
+            className="object-cover sm:hidden"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/24 to-black/72" />
 
-            <div className="relative z-10 grid h-full gap-8 px-6 py-12 sm:px-10 lg:grid-cols-[410px_1fr] lg:gap-[58px] lg:px-[110px] lg:py-[86px]">
-              <div className="relative z-20 flex min-w-0 flex-col">
-                <p className="mb-5 text-base font-normal text-white/90 lg:text-[22px]">
-                  {t("gallery.eyebrow")}
+          <div className="relative z-10 flex h-full flex-col px-5 pt-9 pb-10 sm:px-8 sm:pt-12 sm:pb-12 lg:px-[80px] lg:pt-[64px] lg:pb-[52px]">
+            <div className="mb-5 flex items-end justify-between gap-6">
+              <div>
+                <p className="mb-2 text-[14px] leading-5 font-normal text-white/90 sm:text-base">
+                  {t("moments.eyebrow")}
                 </p>
-                <h2 className="mb-8 text-[40px] leading-[1.08] text-white sm:text-[56px] lg:mb-[58px] lg:text-[76px] lg:leading-[1.02]">
-                  <span className="font-light">{t("gallery.head1")}</span>
-                  <span className="font-bold">{t("gallery.head2")}</span>
+                <h2 className="text-[32px] leading-[1.05] tracking-[-0.025em] text-balance text-white sm:text-[42px] lg:text-[54px]">
+                  <span className="font-light">{t("moments.head1")}</span>
+                  <span className="font-bold">{t("moments.head2")}</span>
                 </h2>
-                <div className="mb-2 flex gap-2 lg:mb-9">
-                  {videos.map((video, index) => (
-                    <button
-                      key={video.id}
-                      onClick={() => changeSlide(index)}
-                      aria-label={`Show guest video ${index + 1}`}
-                      className="h-1.5 w-10 overflow-hidden rounded-full bg-white/25 lg:w-[40px]"
-                    >
-                      <span
-                        className={`block h-full rounded-full bg-white transition-all duration-500 ${
-                          index <= current ? "w-full" : "w-0"
-                        }`}
-                      />
-                    </button>
-                  ))}
-                </div>
-                <div
-                  className={`hidden transition-opacity duration-200 lg:block ${
-                    isTextVisible ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <h3 className="mb-5 max-w-[400px] text-2xl leading-[1.35] font-semibold text-white italic lg:text-[26px]">
-                    {activeVideo.quote}
-                  </h3>
-                  <p className="max-w-[390px] text-lg leading-[1.35] font-normal text-white/62 lg:text-[22px]">
-                    {activeVideo.caption}
-                  </p>
-                </div>
-                <div className="mt-auto hidden gap-5 lg:flex">
-                  <button
-                    onClick={prev}
-                    aria-label="Previous video"
-                    className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-black/10 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800"
-                  >
-                    <IoChevronBackOutline size={42} />
-                  </button>
-                  <button
-                    onClick={next}
-                    aria-label="Next video"
-                    className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-black/10 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800"
-                  >
-                    <IoChevronForwardOutline size={42} />
-                  </button>
-                </div>
               </div>
-
-              <div className="relative z-10 min-h-[600px] overflow-hidden sm:min-h-[700px] lg:min-h-0">
-                <div
-                  className="flex h-full cursor-grab touch-pan-y gap-0 transition-transform duration-500 ease-out active:cursor-grabbing lg:gap-7"
-                  style={{
-                    transform: `translateX(-${current * slideOffset}px)`,
-                  }}
-                  onPointerDown={(event) => {
-                    dragRef.current = {
-                      pointerId: event.pointerId,
-                      startX: event.clientX,
-                      startY: event.clientY,
-                      dragged: false,
-                    };
-                    event.currentTarget.setPointerCapture(event.pointerId);
-                  }}
-                  onPointerMove={(event) => {
-                    const drag = dragRef.current;
-                    if (!drag || drag.pointerId !== event.pointerId) return;
-                    const deltaX = event.clientX - drag.startX;
-                    const deltaY = event.clientY - drag.startY;
-                    if (
-                      Math.abs(deltaX) > 14 &&
-                      Math.abs(deltaX) > Math.abs(deltaY)
-                    ) {
-                      drag.dragged = true;
-                    }
-                  }}
-                  onPointerUp={(event) => {
-                    const drag = dragRef.current;
-                    if (!drag || drag.pointerId !== event.pointerId) return;
-                    const deltaX = event.clientX - drag.startX;
-                    const deltaY = event.clientY - drag.startY;
-                    const isSwipe =
-                      Math.abs(deltaX) > 48 &&
-                      Math.abs(deltaX) > Math.abs(deltaY);
-
-                    if (isSwipe) {
-                      if (deltaX > 0) {
-                        prev();
-                      } else {
-                        next();
-                      }
-                    }
-
-                    window.setTimeout(() => {
-                      dragRef.current = null;
-                    }, 0);
-                  }}
-                  onPointerCancel={() => {
-                    dragRef.current = null;
-                  }}
+              <div className="hidden flex-shrink-0 gap-5 pb-0.5 lg:flex">
+                <button
+                  type="button"
+                  onClick={prev}
+                  aria-label="Previous moment"
+                  className="flex h-12 w-12 items-center justify-center text-white/90 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
-                  {videos.map((video, index) => (
-                    <div
-                      key={video.id}
-                      ref={index === 0 ? firstSlideRef : undefined}
-                      className="h-full w-full flex-shrink-0 lg:w-[26.4vw] lg:max-w-[487px]"
+                  <IoChevronBack size={34} />
+                </button>
+                <button
+                  type="button"
+                  onClick={next}
+                  aria-label="Next moment"
+                  className="flex h-12 w-12 items-center justify-center text-white/90 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                >
+                  <IoChevronForward size={34} />
+                </button>
+              </div>
+            </div>
+
+            <div className="mb-10 flex gap-1.5 sm:mb-12">
+              {galleryItems.map((item, i) => (
+                <button
+                  type="button"
+                  key={item.src}
+                  data-slide-index={i}
+                  onClick={handlePaginationClick}
+                  aria-label={`Show moment ${i + 1}`}
+                  aria-current={i === current ? "true" : undefined}
+                  className="h-1 flex-1 overflow-hidden rounded-full bg-white/30 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                >
+                  <span
+                    className={`block h-full rounded-full bg-white transition-[width] duration-500 motion-reduce:transition-none ${
+                      i <= current ? "w-full" : "w-0"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            <div className="-mx-5 overflow-hidden sm:-mx-8 lg:-mx-[80px]">
+              <Swiper
+                ref={swiperRef}
+                modules={[Autoplay, A11y]}
+                autoplay={{
+                  delay: 6000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                loop
+                grabCursor
+                slidesPerView="auto"
+                spaceBetween={16}
+                speed={500}
+                threshold={8}
+                breakpoints={{
+                  0: { slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+                  640: {
+                    spaceBetween: 20,
+                    slidesOffsetBefore: 32,
+                    slidesOffsetAfter: 32,
+                  },
+                  1024: {
+                    spaceBetween: 20,
+                    slidesOffsetBefore: 102,
+                    slidesOffsetAfter: 80,
+                  },
+                }}
+                onRealIndexChange={handleSlideChange}
+                className="!h-[370px] sm:!h-[400px]"
+              >
+                {galleryItems.map((item, index) => {
+                  const isSquare = index % 2 === 0;
+                  const isActive = index === current;
+
+                  return (
+                    <SwiperSlide
+                      key={item.src}
+                      className={`!h-auto ${
+                        isSquare
+                          ? "!w-[280px] sm:!w-[320px]"
+                          : "!w-[calc(100vw-40px)] sm:!w-[570px]"
+                      }`}
                     >
                       <button
                         type="button"
-                        onClick={() => openVideo(video)}
-                        aria-label={`Watch ${video.title} on YouTube`}
-                        className={`group relative block h-full min-h-[600px] w-full overflow-hidden rounded-[28px] text-left transition-opacity duration-500 sm:min-h-[700px] lg:min-h-0 lg:rounded-[24px] ${
-                          index === current ? "ring-2 ring-white" : "opacity-55"
-                        }`}
+                        data-gallery-index={index}
+                        onClick={openGalleryItem}
+                        aria-label={`Open gallery photo ${index + 1}`}
+                        aria-current={isActive ? "true" : undefined}
+                        className="group block w-full text-left focus-visible:outline-none"
                       >
-                        <Image
-                          src={video.thumbnail}
-                          alt={video.title}
-                          fill
-                          sizes="(min-width: 1024px) 487px, 80vw"
-                          className="object-cover"
-                        />
-                        {index !== current && (
-                          <span className="absolute inset-0 bg-slate-950/45" />
-                        )}
-                        {index === current && (
-                          <span className="absolute top-1/2 left-1/2 grid h-[112px] w-[112px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-slate-950/65 text-white shadow-lg transition-transform group-hover:scale-105">
-                            <IoPlay size={62} className="translate-x-1" />
-                          </span>
-                        )}
+                        <span
+                          className={`relative block h-[280px] w-full overflow-hidden rounded-[16px] bg-black/25 transition-[box-shadow] duration-500 motion-reduce:transition-none sm:h-[320px] ${
+                            isActive
+                              ? "ring-2 ring-white"
+                              : "ring-0 ring-transparent"
+                          } group-focus-visible:ring-2 group-focus-visible:ring-white`}
+                        >
+                          <Image
+                            src={item.src}
+                            alt={item.caption[lang]}
+                            fill
+                            sizes={isSquare ? "320px" : "570px"}
+                            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
+                          />
+                          <span
+                            className={`absolute inset-0 transition-colors duration-500 motion-reduce:transition-none ${
+                              isActive
+                                ? "bg-black/0 group-hover:bg-black/10"
+                                : "bg-black/55 group-hover:bg-black/45"
+                            }`}
+                          />
+                        </span>
+                        <span
+                          className={`mt-5 block max-w-[570px] text-[16px] leading-[1.55] transition-colors duration-500 motion-reduce:transition-none sm:mt-5 sm:text-[18px] ${
+                            isActive
+                              ? "font-semibold text-white"
+                              : "font-medium text-white/45"
+                          }`}
+                        >
+                          {item.caption[lang]}
+                        </span>
                       </button>
-                    </div>
-                  ))}
-                </div>
-                <div className="pointer-events-none absolute inset-y-0 right-0 left-0 hidden items-center justify-between px-6">
-                  <button
-                    onClick={prev}
-                    aria-label="Previous video"
-                    className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800"
-                  >
-                    <IoChevronBackOutline size={34} />
-                  </button>
-                  <button
-                    onClick={next}
-                    aria-label="Next video"
-                    className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800"
-                  >
-                    <IoChevronForwardOutline size={34} />
-                  </button>
-                </div>
-              </div>
-
-              <div
-                className={`transition-opacity duration-200 lg:hidden ${
-                  isTextVisible ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <h3 className="mb-5 text-[28px] leading-[1.35] font-semibold text-white italic">
-                  {activeVideo.quote}
-                </h3>
-                <p className="text-xl leading-[1.4] font-normal text-white/70">
-                  {activeVideo.caption}
-                </p>
-              </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
             </div>
           </div>
         </div>
       </div>
-      {modalVideo && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/78 px-4 py-8">
-          <div className="relative w-full max-w-4xl">
+      {modalIndex !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Gallery photo viewer"
+          onClick={handleBackdropClick}
+          className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/85 px-4 py-6 sm:px-8"
+        >
+          <div className="relative w-full max-w-6xl overflow-hidden rounded-[20px] bg-neutral-900 shadow-2xl">
             <button
               type="button"
-              onClick={() => setModalVideo(null)}
-              aria-label="Close video"
-              className="absolute -top-14 right-0 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 shadow-lg"
+              onClick={closeGalleryModal}
+              aria-label="Close photo"
+              className="absolute top-3 right-3 z-30 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 transition-colors hover:bg-savana-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
             >
               <IoClose size={24} />
             </button>
-            <div className="relative aspect-video overflow-hidden rounded-[24px] bg-black">
-              <iframe
-                src={`https://www.youtube.com/embed/${modalVideo.id}?autoplay=1`}
-                title={modalVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
-            </div>
+
+            <button
+              type="button"
+              onClick={prevModal}
+              aria-label="Previous gallery photo"
+              className="absolute top-[42%] left-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:left-5"
+            >
+              <IoChevronBack size={32} />
+            </button>
+            <button
+              type="button"
+              onClick={nextModal}
+              aria-label="Next gallery photo"
+              className="absolute top-[42%] right-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:right-5"
+            >
+              <IoChevronForward size={32} />
+            </button>
+
+            <Swiper
+              key={`gallery-modal-${modalIndex}`}
+              ref={modalSwiperRef}
+              modules={[A11y, Keyboard]}
+              initialSlide={modalIndex}
+              keyboard={{ enabled: true }}
+              loop
+              slidesPerView={1}
+              speed={450}
+              className="w-full"
+            >
+              {galleryItems.map((item, index) => (
+                <SwiperSlide key={item.src} className="!h-auto">
+                  <div className="flex flex-col">
+                    <div className="relative h-[58vh] min-h-[320px] w-full bg-black sm:h-[68vh] sm:max-h-[700px]">
+                      <Image
+                        src={item.modalSrc}
+                        alt={item.caption[lang]}
+                        fill
+                        sizes="100vw"
+                        className="object-contain"
+                        priority={index === modalIndex}
+                      />
+                    </div>
+                    <div className="bg-white px-5 py-5 text-savana-800 sm:px-8 sm:py-6">
+                      <p className="mb-2 text-sm font-semibold text-savana-600">
+                        {String(index + 1).padStart(2, "0")} /{" "}
+                        {galleryItems.length}
+                      </p>
+                      <p className="max-w-4xl text-base leading-relaxed font-medium text-balance sm:text-lg">
+                        {item.caption[lang]}
+                      </p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       )}
