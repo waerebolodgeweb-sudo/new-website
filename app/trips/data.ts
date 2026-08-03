@@ -7,10 +7,30 @@ export interface TripStop {
   image: string;
 }
 
+export type SummaryIcon =
+  | "people"
+  | "thumbs-up"
+  | "calendar"
+  | "car"
+  | "walk"
+  | "village"
+  | "boat"
+  | "breakfast"
+  | "check";
+
+export interface TripSummaryItem {
+  title: string;
+  description?: string;
+  icon: SummaryIcon;
+}
+
 export interface InfoCard {
   title: string;
   description: string;
-  tone?: "light" | "accent";
+  tone?: "light" | "accent" | "accommodation" | "accommodation-reminder";
+  emphasis?: string[];
+  emphasisTone?: "default" | "danger";
+  separator?: string;
 }
 
 export interface TripProgram {
@@ -23,11 +43,13 @@ export interface TripProgram {
   heroDesktop: string;
   heroMobile: string;
   overview: string;
-  summary: { title: string; description: string }[];
+  summary: TripSummaryItem[];
   experiences: string[];
   notes: string[];
   accommodation: InfoCard[];
+  accommodationReminder?: string;
   meals: InfoCard[];
+  mealsNote?: string;
   stops: TripStop[];
   custom?: boolean;
 }
@@ -39,109 +61,121 @@ type StopSeed = [
   imageNumber?: number,
 ];
 
-const activityCopy: Record<string, string> = {
+const commonTrekCopy: Record<string, string> = {
   "Breakfast at Waerebo Lodge":
-    "Start with a fresh breakfast at the lodge while your local guide checks the route, weather, and everything needed for the day ahead.",
+    "After breakfast at Waerebo Lodge, guests will depart with a local guide by car to the trekking starting point. The drive takes around 20 minutes.",
   "Terminal to Pos 1":
-    "A short ride brings you to the trailhead. Continue toward Pos 1 as village paths give way to the cool, shaded forest.",
+    "From the terminal, guests may continue to Pos 1 by local motorbike taxi if they are already comfortable riding on a motorbike.\n\nFor guests who are not used to motorbikes, we recommend walking for safety reasons, as the road can be narrow, steep, uneven, and challenging in some parts.",
   "Forest Trekking from Pos 1":
-    "Follow the mountain trail through dense forest, bamboo groves, and sweeping viewpoints with your local trekking guide.",
+    "After Pos 1, the journey continues into the forest area. The trail is slightly uphill, but the path is shaded by lush tropical trees. The air is cool and refreshing, and in the morning, guests may sometimes hear the sound of birds along the way.",
+  "Forest Trekking to Waerebo":
+    "After Pos 1, the journey continues into the forest area. The trail is slightly uphill, but the path is shaded by lush tropical trees. The air is cool and refreshing, and in the morning, guests may sometimes hear the sound of birds along the way.",
   "Arrival at Waerebo Village":
-    "Reach the ridge and take in the first view of the seven Mbaru Niang houses before entering the village with your guide.",
-  "Village Activities":
-    "Join the welcome ceremony, meet local families, and learn the customs that shape everyday life in this remarkable highland village.",
-  "Lunch at Waerebo Village":
-    "Enjoy a simple home-cooked lunch and Flores coffee prepared by the community inside a traditional Mbaru Niang house.",
-  "Afternoon Return":
-    "Walk back through the forest, continue from the terminal by vehicle, and return to Waerebo Lodge in the late afternoon.",
-  "Waerebo Lodge Departure":
-    "After breakfast, meet your guide and travel from the lodge to the trailhead for the start of the Waerebo trek.",
+    "Upon arrival at Waerebo Village, guests will enter the main traditional house, known as Rumah Gendang. A representative from the Waerebo community and the traditional elder will welcome guests through a traditional welcome ceremony.",
   "Village Experience":
-    "Spend unhurried time with the community, discovering traditional architecture, stories, music, and the rhythms of village life.",
+    "During this moment, your guide will share stories about Waerebo Village, its culture, traditional houses, and the daily life of the local community.",
   "Lunch & Coffee Experience":
-    "Share a seasonal lunch and freshly brewed Flores coffee while learning how food is prepared and shared in the village.",
+    "After the welcome ceremony, guests will enjoy a local lunch, Waerebo coffee, and a short rest. In the afternoon, guests will visit local houses and meet the community. This is a chance to learn more about the architecture of Waerebo’s traditional houses and observe daily village activities such as weaving songket, pounding coffee, and drying coffee beans.",
   "Sacred Spring":
-    "Walk with a local guide to the village spring and hear why this water source is an important part of Waerebo tradition.",
-  "Exploring Mbaru Niang":
-    "Step inside the cone-shaped communal house and discover how its five levels support family life, food storage, and ceremony.",
+    "Guests will visit the local spring, where the people of Waerebo collect water for daily use. Your guide will share the story of the traditional rituals held at this spring as a form of respect to the ancestors believed to protect the area.",
   "Reading House Visit":
-    "Visit the village reading house and learn how this shared space supports local children, stories, and community learning.",
+    "Guests will visit the reading house to see photos of the traditional house construction process. Your guide will explain the building process and the traditional rituals involved.",
   "Evening Village Atmosphere":
-    "Watch mist settle over the valley, share dinner with the community, and experience the stillness of Waerebo after dark.",
+    "Around 6:00 PM, observe traditional cooking before dinner in the village. If the weather is clear, guests may also enjoy night photography or stargazing after dinner, followed by an overnight stay inside Waerebo’s traditional cone-shaped house together with other visitors.",
   "Morning Photography":
-    "Wake early for soft mountain light, drifting clouds, and quiet views across the Mbaru Niang rooftops.",
+    "Around 6:00 AM is a beautiful time for photography, as the morning atmosphere in Waerebo is peaceful and scenic.",
   "Breakfast & Farewell":
-    "Enjoy breakfast in the village, say farewell to your hosts, and prepare for the return trek through the forest.",
+    "Breakfast will be served around 7:00 AM. After breakfast, guests will say goodbye to the local community before starting the trek back to Dintor.",
   "Waerebo Lodge Return":
-    "Descend to the terminal and return to the lodge for a warm meal, a shower, and a well-earned rest.",
-  "Labuan Bajo Departure":
-    "Meet your driver in Labuan Bajo and begin the overland journey through the changing landscapes of western Flores.",
-  Pickup:
-    "Meet your private driver in Labuan Bajo and begin the overland journey through the changing landscapes of western Flores.",
-  "Pleas Waterfall":
-    "Walk through lush tropical vegetation to Pleas Waterfall and pause beside its cool, clear cascade.",
+    "In the afternoon, you will trek back to Dintor and return to Waerebo Lodge, where the trip ends.",
+};
+
+const oneDayStopCopy: Record<string, string> = {
+  ...commonTrekCopy,
+  "Breakfast at Waerebo Lodge":
+    "Start your morning with breakfast at Waerebo Lodge. After breakfast, you will depart with your local guide by car to the trekking starting point. The drive takes around 20 minutes.",
+  "Terminal to Pos 1":
+    "From the terminal, guests may continue to Pos 1 by local motorbike taxi if they are comfortable riding on a motorbike.\n\nFor guests who are not used to motorbikes, we recommend walking for safety reasons, as the road can be narrow, steep, uneven, and challenging in some parts.",
+  "Arrival at Waerebo Village":
+    "Upon arrival at Waerebo Village, guests will enter the main traditional house, known as the Rumah Gendang. A representative from the Waerebo community and the traditional elder will welcome the guests through a traditional welcome ceremony.",
+  "Village Activities":
+    "This is also a meaningful moment to learn about Waerebo’s culture, traditional houses, local customs, and the daily life of the community through your guide’s storytelling.",
+  "Lunch at Waerebo Village":
+    "After the welcome ceremony and village introduction, guests will enjoy a local lunch, Waerebo coffee, and some time to rest while taking in the peaceful village atmosphere.",
+  "Afternoon Return":
+    "In the afternoon, you will trek back to Dintor and return to Waerebo Lodge, where the trip ends.",
+};
+
+const overnightStopCopy: Record<string, string> = {
+  ...commonTrekCopy,
+  "Breakfast at Waerebo Lodge":
+    "Start the morning with breakfast at Waerebo Lodge. After breakfast, guests will depart with a local guide by car to the trekking starting point. The drive takes around 20 minutes.",
+  "Lunch & Coffee Experience":
+    "Enjoy a local lunch and Waerebo coffee after the ceremony. In the afternoon, explore the traditional houses, meet the community, and observe daily activities like weaving and coffee processing.",
+  "Evening Village Atmosphere":
+    "Around 6:00 PM, observe traditional cooking before dinner in the village. Enjoy stargazing if the weather is clear, followed by an overnight stay in a shared, traditional cone-shaped house.",
+};
+
+const overlandCopy: Record<string, string> = {
+  "Labuan Bajo Pickup":
+    "Your guide will pick you up at the airport or your hotel in Labuan Bajo. Today, the journey begins with a scenic drive toward Dintor.",
+  "Cunca Plias Waterfall Visit":
+    "On the way, you will visit Cunca Plias Waterfall. From the parking area, it takes around 35 minutes on foot to reach the waterfall. Guests may enjoy the natural surroundings and swim in the waterfall pool before walking back to the car.",
+  "Lembor Rice Fields":
+    "The journey continues with a stop at the Lembor irrigation area, home to one of the largest rice field irrigation areas in Flores. A lunch box will be prepared for the trip.",
   "Lembor Irrigation Rice Fields":
-    "Cross the broad Lembor valley and see the irrigation network that sustains one of western Flores' largest rice-growing areas.",
+    "The trip continues with a photo stop at the Lembor rice field irrigation area, one of the largest rice-producing areas in Flores. Lunch will be prepared during the trip.",
+  "Watu Weri Beach Coastal Views":
+    "Along the way, you will also have photo stops at Watu Weri Beach and other scenic viewpoints before continuing to Dintor.",
   "Watu Weri Beach":
-    "Stop along Flores' south coast for open sea views and the quiet shoreline of Watu Weri Beach.",
-  "Waerebo Lodge Arrival":
-    "Arrive in Dintor, settle into Waerebo Lodge, and meet the local team before the next day's trek.",
-  "Cunca Rami Waterfall":
-    "Take a refreshing detour to a forest waterfall, reached by a short walk through farms, jungle, and small villages.",
-  "Lunch in Flores":
-    "Pause for a local lunch surrounded by rice fields and mountain scenery before continuing deeper into Flores.",
-  "Wae Rebo Beach & Coast Views":
-    "Follow the southern coast past quiet beaches and broad ocean views on the road toward Dintor.",
+    "Along the way, you will also have photo stops at Watu Weri Beach and other scenic viewpoints before continuing to Dintor.",
   "Arrival at Waerebo Lodge":
-    "Settle into the lodge in Dintor, meet the team, and enjoy a relaxed evening before the trek begins.",
-  "Weaving Experience":
-    "Learn how Manggarai motifs are created as village artisans demonstrate the patient craft of traditional songke weaving.",
-  "Village Storytelling":
-    "Sit with community members inside a Mbaru Niang and hear stories about ancestry, farming, and the surrounding forest.",
-  "Journey to the Coast":
-    "Leave the highlands behind and travel toward the coast, with time for scenic stops along the way.",
-  "Coastal Lodge Stay":
-    "Check in near the coast and enjoy a restful evening before the final island experience.",
-  "Labuan Bajo Viewpoint":
-    "Stop above the harbour for a wide view of the islands and the layered blue water of the Komodo archipelago.",
-  "Island Escape":
-    "Board a local boat for clear-water swimming, relaxed beach time, and a final day among the islands near Flores.",
+    "Tonight, you will stay at Waerebo Lodge, located in the middle of rice fields with open views toward the sea and the Waerebo mountains. Room options may vary, including fan rooms and air-conditioned rooms with hot showers, depending on availability.\n\nDinner will be prepared at the lodge. Rest and overnight at Waerebo Lodge.",
+  "Waerebo Lodge Arrival":
+    "Tonight, guests will stay at Waerebo Lodge, located in the middle of rice fields with open views toward the sea, rice fields, and the Waerebo mountains. Dinner will be prepared at the lodge. Rest and overnight at Waerebo Lodge.",
   "Boat Trip to Nuca Molas":
-    "Travel by local boat toward Nuca Molas, with time to take in the island coastline and clear Flores waters.",
-  Breakfast:
-    "Begin the final travel day with breakfast at the lodge before continuing toward Labuan Bajo.",
+    "The journey continues with a boat trip to Nuca Molas Island. It offers clear sea water and a white sand beach, making it a beautiful place to relax, swim, and enjoy the island atmosphere. Lunch will be prepared for the trip.\n\nExperience the daily life of the locals. The island is home to around 1,500 residents, spread across three villages. Most local people are fishermen, with daily activities such as fishing, drying fish, and making traditional boats.",
+  Breakfast: "After breakfast, the journey continues back to Labuan Bajo.",
   "Lingko Spider Web Rice Fields":
-    "See the remarkable lingko fields from above, arranged like a spiderweb around a traditional communal centre.",
+    "On the way, guests will visit the spider web rice field viewpoint. It takes around 1 hour on foot to reach the viewpoint. A lunch box will be prepared for the trip.",
   "Labuan Bajo":
-    "Complete the journey in Labuan Bajo with a final transfer to your hotel or preferred drop-off point.",
-  "Cunca Wulang Waterfall":
-    "Walk into a dramatic limestone canyon where clear turquoise water runs between steep rock walls.",
-  "Ruteng Rice Fields":
-    "Travel through cool highland farmland and see the geometric rice fields that surround Ruteng.",
-  "Ruteng Heritage Walk":
-    "Explore the historic heart of Ruteng with a local guide, from traditional textiles to the town's enduring Manggarai character.",
-  "Songke Weaving":
-    "Meet local weavers and discover the symbols, natural colours, and patient handwork behind Manggarai songke cloth.",
-  "Ruteng Cathedral":
-    "Visit one of Ruteng's landmark churches and learn how local tradition and faith have grown together in the highlands.",
+    "After the visit, the journey continues to Labuan Bajo. The trip ends upon arrival in Labuan Bajo.",
+  "Arrival at Ruteng":
+    "Upon arrival at Ruteng, guests will check in and rest after a day of exploring. The afternoon continues with visits to the traditional market and cathedral.",
   "Ruteng Traditional Market":
-    "Explore Ruteng's traditional market, where local produce, spices, textiles, and daily Manggarai life come together.",
+    "After arriving in Ruteng and checking in at the hotel, visit the Ruteng traditional market and experience the rhythm of everyday local life.",
+  "Ruteng Cathedral":
+    "Following the market, visit Ruteng Cathedral. Dinner will be prepared before resting overnight in Ruteng.",
   "Morning Departure":
-    "Leave Ruteng after breakfast and continue south through the cool Manggarai highlands.",
-  "Hobbit Cave":
-    "Explore Liang Bua, the archaeological site where Homo floresiensis was discovered, with insight from a local guide.",
+    "After breakfast in Ruteng, the journey continues toward Dintor with a visit to Liang Bua.",
+  "Hobbit Cave Liang Bua":
+    "This cave is an important historical site in Flores, known for the discovery of ancient small-bodied human fossils. Your guide will share the story of the discovery and its significance to Flores history.",
   "Afternoon Transfer":
-    "Continue across the highlands toward Dintor, with flexible stops for scenery, refreshments, and village life.",
-  "Liang Bua Cave":
-    "Explore the archaeological site where Homo floresiensis was discovered and hear the story behind Flores' famous ‘hobbit’.",
-  "Cancar Spiderweb Rice Fields":
-    "View the remarkable lingko fields from above, arranged like a spiderweb around the traditional communal centre.",
+    "After the cave visit, lunch will be prepared. The journey then continues toward Dintor.",
+};
+
+const floresStopCopy: Record<string, string> = {
+  ...commonTrekCopy,
+  ...overlandCopy,
+  "Labuan Bajo Pickup":
+    "Your guide will pick you up at the airport or your hotel in Labuan Bajo. Today, the journey begins with a scenic drive toward Ruteng.",
+  "Cunca Plias Waterfall Visit":
+    "The first stop is Cunca Plias Waterfall. From the parking area, it takes around 35 minutes on foot to reach the waterfall. Guests may enjoy the natural surroundings and swim in the waterfall pool before continuing the journey.",
+  "Lingko Spider Web Rice Fields":
+    "Visit the Cancar spider web rice fields, a unique traditional rice field system in Manggarai. Its spider web shape reflects one of the oldest land division systems in Flores and symbolizes unity within the Manggarai community.",
+  "Village Experience":
+    "In the afternoon, explore the traditional houses, meet the community, and observe daily activities like weaving songket and coffee processing.",
+  "Lunch & Coffee Experience":
+    "Enjoy a local lunch and authentic Waerebo coffee after the ceremony.",
+  "Waerebo Lodge Return":
+    "Upon arrival at Waerebo Lodge, guests may take a shower and enjoy lunch before completing the journey.",
 };
 
 function buildStops(
   folder: string,
   prefix: string,
-  seeds: StopSeed[]
+  seeds: StopSeed[],
+  descriptions: Record<string, string>
 ): TripStop[] {
   return seeds.map(([day, title, meta, imageNumber], index) => ({
     id: `${prefix}-${index + 1}`,
@@ -149,82 +183,16 @@ function buildStops(
     title,
     meta,
     description:
-      activityCopy[title] ??
+      descriptions[title] ??
+      commonTrekCopy[title] ??
+      overlandCopy[title] ??
       "Travel with a local guide and experience another distinctive part of the Flores landscape and culture.",
     image: `/Trip Package/${folder}/${prefix}-${String(imageNumber ?? index + 1).padStart(2, "0")}.webp`,
   }));
 }
 
-const waereboAccommodation: InfoCard[] = [
-  {
-    title: "Waerebo Lodge private room",
-    description:
-      "A comfortable base in Dintor with a private room, warm shower, and easy access to the Waerebo trailhead.",
-    tone: "accent",
-  },
-  {
-    title: "Mbaru Niang village stay",
-    description:
-      "A shared traditional sleeping space in Waerebo Village, with bedding provided by the local community.",
-  },
-  {
-    title: "Electricity & basic facilities",
-    description:
-      "Village facilities are simple and electricity is limited, while the lodge provides charging and private bathroom access.",
-  },
-];
-
-const dayTripAccommodation: InfoCard[] = [
-  {
-    title: "Waerebo Lodge not included",
-    description:
-      "This is a same-day trekking program. Add a lodge stay before or after the trek if you would like more time to rest.",
-    tone: "accent",
-  },
-  {
-    title: "Overnight stay after the trek",
-    description:
-      "Ask our team to combine the program with a private room and breakfast at Waerebo Lodge.",
-  },
-];
-
-const standardMeals: InfoCard[] = [
-  {
-    title: "Lunch included",
-    description:
-      "A freshly prepared local lunch is served during the day's journey.",
-    tone: "accent",
-  },
-  {
-    title: "Authentic Waerebo coffee",
-    description:
-      "Enjoy Flores coffee with the community inside a traditional house.",
-  },
-];
-
-const overnightMeals: InfoCard[] = [
-  {
-    title: "Daily breakfast included",
-    description: "Breakfast is served at the lodge or in Waerebo Village.",
-    tone: "accent",
-  },
-  {
-    title: "Lunch, dinner & village coffee",
-    description:
-      "Simple, seasonal meals are prepared by the lodge and Waerebo community throughout the journey.",
-  },
-];
-
-const trekkingExperiences = [
-  "A scenic trek through rainforest, farmland, and mountain viewpoints",
-  "A traditional welcome and time with the Waerebo community",
-  "Local meals, Flores coffee, and an experienced local guide",
-];
-
-const trekkingNotes = [
-  "The trail includes steep, uneven, and occasionally slippery sections. A moderate level of fitness is recommended.",
-  "Bring supportive shoes, rain protection, drinking water, sun protection, and a light layer for the cooler highlands.",
-];
+const mealsNote =
+  "While main meals are provided, we highly recommend bringing your own trail snacks, energy bars, or light bites to keep your energy up during the forest trek and the journey between points.";
 
 export const tripPrograms: TripProgram[] = [
   {
@@ -240,62 +208,104 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-1D-0N-Hero-Desktop.webp",
     overview:
-      "This one-day trip is perfect for travelers who want to visit Waerebo on a shorter schedule. Starting from Waerebo Lodge, the journey combines a scenic forest trek, cultural activities in the village, and a same-day return to Dintor.",
+      "This one-day trip is perfect for travelers who want to visit Waerebo in a shorter time. Starting from Waerebo Lodge, the journey combines a scenic drive, forest trekking, cultural introduction, local lunch, and Waerebo coffee before returning to Dintor in the afternoon.",
     summary: [
       {
-        title: "The 1-day Waerebo experience",
-        description: "A complete guided trek with no overnight stay.",
+        icon: "people",
+        title: "1 to 10+ Guests (Private & Group options)",
       },
       {
-        title: "Transfers and entrance included",
-        description: "Lodge transfer, village contribution, and guide support.",
+        icon: "thumbs-up",
+        title:
+          "Travelers with limited time, active travelers, culture lovers, and guests who want to experience Waerebo in one day",
       },
       {
-        title: "Full-day program",
-        description: "Morning departure and late-afternoon return.",
+        icon: "calendar",
+        title: "1 Day of Trips, No Overnight Stay",
+      },
+      {
+        icon: "car",
+        title:
+          "Car transfer (Lodge to Terminal), Optional Ojek (Motorcycle taxi), and Hiking",
       },
     ],
-    experiences: trekkingExperiences,
-    notes: trekkingNotes,
-    accommodation: dayTripAccommodation,
-    meals: standardMeals,
-    stops: buildStops("1D-0N-Trip-webp", "Trip-Waerebo-Lodge-1D-0N", [
+    experiences: [
+      "A scenic trek through a shaded, lush forest with local wildlife.",
+      "An official welcome ceremony by the village elders at the Rumah Gendang (Main House).",
+      "In-depth storytelling about Waerebo's history, architecture, and daily life from your expert guide.",
+    ],
+    notes: [
+      "The trekking route includes uphill sections and natural forest paths. Comfortable walking shoes, drinking water, and light rain protection are recommended. Motorbike taxi from the terminal to Pos 1 is optional and only recommended for guests who are comfortable riding on mountain roads.",
+    ],
+    accommodation: [
+      {
+        title: "Waerebo Lodge not included",
+        description:
+          "in this daytime itinerary (guests typically book a room here the night before or after the trek).",
+        tone: "accommodation-reminder",
+        emphasis: ["Waerebo Lodge not included"],
+        emphasisTone: "danger",
+        separator: " ",
+      },
+      {
+        title: "No overnight stay at the Village",
+        description: "this is a single-day excursion.",
+        tone: "accommodation-reminder",
+        emphasis: ["No overnight stay at the Village"],
+        emphasisTone: "danger",
+      },
+    ],
+    meals: [
+      {
+        title: "Lunch included",
+        description:
+          "A freshly prepared traditional meal is served upon arrival at Waerebo Village.",
+      },
+      {
+        title: "Authentic Waerebo Coffee",
+        description:
+          "A warm, authentic Waerebo coffee grown and roasted locally by the villagers.",
+      },
+    ],
+    mealsNote,
+    stops: buildStops(
+      "1D-0N-Trip-webp",
+      "Trip-Waerebo-Lodge-1D-0N",
       [
-        "Day 1 - Dintor to Waerebo",
-        "Breakfast at Waerebo Lodge",
-        "07:00 · Waerebo Lodge",
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Breakfast at Waerebo Lodge",
+          "20 Minutes · Car",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Terminal to Pos 1",
+          "Depends on the condition · Motorbike",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Forest Trekking from Pos 1",
+          "Depends on the condition · Trek Walking",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Arrival at Waerebo Village",
+          "Trek Walking",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Village Activities",
+          "Takes time until afternoon",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Lunch at Waerebo Village",
+          "Lunch by the village",
+        ],
+        ["Day 1 - Dintor to Waerebo", "Afternoon Return", "Trek Back Down"],
       ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Terminal to Pos 1",
-        "08:00 · Vehicle & local ojek",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Forest Trekking from Pos 1",
-        "09:00 · Guided trek",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Arrival at Waerebo Village",
-        "11:00 · Waerebo Village",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Village Activities",
-        "11:30 · Cultural experience",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Lunch at Waerebo Village",
-        "12:30 · Local lunch",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Afternoon Return",
-        "14:00 · Trek to Dintor",
-      ],
-    ]),
+      oneDayStopCopy
+    ),
   },
   {
     id: "overnight-experience",
@@ -311,88 +321,132 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-2D-1N-Hero-Mobile.webp",
     overview:
-      "The Overnight Experience gives you time to slow down and connect with Waerebo beyond a day visit. Trek through the forest, join village life, sleep communally in a Mbaru Niang, and return after a highland sunrise.",
+      "This overnight experience is the best way to truly feel the atmosphere of Waerebo. More than just a trek, this journey allows guests to spend time with the local community, learn about traditional houses, enjoy local food and coffee, and stay overnight inside the iconic cone-shaped traditional house.",
     summary: [
       {
-        title: "One night in Waerebo Village",
-        description:
-          "Traditional shared accommodation and village hospitality.",
+        icon: "people",
+        title: "1 to 10+ Guests (Private & Group options)",
       },
       {
-        title: "Guided return trekking",
-        description:
-          "Local guide, trail transfers, and village contribution included.",
+        icon: "thumbs-up",
+        title:
+          "Travelers who want a deeper Waerebo experience, culture lovers, photographers, adventurous travelers, and guests who want to stay overnight inside the traditional house",
       },
       {
-        title: "Meals throughout the journey",
-        description: "Breakfast, lunch, dinner, and Flores coffee included.",
+        icon: "calendar",
+        title: "2 Days, 1 Night, With Overnight Stay at the Village",
+      },
+      {
+        icon: "car",
+        title:
+          "Car transfer (Lodge to Terminal), Optional Ojek (Motorcycle taxi), and Forest Trekking.",
       },
     ],
     experiences: [
-      ...trekkingExperiences,
-      "An evening and sunrise among Waerebo's seven Mbaru Niang houses",
+      "A guided scenic trek through a shaded, lush tropical forest.",
+      "An official traditional welcome ceremony by the village elder at the Mbaru Niang House.",
+      "In-depth storytelling about Waerebo's history, a sacred spring visit, and a reading house tour.",
+      "An overnight stay inside the iconic cone-shaped traditional Mbaru Gendang house.",
     ],
-    notes: trekkingNotes,
-    accommodation: waereboAccommodation,
-    meals: overnightMeals,
-    stops: buildStops("2D-1N-Trip-webp", "Trip-Waerebo-Lodge-2D-1N", [
+    notes: [
+      "This trip includes mountain trekking, a shared traditional sleeping arrangement, simple village facilities, and limited electricity. Guests are encouraged to bring comfortable trekking shoes, warm clothing for the evening, a flashlight, drinking water, and personal essentials.",
+    ],
+    accommodation: [
+      {
+        title: "Waerebo Lodge not included",
+        description:
+          "in this daytime itinerary (guests typically book a room here the night before or after the trek).",
+        tone: "accommodation-reminder",
+        emphasis: ["Waerebo Lodge not included"],
+        emphasisTone: "danger",
+        separator: " ",
+      },
+      {
+        title: "The traditional house has no private rooms.",
+        description:
+          "Guests sleep in a shared open sleeping area. Bathroom and toilet facilities are located outside the house.",
+        tone: "accommodation",
+        emphasis: [],
+        separator: " ",
+      },
+      {
+        title: "Electricity is very limited",
+        description:
+          "and usually available only from around 6:00 PM to 10:00 PM.",
+        tone: "accommodation",
+        emphasis: [],
+        separator: " ",
+      },
+    ],
+    meals: [
+      {
+        title: "Lunch, dinner & breakfast included",
+        description:
+          "Freshly prepared traditional meals are served by Waerebo Village.",
+        tone: "accent",
+      },
+      {
+        title: "Authentic Waerebo Coffee",
+        description:
+          "A warm, authentic Waerebo coffee grown and roasted locally by the villagers.",
+      },
+    ],
+    mealsNote,
+    stops: buildStops(
+      "2D-1N-Trip-webp",
+      "Trip-Waerebo-Lodge-2D-1N",
       [
-        "Day 1 - Dintor to Waerebo",
-        "Breakfast at Waerebo Lodge",
-        "07:00 · Breakfast & briefing",
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Breakfast at Waerebo Lodge",
+          "20 Minutes · Car",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Terminal to Pos 1",
+          "Depends on the condition · Motorbike",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Forest Trekking from Pos 1",
+          "Depends on the condition · Trek Walking",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Arrival at Waerebo Village",
+          "Trek Walking",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Village Experience",
+          "Takes time until afternoon",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Lunch & Coffee Experience",
+          "Lunch & coffee by the village",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Sacred Spring",
+          "Village activities until afternoon",
+        ],
+        [
+          "Day 1 - Dintor to Waerebo",
+          "Reading House Visit",
+          "Village activities until afternoon",
+        ],
+        ["Day 1 - Dintor to Waerebo", "Evening Village Atmosphere", "Evening"],
+        ["Day 2 - Waerebo to Dintor", "Morning Photography", "Sunrise"],
+        [
+          "Day 2 - Waerebo to Dintor",
+          "Breakfast & Farewell",
+          "Breakfast by village",
+        ],
+        ["Day 2 - Waerebo to Dintor", "Waerebo Lodge Return", "Trek Back Down"],
       ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Terminal to Pos 1",
-        "08:00 · Vehicle & local ojek",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Forest Trekking from Pos 1",
-        "09:00 · Guided trek",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Arrival at Waerebo Village",
-        "11:00 · Waerebo Village",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Village Experience",
-        "11:30 · Welcome ceremony",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Lunch & Coffee Experience",
-        "12:30 · Mbaru Niang",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Sacred Spring",
-        "14:00 · Guided village walk",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Reading House Visit",
-        "15:30 · Village activity",
-      ],
-      [
-        "Day 1 - Dintor to Waerebo",
-        "Evening Village Atmosphere",
-        "18:00 · Dinner & overnight",
-      ],
-      ["Day 2 - Waerebo to Dintor", "Morning Photography", "06:00 · Sunrise"],
-      [
-        "Day 2 - Waerebo to Dintor",
-        "Breakfast & Farewell",
-        "07:00 · Waerebo Village",
-      ],
-      [
-        "Day 2 - Waerebo to Dintor",
-        "Waerebo Lodge Return",
-        "08:30 · Trek & transfer",
-      ],
-    ]),
+      overnightStopCopy
+    ),
   },
   {
     id: "nature-culture-journey",
@@ -408,115 +462,149 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-3D-2N-Hero-Mobile.webp",
     overview:
-      "This three-day journey links the natural highlights of western Flores with an immersive night in Waerebo. Waterfalls, rice fields, coastlines, village traditions, and a guided mountain trek unfold at a comfortable pace.",
+      "This 3-day journey is designed for travelers who want a complete Waerebo experience starting from Labuan Bajo. The trip combines waterfall, rice field scenery, coastal viewpoints, a peaceful stay at Waerebo Lodge, forest trekking, cultural experience, and an overnight stay inside Waerebo’s traditional cone-shaped house.",
     summary: [
+      { icon: "people", title: "Private & Group options available" },
       {
-        title: "Labuan Bajo to Waerebo",
-        description:
-          "Private overland transport with scenic stops along the way.",
+        icon: "thumbs-up",
+        title:
+          "Travelers who want a complete journey from Labuan Bajo, combining nature, culture, trekking, local life, and an overnight stay in the traditional village.",
       },
       {
-        title: "Two distinctive nights",
-        description: "One night at Waerebo Lodge and one in Waerebo Village.",
+        icon: "calendar",
+        title: "3 Days, 2 Nights (1 Night at Lodge, 1 Night at Village)",
       },
       {
-        title: "Nature and culture combined",
-        description:
-          "Waterfalls, coastlines, trekking, food, and community life.",
+        icon: "car",
+        title:
+          "Car transfer (Labuan Bajo/Dintor), Optional Ojek (Motorcycle taxi), and Forest Trekking",
       },
     ],
     experiences: [
-      "A private overland journey from Labuan Bajo through western Flores",
-      "Waterfall, rice-field, and coastal stops selected by local guides",
-      "A full Waerebo trek with village activities and an overnight stay",
+      "A scenic drive from Labuan Bajo with stops at Cunca Plias Waterfall, Lembor rice fields, and Watu Weri Beach.",
+      "A peaceful overnight stay at Waerebo Lodge surrounded by rice fields and mountain views.",
+      "A guided scenic trek through a shaded, lush tropical forest.",
+      "An official traditional welcome ceremony and an overnight stay inside the iconic cone-shaped traditional house.",
     ],
     notes: [
-      "Overland travel times depend on road and weather conditions. Stops may be adjusted to keep the trip comfortable and safe.",
-      ...trekkingNotes,
+      "This trip includes waterfall walking, mountain trekking, a shared traditional sleeping arrangement, simple village facilities, and limited electricity in Waerebo. Guests are encouraged to bring comfortable trekking shoes, warm clothing for the evening, a flashlight, drinking water, comfortable clothes for the waterfall, light rain protection, and personal essentials.",
     ],
-    accommodation: waereboAccommodation,
-    meals: overnightMeals,
-    stops: buildStops("3D-2N-Trip-webp", "Trip-Waerebo-Lodge-3D-2N", [
-      ["Day 1 - Labuan Bajo to Dintor", "Pickup", "08:00 · Private vehicle"],
+    accommodation: [
+      {
+        title: "Waerebo Lodge included",
+        description:
+          "in this daytime itinerary please choose your room type for this trip.",
+        tone: "accommodation",
+        emphasis: ["Waerebo Lodge included"],
+        separator: " ",
+      },
+      {
+        title: "The traditional house has no private rooms.",
+        description:
+          "Guests sleep in a shared open sleeping area. Bathroom and toilet facilities are located outside the house.",
+        tone: "accommodation",
+        emphasis: ["shared open sleeping area."],
+        separator: " ",
+      },
+      {
+        title: "Electricity is very limited",
+        description:
+          "and usually available only from around 6:00 PM to 10:00 PM.",
+        tone: "accommodation",
+        emphasis: ["Electricity is very limited"],
+        separator: " ",
+      },
+    ],
+    meals: [
+      {
+        title: "Lunch, dinner & breakfast included",
+        description:
+          "Lunch on Day 1, dinners, breakfasts, and traditional village meals are prepared throughout the journey.",
+        tone: "accent",
+      },
+      {
+        title: "Authentic Waerebo Coffee",
+        description:
+          "A warm, authentic Waerebo coffee grown and roasted locally by the villagers.",
+      },
+    ],
+    mealsNote,
+    stops: buildStops(
+      "3D-2N-Trip-webp",
+      "Trip-Waerebo-Lodge-3D-2N",
       [
-        "Day 1 - Labuan Bajo to Dintor",
-        "Pleas Waterfall",
-        "10:30 · Nature walk",
+        [
+          "Day 1 - Labuan Bajo to Dintor",
+          "Labuan Bajo Pickup",
+          "Morning · Car",
+        ],
+        [
+          "Day 1 - Labuan Bajo to Dintor",
+          "Cunca Plias Waterfall Visit",
+          "35 min · Walking",
+        ],
+        ["Day 1 - Labuan Bajo to Dintor", "Lembor Rice Fields", "Midday · Car"],
+        [
+          "Day 1 - Labuan Bajo to Dintor",
+          "Watu Weri Beach Coastal Views",
+          "Midday · Car",
+        ],
+        [
+          "Day 1 - Labuan Bajo to Dintor",
+          "Arrival at Waerebo Lodge",
+          "Evening",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Breakfast at Waerebo Lodge",
+          "20 min · Car",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Terminal to Pos 1",
+          "Depends on the condition · Trek Walking",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Forest Trekking to Waerebo",
+          "Depends on the condition · Trek Walking",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Arrival at Waerebo Village",
+          "Trek Walking",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Village Experience",
+          "Takes time until afternoon",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Lunch & Coffee Experience",
+          "Takes time until afternoon",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Sacred Spring",
+          "Takes time until afternoon",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Reading House Visit",
+          "Takes time until afternoon",
+        ],
+        ["Day 2 - Dintor to Waerebo", "Evening Village Atmosphere", "Evening"],
+        ["Day 3 - Waerebo to Dintor", "Morning Photography", "Sunrise"],
+        [
+          "Day 3 - Waerebo to Dintor",
+          "Breakfast & Farewell",
+          "Breakfast by village",
+        ],
+        ["Day 3 - Waerebo to Dintor", "Waerebo Lodge Return", "Trek Back Down"],
       ],
-      [
-        "Day 1 - Labuan Bajo to Dintor",
-        "Lembor Irrigation Rice Fields",
-        "13:00 · Scenic stop",
-      ],
-      [
-        "Day 1 - Labuan Bajo to Dintor",
-        "Watu Weri Beach",
-        "15:00 · Coastal stop",
-      ],
-      [
-        "Day 1 - Labuan Bajo to Dintor",
-        "Waerebo Lodge Arrival",
-        "17:00 · Dinner & overnight",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Breakfast at Waerebo Lodge",
-        "07:00 · Waerebo Lodge",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Terminal to Pos 1",
-        "08:00 · Vehicle & local ojek",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Forest Trekking from Pos 1",
-        "09:00 · Guided trek",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Arrival at Waerebo Village",
-        "11:00 · Waerebo Village",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Lunch & Coffee Experience",
-        "12:30 · Mbaru Niang",
-        11,
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Village Experience",
-        "11:30 · Welcome ceremony",
-        10,
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Sacred Spring",
-        "14:00 · Guided village walk",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Reading House Visit",
-        "15:30 · Community experience",
-      ],
-      [
-        "Day 2 - Dintor to Waerebo",
-        "Evening Village Atmosphere",
-        "18:00 · Dinner & overnight",
-      ],
-      ["Day 3 - Waerebo to Dintor", "Morning Photography", "06:00 · Sunrise"],
-      [
-        "Day 3 - Waerebo to Dintor",
-        "Breakfast & Farewell",
-        "07:00 · Waerebo Village",
-      ],
-      [
-        "Day 3 - Waerebo to Dintor",
-        "Waerebo Lodge Return",
-        "08:30 · Trek & transfer",
-      ],
-    ]),
+      { ...commonTrekCopy, ...overlandCopy }
+    ),
   },
   {
     id: "waerebo-island-escape",
@@ -532,134 +620,159 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Island-Escape-Hero-Mobile.webp",
     overview:
-      "Waerebo & Island Escape pairs the cultural heart of Flores with a relaxed coastal finish. Travel from Labuan Bajo, trek and stay in Waerebo, then return to the sea for viewpoints, clear water, and island time.",
+      "This 4-day journey combines the cultural and mountain experience of Waerebo with a relaxing island escape to Nuca Molas. Starting from Labuan Bajo, the trip includes waterfall scenery, rice fields, coastal viewpoints, forest trekking, an overnight stay in Waerebo’s traditional cone-shaped house, a boat trip to Nuca Molas Island, and a visit to the spider web rice field viewpoint before returning to Labuan Bajo.",
     summary: [
       {
-        title: "Four days across western Flores",
-        description:
-          "Private transport, local guide, and boat experience included.",
+        icon: "people",
+        title: "1 to 10+ Guests (Private & Group options)",
       },
       {
-        title: "Highland and coastal stays",
-        description: "Three nights planned around each stage of the journey.",
+        icon: "thumbs-up",
+        title:
+          "Travelers who want to combine mountain trekking, cultural experiences, a relaxing island trip, and scenic Flores landscapes.",
       },
       {
-        title: "Waerebo plus an island day",
-        description:
-          "Culture, trekking, waterfalls, viewpoints, and clear water.",
+        icon: "calendar",
+        title:
+          "4 Days, 3 Nights (2 Nights at Waerebo Lodge, 1 Night at the Village)",
+      },
+      {
+        icon: "boat",
+        title:
+          "Car transfer (Labuan Bajo/Dintor), Optional Ojek (Motorcycle taxi), Boat Trip, and Forest Trekking",
       },
     ],
     experiences: [
-      "A complete Waerebo trek and overnight cultural experience",
-      "A private overland route through waterfalls, rice fields, and coastlines",
-      "A relaxed boat journey among the islands near Flores",
+      "A scenic drive from Labuan Bajo with stops at Cunca Plias Waterfall and the Lembor rice fields.",
+      "A guided forest trek and an official traditional welcome ceremony at the Rumah Gendang.",
+      "An overnight stay inside Waerebo's iconic cone-shaped traditional house.",
+      "A relaxing boat trip to Nuca Molas Island to enjoy white sand beaches and experience a local fishing village.",
+      "A trek to the spider web rice field viewpoint.",
     ],
     notes: [
-      "Boat routes are weather-dependent and may change for safety. The team will choose the best available island experience on the day.",
-      ...trekkingNotes,
+      "This trip includes waterfall walking, mountain trekking, boat travel, beach activities, a shared traditional sleeping arrangement, simple village facilities, and limited electricity in Waerebo. Guests are encouraged to bring comfortable trekking shoes, warm clothing for the evening, a flashlight, drinking water, comfortable clothes for waterfall and island activities, light rain protection, and personal essentials.",
     ],
-    accommodation: waereboAccommodation,
-    meals: overnightMeals,
+    accommodation: [
+      {
+        title: "Waerebo Lodge included",
+        description:
+          "for nights 1 and 3 in this daytime itinerary, please choose your room type for this trip.",
+        tone: "accent",
+        emphasis: ["Waerebo Lodge included"],
+        separator: " ",
+      },
+      {
+        title: "The traditional house has no private rooms.",
+        description:
+          "Guests sleep in a shared open sleeping area. Bathroom and toilet facilities are located outside the house.",
+        emphasis: ["shared open sleeping area."],
+        separator: " ",
+      },
+      {
+        title: "Electricity is very limited",
+        description:
+          "and usually available only from around 6:00 PM to 10:00 PM.",
+        emphasis: ["Electricity is very limited"],
+        separator: " ",
+      },
+    ],
+    meals: [
+      {
+        title: "Lunch, dinner & breakfast included",
+        description:
+          "Traditional village meals are prepared throughout the journey.",
+        tone: "accent",
+      },
+      {
+        title: "Authentic Waerebo Coffee",
+        description:
+          "A warm, authentic Waerebo coffee grown and roasted locally by the villagers.",
+      },
+    ],
+    mealsNote,
     stops: buildStops(
       "4D-3N-Trip-Island Escape-webp",
       "Trip-Waerebo-Lodge-4D-3N-Island-Escape",
       [
-        ["Day 1 - Labuan Bajo to Dintor", "Pickup", "08:00 · Private vehicle"],
         [
           "Day 1 - Labuan Bajo to Dintor",
-          "Pleas Waterfall",
-          "10:00 · Nature walk",
+          "Labuan Bajo Pickup",
+          "Morning · Car",
+        ],
+        [
+          "Day 1 - Labuan Bajo to Dintor",
+          "Cunca Plias Waterfall Visit",
+          "35 min · Walking",
         ],
         [
           "Day 1 - Labuan Bajo to Dintor",
           "Lembor Irrigation Rice Fields",
-          "13:00 · Scenic stop",
+          "Midday · Car",
         ],
-        [
-          "Day 1 - Labuan Bajo to Dintor",
-          "Watu Weri Beach",
-          "15:00 · Coastal stop",
-        ],
-        [
-          "Day 1 - Labuan Bajo to Dintor",
-          "Waerebo Lodge Arrival",
-          "17:00 · Dinner & overnight",
-        ],
+        ["Day 1 - Labuan Bajo to Dintor", "Watu Weri Beach", "Midday · Car"],
+        ["Day 1 - Labuan Bajo to Dintor", "Waerebo Lodge Arrival", "Evening"],
         [
           "Day 2 - Dintor to Waerebo",
           "Breakfast at Waerebo Lodge",
-          "07:00 · Waerebo Lodge",
+          "20 min · Car",
         ],
         [
           "Day 2 - Dintor to Waerebo",
           "Terminal to Pos 1",
-          "08:00 · Vehicle & local ojek",
+          "Depends on the condition · Trek Walking",
         ],
         [
           "Day 2 - Dintor to Waerebo",
-          "Forest Trekking from Pos 1",
-          "09:00 · Guided trek",
+          "Forest Trekking to Waerebo",
+          "Depends on the condition · Trek Walking",
         ],
         [
           "Day 2 - Dintor to Waerebo",
           "Arrival at Waerebo Village",
-          "11:00 · Waerebo Village",
-        ],
-        [
-          "Day 2 - Dintor to Waerebo",
-          "Lunch & Coffee Experience",
-          "12:30 · Mbaru Niang",
-          11,
+          "Trek Walking",
         ],
         [
           "Day 2 - Dintor to Waerebo",
           "Village Experience",
-          "11:30 · Welcome ceremony",
-          10,
+          "Takes time until afternoon",
+        ],
+        [
+          "Day 2 - Dintor to Waerebo",
+          "Lunch & Coffee Experience",
+          "Takes time until afternoon",
         ],
         [
           "Day 2 - Dintor to Waerebo",
           "Sacred Spring",
-          "14:00 · Guided village walk",
+          "Takes time until afternoon",
         ],
         [
           "Day 2 - Dintor to Waerebo",
           "Reading House Visit",
-          "15:30 · Village activity",
+          "Takes time until afternoon",
         ],
-        [
-          "Day 2 - Dintor to Waerebo",
-          "Evening Village Atmosphere",
-          "18:00 · Dinner & overnight",
-        ],
-        [
-          "Day 3 - Waerebo to Nuca Molas",
-          "Morning Photography",
-          "06:00 · Sunrise",
-        ],
+        ["Day 2 - Dintor to Waerebo", "Evening Village Atmosphere", "Evening"],
+        ["Day 3 - Waerebo to Nuca Molas", "Morning Photography", "Sunrise"],
         [
           "Day 3 - Waerebo to Nuca Molas",
           "Breakfast & Farewell",
-          "07:00 · Waerebo Village",
+          "Breakfast by village",
         ],
         [
           "Day 3 - Waerebo to Nuca Molas",
           "Boat Trip to Nuca Molas",
-          "10:30 · Private boat",
+          "Midday · Boat Trip",
         ],
-        [
-          "Day 3 - Waerebo to Nuca Molas",
-          "Waerebo Lodge Return",
-          "16:00 · Lodge arrival",
-        ],
-        ["Day 4 - Dintor to Labuan Bajo", "Breakfast", "07:00 · Waerebo Lodge"],
+        ["Day 3 - Waerebo to Nuca Molas", "Waerebo Lodge Return", "Evening"],
+        ["Day 4 - Dintor to Labuan Bajo", "Breakfast", "Morning"],
         [
           "Day 4 - Dintor to Labuan Bajo",
           "Lingko Spider Web Rice Fields",
-          "10:30 · Scenic stop",
+          "1 hour · Trek Walking",
         ],
-        ["Day 4 - Dintor to Labuan Bajo", "Labuan Bajo", "15:00 · Drop-off"],
-      ]
+        ["Day 4 - Dintor to Labuan Bajo", "Labuan Bajo", "Afternoon"],
+      ],
+      { ...commonTrekCopy, ...overlandCopy }
     ),
   },
   {
@@ -676,166 +789,194 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Flores-Hero-Mobile.webp",
     overview:
-      "Flores Heritage & Waerebo follows the deeper story of Manggarai. Journey through highland farms and historic Ruteng, visit Liang Bua and Cancar, then continue to Waerebo for an immersive village stay.",
+      "This 4-day journey is designed for travelers who want to explore more of Flores beyond Waerebo. The trip combines natural scenery, cultural landmarks, traditional landscapes, the historical Liang Bua Hobbit Cave, and an overnight cultural experience inside Waerebo’s traditional cone-shaped house.",
     summary: [
       {
-        title: "A heritage route across Manggarai",
-        description:
-          "Private transport and local context throughout the journey.",
+        icon: "people",
+        title: "1 to 10+ Guests (Private & Group options)",
       },
       {
-        title: "Three nights in Flores",
-        description: "Stays arranged in Ruteng, Dintor, and Waerebo Village.",
+        icon: "thumbs-up",
+        title:
+          "Travelers who want to explore Flores history, local culture, traditional landscapes, and Waerebo Village in one complete journey from Labuan Bajo.",
       },
       {
-        title: "History and living culture",
-        description:
-          "Archaeology, songke weaving, farming traditions, and Waerebo.",
+        icon: "calendar",
+        title:
+          "4 Days, 3 Nights (1 Night Ruteng, 1 Night Waerebo Lodge, 1 Night Village)",
+      },
+      {
+        icon: "car",
+        title:
+          "Car transfer, Optional Ojek (Motorcycle taxi), and Forest Trekking",
       },
     ],
     experiences: [
-      "Liang Bua, the archaeological home of Homo floresiensis",
-      "Traditional songke weaving and Cancar's spiderweb rice fields",
-      "A complete trek, overnight stay, and cultural experience in Waerebo",
+      "A scenic drive to Ruteng with stops at Cunca Plias Waterfall and the Lembor rice fields.",
+      "Visits to the unique Cancar spider web rice fields, Ruteng traditional market, and Ruteng Cathedral.",
+      "In-depth storytelling about Waerebo's history, architecture, and daily life from your expert guide.",
+      "An exploration of the historical Liang Bua Hobbit Cave.",
+      "A guided forest trek and an official traditional welcome ceremony at the Rumah Gendang.",
+      "An overnight stay inside Waerebo's iconic cone-shaped traditional house.",
     ],
     notes: [
-      "This program includes longer overland drives and a mountain trek. A flexible pace is maintained, but good general mobility is recommended.",
-      ...trekkingNotes,
+      "This trip includes waterfall walking, cultural sightseeing, mountain trekking, a shared traditional sleeping arrangement, simple village facilities, and limited electricity in Waerebo. Guests are encouraged to bring comfortable trekking shoes, warm clothing for the evening, a flashlight, drinking water, comfortable clothes for the waterfall, light rain protection, and personal essentials.",
     ],
-    accommodation: waereboAccommodation,
-    meals: overnightMeals,
+    accommodation: [
+      {
+        title: "First Night will check-in and rest at a hotel in Ruteng",
+        description: "after a day of exploring.",
+        tone: "accent",
+        emphasis: ["hotel in Ruteng"],
+      },
+      {
+        title: "Next night will be at our Waerebo Lodge.",
+        description:
+          "Located in the middle of rice fields with open views toward the sea, rice fields, and the Waerebo mountains.",
+        emphasis: ["Next night will be at our Waerebo Lodge."],
+        separator: " ",
+      },
+      {
+        title: "Night 3 will be at the traditional house.",
+        description:
+          "Guests sleep in a shared open sleeping area. Bathroom and toilet are located outside. Electricity is very limited and usually available only from around 6:00 PM to 10:00 PM.",
+        emphasis: ["shared open sleeping area."],
+        separator: " ",
+      },
+    ],
+    meals: [
+      {
+        title: "Lunch, dinner & breakfast included",
+        description:
+          "Traditional village meals are prepared throughout the journey.",
+        tone: "accent",
+      },
+      {
+        title: "Authentic Waerebo Coffee",
+        description:
+          "A warm, authentic Waerebo coffee grown and roasted locally by the villagers.",
+      },
+    ],
+    mealsNote,
     stops: buildStops(
       "1D-0N-Trip-Flores-webp",
       "Trip-Waerebo-Lodge-4D-3N-Flores",
       [
         [
           "Day 1 - Labuan Bajo to Ruteng",
-          "Pickup",
-          "08:00 · Private vehicle",
+          "Labuan Bajo Pickup",
+          "Morning · Car",
           1,
         ],
         [
           "Day 1 - Labuan Bajo to Ruteng",
-          "Pleas Waterfall",
-          "10:30 · Nature walk",
+          "Cunca Plias Waterfall Visit",
+          "35 min · Walking",
           2,
         ],
         [
           "Day 1 - Labuan Bajo to Ruteng",
           "Lembor Irrigation Rice Fields",
-          "13:00 · Scenic stop",
+          "Midday · Car",
           3,
         ],
         [
           "Day 1 - Labuan Bajo to Ruteng",
           "Lingko Spider Web Rice Fields",
-          "14:30 · Viewpoint",
+          "Midday · Car",
           4,
         ],
         [
           "Day 1 - Labuan Bajo to Ruteng",
-          "Ruteng Traditional Market",
-          "16:00 · Market visit",
-          6,
+          "Arrival at Ruteng",
+          "Midday · Car",
+          5,
         ],
         [
           "Day 1 - Labuan Bajo to Ruteng",
-          "Ruteng Cathedral",
-          "17:00 · Heritage visit",
-          7,
+          "Ruteng Traditional Market",
+          "Afternoon",
+          6,
         ],
+        ["Day 1 - Labuan Bajo to Ruteng", "Ruteng Cathedral", "Afternoon", 7],
+        ["Day 2 - Ruteng to Dintor", "Morning Departure", "Morning · Car", 8],
         [
           "Day 2 - Ruteng to Dintor",
-          "Morning Departure",
-          "08:00 · Private vehicle",
-          8,
+          "Hobbit Cave Liang Bua",
+          "Midday · Trek Walking",
+          9,
         ],
-        ["Day 2 - Ruteng to Dintor", "Hobbit Cave", "10:00 · Liang Bua", 9],
         [
           "Day 2 - Ruteng to Dintor",
           "Afternoon Transfer",
-          "13:30 · Scenic drive",
+          "Afternoon · Car",
           10,
         ],
-        [
-          "Day 2 - Ruteng to Dintor",
-          "Waerebo Lodge Arrival",
-          "17:00 · Dinner & overnight",
-          11,
-        ],
+        ["Day 2 - Ruteng to Dintor", "Waerebo Lodge Arrival", "Afternoon", 11],
         [
           "Day 3 - Dintor to Waerebo",
           "Breakfast at Waerebo Lodge",
-          "07:00 · Waerebo Lodge",
+          "20 min · Car",
           12,
         ],
         [
           "Day 3 - Dintor to Waerebo",
           "Terminal to Pos 1",
-          "08:00 · Vehicle & local ojek",
+          "Depends on the condition · Trek Walking",
           13,
         ],
         [
           "Day 3 - Dintor to Waerebo",
-          "Forest Trekking from Pos 1",
-          "09:00 · Guided trek",
+          "Forest Trekking to Waerebo",
+          "Depends on the condition · Trek Walking",
           14,
         ],
         [
           "Day 3 - Dintor to Waerebo",
           "Arrival at Waerebo Village",
-          "11:00 · Waerebo Village",
+          "Trek Walking",
           15,
         ],
         [
           "Day 3 - Dintor to Waerebo",
-          "Lunch & Coffee Experience",
-          "12:30 · Mbaru Niang",
-          17,
-        ],
-        [
-          "Day 3 - Dintor to Waerebo",
           "Village Experience",
-          "11:30 · Welcome ceremony",
+          "Takes time until afternoon",
           16,
         ],
         [
           "Day 3 - Dintor to Waerebo",
+          "Lunch & Coffee Experience",
+          "Takes time until afternoon",
+          17,
+        ],
+        [
+          "Day 3 - Dintor to Waerebo",
           "Sacred Spring",
-          "14:00 · Guided village walk",
+          "Takes time until afternoon",
           18,
         ],
         [
           "Day 3 - Dintor to Waerebo",
           "Reading House Visit",
-          "15:30 · Village activity",
+          "Takes time until afternoon",
           19,
         ],
         [
           "Day 3 - Dintor to Waerebo",
           "Evening Village Atmosphere",
-          "18:00 · Dinner & overnight",
+          "Evening",
           20,
         ],
-        [
-          "Day 4 - Waerebo to Dintor",
-          "Morning Photography",
-          "06:00 · Sunrise",
-          21,
-        ],
+        ["Day 4 - Waerebo to Dintor", "Morning Photography", "Morning", 21],
         [
           "Day 4 - Waerebo to Dintor",
           "Breakfast & Farewell",
-          "07:00 · Waerebo Village",
+          "Morning · Breakfast by the village",
           22,
         ],
-        [
-          "Day 4 - Waerebo to Dintor",
-          "Waerebo Lodge Return",
-          "08:30 · Trek & transfer",
-          23,
-        ],
-      ]
+        ["Day 4 - Waerebo to Dintor", "Waerebo Lodge Return", "Evening", 23],
+      ],
+      floresStopCopy
     ),
   },
   {

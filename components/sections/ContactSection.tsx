@@ -56,10 +56,10 @@ export default function ContactSection() {
         {/* Heading + contact info row */}
         <div className="mb-7 flex flex-col gap-6 sm:mb-10 sm:gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
           <div className="lg:flex-1">
-            <h2 className="mb-1 text-[28px] leading-tight font-bold text-savana-800 sm:mb-2 sm:text-4xl lg:text-6xl">
+            <h2 className="mb-1 text-[36px] leading-tight font-bold text-savana-800 sm:mb-2 sm:text-3xl lg:text-5xl">
               {t("contact.heading")}
             </h2>
-            <p className="max-w-[430px] text-[11px] leading-[1.45] text-pale-savana-300 sm:text-base sm:leading-relaxed sm:text-black">
+            <p className="max-w-[430px] text-[12px] leading-[1.45] text-pale-savana-300 sm:text-base sm:leading-relaxed sm:text-black">
               {t("contact.body")}
             </p>
           </div>
@@ -67,7 +67,7 @@ export default function ContactSection() {
           <div className="flex flex-col gap-6 lg:gap-7">
             <div className="grid grid-cols-2 gap-x-5 gap-y-5 sm:gap-x-10 sm:gap-y-6">
               <div className="lg:order-1">
-                <p className="mb-1 text-[11px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
                   {t("contact.phone")}
                 </p>
                 <a
@@ -78,7 +78,7 @@ export default function ContactSection() {
                 </a>
               </div>
               <div className="lg:order-3">
-                <p className="mb-1 text-[11px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
                   {t("contact.partner")}
                 </p>
                 <a
@@ -90,7 +90,7 @@ export default function ContactSection() {
                 </a>
               </div>
               <div className="lg:order-2">
-                <p className="mb-1 text-[11px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
                   {t("contact.whatsapp")}
                 </p>
                 <a
@@ -101,12 +101,12 @@ export default function ContactSection() {
                 </a>
               </div>
               <div className="lg:order-4">
-                <p className="mb-1 text-[11px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
                   {t("contact.email")}
                 </p>
                 <a
                   href="mailto:waerebolodge@gmail.com"
-                  className="text-[11px] font-semibold break-all text-green-400 transition-opacity hover:opacity-80 sm:text-xl"
+                  className="text-[12px] font-semibold break-all text-green-400 transition-opacity hover:opacity-80 sm:text-xl"
                 >
                   waerebolodge@gmail.com
                 </a>
@@ -279,7 +279,7 @@ export default function ContactSection() {
           </p>
           <div className="flex gap-2">
             <a
-              href="https://www.youtube.com"
+              href="https://www.youtube.com/@WaereboLodge"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"

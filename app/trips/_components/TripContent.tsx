@@ -1,35 +1,44 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { IconType } from "react-icons";
+import { NewIcon, type NewIconName } from "@/components/icons/new-icons";
 import {
-  IoBedOutline,
-  IoCalendarClearOutline,
-  IoCarSportOutline,
-  IoCheckmarkCircleOutline,
-  IoChevronBackOutline,
-  IoChevronForwardOutline,
-  IoHomeOutline,
+  IoCalendar,
+  IoCalendarClear,
+  IoCar,
+  IoChevronBack,
+  IoChevronForward,
+  IoHome,
   IoLogoWhatsapp,
+  IoMail,
   IoMailOutline,
-  IoMapOutline,
-  IoPeopleOutline,
-  IoRestaurantOutline,
-  IoSparklesOutline,
-  IoTrailSignOutline,
+  IoMap,
+  IoPeople,
+  IoThumbsUp,
+  IoTime,
 } from "react-icons/io5";
-import { tripPrograms, type InfoCard, type TripProgram } from "../data";
+import {
+  tripPrograms,
+  type InfoCard,
+  type SummaryIcon,
+  type TripProgram,
+} from "../data";
 
-const customFeatures: { title: string; Icon: IconType }[] = [
-  { title: "Private & Group Travelers", Icon: IoPeopleOutline },
-  { title: "Local Expert Team", Icon: IoMapOutline },
-  { title: "Flexible Itinerary", Icon: IoCalendarClearOutline },
-  { title: "Waerebo Lodge Package", Icon: IoHomeOutline },
-  { title: "Waerebo Village Overnight Stay", Icon: IoBedOutline },
-  { title: "Iconic & Authentic Experience", Icon: IoSparklesOutline },
-  { title: "Breakfast, Meals, Dinner, etc.", Icon: IoRestaurantOutline },
-  { title: "Personal Accommodation Pickup", Icon: IoCarSportOutline },
+const customFeatures: {
+  title: string;
+  Icon?: IconType;
+  iconName?: NewIconName;
+}[] = [
+  { title: "Private & Group Travelers", Icon: IoPeople },
+  { title: "Local Expert Team", Icon: IoThumbsUp },
+  { title: "Flexible Itinerary", Icon: IoCalendar },
+  { title: "Waerebo Lodge Package", Icon: IoHome },
+  { title: "Waerebo Village Overnight Stay", iconName: "village" },
+  { title: "Iconic & Authentic Experience", iconName: "waterfalls" },
+  { title: "Arranged Breakfast, Meals, Dinner, etc.", iconName: "lunch" },
+  { title: "Pick Personal Accommodation", Icon: IoCar },
 ];
 
 const whatsappNumber = "6285339021145";
@@ -46,7 +55,7 @@ function Hero({
 }) {
   return (
     <section
-      className="relative min-h-[485px] overflow-hidden bg-savana-green-700 sm:min-h-[620px] lg:min-h-[720px]"
+      className="relative min-h-[485px] overflow-hidden bg-savana-green-700 sm:min-h-[620px] lg:min-h-[650px]"
       aria-labelledby="trip-heading"
     >
       <Image
@@ -81,7 +90,7 @@ function Hero({
         aria-label="Previous trip package"
         className="absolute top-1/2 left-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:left-8 sm:h-11 sm:w-11"
       >
-        <IoChevronBackOutline size={22} />
+        <IoChevronBack size={22} />
       </button>
       <button
         type="button"
@@ -89,13 +98,13 @@ function Hero({
         aria-label="Next trip package"
         className="absolute top-1/2 right-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:right-8 sm:h-11 sm:w-11"
       >
-        <IoChevronForwardOutline size={22} />
+        <IoChevronForward size={22} />
       </button>
 
       <div className="absolute right-0 bottom-16 left-0 z-10 mx-auto max-w-[1512px] px-5 sm:bottom-24 sm:px-8 lg:px-32 xl:px-36">
         <h1
           id="trip-heading"
-          className="max-w-[600px] text-[26px] leading-[1.22] font-semibold tracking-[-0.025em] text-white text-shadow-lg sm:text-4xl lg:max-w-[1000px] lg:text-[44px] lg:leading-[1.12]"
+          className="max-w-[600px] text-[26px] leading-[1.22] font-semibold tracking-[-0.025em] text-white text-shadow-lg sm:text-4xl lg:max-w-[700px] lg:text-[42px] lg:leading-[1.12]"
         >
           {program.heroTitle}
         </h1>
@@ -113,7 +122,7 @@ function ProgramSelector({
 }) {
   return (
     <div className="relative z-20 -mt-11 sm:-mt-14">
-      <div className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:grid lg:max-w-[1260px] lg:grid-cols-6 lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
+      <div className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
         {tripPrograms.map((program) => {
           const active = program.id === activeId;
           return (
@@ -133,16 +142,20 @@ function ProgramSelector({
                   inline: "center",
                 });
               }}
-              className={`min-h-[86px] w-[210px] flex-none snap-center rounded-xl px-4 py-3 text-left transition-[background-color,color,transform] duration-300 sm:w-[250px] lg:w-auto lg:min-w-0 ${
+              className={`min-h-[86px] flex-none snap-center overflow-hidden rounded-xl px-4 py-3 text-left transition-[width,flex-basis,background-color,color,transform] duration-300 motion-reduce:transition-none lg:min-w-0 ${
                 active
-                  ? "bg-white text-savana-800 shadow-[0_5px_8px_rgba(38,35,22,0.16)]"
-                  : "bg-white/92 text-pale-savana-300 shadow-sm hover:-translate-y-0.5 hover:bg-white"
+                  ? "w-[250px] bg-white text-savana-800 shadow-[0_5px_8px_rgba(38,35,22,0.16)] sm:w-[280px] lg:w-auto lg:max-w-[280px] lg:flex-[2_1_220px]"
+                  : "w-[180px] max-w-[180px] bg-white/92 text-pale-savana-300 shadow-sm hover:-translate-y-0.5 hover:bg-white lg:w-auto lg:flex-[1_1_140px]"
               }`}
             >
-              <span className="mb-1 block text-[10px] font-semibold text-savana-500">
+              <span className="mb-1 block truncate text-[14px] text-savana-700 italic">
                 {program.duration}
               </span>
-              <span className="block text-[13px] leading-snug font-semibold sm:text-sm">
+              <span
+                className={`block text-xl leading-snug font-semibold ${
+                  active ? "whitespace-normal" : "truncate"
+                }`}
+              >
                 {program.title}
               </span>
             </button>
@@ -153,23 +166,99 @@ function ProgramSelector({
   );
 }
 
+function SummaryItemIcon({ icon }: { icon: SummaryIcon }) {
+  if (icon === "people") {
+    return <IoPeople aria-hidden="true" size={24} className="flex-none" />;
+  }
+  if (icon === "thumbs-up") {
+    return <IoThumbsUp aria-hidden="true" size={24} className="flex-none" />;
+  }
+  if (icon === "car") {
+    return <IoCar aria-hidden="true" size={24} className="flex-none" />;
+  }
+  if (icon === "calendar") {
+    return (
+      <IoCalendarClear aria-hidden="true" size={24} className="flex-none" />
+    );
+  }
+
+  return (
+    <NewIcon aria-hidden="true" name={icon} size={24} className="flex-none" />
+  );
+}
+
+function getStopMetaIcon(meta: string): NewIconName | undefined {
+  const normalized = meta.toLowerCase();
+
+  if (/motorbike|motorcycle|ojek|bike/.test(normalized)) return "bike";
+  if (/walk|trek|hiking/.test(normalized)) return "walk";
+  if (/boat/.test(normalized)) return "boat";
+  if (/car|vehicle|transfer/.test(normalized)) return "car";
+  if (/breakfast|coffee/.test(normalized)) return "breakfast";
+  if (/lunch/.test(normalized)) return "lunch";
+
+  return undefined;
+}
+
+function StopMeta({ meta }: { meta: string }) {
+  const items = meta
+    .split("·")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[11px] font-medium text-savana-600 sm:text-sm">
+      {items.map((item, index) => {
+        const icon = getStopMetaIcon(item);
+
+        return (
+          <div key={`${item}-${index}`} className="contents">
+            {index > 0 && (
+              <span
+                aria-hidden="true"
+                className="h-4 w-px flex-none bg-savana-200"
+              />
+            )}
+            <span className="flex items-center gap-2">
+              {icon ? (
+                <NewIcon
+                  aria-hidden="true"
+                  name={icon}
+                  size={18}
+                  className="flex-none"
+                />
+              ) : (
+                <IoTime aria-hidden="true" size={18} className="flex-none" />
+              )}
+              <span>{item}</span>
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function SummaryList({ program }: { program: TripProgram }) {
   return (
-    <div className="mt-7 space-y-4">
+    <div className="mt-7 space-y-3">
       {program.summary.map((item) => (
-        <div key={item.title} className="flex items-start gap-3">
-          <IoCheckmarkCircleOutline
-            aria-hidden="true"
-            size={20}
-            className="mt-0.5 flex-none text-savana-500"
-          />
+        <div
+          key={item.title}
+          className="flex items-center gap-4 border-b border-savana-200 py-6 last:border-b-0 last:pb-0"
+        >
+          <span className="mt-0.5 text-savana-500">
+            <SummaryItemIcon icon={item.icon} />
+          </span>
           <div>
-            <h3 className="text-[13px] leading-snug font-semibold text-savana-800 sm:text-sm">
+            <h3 className="text-base leading-snug font-semibold text-savana-800 sm:text-xl">
               {item.title}
             </h3>
-            <p className="mt-0.5 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm">
-              {item.description}
-            </p>
+            {item.description && (
+              <p className="mt-0.5 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm">
+                {item.description}
+              </p>
+            )}
           </div>
         </div>
       ))}
@@ -185,7 +274,12 @@ function BulletList({ items }: { items: string[] }) {
           key={item}
           className="flex gap-3 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm"
         >
-          <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-savana-500" />
+          <NewIcon
+            aria-hidden="true"
+            name="check"
+            size={24}
+            className="mt-1 flex-none text-savana-500"
+          />
           <span>{item}</span>
         </li>
       ))}
@@ -193,7 +287,82 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
-function InfoCards({ cards }: { cards: InfoCard[] }) {
+function ParagraphList({ items }: { items: string[] }) {
+  return (
+    <div className="mt-4 space-y-4">
+      {items.map((item) => (
+        <p
+          key={item}
+          className="max-w-[72ch] text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm"
+        >
+          {item}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function HighlightedCardText({ card }: { card: InfoCard }) {
+  const separator = card.separator ?? ", ";
+  const content = `${card.title}${separator}${card.description}`;
+  const emphasizedPhrases = card.emphasis ?? [card.title];
+
+  if (emphasizedPhrases.length === 0) {
+    return content;
+  }
+
+  const parts: { text: string; emphasized: boolean }[] = [];
+  let cursor = 0;
+
+  while (cursor < content.length) {
+    const nextMatch = emphasizedPhrases
+      .map((phrase) => ({ phrase, index: content.indexOf(phrase, cursor) }))
+      .filter(({ index }) => index >= 0)
+      .sort(
+        (a, b) => a.index - b.index || b.phrase.length - a.phrase.length
+      )[0];
+
+    if (!nextMatch) {
+      parts.push({ text: content.slice(cursor), emphasized: false });
+      break;
+    }
+
+    if (nextMatch.index > cursor) {
+      parts.push({
+        text: content.slice(cursor, nextMatch.index),
+        emphasized: false,
+      });
+    }
+
+    parts.push({ text: nextMatch.phrase, emphasized: true });
+    cursor = nextMatch.index + nextMatch.phrase.length;
+  }
+
+  return parts.map((part, index) =>
+    part.emphasized ? (
+      <strong
+        key={`${part.text}-${index}`}
+        className={
+          card.emphasisTone === "danger"
+            ? "font-semibold text-red-500"
+            : "font-semibold text-savana-800"
+        }
+      >
+        {part.text}
+      </strong>
+    ) : (
+      <span key={`${part.text}-${index}`}>{part.text}</span>
+    )
+  );
+}
+
+function InfoCards({
+  cards,
+  variant = "default",
+}: {
+  cards: InfoCard[];
+  variant?: "default" | "accommodation";
+}) {
   return (
     <div
       className={`mt-4 grid gap-2 sm:gap-3 ${
@@ -203,18 +372,13 @@ function InfoCards({ cards }: { cards: InfoCard[] }) {
       {cards.map((card) => (
         <div
           key={card.title}
-          className={`rounded-lg px-4 py-3.5 ${
-            card.tone === "accent"
-              ? "bg-savana-200 text-savana-800"
-              : "bg-white text-pale-savana-400"
+          className={`rounded-lg px-4 py-3.5 text-[14px] leading-relaxed text-savana-800/80 sm:text-base ${
+            variant === "accommodation"
+              ? "border border-savana-200 bg-savana-200/25"
+              : "bg-savana-200"
           }`}
         >
-          <h3 className="text-[12px] leading-snug font-semibold sm:text-sm">
-            {card.title}
-          </h3>
-          <p className="mt-1.5 text-[10px] leading-relaxed opacity-80 sm:text-xs">
-            {card.description}
-          </p>
+          <HighlightedCardText card={card} />
         </div>
       ))}
     </div>
@@ -227,58 +391,205 @@ function splitDay(day: string) {
 }
 
 function TripSidebar({ program }: { program: TripProgram }) {
-  const days = Array.from(new Set(program.stops.map((stop) => stop.day)));
+  const [activeSection, setActiveSection] = useState("trip-summary");
+  const navRef = useRef<HTMLElement>(null);
+  const days = useMemo(
+    () => Array.from(new Set(program.stops.map((stop) => stop.day))),
+    [program.stops]
+  );
+  const singleDay = program.id === "one-day-trek";
   const whatsappMessage = encodeURIComponent(
     `Hello Waerebo Lodge! I would like to book the ${program.title} trip.`
   );
   const emailSubject = encodeURIComponent(`Booking request — ${program.title}`);
 
-  return (
-    <aside className="hidden lg:block">
-      <div className="sticky top-24 max-h-[calc(100vh-7rem)] [scrollbar-width:thin] overflow-y-auto pb-3">
-        <nav
-          aria-label={`${program.title} page sections`}
-          className="rounded-xl bg-white px-5 py-5 shadow-[0_4px_8px_rgba(69,61,24,0.10)]"
+  useEffect(() => {
+    const sectionIds = [
+      "trip-summary",
+      "accommodation",
+      "meals-dining",
+      ...(singleDay
+        ? ["itinerary-timeline", ...program.stops.map((stop) => stop.id)]
+        : days.flatMap((day, dayIndex) => [
+            `itinerary-day-${dayIndex + 1}`,
+            ...program.stops
+              .filter((stop) => stop.day === day)
+              .map((stop) => stop.id),
+          ])),
+    ];
+    let frame = 0;
+
+    const updateActiveSection = () => {
+      frame = 0;
+      const activationLine = Math.min(180, window.innerHeight * 0.25);
+      let nextSection = sectionIds[0];
+
+      for (const sectionId of sectionIds) {
+        const section = document.getElementById(sectionId);
+        if (!section || section.getBoundingClientRect().top > activationLine) {
+          break;
+        }
+        nextSection = sectionId;
+      }
+
+      setActiveSection((current) =>
+        current === nextSection ? current : nextSection
+      );
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateActiveSection);
+    };
+
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, [days, program.id, program.stops, singleDay]);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    const activeLink = nav?.querySelector<HTMLElement>(
+      `[data-section-id="${activeSection}"]`
+    );
+    if (!nav || !activeLink) return;
+
+    const padding = 16;
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const visibleTop = navRect.top + padding;
+    const visibleBottom = navRect.bottom - padding;
+
+    if (linkRect.top < visibleTop) {
+      nav.scrollBy({
+        top: linkRect.top - visibleTop,
+        behavior: "smooth",
+      });
+    } else if (linkRect.bottom > visibleBottom) {
+      nav.scrollBy({
+        top: linkRect.bottom - visibleBottom,
+        behavior: "smooth",
+      });
+    }
+  }, [activeSection]);
+
+  const sectionLinkClass = (sectionId: string, compact = false) =>
+    `${compact ? "flex gap-2 text-xs leading-snug" : "block"} py-2 transition-colors hover:text-savana-600 ${
+      activeSection === sectionId ? "text-savana-800" : "text-neutral-300"
+    }`;
+
+  const renderStopLinks = (stops: TripProgram["stops"]) => (
+    <div className="mt-1.5 text-xs">
+      {stops.map((stop) => (
+        <a
+          key={stop.id}
+          href={`#${stop.id}`}
+          data-section-id={stop.id}
+          aria-current={activeSection === stop.id ? "location" : undefined}
+          onClick={() => setActiveSection(stop.id)}
+          className={sectionLinkClass(stop.id, true)}
         >
-          <div className="space-y-3 text-sm font-semibold text-savana-800">
-            <a href="#trip-summary" className="block hover:text-savana-500">
+          <span aria-hidden="true">↳</span>
+          <span className="min-w-0 truncate text-xs" title={stop.title}>
+            {stop.title}
+          </span>
+        </a>
+      ))}
+    </div>
+  );
+
+  return (
+    <aside className="hidden w-[360px] flex-none lg:block">
+      <div className="sticky top-24 [scrollbar-width:thin] overflow-y-auto pb-3">
+        <nav
+          ref={navRef}
+          aria-label={`${program.title} page sections`}
+          className="trip-sidebar-scrollbar h-[528px] max-h-[528px] overflow-y-auto rounded-xl bg-white px-5 py-5 shadow-[0_4px_8px_rgba(69,61,24,0.10)]"
+        >
+          <div className="space-y-2 text-base font-semibold">
+            <a
+              href="#trip-summary"
+              data-section-id="trip-summary"
+              aria-current={
+                activeSection === "trip-summary" ? "location" : undefined
+              }
+              onClick={() => setActiveSection("trip-summary")}
+              className={sectionLinkClass("trip-summary")}
+            >
               Trip Summary
             </a>
-            <a href="#accommodation" className="block hover:text-savana-500">
+            <a
+              href="#accommodation"
+              data-section-id="accommodation"
+              aria-current={
+                activeSection === "accommodation" ? "location" : undefined
+              }
+              onClick={() => setActiveSection("accommodation")}
+              className={sectionLinkClass("accommodation")}
+            >
               Accommodation
             </a>
-            <a href="#meals-dining" className="block hover:text-savana-500">
+            <a
+              href="#meals-dining"
+              data-section-id="meals-dining"
+              aria-current={
+                activeSection === "meals-dining" ? "location" : undefined
+              }
+              onClick={() => setActiveSection("meals-dining")}
+              className={sectionLinkClass("meals-dining")}
+            >
               Meals &amp; Dining
             </a>
           </div>
 
-          <div className="mt-5 space-y-5">
-            {days.map((day) => {
-              const { label, route } = splitDay(day);
-              const dayStops = program.stops.filter((stop) => stop.day === day);
-              return (
-                <div key={day}>
-                  <p className="text-[11px] leading-snug font-semibold text-savana-600">
-                    {label}
-                    {route ? ` — ${route}` : ""}
-                  </p>
-                  <div className="mt-2 space-y-1.5">
-                    {dayStops.map((stop) => (
-                      <a
-                        key={stop.id}
-                        href={`#${stop.id}`}
-                        className="flex gap-2 text-[10px] leading-snug text-pale-savana-300 transition-colors hover:text-savana-600"
-                      >
-                        <span aria-hidden="true" className="text-savana-300">
-                          ↳
-                        </span>
-                        <span>{stop.title}</span>
-                      </a>
-                    ))}
+          <div className="mt-4">
+            {singleDay ? (
+              <div>
+                <a
+                  href="#itinerary-timeline"
+                  data-section-id="itinerary-timeline"
+                  aria-current={
+                    activeSection === "itinerary-timeline"
+                      ? "location"
+                      : undefined
+                  }
+                  onClick={() => setActiveSection("itinerary-timeline")}
+                  className={`${sectionLinkClass("itinerary-timeline")} text-base font-semibold`}
+                >
+                  Itinerary Timeline
+                </a>
+                {renderStopLinks(program.stops)}
+              </div>
+            ) : (
+              days.map((day, dayIndex) => {
+                const dayId = `itinerary-day-${dayIndex + 1}`;
+                const dayStops = program.stops.filter(
+                  (stop) => stop.day === day
+                );
+                return (
+                  <div key={day}>
+                    <a
+                      href={`#${dayId}`}
+                      data-section-id={dayId}
+                      aria-current={
+                        activeSection === dayId ? "location" : undefined
+                      }
+                      onClick={() => setActiveSection(dayId)}
+                      className={`${sectionLinkClass(dayId)} text-base leading-snug font-semibold`}
+                    >
+                      {day}
+                    </a>
+                    {renderStopLinks(dayStops)}
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </nav>
 
@@ -296,7 +607,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
             href={`mailto:${email}?subject=${emailSubject}`}
             className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-600 bg-white px-3 text-[11px] font-semibold text-savana-800 transition-colors hover:bg-savana-200"
           >
-            <IoMailOutline size={15} />
+            <IoMail size={15} />
             Book Trip via Email
           </a>
         </div>
@@ -307,7 +618,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
 
 function TripOverview({ program }: { program: TripProgram }) {
   return (
-    <section className="in-view px-5 pt-8 pb-14 sm:px-8 sm:pt-14 sm:pb-20 lg:px-0 lg:pt-16 lg:pb-14">
+    <section className="in-view px-5 pt-8 pb-14 sm:px-8 sm:pb-20 lg:px-0 lg:pt-0 lg:pb-14">
       <div id="trip-summary" className="scroll-mt-28">
         <div>
           <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
@@ -321,32 +632,41 @@ function TripOverview({ program }: { program: TripProgram }) {
 
         <div className="mt-10 space-y-9">
           <div>
-            <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
-              What You Get
-            </h2>
+            <h2 className="text-xl font-bold text-savana-800">What You Get</h2>
             <BulletList items={program.experiences} />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+            <h2 className="text-xl font-bold text-savana-800">
               Travelers Notes
             </h2>
-            <BulletList items={program.notes} />
+            <ParagraphList items={program.notes} />
           </div>
         </div>
       </div>
 
       <div className="mt-11 grid gap-10">
         <div id="accommodation" className="scroll-mt-28">
-          <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+          <h2 className="text-2xl font-bold text-savana-800 sm:text-3xl">
             Accommodation
           </h2>
-          <InfoCards cards={program.accommodation} />
+          <InfoCards cards={program.accommodation} variant="accommodation" />
+          {program.accommodationReminder && (
+            <p className="mt-3 text-[10px] leading-relaxed text-pale-savana-400 sm:text-xs">
+              <span className="font-semibold text-red-500">*Reminder:</span>{" "}
+              {program.accommodationReminder}
+            </p>
+          )}
         </div>
         <div id="meals-dining" className="scroll-mt-28">
-          <h2 className="text-lg font-bold text-savana-800 sm:text-2xl">
+          <h2 className="text-2xl font-bold text-savana-800 sm:text-3xl">
             Meals &amp; Dining
           </h2>
           <InfoCards cards={program.meals} />
+          {program.mealsNote && (
+            <p className="mt-3 max-w-[72ch] text-[10px] leading-relaxed text-savana-600 sm:text-xs">
+              *{program.mealsNote}
+            </p>
+          )}
         </div>
       </div>
     </section>
@@ -362,7 +682,7 @@ function Connector({ index }: { index: number }) {
   return (
     <div
       aria-hidden="true"
-      className="my-1 h-[112px] sm:h-[150px] lg:h-[210px]"
+      className="my-1 h-[112px] sm:h-[150px] lg:h-[285px]"
     >
       <Image
         src={mobile}
@@ -385,11 +705,19 @@ function Connector({ index }: { index: number }) {
 }
 
 function Itinerary({ program }: { program: TripProgram }) {
+  const singleDay = program.id === "one-day-trek";
+  const days = Array.from(new Set(program.stops.map((stop) => stop.day)));
+
   return (
-    <section className="in-view px-5 pb-20 sm:px-8 sm:pb-28 lg:px-0">
-      <h2 className="mb-10 text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:mb-16 sm:text-3xl lg:mb-14">
-        Itinerary Timeline
-      </h2>
+    <section
+      id={singleDay ? "itinerary-timeline" : undefined}
+      className="in-view scroll-mt-28 px-5 pb-20 sm:px-8 sm:pb-28 lg:px-0"
+    >
+      {singleDay && (
+        <h2 className="mb-10 text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:mb-16 sm:text-3xl lg:mb-14">
+          Itinerary Timeline
+        </h2>
+      )}
 
       <div>
         {program.stops.map((stop, index) => {
@@ -397,11 +725,15 @@ function Itinerary({ program }: { program: TripProgram }) {
             index === 0 || program.stops[index - 1].day !== stop.day;
           const reverse = index % 2 === 1;
           const { label: dayLabel, route } = splitDay(stop.day);
+          const dayIndex = days.indexOf(stop.day);
 
           return (
             <div key={stop.id}>
-              {newDay && (
-                <div className="mb-7 scroll-mt-28 sm:mb-10 lg:mb-12">
+              {newDay && !singleDay && (
+                <div
+                  id={`itinerary-day-${dayIndex + 1}`}
+                  className="mb-7 scroll-mt-28 sm:mb-10 lg:mb-12"
+                >
                   <div className="flex items-center gap-3 lg:hidden">
                     <span className="text-xs font-semibold text-savana-500 sm:text-sm">
                       Journey {dayLabel}
@@ -427,7 +759,7 @@ function Itinerary({ program }: { program: TripProgram }) {
                   reverse ? "lg:flex-row-reverse" : "lg:flex-row"
                 }`}
               >
-                <div className="relative h-[175px] w-full sm:h-[230px] lg:h-[260px] lg:w-1/2">
+                <div className="relative h-[300px] w-full sm:h-[400px] lg:h-[260px] lg:w-1/2">
                   <Image
                     src={stop.image}
                     alt={stop.title}
@@ -438,14 +770,11 @@ function Itinerary({ program }: { program: TripProgram }) {
                 </div>
 
                 <div className="lg:w-1/2">
-                  <h3 className="text-[17px] leading-tight font-semibold tracking-[-0.015em] text-savana-800 sm:text-2xl">
+                  <h3 className="text-2xl leading-tight font-semibold tracking-[-0.015em] text-savana-800 sm:text-3xl">
                     {stop.title}
                   </h3>
-                  <div className="mt-2 flex items-center gap-2 text-[9px] font-medium text-savana-600 sm:text-xs">
-                    <IoTrailSignOutline aria-hidden="true" size={14} />
-                    <span>{stop.meta}</span>
-                  </div>
-                  <p className="mt-3 max-w-[60ch] text-[10px] leading-[1.7] text-pale-savana-300 sm:text-sm">
+                  <StopMeta meta={stop.meta} />
+                  <p className="mt-3 max-w-[60ch] text-sm leading-[1.7] whitespace-pre-line text-pale-savana-300">
                     {stop.description}
                   </p>
                 </div>
@@ -476,18 +805,33 @@ function CustomItinerary() {
           We can help you create a private itinerary based on your travel dates,
           group size, interests, and preferred pace. Whether you want to combine
           Waerebo with waterfalls, rice fields, local villages, island trips, or
-          a longer Flores overland journey, our team will shape the experience
-          around you.
+          a longer Flores overland journey, we will help design the experience
+          that suits you best.
         </p>
       </div>
 
       <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {customFeatures.map(({ title, Icon }) => (
+        {customFeatures.map(({ title, Icon, iconName }) => (
           <div
             key={title}
-            className="flex min-h-[108px] flex-col items-center justify-center rounded-lg bg-white px-3 py-4 text-center shadow-[0_2px_6px_rgba(69,61,24,0.10)]"
+            className="flex min-h-[108px] flex-col items-center justify-center rounded-lg bg-[#DED6B133] px-3 py-4 text-center shadow-[0_2px_6px_rgba(69,61,24,0.10)]"
           >
-            <Icon aria-hidden="true" size={25} className="text-savana-500" />
+            {iconName ? (
+              <NewIcon
+                aria-hidden="true"
+                name={iconName}
+                className="text-savana-500"
+                size={25}
+              />
+            ) : (
+              Icon && (
+                <Icon
+                  aria-hidden="true"
+                  size={25}
+                  className="text-savana-500"
+                />
+              )
+            )}
             <h3 className="mt-2 text-[10px] leading-snug font-semibold text-savana-800 sm:text-xs">
               {title}
             </h3>
@@ -500,17 +844,18 @@ function CustomItinerary() {
           Travelers Notes
         </h2>
         <p className="mt-2 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
-          As this is a fully customized journey, physical requirements and
-          available facilities depend on the final itinerary. Travel to Waerebo
-          and the surrounding Flores region generally involves outdoor
-          activities, changing climates, uneven roads, trekking, and basic
-          village infrastructure with limited electricity.
+          As this is a fully customized journey, the physical requirements and
+          available facilities will depend on your final itinerary. However,
+          travel to Waerebo and the surrounding Flores regions generally
+          involves outdoor activities, varying climates (from coastal heat to
+          mountain chill), and basic village infrastructure with limited
+          electricity.
         </p>
         <p className="mt-4 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
           We recommend versatile clothing, comfortable walking or trekking
           shoes, a flashlight, sun protection, light rain gear, and personal
-          essentials. Our team will provide a detailed packing list once your
-          itinerary is finalized.
+          essentials. Our team will provide a specific, detailed packing list
+          once your itinerary is finalized.
         </p>
       </div>
 
@@ -538,9 +883,9 @@ function CustomItinerary() {
 
 function TripDetails({ program }: { program: TripProgram }) {
   return (
-    <div className="mx-auto max-w-[1180px] lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-16 lg:px-12 xl:px-0">
+    <div className="mx-auto flex max-w-[1224px] flex-row gap-[68px] lg:px-0 lg:pt-16">
       <TripSidebar program={program} />
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <TripOverview program={program} />
         <Itinerary program={program} />
       </div>

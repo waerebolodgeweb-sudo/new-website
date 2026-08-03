@@ -267,8 +267,8 @@ function SliderArrow({
       aria-label={label}
       className={`absolute top-[43%] z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-[0_10px_28px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 md:h-12 md:w-12 ${
         direction === "previous"
-          ? "left-0 -translate-x-1/2 md:-left-11"
-          : "right-0 translate-x-1/2 md:-right-11"
+          ? "left-0 -translate-x-1/2 xl:-left-11"
+          : "right-0 translate-x-1/2 xl:-right-11"
       }`}
     >
       <Icon size={24} />
@@ -291,7 +291,7 @@ function Card({
   return (
     <div
       data-reveal
-      className="overflow-hidden rounded-[2.25rem] bg-white p-2 shadow-sm transition-shadow hover:shadow-md"
+      className="overflow-hidden rounded-2xl bg-white p-2 shadow-sm transition-shadow hover:shadow-md"
     >
       <div className="relative h-72 rounded-[28px] lg:h-[320px]">
         <Image
@@ -445,14 +445,13 @@ function TripSlider() {
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        <SliderArrow
-          direction="previous"
-          onClick={goToPrevious}
-          label="Previous trips"
-        />
-        <SliderArrow direction="next" onClick={goToNext} label="Next trips" />
-
+      <SliderArrow
+        direction="previous"
+        onClick={goToPrevious}
+        label="Previous trips"
+      />
+      <SliderArrow direction="next" onClick={goToNext} label="Next trips" />
+      <div className="grid grid-cols-1 gap-6 px-11 md:grid-cols-2 xl:grid-cols-3 xl:px-0">
         {visibleTrips.map((def, index) => (
           <div
             key={`${activeIndex}-${def.id}`}

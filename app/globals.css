@@ -249,6 +249,87 @@ body {
     linear forwards;
 }
 
+.reviews-pagination {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.reviews-pagination .reviews-pagination-bullet {
+  position: relative;
+  display: block;
+  flex: 1 1 0%;
+  width: auto;
+  height: 20px;
+  margin: 0 !important;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.reviews-pagination-track {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 35%);
+  transform: translateY(-50%);
+}
+
+.reviews-pagination-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation-name: review-pagination-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.reviews-pagination-fill.is-complete {
+  animation: none;
+  transform: scaleX(1);
+}
+
+@keyframes review-pagination-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.reviews-pagination-bullet:hover .reviews-pagination-track {
+  background: rgb(255 255 255 / 50%);
+}
+
+.reviews-pagination-bullet:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -2px;
+}
+
+@media (min-width: 1280px) {
+  .reviews-pagination {
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-pagination-fill {
+    animation-duration: 0.01ms !important;
+  }
+
+  .review-swiper .swiper-wrapper {
+    transition-duration: 0ms !important;
+  }
+}
+
 @keyframes trip-content-in {
   from {
     opacity: 0.45;
@@ -258,4 +339,23 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.trip-sidebar-scrollbar {
+  scrollbar-color: #ded6b1 #ded6b140;
+  scrollbar-width: thin;
+}
+
+.trip-sidebar-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.trip-sidebar-scrollbar::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: #ded6b140;
+}
+
+.trip-sidebar-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #ded6b1;
 }
