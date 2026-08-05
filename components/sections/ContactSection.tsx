@@ -59,7 +59,7 @@ export default function ContactSection() {
             <h2 className="mb-1 text-[36px] leading-tight font-bold text-savana-800 sm:mb-2 sm:text-3xl lg:text-5xl">
               {t("contact.heading")}
             </h2>
-            <p className="max-w-[430px] text-[12px] leading-[1.45] text-pale-savana-300 sm:text-base sm:leading-relaxed sm:text-black">
+            <p className="max-w-[430px] text-[12px] leading-[1.45] text-savana-800 sm:text-base sm:leading-relaxed">
               {t("contact.body")}
             </p>
           </div>
@@ -67,70 +67,50 @@ export default function ContactSection() {
           <div className="flex flex-col gap-6 lg:gap-7">
             <div className="grid grid-cols-2 gap-x-5 gap-y-5 sm:gap-x-10 sm:gap-y-6">
               <div className="lg:order-1">
-                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-savana-800 sm:text-base">
                   {t("contact.phone")}
                 </p>
                 <a
                   href="tel:+6285239344046"
-                  className="text-xs font-semibold text-green-400 transition-opacity hover:opacity-80 sm:text-xl"
+                  className="text-xs font-semibold text-savana-800 transition-opacity hover:opacity-80 sm:text-xl"
                 >
                   +6285 239 344 046
                 </a>
               </div>
               <div className="lg:order-3">
-                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-savana-800 sm:text-base">
                   {t("contact.partner")}
                 </p>
                 <a
                   href="https://wa.me/6285339021145"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-green-400 transition-opacity hover:opacity-80 sm:gap-2 sm:text-xl"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-savana-800 transition-opacity hover:opacity-80 sm:gap-2 sm:text-xl"
                 >
                   {t("contact.partnerCta")}
                   <IoArrowForwardOutline size={16} />
                 </a>
               </div>
               <div className="lg:order-2">
-                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-savana-800 sm:text-base">
                   {t("contact.whatsapp")}
                 </p>
                 <a
                   href="https://wa.me/6285339021145"
-                  className="text-xs font-semibold text-green-400 transition-opacity hover:opacity-80 sm:text-xl"
+                  className="text-xs font-semibold text-savana-800 transition-opacity hover:opacity-80 sm:text-xl"
                 >
                   +6285 339 021 145
                 </a>
               </div>
               <div className="lg:order-4">
-                <p className="mb-1 text-[12px] font-normal text-[#9B9529] sm:text-base">
+                <p className="mb-1 text-[12px] font-normal text-savana-800 sm:text-base">
                   {t("contact.email")}
                 </p>
                 <a
                   href="mailto:waerebolodge@gmail.com"
-                  className="text-[12px] font-semibold break-all text-green-400 transition-opacity hover:opacity-80 sm:text-xl"
+                  className="text-[12px] font-semibold break-all text-savana-800 transition-opacity hover:opacity-80 sm:text-xl"
                 >
                   waerebolodge@gmail.com
                 </a>
               </div>
-            </div>
-
-            {/* Socials */}
-            <div className="hidden items-center gap-10 lg:flex">
-              <a
-                href="https://www.instagram.com/waerebolodge.official"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xl font-semibold text-[#9B9529] transition-opacity hover:opacity-80"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://www.tiktok.com/@waerebolodge.official"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xl font-semibold text-[#9B9529] transition-opacity hover:opacity-80"
-              >
-                Tik Tok
-              </a>
             </div>
           </div>
         </div>
@@ -140,7 +120,7 @@ export default function ContactSection() {
           {/* Large tile — destination slider (45s), click → destination page */}
           <Link
             href={`/destination/${destinationSlides[activeDestination].slug}`}
-            className="group relative block h-[140px] w-full overflow-hidden rounded-xl shadow-sm sm:h-72 sm:rounded-[20px] lg:h-auto lg:flex-1"
+            className="group relative block h-[140px] w-full overflow-hidden rounded-2xl shadow-2xl sm:h-72 lg:h-auto lg:flex-1"
           >
             {destinationSlides.map((slide, index) => (
               <span key={slide.slug} className="absolute inset-0">
@@ -181,7 +161,7 @@ export default function ContactSection() {
           <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:w-[584px] lg:flex-shrink-0">
             <Link
               href="/trips"
-              className="group relative flex h-[100px] flex-col justify-end gap-0.5 overflow-hidden rounded-xl bg-neutral-800 p-3 sm:h-[200px] sm:rounded-[20px] sm:p-5"
+              className="group relative flex h-[100px] flex-col justify-end gap-0.5 overflow-hidden rounded-2xl bg-neutral-800 p-3 shadow-2xl sm:h-[200px] sm:p-5"
             >
               <IoArrowUpOutline
                 size={20}
@@ -197,7 +177,7 @@ export default function ContactSection() {
 
             <Link
               href="/trips"
-              className="group relative h-[100px] overflow-hidden rounded-xl sm:h-[200px] sm:rounded-[20px]"
+              className="group relative h-[100px] overflow-hidden rounded-2xl shadow-2xl sm:h-[200px]"
             >
               <Image
                 src="/homepage/Homepage-Footer-Waerebo-Lodge-Trip-Desktop.webp"
@@ -221,7 +201,7 @@ export default function ContactSection() {
 
             <Link
               href="/lodge"
-              className="group relative h-[100px] overflow-hidden rounded-xl sm:h-[200px] sm:rounded-[20px]"
+              className="group relative h-[100px] overflow-hidden rounded-2xl shadow-2xl sm:h-[200px]"
             >
               {lodgeThumbnailSlides.map((slide, index) => (
                 <Image
@@ -245,7 +225,7 @@ export default function ContactSection() {
               href="https://www.google.com/maps/@-8.8465902,120.3055812,17z"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative h-[100px] overflow-hidden rounded-xl sm:h-[200px] sm:rounded-[20px]"
+              className="group relative h-[100px] overflow-hidden rounded-2xl sm:h-[200px]"
             >
               <Image
                 src="/homepage/Homepage-Footer-Waerebo-Lodge-Location-Desktop.webp"
@@ -273,39 +253,9 @@ export default function ContactSection() {
             </a>
           </div>
         </div>
-        <div className="mt-8 flex items-center justify-between gap-5 lg:hidden">
-          <p className="max-w-[150px] text-xs leading-snug font-semibold text-savana-700">
-            Follow us to get more updates &amp; information!
-          </p>
-          <div className="flex gap-2">
-            <a
-              href="https://www.youtube.com/@WaereboLodge"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800"
-            >
-              <IoLogoYoutube size={19} />
-            </a>
-            <a
-              href="https://www.instagram.com/waerebolodge.official"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800"
-            >
-              <IoLogoInstagram size={19} />
-            </a>
-            <a
-              href="https://www.tiktok.com/@waerebolodge.official"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="TikTok"
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800"
-            >
-              <IoLogoTiktok size={18} />
-            </a>
-          </div>
+        <div className="mt-8 flex items-center justify-between gap-5  ">
+        
+          
         </div>
       </div>
     </section>

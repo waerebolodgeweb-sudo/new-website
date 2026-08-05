@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import type { Swiper as SwiperClass } from "swiper";
-import { A11y, Autoplay } from "swiper/modules";
+import { A11y } from "swiper/modules";
 import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import { useLang } from "@/lib/i18n";
 import "swiper/css";
@@ -12,6 +12,7 @@ import "swiper/css";
 const DESKTOP_BREAKPOINT = 1280;
 const DESKTOP_DURATION = 15_000;
 const MOBILE_DURATION = 6_000;
+const PROGRESS_STEPS = 4;
 
 const testimonials = [
   {
@@ -114,7 +115,7 @@ const testimonials = [
 
 function ReviewCard({ review }: { review: (typeof testimonials)[number] }) {
   return (
-    <article className="flex h-[370px] min-w-0 flex-col rounded-[28px] bg-black/45 p-5 text-white backdrop-blur-[6px] xl:h-[365px] xl:rounded-[30px]">
+    <article className="flex h-[370px] min-w-0 flex-col rounded-[28px] bg-black/45 p-5 text-white backdrop-blur-[6px] xl:h-[380px] xl:rounded-[30px]">
       <div className="flex items-start justify-between gap-4">
         <div className="relative size-[60px] shrink-0 overflow-hidden rounded-full bg-white">
           <Image
@@ -136,18 +137,18 @@ function ReviewCard({ review }: { review: (typeof testimonials)[number] }) {
         </p>
       </div>
 
-      <div className="mt-10 xl:mt-11">
+      <div className="mt-3 xl:mt-4">
         <h3 className="text-[20px] leading-[1.35] font-semibold">
           {review.name}
         </h3>
-        <blockquote className="relative mt-2 pl-4 text-[16px] leading-[1.5] font-normal text-white/85">
+        <blockquote className="text-white/85text-[16px] relative mt-2 pl-4 leading-[1.5] font-normal">
           <span
             aria-hidden="true"
-            className="absolute top-[-4px] left-0 text-[26px] leading-none font-semibold text-white"
+            className="absolute top-[-4px] left-0 leading-none font-semibold text-[26spx] text-white"
           >
             “
           </span>
-          {review.text}
+          <span className="text-sm md:text-base">{review.text}</span>
           <span
             aria-hidden="true"
             className="ml-1 inline-block translate-y-1 text-[26px] leading-none font-semibold text-white"
@@ -162,60 +163,34 @@ function ReviewCard({ review }: { review: (typeof testimonials)[number] }) {
 
 export default function ReviewsSection() {
   const [isDesktop, setIsDesktop] = useState(false);
-  const [activeGroup, setActiveGroup] = useState(0);
+  const [activeReview, setActiveReview] = useState(0);
   const [progressCycle, setProgressCycle] = useState(0);
   const swiperRef = useRef<SwiperRef>(null);
-  const restartTimerRef = useRef<number | null>(null);
-  const advanceGuardRef = useRef(false);
   const { t } = useLang();
   const autoplayDuration = isDesktop ? DESKTOP_DURATION : MOBILE_DURATION;
-  const reviewsPerGroup = isDesktop ? 4 : 1;
-  const totalGroups = Math.ceil(testimonials.length / reviewsPerGroup);
+  const activeProgress = activeReview % PROGRESS_STEPS;
+  const progressPageStart =
+    Math.floor(activeReview / PROGRESS_STEPS) * PROGRESS_STEPS;
 
-  const restartAfterTransition = (
-    swiper: SwiperClass,
-    delay = (swiper.params.speed ?? 700) + 50
-  ) => {
-    advanceGuardRef.current = true;
+  const goToReview = (swiper: SwiperClass, reviewIndex: number) => {
+    const normalizedIndex =
+      (reviewIndex + testimonials.length) % testimonials.length;
 
-    if (restartTimerRef.current) {
-      window.clearTimeout(restartTimerRef.current);
-    }
-
-    swiper.autoplay.stop();
-
-    restartTimerRef.current = window.setTimeout(() => {
-      if (!swiper.destroyed) {
-        advanceGuardRef.current = false;
-        swiper.autoplay.start();
-        swiper.autoplay.resume();
-      }
-      restartTimerRef.current = null;
-    }, delay);
-  };
-
-  const goToGroup = (swiper: SwiperClass, groupIndex: number) => {
-    const normalizedGroup = (groupIndex + totalGroups) % totalGroups;
-
-    swiper.autoplay.stop();
-    swiper.slideToLoop(normalizedGroup * reviewsPerGroup, 0, true, true);
-    setActiveGroup(normalizedGroup);
+    swiper.slideToLoop(normalizedIndex, swiper.params.speed, true, true);
+    setActiveReview(normalizedIndex);
     setProgressCycle((cycle) => cycle + 1);
-    restartAfterTransition(swiper, 0);
   };
 
   const prev = () => {
     const swiper = swiperRef.current?.swiper;
     if (!swiper) return;
-    const currentGroup = Math.floor(swiper.realIndex / reviewsPerGroup);
-    goToGroup(swiper, currentGroup - 1);
+    goToReview(swiper, swiper.realIndex - 1);
   };
 
   const next = () => {
     const swiper = swiperRef.current?.swiper;
     if (!swiper) return;
-    const currentGroup = Math.floor(swiper.realIndex / reviewsPerGroup);
-    goToGroup(swiper, currentGroup + 1);
+    goToReview(swiper, swiper.realIndex + 1);
   };
 
   const handlePaginationClick = (
@@ -224,58 +199,36 @@ export default function ReviewsSection() {
     const swiper = swiperRef.current?.swiper;
     if (!swiper) return;
 
-    const groupIndex = Number(event.currentTarget.dataset.groupIndex);
-    goToGroup(swiper, groupIndex);
-  };
-
-  const handleAutoplayProgress = (
-    swiper: SwiperClass,
-    _timeLeft: number,
-    percentage: number
-  ) => {
-    if (
-      percentage <= 0.001 &&
-      swiper.autoplay.running &&
-      !advanceGuardRef.current
-    ) {
-      advanceGuardRef.current = true;
-      const currentGroup = Math.floor(swiper.realIndex / reviewsPerGroup);
-      goToGroup(swiper, currentGroup + 1);
-    }
-  };
-
-  const ensureAutoplay = (swiper: SwiperClass) => {
-    if (!swiper.autoplay.running) swiper.autoplay.start();
+    const progressIndex = Number(event.currentTarget.dataset.progressIndex);
+    const currentPageStart =
+      Math.floor(swiper.realIndex / PROGRESS_STEPS) * PROGRESS_STEPS;
+    goToReview(swiper, currentPageStart + progressIndex);
   };
 
   const handleRealIndexChange = (swiper: SwiperClass) => {
-    setActiveGroup(Math.floor(swiper.realIndex / reviewsPerGroup));
+    setActiveReview(swiper.realIndex);
     setProgressCycle((cycle) => cycle + 1);
   };
 
-  const handleTouchStart = (swiper: SwiperClass) => {
-    swiper.autoplay.stop();
+  const handleTouchStart = () => {
+    setProgressCycle((cycle) => cycle + 1);
   };
 
-  const handleTouchEnd = (swiper: SwiperClass) => {
-    restartAfterTransition(swiper);
+  const handleProgressComplete = () => {
+    const swiper = swiperRef.current?.swiper;
+    if (!swiper) return;
+    goToReview(swiper, swiper.realIndex + 1);
   };
 
   useEffect(() => {
     const query = window.matchMedia(`(min-width: ${DESKTOP_BREAKPOINT}px)`);
     const syncMode = () => {
       setIsDesktop(query.matches);
-      setActiveGroup(0);
     };
 
     syncMode();
     query.addEventListener("change", syncMode);
-    return () => {
-      query.removeEventListener("change", syncMode);
-      if (restartTimerRef.current) {
-        window.clearTimeout(restartTimerRef.current);
-      }
-    };
+    return () => query.removeEventListener("change", syncMode);
   }, []);
 
   return (
@@ -283,15 +236,15 @@ export default function ReviewsSection() {
       id="reviews"
       className="scroll-mt-20 bg-savana-050 py-12 lg:scroll-mt-24 lg:py-24"
     >
-      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-10 xl:px-20">
-        <div className="relative aspect-[1179/2352] overflow-hidden xl:aspect-[2784/1530] xl:overflow-visible">
+      <div className="mx-auto max-w-[1512px] sm:px-6 lg:px-10 xl:px-20">
+        <div className="relative aspect-[1179/2400] overflow-hidden sm:aspect-auto sm:h-[720px] xl:aspect-[2784/1830] xl:h-auto xl:overflow-visible">
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
             alt=""
             fill
             priority={false}
-            sizes="(min-width: 1280px) 1352px, 0px"
-            className="hidden object-fill xl:block"
+            sizes="(min-width: 1280px) 1352px, (min-width: 640px) calc(100vw - 48px), 0px"
+            className="hidden object-fill sm:block"
           />
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Mobile.webp"
@@ -299,7 +252,7 @@ export default function ReviewsSection() {
             fill
             priority={false}
             sizes="(min-width: 640px) 560px, calc(100vw - 32px)"
-            className="object-fill xl:hidden"
+            className="object-fill sm:hidden"
           />
 
           <div className="absolute inset-0 z-10 flex flex-col px-[6%] pt-[7%] pb-[9%] xl:px-[4.5%] xl:pt-[5.5%] xl:pb-[12%]">
@@ -338,31 +291,32 @@ export default function ReviewsSection() {
               role="tablist"
               aria-label="Choose a review slide"
             >
-              {Array.from({ length: totalGroups }, (_, groupIndex) => (
+              {Array.from({ length: PROGRESS_STEPS }, (_, progressIndex) => (
                 <button
-                  key={`${reviewsPerGroup}-${groupIndex}`}
+                  key={progressIndex}
                   type="button"
                   role="tab"
-                  data-group-index={groupIndex}
-                  aria-selected={activeGroup === groupIndex}
-                  aria-label={`Show review slide ${groupIndex + 1}`}
+                  data-progress-index={progressIndex}
+                  aria-selected={activeProgress === progressIndex}
+                  aria-label={`Show review ${progressPageStart + progressIndex + 1}`}
                   onClick={handlePaginationClick}
                   className={`reviews-pagination-bullet ${
-                    groupIndex < activeGroup
+                    progressIndex < activeProgress
                       ? "is-complete"
-                      : groupIndex === activeGroup
+                      : progressIndex === activeProgress
                         ? "is-active"
                         : ""
                   }`}
                 >
                   <span className="reviews-pagination-track">
-                    {groupIndex < activeGroup && (
+                    {progressIndex < activeProgress && (
                       <span className="reviews-pagination-fill is-complete" />
                     )}
-                    {groupIndex === activeGroup && (
+                    {progressIndex === activeProgress && (
                       <span
-                        key={`${reviewsPerGroup}-${activeGroup}-${progressCycle}`}
+                        key={`${activeReview}-${progressCycle}`}
                         className="reviews-pagination-fill"
+                        onAnimationEnd={handleProgressComplete}
                         style={{
                           animationName: "review-pagination-progress",
                           animationDuration: `${autoplayDuration}ms`,
@@ -381,19 +335,23 @@ export default function ReviewsSection() {
               <Swiper
                 key={isDesktop ? "reviews-desktop" : "reviews-mobile"}
                 ref={swiperRef}
-                modules={[Autoplay, A11y]}
-                slidesPerView={isDesktop ? 4 : 1}
-                slidesPerGroup={isDesktop ? 4 : 1}
-                spaceBetween={isDesktop ? 28 : 20}
+                modules={[A11y]}
+                initialSlide={activeReview}
+                slidesPerView={1}
+                slidesPerGroup={1}
+                spaceBetween={20}
+                breakpoints={{
+                  640: { slidesPerView: 2, spaceBetween: 20 },
+                  768: { slidesPerView: 2.5, spaceBetween: 22 },
+                  1024: { slidesPerView: 3, spaceBetween: 24 },
+                  1200: { slidesPerView: 3.5, spaceBetween: 26 },
+                  1400: { slidesPerView: 4, spaceBetween: 28 },
+                }}
                 loop
+                loopAdditionalSlides={4}
                 grabCursor
                 speed={700}
                 threshold={8}
-                autoplay={{
-                  delay: autoplayDuration,
-                  disableOnInteraction: false,
-                  waitForTransition: false,
-                }}
                 a11y={{
                   enabled: true,
                   containerMessage: "Traveler reviews",
@@ -401,11 +359,8 @@ export default function ReviewsSection() {
                   itemRoleDescriptionMessage: "review",
                   paginationBulletMessage: "Show review slide {{index}}",
                 }}
-                onSwiper={ensureAutoplay}
-                onAutoplayTimeLeft={handleAutoplayProgress}
                 onRealIndexChange={handleRealIndexChange}
                 onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
                 className="review-swiper h-full w-full"
               >
                 {testimonials.map((review) => (

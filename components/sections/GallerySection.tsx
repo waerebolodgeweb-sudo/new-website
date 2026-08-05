@@ -225,7 +225,7 @@ export default function GallerySection() {
                   onClick={handlePaginationClick}
                   aria-label={`Show moment ${i + 1}`}
                   aria-current={i === current ? "true" : undefined}
-                  className="h-1 flex-1 overflow-hidden rounded-full bg-white/30 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                  className="h-1 flex-1 overflow-hidden rounded-full bg-white/30 focus-visible:border-2 focus-visible:border-white focus-visible:outline-none"
                 >
                   <span
                     className={`block h-full rounded-full bg-white transition-[width] duration-500 motion-reduce:transition-none ${
@@ -289,11 +289,11 @@ export default function GallerySection() {
                         className="group block w-full text-left focus-visible:outline-none"
                       >
                         <span
-                          className={`relative block h-[280px] w-full overflow-hidden rounded-[16px] bg-black/25 transition-[box-shadow] duration-500 motion-reduce:transition-none sm:h-[320px] ${
+                          className={`relative block h-[280px] w-full overflow-hidden rounded-[24px] bg-black/25 transition-[box-shadow] duration-500 motion-reduce:transition-none sm:h-[320px] ${
                             isActive
-                              ? "ring-2 ring-white"
-                              : "ring-0 ring-transparent"
-                          } group-focus-visible:ring-2 group-focus-visible:ring-white`}
+                              ? "border-2 border-white"
+                              : "border-0 border-transparent"
+                          } group-focus-visible:border-2 group-focus-visible:border-white`}
                         >
                           <Image
                             src={item.src}

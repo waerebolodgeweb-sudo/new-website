@@ -2,32 +2,98 @@
 
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
+import { IoLogoInstagram, IoLogoTiktok, IoLogoYoutube } from "react-icons/io5";
 
 export default function Footer() {
   const { t } = useLang();
 
   return (
-    <footer className="bg-white pb-5 sm:bg-neutral-050 sm:pb-8">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-20">
-        <div className="flex flex-col items-center justify-between gap-3 py-5 sm:flex-row sm:gap-4 sm:border-t sm:border-black/10 sm:py-6">
-          <p className="order-2 text-[11px] font-medium text-neutral-400 sm:order-1 sm:text-base">
+    <footer className="bg-white pb-5 sm:pb-8">
+      <div className="mx-auto flex max-w-7xl flex-row items-center justify-between px-5 sm:px-8 lg:px-20">
+        <p className="block text-xs text-savana-800 lg:hidden">
+          Follow us to get more updates & information!
+        </p>
+        <div className="hidden flex-col-reverse items-center gap-3 py-5 sm:flex-row sm:gap-4 sm:py-6 lg:flex">
+          <div className="text-[11px] font-medium text-neutral-400 sm:text-base">
             &copy;{new Date().getFullYear()} Waerebo Lodge. {t("footer.rights")}
-          </p>
-          <div className="order-1 flex items-center gap-5 sm:order-2">
-            <Link
-              href="/terms"
-              className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
-            >
-              {t("footer.terms")}
-            </Link>
-            <span className="h-3 w-px bg-black/20 sm:h-4" />
-            <Link
-              href="/privacy"
-              className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
-            >
-              {t("footer.privacy")}
-            </Link>
           </div>
+          <span className="h-3 w-px bg-black/20 sm:h-4" />
+
+          <Link
+            href="/terms"
+            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+          >
+            {t("footer.terms")}
+          </Link>
+          <span className="h-3 w-px bg-black/20 sm:h-4" />
+          <Link
+            href="/privacy"
+            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+          >
+            {t("footer.privacy")}
+          </Link>
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center gap-2 font-semibold text-savana-600">
+            <a
+              href="https://www.youtube.com/@WaereboLodge"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800 lg:text-savana-600"
+            >
+              <IoLogoYoutube size={19} />
+            </a>
+            <p className="hidden lg:block">Youtube</p>
+          </div>
+          <span className="ml-2 hidden h-3 w-px bg-black/20 sm:h-4 lg:block" />
+          <div className="flex flex-row items-center gap-2 font-semibold text-savana-600">
+            <a
+              href="https://www.instagram.com/waerebolodge.official"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800 lg:text-savana-600"
+            >
+              <IoLogoInstagram size={19} />
+            </a>
+            <p className="hidden lg:block">Instagram</p>
+          </div>
+
+          <span className="h -3 ml-2 hidden w-px bg-black/20 sm:h-4 lg:block" />
+          <div className="flex flex-row items-center gap-2 font-semibold text-savana-600">
+            <a
+              href="https://www.tiktok.com/@waerebolodge.official"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800 lg:text-savana-600"
+            >
+              <IoLogoTiktok size={18} />
+            </a>
+            <p className="hidden lg:block">TikTok</p>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col-reverse items-center gap-3 py-5 sm:gap-4 sm:py-6 lg:hidden lg:flex-row">
+        <div className="text-[11px] font-medium text-neutral-400 sm:text-base">
+          &copy;{new Date().getFullYear()} Waerebo Lodge. {t("footer.rights")}
+        </div>
+
+        <div className="flex w-full flex-row items-center justify-around gap-2">
+          <Link
+            href="/terms"
+            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+          >
+            {t("footer.terms")}
+          </Link>
+          <span className="h-3 w-px bg-black/20 sm:h-4" />
+          <Link
+            href="/privacy"
+            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+          >
+            {t("footer.privacy")}
+          </Link>
         </div>
       </div>
     </footer>

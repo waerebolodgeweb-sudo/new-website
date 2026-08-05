@@ -159,17 +159,31 @@ export default function HeroSection() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-      <div className="relative z-10 mx-auto w-full px-4 pt-24 pb-16 sm:px-6 lg:px-8 lg:py-28">
-        <h1 className="max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-          {t("hero.line1")}
-          <br />
-          {t("hero.line2")}
-          <br />
-          {t("hero.line3")}
-        </h1>
-        <p className="mt-5 max-w-md text-sm leading-relaxed font-normal text-white/75 lg:text-base">
-          {t("hero.subtitle")}
-        </p>
+      <div className="relative z-20 mx-auto w-full px-4 pt-24 pb-16 sm:px-6 lg:px-8 lg:py-28">
+        <div
+          aria-hidden="true"
+          className="absolute top-0 bottom-0 left-0 -mt-24 hidden h-[calc(100vh-86px)] w-[660px] md:block"
+          style={{
+            background:
+              "linear-gradient(270deg, rgba(16, 19, 19, 0) 0%, rgba(16, 19, 19, 0.5) 100%)",
+            backdropFilter: "blur(0px)",
+            WebkitBackdropFilter: "blur(0px)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div className="relative z-20">
+          <h1 className="max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+            {t("hero.line1")}
+            <br />
+            {t("hero.line2")}
+            <br />
+            {t("hero.line3")}
+          </h1>
+          <p className="mt-5 max-w-md text-sm leading-relaxed font-normal text-white/75 lg:text-base">
+            {t("hero.subtitle")}
+          </p>
+        </div>
         <div className="mt-8 flex w-full max-w-[220px] items-center gap-2">
           {videos.map((video, index) => (
             <button

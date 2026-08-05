@@ -127,7 +127,14 @@ export default function ServicesSection() {
                             alt={t(`services.${id}.label`)}
                             fill
                             sizes="(min-width: 1024px) 180px, 100vw"
-                            className="object-cover"
+                            className="hidden object-cover sm:block"
+                          />
+                          <Image
+                            src={serviceHeroImages[open].mobile}
+                            alt={t(`services.${id}.label`)}
+                            fill
+                            sizes="(min-width: 1024px) 180px, 100vw"
+                            className="block object-cover md:hidden"
                           />
                         </div>
                       </div>
@@ -137,7 +144,7 @@ export default function ServicesSection() {
               })}
             </div>
 
-            <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-[0_18px_38px_rgba(38,35,22,0.16)] lg:h-[486px]">
+            <div className="relative hidden h-80 w-full overflow-hidden rounded-3xl shadow-[0_18px_38px_rgba(38,35,22,0.16)] md:block lg:h-[486px]">
               <Image
                 key={`${open}-desktop`}
                 src={serviceHeroImages[open].desktop}

@@ -182,6 +182,11 @@ const dict: Record<Lang, Record<string, string>> = {
       "Two single beds cooled by a fan, with a private bathroom featuring a shower and traditional bucket bath. Simple, clean, and everything you need before your ascent.",
     "journeys.restaurant.desc":
       "Enjoy meals prepared directly for your adventure, including breakfast and dinner at the lodge. We also provide practical lunch boxes for your trekking journey and authentic Waerebo coffee to complete your cultural experience.",
+    "journeys.restaurant.meals": "We prepare for Breakfast, Lunch, and Dinner",
+    "journeys.restaurant.personalized":
+      "Request personalized food, for example like vegetarian menu",
+    "journeys.restaurant.included":
+      "Certain meals are included with your room reservation.",
     "journeys.transport.oto.desc":
       "For larger groups or travelers looking for a more authentic local experience, we also offer the OTO COLT a traditional Flores transport vehicle that has been part of daily life in the region for generations. With capacity for up to 20 passengers, it is perfect for groups.",
     "journeys.transport.innova.desc":
@@ -709,6 +714,12 @@ const dict: Record<Lang, Record<string, string>> = {
       "Dua kasur tunggal dengan kipas angin dan kamar mandi pribadi — shower dan bak mandi tradisional. Sederhana, bersih, dan semua yang Anda butuhkan sebelum pendakian.",
     "journeys.restaurant.desc":
       "Nikmati hidangan yang disiapkan langsung untuk perjalanan Anda, termasuk sarapan dan makan malam di lodge. Kami juga menyediakan kotak makan siang praktis untuk trekking dan kopi Waerebo autentik untuk melengkapi pengalaman budaya Anda.",
+    "journeys.restaurant.meals":
+      "Kami menyiapkan sarapan, makan siang, dan makan malam",
+    "journeys.restaurant.personalized":
+      "Minta menu khusus, misalnya menu vegetarian",
+    "journeys.restaurant.included":
+      "Hidangan tertentu sudah termasuk dalam reservasi kamar Anda.",
     "journeys.transport.oto.desc":
       "Untuk rombongan besar atau wisatawan yang ingin pengalaman lokal yang lebih autentik, kami menyediakan OTO COLT, kendaraan tradisional Flores yang telah menjadi bagian dari kehidupan sehari-hari di wilayah ini. Dengan kapasitas hingga 20 penumpang, kendaraan ini cocok untuk rombongan.",
     "journeys.transport.innova.desc":

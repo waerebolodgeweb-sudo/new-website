@@ -556,37 +556,25 @@ function RestaurantPreview() {
   };
 
   return (
-    <div className="relative">
-      <SliderArrow
-        direction="previous"
-        onClick={goToPrevious}
-        label="Previous restaurant image"
-      />
-      <SliderArrow
-        direction="next"
-        onClick={goToNext}
-        label="Next restaurant image"
-      />
-
-      <article className="overflow-hidden rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)] lg:rounded-[32px]">
-        <div className="flex flex-col-reverse gap-3 lg:min-h-[460px] lg:flex-row">
-          <div className="flex flex-col justify-center px-4 py-5 lg:px-8 lg:py-10">
-            <h3 className="text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
+    <div>
+      <article className="overflow-hidden rounded-2xl bg-white p-3 shadow-[0_8px_18px_rgba(38,35,22,0.14)]">
+        <div className="flex flex-col-reverse gap-3 lg:min-h-[436px] lg:flex-row lg:items-stretch">
+          <div className="flex flex-col justify-center px-4 py-5 lg:w-[38%] lg:px-5 lg:py-8 xl:px-7">
+            <h3 className="text-xl leading-tight font-semibold text-savana-800 md:text-2xl">
               Waerebo Lodge Restaurant
             </h3>
-            <p className="mt-3 max-w-md text-sm leading-6 font-normal text-pale-savana-400 lg:mt-4 lg:text-lg lg:leading-7">
+            <p className="mt-3 max-w-md text-sm leading-5 font-normal text-pale-savana-400 md:leading-6">
               {t("journeys.restaurant.desc")}
             </p>
-            <Link
-              href="/restaurant"
-              className="mt-6 flex min-h-12 w-full max-w-[430px] items-center justify-center rounded-xl bg-savana-800 px-5 text-base font-medium text-white transition-colors hover:bg-savana-700 lg:mt-auto lg:min-h-14 lg:text-lg"
-            >
-              {t("journeys.seeRestaurantDetails")}
-            </Link>
+            <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-5 font-normal text-pale-savana-400 marker:text-savana-800 md:leading-6">
+              <li>{t("journeys.restaurant.meals")}</li>
+              <li>{t("journeys.restaurant.personalized")}</li>
+              <li>{t("journeys.restaurant.included")}</li>
+            </ul>
           </div>
 
           <div
-            className="relative mx-auto aspect-[7/4] w-full touch-pan-y overflow-hidden rounded-[22px] lg:mx-0 lg:min-h-full lg:flex-1 lg:rounded-[24px]"
+            className="relative mx-auto aspect-[7/4] w-full touch-pan-y overflow-hidden rounded-xl lg:mx-0 lg:aspect-auto lg:min-h-full lg:flex-1"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -597,19 +585,45 @@ function RestaurantPreview() {
               className="object-cover object-center"
               sizes="(min-width: 1024px) 60vw, 100vw"
             />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 to-transparent" />
+
+            <button
+              type="button"
+              onClick={goToPrevious}
+              aria-label="Previous restaurant image"
+              className="absolute top-1/2 left-2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-white transition-colors hover:bg-black/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-3"
+            >
+              <IoChevronBack className="h-6 w-6" />
+            </button>
+            <button
+              type="button"
+              onClick={goToNext}
+              aria-label="Next restaurant image"
+              className="absolute top-1/2 right-2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-white transition-colors hover:bg-black/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:right-3"
+            >
+              <IoChevronForward className="h-6 w-6" />
+            </button>
+
+            <div className="absolute inset-x-6 bottom-3 z-10 md:inset-x-10 md:bottom-4">
+              <SliderPagination
+                items={restaurantSliderImages.map((item) => ({ id: item.src }))}
+                activeIndex={activeIndex}
+                onSelect={setActiveIndex}
+                getLabel={(index) => `Show restaurant image ${index + 1}`}
+                duration={duration}
+                tone="light"
+              />
+            </div>
           </div>
         </div>
       </article>
 
-      <div className="mt-7">
-        <SliderPagination
-          items={restaurantSliderImages.map((item) => ({ id: item.src }))}
-          activeIndex={activeIndex}
-          onSelect={setActiveIndex}
-          getLabel={(index) => `Show restaurant image ${index + 1}`}
-          duration={duration}
-        />
-      </div>
+      <Link
+        href="/restaurant"
+        className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-savana-800"
+      >
+        {t("journeys.seeRestaurantDetails")}
+      </Link>
     </div>
   );
 }

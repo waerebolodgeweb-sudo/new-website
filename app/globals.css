@@ -322,7 +322,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .reviews-pagination-fill {
-    animation-duration: 0.01ms !important;
+    animation: none !important;
+    transform: scaleX(1);
   }
 
   .review-swiper .swiper-wrapper {
