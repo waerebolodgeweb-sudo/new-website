@@ -52,34 +52,34 @@ export interface Room {
 
 const baseReviews: RoomReview[] = [
   {
-    name: "Al Gunster",
-    location: "Italy",
+    name: "al Garnier",
+    location: "Date",
     rating: 5,
-    text: "Wonderful place with an amazing view. Rooms are very clean, and perfect for diving right after. The place is the food and the eating place. A kindness of the family is remarkable.",
+    text: "Wonderful place with an amazing view. Rooms are very simple, but perfectly clean with airco. The plus is the food and the atmosphere / kindness of this family-owned place.",
     avatar:
       "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-01-al-Garnier.webp",
   },
   {
-    name: "Julia Kytyluck",
-    location: "Italy",
+    name: "Julia Kyryluck",
+    location: "Date",
     rating: 5,
-    text: "A unique combination of mountains, rice fields and sea. Highly recommended to visit. The owner is a great storyteller!",
+    text: "A unique combination of mountains, rice fields and sea in 1 place! Plus, Martin, the owner, is a great storyteller! Highly recommended to visit :)",
     avatar:
       "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-02-Julia-Kyryluck.webp",
   },
   {
-    name: "Rionn Marvellous",
-    location: "Germany",
+    name: "Flores Marvelous",
+    location: "Date",
     rating: 5,
-    text: "One of the best places to stay before the Waerebo trek - not far from the trailhead and the village.",
+    text: "One Of The Best Place To Staying For Countryside Trip. Not that hard to find the place, the view is great and the rooms are great.",
     avatar:
       "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-03-Flores-Marvelous.webp",
   },
   {
-    name: "Farisa Margiati",
-    location: "Indonesia",
+    name: "Felina Margiati",
+    location: "Date",
     rating: 5,
-    text: "Nicest place. It is the most relaxed lodge before the trek. The staff are super friendly. The lodge is a real gem - a perfect basecamp.",
+    text: "Nice place, it's in the middle of a rice field but at the same time you can see the sea from here. Clean room, staff and owner are friendly. Electricity is out at 10PM, no mobile network, a perfect getaway.",
     avatar:
       "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-04-Felina-Margiati.webp",
   },
@@ -98,27 +98,29 @@ const roomHighlights = (
 
 const roomThumbnail = (fileName: string) => `/lodge/rooms/${fileName}`;
 
+const roomGalleryOrder = [9, 7, 1, 2, 8, 6, 5, 3, 4];
+
 const roomGallery = (folderName: string, filePrefix: string) =>
-  Array.from(
-    { length: 9 },
-    (_, index) =>
-      `/lodge/rooms/${folderName}/${filePrefix}-${String(index + 1).padStart(
+  roomGalleryOrder.map(
+    (imageNumber) =>
+      `/lodge/rooms/${folderName}/${filePrefix}-${String(imageNumber).padStart(
         2,
         "0"
       )}.webp`
   );
 
 const fanFacilities: FacilityKey[] = [
-  "wifi",
   "fan",
-  "shower",
   "westernToilet",
-  "washBasin",
-  "mosquitoNet",
-  "towel",
   "toothbrush",
+  "wifi",
+  "mosquitoNet",
   "soap",
+  "shower",
+  "washBasin",
+  "amenities",
   "parking",
+  "towel",
 ];
 
 const traditionalFacilities: FacilityKey[] = [
@@ -210,7 +212,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-twin-1",
     title: "Traditional Twin Room 4",
-    cardTitle: "Traditional Twin 1",
+    cardTitle: "Wooden Twin 1",
     cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Twin-1-01.webp"),
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
@@ -226,7 +228,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-twin-2",
     title: "Traditional Twin Room 5",
-    cardTitle: "Traditional Twin 2",
+    cardTitle: "Wooden Twin 2",
     cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Twin-2-01.webp"),
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",
@@ -242,7 +244,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-double",
     title: "Traditional Double Room 6",
-    cardTitle: "Traditional Double",
+    cardTitle: "Wooden Double",
     cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Double-01.webp"),
     description:
       "A warm wooden room with a double bed, perfect for couples seeking a more authentic and relaxing Flores experience.",
@@ -258,7 +260,7 @@ export const rooms: Room[] = [
   {
     slug: "wooden-twin-3",
     title: "Traditional Twin Room 7",
-    cardTitle: "Traditional Twin 3",
+    cardTitle: "Wooden Twin 3",
     cardImage: roomThumbnail("Waerebo-Lodge-Room-Traditional-Twin-3-01.webp"),
     description:
       "Stay in a charming wooden room that reflects the traditional character of rural Flores. Equipped with twin beds and a private bathroom, offering an authentic lodge experience.",

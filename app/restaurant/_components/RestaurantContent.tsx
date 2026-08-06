@@ -91,8 +91,8 @@ export default function RestaurantContent() {
           </div>
 
           <div className="mt-6 flex w-full flex-col gap-6 md:flex-row">
-            <div className="grid rounded-[36px] border-white bg-white shadow-xl shadow-black/10 md:w-2/3 lg:grid-cols-2">
-              <div className="relative min-h-[250px] overflow-hidden rounded-[28px] border-[8px] border-white bg-white">
+            <div className="grid rounded-[36px] border-white bg-white p-2 shadow-xl shadow-black/10 md:w-2/3 lg:grid-cols-2">
+              <div className="relative min-h-[250px] overflow-hidden rounded-t-[28px] rounded-l-none rounded-tl-[28px] bg-white lg:rounded-t-none lg:rounded-l-[28px]">
                 <Image
                   src="/restaurant/Waerebo-Restaurant-Photo-Eating-Favorite-Food.webp"
                   alt="Fresh fish favourite menu at Waerebo Lodge Restaurant"
@@ -102,7 +102,7 @@ export default function RestaurantContent() {
                 />
               </div>
 
-              <div className="rounded-[32px] border-[8px] border-white bg-savana-200 px-7 py-7">
+              <div className="rounded-r-none rounded-b-[28px] bg-savana-200 px-7 py-7 lg:rounded-r-[28px] lg:rounded-b-none lg:rounded-br-[28px]">
                 <h2 className="text-3xl font-semibold text-savana-800">
                   {t("restaurant.favorite.heading")}
                 </h2>

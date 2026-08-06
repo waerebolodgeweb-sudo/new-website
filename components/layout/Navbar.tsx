@@ -9,12 +9,12 @@ import {
   IoCloseOutline,
   IoChevronDownOutline,
   IoChevronUpOutline,
-  IoArrowUndoOutline,
   IoLogoInstagram,
   IoLogoTiktok,
   IoLogoYoutube,
 } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
+import { ArrowDownRightIcon } from "../icons/new-icons";
 
 type NavLink = {
   key: string;
@@ -82,6 +82,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [currentHash, setCurrentHash] = useState("");
   const pathname = usePathname();
   const { t } = useLang();
 
@@ -99,6 +100,14 @@ export default function Navbar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const updateHash = () => setCurrentHash(window.location.hash);
+
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, [pathname]);
+
   // Transparent only at the very top of pages with a full-bleed hero
   const heroRoutes = ["/", "/trips"];
   const hasHero =
@@ -106,12 +115,29 @@ export default function Navbar() {
   const transparent = hasHero && !scrolled && !open;
   const servicesLink = navLinks.find((link) => link.key === "nav.services");
   const servicePaths = servicesLink?.children?.map((child) => child.href) ?? [];
-  const servicesActive =
-    mobileServicesOpen || servicePaths.some((href) => pathname === href);
 
   const isActivePath = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname === href;
+    const [targetPath, targetHash] = href.split("#");
+
+    if (targetHash) {
+      return pathname === targetPath && currentHash === `#${targetHash}`;
+    }
+
+    if (href === "/") return pathname === "/" && !currentHash;
+    if (href === "/lodge" && pathname.startsWith("/rooms/")) return true;
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  const servicesRouteActive =
+    isActivePath("/#services") || servicePaths.some(isActivePath);
+  const servicesActive = mobileServicesOpen || servicesRouteActive;
+
+  const desktopLinkClass = (active: boolean) => {
+    if (transparent) {
+      return active ? "text-white" : "text-white/70 hover:text-white";
+    }
+
+    return active ? "text-savana-800" : "text-savana-600 hover:text-savana-800";
   };
 
   return (
@@ -146,11 +172,8 @@ export default function Navbar() {
               link.children ? (
                 <div key={link.key} className="group relative">
                   <button
-                    className={`flex items-center gap-1 text-base font-medium transition-colors ${
-                      transparent
-                        ? "text-white hover:text-white/80"
-                        : "text-neutral-300 hover:text-green-400"
-                    }`}
+                    aria-current={servicesRouteActive ? "page" : undefined}
+                    className={`flex items-center gap-1 text-base font-medium transition-colors ${desktopLinkClass(servicesRouteActive)}`}
                   >
                     {t(link.key)}
                     <IoChevronDownOutline
@@ -165,7 +188,14 @@ export default function Navbar() {
                         <Link
                           key={child.key}
                           href={child.href}
-                          className="block px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-pale-green-100/20 hover:text-green-400"
+                          aria-current={
+                            isActivePath(child.href) ? "page" : undefined
+                          }
+                          className={`block px-4 py-2.5 text-sm font-medium transition-colors ${
+                            isActivePath(child.href)
+                              ? "bg-savana-50 text-savana-800"
+                              : "text-savana-600 hover:bg-savana-50 hover:text-savana-800"
+                          }`}
                         >
                           {t(child.key)}
                         </Link>
@@ -177,11 +207,8 @@ export default function Navbar() {
                 <Link
                   key={link.key}
                   href={link.href}
-                  className={`text-base font-medium transition-colors ${
-                    transparent
-                      ? "text-white hover:text-white/80"
-                      : "text-neutral-300 hover:text-green-400"
-                  }`}
+                  aria-current={isActivePath(link.href) ? "page" : undefined}
+                  className={`text-base font-medium transition-colors ${desktopLinkClass(isActivePath(link.href))}`}
                 >
                   {t(link.key)}
                 </Link>
@@ -273,9 +300,9 @@ export default function Navbar() {
                         }`}
                         onClick={() => setOpen(false)}
                       >
-                        <IoArrowUndoOutline
+                        <ArrowDownRightIcon
                           size={14}
-                          className={`-rotate-90 ${
+                          className={`${
                             isActivePath(child.href)
                               ? "text-savana-green-500"
                               : "text-pale-savana-200"

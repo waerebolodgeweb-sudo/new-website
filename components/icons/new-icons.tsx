@@ -33,6 +33,7 @@ export const newIconPaths = {
   toilet: "/icons/Toilet.svg",
   toothbrush: "/icons/Toothbrush.svg",
   "twin-bed": "/icons/TwinBed.svg",
+  towel: "/icons/Towel.svg",
   village: "/icons/Village.svg",
   walk: "/icons/Walk.svg",
   waterfalls: "/icons/Waterfalls.svg",
@@ -138,6 +139,7 @@ export const TissueIcon = createNewIcon("tissue", "TissueIcon");
 export const ToiletIcon = createNewIcon("toilet", "ToiletIcon");
 export const ToothbrushIcon = createNewIcon("toothbrush", "ToothbrushIcon");
 export const TwinBedIcon = createNewIcon("twin-bed", "TwinBedIcon");
+export const TowelIcon = createNewIcon("towel", "TowelIcon");
 export const VillageIcon = createNewIcon("village", "VillageIcon");
 export const WalkIcon = createNewIcon("walk", "WalkIcon");
 export const WaterfallsIcon = createNewIcon("waterfalls", "WaterfallsIcon");

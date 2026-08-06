@@ -43,7 +43,7 @@ export default function StorySection() {
       <div className="mx-auto max-w-[1512px] lg:px-20">
         <div className="lg:hidden">
           <div className="overflow-hidden">
-            <div className="flex w-max min-w-full -translate-x-1/2 flex-row-reverse justify-center gap-3 pl-[50%]">
+            <div className="flex w-max min-w-full flex-row-reverse justify-center gap-3">
               <Image
                 src={desktopPhotos.landscape.src}
                 alt="Flores coastline near Waerebo Lodge"
@@ -51,7 +51,7 @@ export default function StorySection() {
                 height={desktopPhotos.landscape.height}
                 priority
                 sizes="42vw"
-                className="h-[320px] w-auto shrink-0"
+                className="max-h-[400px] min-h-[320px] w-auto shrink-0"
               />
               <Image
                 src={desktopPhotos.lodge.src}
@@ -60,7 +60,7 @@ export default function StorySection() {
                 height={desktopPhotos.lodge.height}
                 priority
                 sizes="75vw"
-                className="h-[320px] w-auto shrink-0"
+                className="max-h-[400px] min-h-[320px] w-auto shrink-0"
               />
             </div>
           </div>

@@ -145,7 +145,7 @@ function ProgramSelector({
               className={`min-h-[86px] flex-none snap-center overflow-hidden rounded-xl px-4 py-3 text-left transition-[width,flex-basis,background-color,color,transform] duration-300 motion-reduce:transition-none lg:min-w-0 ${
                 active
                   ? "w-[250px] bg-white text-savana-800 shadow-[0_5px_8px_rgba(38,35,22,0.16)] sm:w-[280px] lg:w-auto lg:max-w-[280px] lg:flex-[2_1_220px]"
-                  : "w-[180px] max-w-[180px] bg-white/92 text-pale-savana-300 shadow-sm hover:-translate-y-0.5 hover:bg-white lg:w-auto lg:flex-[1_1_140px]"
+                  : "w-[180px] max-w-[180px] bg-white/92 text-savana-800 shadow-sm hover:-translate-y-0.5 hover:bg-white lg:w-auto lg:flex-[1_1_140px]"
               }`}
             >
               <span className="mb-1 block truncate text-[14px] text-savana-700 italic">
@@ -177,9 +177,7 @@ function SummaryItemIcon({ icon }: { icon: SummaryIcon }) {
     return <IoCar aria-hidden="true" size={24} className="flex-none" />;
   }
   if (icon === "calendar") {
-    return (
-      <IoCalendarClear aria-hidden="true" size={24} className="flex-none" />
-    );
+    return <IoCalendar aria-hidden="true" size={24} className="flex-none" />;
   }
 
   return (
@@ -255,7 +253,7 @@ function SummaryList({ program }: { program: TripProgram }) {
               {item.title}
             </h3>
             {item.description && (
-              <p className="mt-0.5 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm">
+              <p className="mt-0.5 text-[11px] leading-relaxed text-savana-800 sm:text-sm">
                 {item.description}
               </p>
             )}
@@ -272,7 +270,7 @@ function BulletList({ items }: { items: string[] }) {
       {items.map((item) => (
         <li
           key={item}
-          className="flex gap-3 text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm"
+          className="flex gap-3 text-[11px] leading-relaxed text-savana-800 sm:text-sm"
         >
           <NewIcon
             aria-hidden="true"
@@ -293,7 +291,7 @@ function ParagraphList({ items }: { items: string[] }) {
       {items.map((item) => (
         <p
           key={item}
-          className="max-w-[72ch] text-[11px] leading-relaxed text-pale-savana-300 sm:text-sm"
+          className="max-w-[72ch] text-[11px] leading-relaxed text-savana-800 sm:text-sm"
         >
           {item}
         </p>
@@ -624,7 +622,7 @@ function TripOverview({ program }: { program: TripProgram }) {
           <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
             Trip Summary
           </h2>
-          <p className="mt-3 max-w-[65ch] text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+          <p className="mt-3 max-w-[65ch] text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
             {program.overview}
           </p>
           <SummaryList program={program} />
@@ -651,7 +649,7 @@ function TripOverview({ program }: { program: TripProgram }) {
           </h2>
           <InfoCards cards={program.accommodation} variant="accommodation" />
           {program.accommodationReminder && (
-            <p className="mt-3 text-[10px] leading-relaxed text-pale-savana-400 sm:text-xs">
+            <p className="mt-3 text-[10px] leading-relaxed text-savana-800 sm:text-xs">
               <span className="font-semibold text-red-500">*Reminder:</span>{" "}
               {program.accommodationReminder}
             </p>
@@ -735,17 +733,17 @@ function Itinerary({ program }: { program: TripProgram }) {
                   className="mb-7 scroll-mt-28 sm:mb-10 lg:mb-12"
                 >
                   <div className="flex items-center gap-3 lg:hidden">
-                    <span className="text-xs font-semibold text-savana-500 sm:text-sm">
-                      Journey {dayLabel}
+                    <span className="text-xl font-semibold text-savana-800">
+                      Itinerary {dayLabel}
                     </span>
-                    <span className="h-px flex-1 bg-savana-200" />
+                    {/* <span className="h-px flex-1 bg-savana-200" /> */}
                   </div>
                   {route && (
                     <>
-                      <p className="hidden text-xs font-semibold text-savana-500 lg:block">
+                      <p className="hidden text-xl font-semibold text-savana-800 lg:block">
                         Itinerary {dayLabel}
                       </p>
-                      <h3 className="mt-1 text-lg font-bold text-savana-800 sm:text-xl lg:text-2xl">
+                      <h3 className="mt-1 text-[28px] font-bold text-savana-800 lg:text-[32px]">
                         {route}
                       </h3>
                     </>
@@ -774,7 +772,7 @@ function Itinerary({ program }: { program: TripProgram }) {
                     {stop.title}
                   </h3>
                   <StopMeta meta={stop.meta} />
-                  <p className="mt-3 max-w-[60ch] text-sm leading-[1.7] whitespace-pre-line text-pale-savana-300">
+                  <p className="mt-3 max-w-[60ch] text-sm leading-[1.7] whitespace-pre-line text-savana-800">
                     {stop.description}
                   </p>
                 </div>
@@ -801,7 +799,7 @@ function CustomItinerary() {
         <h2 className="text-[25px] leading-[1.08] font-bold tracking-[-0.03em] text-savana-800 sm:text-4xl">
           Looking for a more flexible trip?
         </h2>
-        <p className="mt-4 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+        <p className="mt-4 text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
           We can help you create a private itinerary based on your travel dates,
           group size, interests, and preferred pace. Whether you want to combine
           Waerebo with waterfalls, rice fields, local villages, island trips, or
@@ -843,7 +841,7 @@ function CustomItinerary() {
         <h2 className="text-[21px] font-bold text-savana-800 sm:text-3xl">
           Travelers Notes
         </h2>
-        <p className="mt-2 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+        <p className="mt-2 text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
           As this is a fully customized journey, the physical requirements and
           available facilities will depend on your final itinerary. However,
           travel to Waerebo and the surrounding Flores regions generally
@@ -851,7 +849,7 @@ function CustomItinerary() {
           mountain chill), and basic village infrastructure with limited
           electricity.
         </p>
-        <p className="mt-4 text-[11px] leading-[1.75] text-pale-savana-300 sm:text-sm">
+        <p className="mt-4 text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
           We recommend versatile clothing, comfortable walking or trekking
           shoes, a flashlight, sun protection, light rain gear, and personal
           essentials. Our team will provide a specific, detailed packing list
@@ -883,7 +881,7 @@ function CustomItinerary() {
 
 function TripDetails({ program }: { program: TripProgram }) {
   return (
-    <div className="mx-auto flex max-w-[1224px] flex-row gap-[68px] lg:px-0 lg:pt-16">
+    <div className="mx-auto flex max-w-[1224px] flex-row gap-[68px] lg:px-4 lg:pt-16">
       <TripSidebar program={program} />
       <div className="min-w-0 flex-1">
         <TripOverview program={program} />

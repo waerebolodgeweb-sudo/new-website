@@ -160,7 +160,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
       <div className="relative z-20 mx-auto w-full px-4 pt-24 pb-16 sm:px-6 lg:px-8 lg:py-28">
-        <div
+        {/* <div
           aria-hidden="true"
           className="absolute top-0 bottom-0 left-0 -mt-24 hidden h-[calc(100vh-86px)] w-[660px] md:block"
           style={{
@@ -170,7 +170,7 @@ export default function HeroSection() {
             WebkitBackdropFilter: "blur(0px)",
             pointerEvents: "none",
           }}
-        />
+        /> */}
 
         <div className="relative z-20">
           <h1 className="max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:text-6xl xl:text-7xl">

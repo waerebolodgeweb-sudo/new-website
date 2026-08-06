@@ -42,7 +42,7 @@ export default async function RoomPage({ params }: { params: Params }) {
   return (
     <>
       <Navbar />
-      <main className="pt-16 lg:pt-20">
+      <main className="pt-20">
         <RoomDetail room={room} otherRooms={otherRooms} />
         <ContactSection />
       </main>

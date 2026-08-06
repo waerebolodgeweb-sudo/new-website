@@ -44,5 +44,6 @@ AGENTS.md
 .claude
 
 # graphify (local-only)
+/.graphifyignore
 /.graphify/
 /graphify-out/

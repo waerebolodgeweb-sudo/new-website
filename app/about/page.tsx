@@ -5,6 +5,7 @@ import ContactSection from "@/components/sections/ContactSection";
 import StorySection from "./_components/StorySection";
 import OfferGrid from "./_components/OfferGrid";
 import HistorySection from "./_components/HistorySection";
+import { LodgeDirectionMap } from "@/components/layout/Map";
 
 export const metadata: Metadata = {
   title: "About Us — Waerebo Lodge",
@@ -21,6 +22,7 @@ export default function AboutPage() {
         <OfferGrid />
         <HistorySection />
         <ContactSection />
+        <LodgeDirectionMap />
       </main>
       <Footer />
     </>

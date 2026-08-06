@@ -151,7 +151,7 @@ export default function DestinationDetail({
         <div className="mx-auto max-w-[1512px] px-5 sm:px-8 lg:px-20">
           <div
             key={destination.slug}
-            className="iconic-fade flex flex-col gap-10 lg:flex-row lg:gap-[60px]"
+            className="iconic-fade flex flex-col gap-10 lg:gap-12 xl:flex-row xl:gap-[60px]"
           >
             {/* Mobile: one main image, then a staggered secondary pair. */}
             <div className="flex flex-1 flex-col gap-6 sm:flex-row sm:gap-4 lg:gap-5">
@@ -161,7 +161,7 @@ export default function DestinationDetail({
                     src={assets.photos[0]}
                     alt={destination.name}
                     fill
-                    sizes="(min-width: 1024px) 321px, (min-width: 640px) 38vw, calc(100vw - 40px)"
+                    sizes="(min-width: 1280px) 321px, (min-width: 640px) 38vw, calc(100vw - 40px)"
                     className="object-cover"
                   />
                 </div>
@@ -181,7 +181,7 @@ export default function DestinationDetail({
                       src={assets.photos[1]}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 263px, (min-width: 640px) 31vw, 52vw"
+                      sizes="(min-width: 1280px) 263px, (min-width: 640px) 31vw, 52vw"
                       className="object-cover"
                     />
                   </div>
@@ -192,7 +192,7 @@ export default function DestinationDetail({
                       src={assets.photos[2]}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 263px, (min-width: 640px) 31vw, 38vw"
+                      sizes="(min-width: 1280px) 263px, (min-width: 640px) 31vw, 38vw"
                       className="object-cover"
                     />
                   </div>
@@ -201,7 +201,7 @@ export default function DestinationDetail({
             </div>
 
             {/* Text column */}
-            <div className="flex flex-col justify-center lg:w-[405px] lg:flex-shrink-0">
+            <div className="flex flex-col justify-center lg:max-w-3xl xl:w-[405px] xl:max-w-none xl:flex-shrink-0">
               <p className="mb-1 text-xs font-normal text-savana-600 sm:mb-2 sm:text-base">
                 {labels.eyebrow[lang]}
               </p>

@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import ContactSection from "@/components/sections/ContactSection";
 import { rooms } from "../rooms/data";
 import LodgeGrid from "./_components/LodgeGrid";
+import { LodgeDirectionMap } from "@/components/layout/Map";
 
 export const metadata: Metadata = {
   title: "Lodge — Waerebo Lodge",
@@ -18,6 +19,7 @@ export default function LodgePage() {
       <main className="pt-16 lg:pt-20">
         <LodgeGrid rooms={rooms} />
         <ContactSection />
+        <LodgeDirectionMap />
       </main>
       <Footer />
     </>

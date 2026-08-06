@@ -1,67 +1,79 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { ComponentType } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { IconType } from "react-icons";
 import {
-  IoBedOutline,
-  IoCafeOutline,
-  IoCarSportOutline,
   IoChevronBack,
   IoChevronForward,
   IoClose,
   IoExpandOutline,
-  IoFastFoodOutline,
-  IoHeartOutline,
   IoLogoWhatsapp,
   IoMailOutline,
-  IoManOutline,
-  IoPeopleOutline,
-  IoSnowOutline,
-  IoSparklesOutline,
-  IoSyncOutline,
+  IoPeople,
+  IoThumbsUp,
   IoWaterOutline,
   IoWifiOutline,
 } from "react-icons/io5";
+import {
+  ACIcon,
+  BathroomIcon,
+  BidetIcon,
+  BreakfastIcon,
+  DinnerIcon,
+  DoubleBedIcon,
+  FanIcon,
+  HotWaterIcon,
+  MosquitoNetIcon,
+  ParkingIcon,
+  ShowerIcon,
+  SoapIcon,
+  TissueIcon,
+  ToiletIcon,
+  ToothbrushIcon,
+  TowelIcon,
+} from "@/components/icons/new-icons";
 import type { Room, FacilityKey, HighlightKey, CardSpecKey } from "../../data";
 import { useLang } from "@/lib/i18n";
 
-const HIGHLIGHT_ICON: Record<HighlightKey, IconType> = {
-  capacity: IoPeopleOutline,
-  couples: IoHeartOutline,
-  bedroom: IoBedOutline,
-  bathroom: IoWaterOutline,
+type RoomIcon = ComponentType<{ size?: number; className?: string }>;
+
+const HIGHLIGHT_ICON: Record<HighlightKey, RoomIcon> = {
+  capacity: IoPeople,
+  couples: IoThumbsUp,
+  bedroom: DoubleBedIcon,
+  bathroom: BathroomIcon,
 };
 
-const FACILITY_META: Record<FacilityKey, { icon: IconType; label: string }> = {
+const FACILITY_META: Record<FacilityKey, { icon: RoomIcon; label: string }> = {
   wifi: { icon: IoWifiOutline, label: "Wifi" },
-  ac: { icon: IoSnowOutline, label: "Air Conditioning" },
-  fan: { icon: IoSyncOutline, label: "Fan" },
-  shower: { icon: IoWaterOutline, label: "Shower" },
-  hotShower: { icon: IoWaterOutline, label: "Hot Shower" },
-  parking: { icon: IoCarSportOutline, label: "Free Parking" },
-  westernToilet: { icon: IoManOutline, label: "Western Toilet" },
-  mosquitoNet: { icon: IoSparklesOutline, label: "Mosquito Net" },
-  washBasin: { icon: IoWaterOutline, label: "Wash Basin" },
+  ac: { icon: ACIcon, label: "Air Conditioning" },
+  fan: { icon: FanIcon, label: "Fan" },
+  shower: { icon: ShowerIcon, label: "Shower" },
+  hotShower: { icon: HotWaterIcon, label: "Hot Shower" },
+  parking: { icon: ParkingIcon, label: "Free Parking" },
+  westernToilet: { icon: ToiletIcon, label: "Western Toilet" },
+  mosquitoNet: { icon: MosquitoNetIcon, label: "Mosquito Net" },
+  washBasin: { icon: BidetIcon, label: "Wash Basin" },
   waterTub: { icon: IoWaterOutline, label: "Traditional Water Tub & Dipper" },
-  towel: { icon: IoSparklesOutline, label: "Towel" },
-  toothbrush: { icon: IoSparklesOutline, label: "Toothbrush" },
-  soap: { icon: IoSparklesOutline, label: "Soap" },
-  amenities: { icon: IoSparklesOutline, label: "Amenities" },
-  toilet: { icon: IoManOutline, label: "Bathroom" },
+  towel: { icon: TowelIcon, label: "Towel" },
+  toothbrush: { icon: ToothbrushIcon, label: "Toothbrush" },
+  soap: { icon: SoapIcon, label: "Soap" },
+  amenities: { icon: TissueIcon, label: "Amenities" },
+  toilet: { icon: BathroomIcon, label: "Bathroom" },
 };
 
-const CARD_SPEC_ICON: Record<CardSpecKey, IconType> = {
-  people: IoPeopleOutline,
-  ac: IoSnowOutline,
-  fan: IoSyncOutline,
-  shower: IoWaterOutline,
-  bed: IoBedOutline,
+const CARD_SPEC_ICON: Record<CardSpecKey, RoomIcon> = {
+  people: IoPeople,
+  ac: ACIcon,
+  fan: FanIcon,
+  shower: HotWaterIcon,
+  bed: DoubleBedIcon,
 };
 
 const WHATSAPP_NUMBER = "6285339567549";
-const BOOKING_EMAIL = "info@waerebolodge.com";
+const BOOKING_EMAIL = "waerebolodge@gmail.com";
 const MORE_ROOM_ORDER = [
   "standard-double",
   "standard-twin-2",
@@ -78,21 +90,21 @@ function RoomCard({ room }: { room: Room }) {
 
   return (
     <div>
-      <div className="flex w-full flex-col gap-4 rounded-3xl bg-white px-2 pt-2 pb-5 shadow-xl shadow-black/10">
-        <div className="relative aspect-[7.62/4] w-full overflow-hidden rounded-[20px] bg-neutral-100">
+      <div className="flex w-full flex-col overflow-hidden rounded-xl bg-white pb-3 shadow-md shadow-black/10 lg:gap-4 lg:rounded-3xl lg:p-2 lg:pb-5">
+        <div className="relative aspect-[0.94] w-full overflow-hidden bg-neutral-100 md:aspect-[7.62/4] lg:rounded-[20px]">
           <Image
             src={cardImage}
             alt={cardTitle}
             fill
-            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 30vw, 50vw"
             className="object-cover"
           />
         </div>
-        <div className="flex flex-col gap-2 px-4">
-          <h3 className="text-2xl leading-tight font-semibold text-black">
+        <div className="flex min-w-0 flex-col gap-2 px-4 pt-4 lg:pt-0">
+          <h3 className="truncate text-sm leading-tight font-semibold text-black sm:text-base lg:text-2xl">
             {cardTitle}
           </h3>
-          <div className="flex flex-wrap items-center gap-3 pb-2">
+          <div className="flex flex-col items-start gap-1 pb-1 lg:flex-row lg:flex-wrap lg:items-center lg:gap-3 lg:pb-2">
             {room.cardSpecs.map((spec, index) => {
               const Icon = CARD_SPEC_ICON[spec.key];
               const label =
@@ -103,10 +115,13 @@ function RoomCard({ room }: { room: Room }) {
               return (
                 <div key={spec.key} className="flex items-center gap-3">
                   {index > 0 && (
-                    <span className="h-4 w-0.5 rounded-full bg-neutral-050" />
+                    <span className="hidden h-4 w-0.5 rounded-full bg-neutral-050 lg:block" />
                   )}
-                  <span className="flex items-center gap-1 text-sm font-semibold text-neutral-400">
-                    <Icon size={18} className="text-neutral-400" />
+                  <span className="flex items-center gap-1 text-[11px] font-semibold text-neutral-400 lg:text-sm">
+                    <Icon
+                      size={15}
+                      className="text-neutral-400 lg:size-[18px]"
+                    />
                     {label}
                   </span>
                 </div>
@@ -114,12 +129,12 @@ function RoomCard({ room }: { room: Room }) {
             })}
           </div>
         </div>
-        <div className="px-4">
+        <div className="mt-auto px-2 pt-3 lg:px-4 lg:pt-0">
           <Link
             href={`/rooms/${room.slug}`}
-            className="flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-4 text-base font-medium text-white transition-colors hover:bg-savana-700"
+            className="flex min-h-10 w-full items-center justify-center rounded-lg bg-savana-800 px-3 text-sm font-medium text-white transition-colors hover:bg-savana-700 lg:min-h-12 lg:rounded-xl lg:px-4 lg:text-base"
           >
-            {t("lodge.seeDetails")}
+            {t("room.seeRoom")}
           </Link>
         </div>
       </div>
@@ -134,7 +149,9 @@ export default function RoomDetail({
   room: Room;
   otherRooms: Room[];
 }) {
-  const [activeImage, setActiveImage] = useState(0);
+  const [activeImage, setActiveImage] = useState(() =>
+    Math.min(2, room.images.length - 1)
+  );
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const previewThumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -206,21 +223,21 @@ export default function RoomDetail({
 
   return (
     <>
-      <section className="bg-[#f8f6ef] py-7 text-pale-savana-500 lg:py-11">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(420px,0.75fr)] lg:gap-12">
-            <div className="lg:sticky lg:top-28">
+      <section className="bg-[#f8f6ef] text-pale-savana-500 lg:py-11">
+        <div className="mx-auto max-w-7xl lg:px-8">
+          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-start gap-0 lg:grid-cols-[minmax(0,1.05fr)_minmax(420px,0.75fr)] lg:gap-12">
+            <div className="relative min-w-0 lg:sticky lg:top-28">
               <nav
                 aria-label="Breadcrumb"
-                className="mb-6 flex items-center gap-2 text-sm font-semibold"
+                className="absolute top-5 left-5 z-10 flex items-center gap-2 text-sm font-semibold text-white drop-shadow-sm lg:static lg:mb-6 lg:text-pale-savana-500 lg:drop-shadow-none"
               >
                 <Link
                   href="/lodge"
-                  className="text-pale-savana-200 transition-colors hover:text-savana-800"
+                  className="text-white/70 transition-colors hover:text-white lg:text-pale-savana-200 lg:hover:text-savana-800"
                 >
                   Lodge
                 </Link>
-                <span className="text-pale-savana-200">/</span>
+                <span className="text-white/70 lg:text-pale-savana-200">/</span>
                 <span>{room.title}</span>
               </nav>
 
@@ -229,17 +246,17 @@ export default function RoomDetail({
                   type="button"
                   onClick={() => openPreview()}
                   aria-label="Open room image preview"
-                  className="group relative block aspect-[7.62/4] w-full overflow-hidden rounded-lg bg-savana-200 text-left shadow-sm"
+                  className="group relative block aspect-[393/360] w-full overflow-hidden bg-savana-200 text-left md:aspect-[7.62/4] md:rounded-lg lg:shadow-sm"
                 >
                   <Image
                     src={room.images[activeImage]}
                     alt={room.title}
                     fill
-                    priority
+                    preload
                     sizes="(min-width: 1024px) 55vw, 100vw"
                     className="object-cover"
                   />
-                  <span className="absolute right-4 bottom-4 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-savana-800 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+                  <span className="absolute right-4 bottom-4 hidden items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-savana-800 opacity-0 shadow-sm transition-opacity group-hover:opacity-100 lg:flex">
                     <IoExpandOutline size={18} />
                     {t("room.preview")}
                   </span>
@@ -268,7 +285,7 @@ export default function RoomDetail({
               </div>
 
               {room.images.length > 1 && (
-                <div className="mt-3 flex [scrollbar-width:none] gap-3 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden">
+                <div className="flex [scrollbar-width:none] gap-3 overflow-x-auto py-5 lg:mt-3 lg:py-0 lg:pb-1 [&::-webkit-scrollbar]:hidden">
                   {room.images.map((img, imageIndex) => (
                     <button
                       key={img}
@@ -279,7 +296,7 @@ export default function RoomDetail({
                       onClick={() => setActiveImage(imageIndex)}
                       onDoubleClick={() => openPreview(imageIndex)}
                       aria-label={`View image ${imageIndex + 1}`}
-                      className={`relative h-24 w-28 flex-none overflow-hidden rounded-lg border transition-all sm:w-32 ${
+                      className={`relative h-20 w-20 flex-none overflow-hidden rounded-lg border-2 transition-all lg:h-24 lg:w-32 lg:border ${
                         activeImage === imageIndex
                           ? "border-pale-savana-500 opacity-100"
                           : "border-transparent opacity-55 hover:opacity-85"
@@ -297,7 +314,7 @@ export default function RoomDetail({
                 </div>
               )}
 
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="mt-4 hidden gap-4 lg:grid lg:grid-cols-2">
                 <a
                   href={bookLink}
                   target="_blank"
@@ -315,10 +332,28 @@ export default function RoomDetail({
                   {t("booking.via.email")}
                 </a>
               </div>
+              <div className="fixed bottom-0 z-20 mt-4 pb-5 flex w-full flex-col items-center justify-center gap-3 rounded-t-2xl bg-white px-5 py-3 shadow-2xl sm:flex-row lg:hidden">
+                <a
+                  href={bookLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md bg-savana-800 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-savana-green-600"
+                >
+                  <IoLogoWhatsapp size={14} />
+                  {t("booking.via.whatsapp")}
+                </a>
+                <a
+                  href={emailLink}
+                  className="flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md border border-pale-savana-300 px-5 py-3 text-sm font-semibold text-pale-savana-500 transition-colors hover:bg-white"
+                >
+                  <IoMailOutline size={14} />
+                  {t("booking.via.email")}
+                </a>
+              </div>
             </div>
 
-            <div className="pt-1">
-              <h1 className="text-3xl leading-tight font-extrabold text-pale-savana-500 lg:text-4xl">
+            <div className="min-w-0 px-5 pt-0 pb-14 lg:px-0 lg:pt-1 lg:pb-0">
+              <h1 className="text-[32px] leading-tight font-extrabold text-pale-savana-500 lg:text-4xl">
                 {room.title}
               </h1>
               <p className="mt-3 max-w-xl text-base leading-relaxed font-medium text-pale-savana-300">
@@ -331,7 +366,7 @@ export default function RoomDetail({
                   return (
                     <li
                       key={highlight.key}
-                      className="flex min-h-16 items-center gap-4 text-lg font-bold text-pale-savana-500"
+                      className="flex min-h-14 items-center gap-4 text-base font-bold text-pale-savana-500 lg:min-h-16 lg:text-lg"
                     >
                       <Icon size={22} className="flex-none text-savana-500" />
                       {t(
@@ -343,17 +378,17 @@ export default function RoomDetail({
                 })}
               </ul>
 
-              <section className="mt-10">
-                <h2 className="text-2xl font-extrabold text-pale-savana-500">
+              <section className="mt-12 lg:mt-10">
+                <h2 className="text-[22px] font-extrabold text-pale-savana-500 lg:text-2xl">
                   {t("room.facility")}
                 </h2>
-                <div className="mt-5 grid grid-cols-2 gap-x-7 gap-y-4 sm:grid-cols-3">
+                <div className="mt-5 grid grid-cols-3 gap-x-3 gap-y-4 lg:gap-x-7">
                   {room.facilities.map((key) => {
                     const { icon: Icon, label } = FACILITY_META[key];
                     return (
                       <div
                         key={key}
-                        className="flex items-center gap-2 text-sm font-bold text-pale-savana-300"
+                        className="flex min-w-0 items-center gap-1.5 text-xs font-bold text-pale-savana-300 lg:gap-2 lg:text-sm"
                       >
                         <Icon size={16} className="flex-none text-savana-500" />
                         {t(`facility.${key}`, label)}
@@ -363,17 +398,17 @@ export default function RoomDetail({
                 </div>
               </section>
 
-              <section className="mt-10">
-                <h2 className="text-2xl font-extrabold text-pale-savana-500">
+              <section className="mt-12 lg:mt-10">
+                <h2 className="text-[22px] font-extrabold text-pale-savana-500 lg:text-2xl">
                   {t("room.diningArrangements")}
                 </h2>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-savana-200 px-4 text-sm font-bold text-pale-savana-500">
-                    <IoCafeOutline size={18} />
+                <div className="mt-4 grid grid-cols-2 gap-2 lg:gap-3">
+                  <div className="flex min-h-10 items-center justify-center gap-2 rounded-md bg-savana-200 px-2 text-xs font-bold text-pale-savana-500 lg:min-h-12 lg:px-4 lg:text-sm">
+                    <BreakfastIcon size={18} />
                     {t("room.breakfastIncluded")}
                   </div>
-                  <div className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-savana-200 px-4 text-sm font-bold text-pale-savana-500">
-                    <IoFastFoodOutline size={18} />
+                  <div className="flex min-h-10 items-center justify-center gap-2 rounded-md bg-savana-200 px-2 text-xs font-bold text-pale-savana-500 lg:min-h-12 lg:px-4 lg:text-sm">
+                    <DinnerIcon size={18} />
                     {t("room.dinnerIncluded")}
                   </div>
                 </div>
@@ -382,11 +417,11 @@ export default function RoomDetail({
                 </p>
               </section>
 
-              <section className="mt-11">
-                <h2 className="text-2xl font-extrabold text-pale-savana-500">
+              <section className="mt-12 lg:mt-11">
+                <h2 className="text-[22px] font-extrabold text-pale-savana-500 lg:text-2xl">
                   {t("room.locations")}
                 </h2>
-                <div className="relative mt-4 h-40 w-full overflow-hidden rounded-lg bg-savana-200 shadow-sm">
+                <div className="relative mt-4 h-48 w-full overflow-hidden rounded-xl bg-savana-200 lg:h-40 lg:rounded-lg lg:shadow-sm">
                   <iframe
                     title={`${room.title} location map`}
                     src="https://www.google.com/maps?q=-8.8465902,120.3055812&z=17&output=embed"
@@ -399,25 +434,25 @@ export default function RoomDetail({
               </section>
 
               {room.reviews.length > 0 && (
-                <section className="mt-12">
+                <section className="mt-14 lg:mt-12">
                   <div className="mb-6 flex items-center justify-between gap-4">
-                    <h2 className="text-2xl font-extrabold text-pale-savana-500">
+                    <h2 className="text-[22px] font-extrabold text-pale-savana-500 lg:text-2xl">
                       {t("room.latestReview")}
                     </h2>
                     <Link
                       href="/#testimonials"
-                      className="text-sm font-medium text-pale-savana-300 transition-colors hover:text-savana-800"
+                      className="hidden text-sm font-medium text-pale-savana-300 transition-colors hover:text-savana-800 lg:inline"
                     >
                       {t("room.seeAll")}
                     </Link>
                   </div>
-                  <div className="space-y-8">
+                  <div className="space-y-9 lg:space-y-8">
                     {room.reviews.map((review) => (
                       <article
                         key={review.name}
-                        className="grid grid-cols-[56px_1fr_auto] gap-x-4"
+                        className="grid grid-cols-[52px_1fr_auto] gap-x-4 lg:grid-cols-[56px_1fr_auto]"
                       >
-                        <div className="relative h-14 w-14 overflow-hidden rounded-full">
+                        <div className="relative h-12 w-12 overflow-hidden rounded-full lg:h-14 lg:w-14">
                           <Image
                             src={review.avatar}
                             alt={review.name}
@@ -433,22 +468,22 @@ export default function RoomDetail({
                           <p className="text-xs font-semibold text-neutral-200">
                             {review.location}
                           </p>
-                          <p className="mt-4 text-sm leading-relaxed font-medium text-pale-savana-300">
-                            <span className="mr-1 text-2xl leading-none font-extrabold text-pale-savana-500">
-                              &ldquo;
-                            </span>
-                            {review.text}
-                            <span className="ml-1 text-2xl leading-none font-extrabold text-pale-savana-500">
-                              &rdquo;
-                            </span>
-                          </p>
                         </div>
-                        <div className="pt-4 text-right text-3xl font-extrabold text-savana-500">
+                        <div className="pt-1 text-right text-3xl font-extrabold text-savana-500 lg:pt-4">
                           {review.rating}
                           <span className="ml-1 text-base font-semibold text-neutral-200">
                             /5
                           </span>
                         </div>
+                        <p className="col-span-3 mt-3 text-sm leading-relaxed font-medium text-pale-savana-300 lg:col-span-2 lg:col-start-2 lg:mt-4">
+                          <span className="mr-1 text-2xl leading-none font-extrabold text-pale-savana-500">
+                            &ldquo;
+                          </span>
+                          {review.text}
+                          <span className="ml-1 text-2xl leading-none font-extrabold text-pale-savana-500">
+                            &rdquo;
+                          </span>
+                        </p>
                       </article>
                     ))}
                   </div>
@@ -460,18 +495,18 @@ export default function RoomDetail({
       </section>
 
       {orderedOtherRooms.length > 0 && (
-        <section className="bg-savana-200 py-16 lg:py-24">
-          <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
-            <h2 className="mb-12 text-center text-4xl leading-tight font-normal text-savana-800 lg:mb-16 lg:text-6xl">
+        <section className="bg-savana-200 pt-32 pb-20 lg:py-24">
+          <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
+            <h2 className="mb-10 pt-4 text-center text-4xl leading-tight font-normal text-savana-800 lg:mb-16 lg:text-6xl">
               {t("room.discoverMore")}{" "}
               <span className="font-semibold">{t("room.roomOptions")}</span>
             </h2>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-10">
               {orderedOtherRooms.map((otherRoom) => (
                 <RoomCard key={otherRoom.slug} room={otherRoom} />
               ))}
             </div>
-            <div className="mt-16 flex justify-center">
+            <div className="mt-10 flex justify-center lg:mt-16">
               <Link
                 href="/lodge"
                 className="flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
@@ -528,7 +563,6 @@ export default function RoomDetail({
                 fill
                 sizes="100vw"
                 className="object-contain"
-                priority
               />
             </div>
 

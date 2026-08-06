@@ -118,7 +118,7 @@ export default function OfferGrid() {
             tile.kind === "spacer" ? (
               <div
                 key={`spacer-${index}`}
-                className="bg-savana-300/35 hidden rounded-[22px] lg:block lg:aspect-square"
+                className="hidden rounded-[22px] bg-savana-800/10 lg:block lg:aspect-square"
               />
             ) : (
               <ImageTile key={tile.key} tileKey={tile.key} src={tile.src} />

@@ -2,22 +2,30 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { IconType } from "react-icons";
+import type { ComponentType } from "react";
+import { IoPeople } from "react-icons/io5";
 import {
-  IoPeopleOutline,
-  IoSnowOutline,
-  IoSyncOutline,
-  IoWaterOutline,
-} from "react-icons/io5";
+  ACIcon,
+  DoubleBedIcon,
+  FanIcon,
+  HotWaterIcon,
+} from "@/components/icons/new-icons";
 import type { Room, CardSpecKey } from "../../rooms/data";
 import { useLang } from "@/lib/i18n";
 
-const CARD_SPEC_ICON: Record<CardSpecKey, IconType> = {
-  people: IoPeopleOutline,
-  ac: IoSnowOutline,
-  fan: IoSyncOutline,
-  shower: IoWaterOutline,
-  bed: IoPeopleOutline,
+type CardIconProps = {
+  size?: number;
+  className?: string;
+  color?: string;
+};
+type CardIcon = ComponentType<CardIconProps>;
+
+const CARD_SPEC_ICON: Record<CardSpecKey, CardIcon> = {
+  people: IoPeople,
+  ac: ACIcon,
+  fan: FanIcon,
+  shower: HotWaterIcon,
+  bed: DoubleBedIcon,
 };
 
 export default function LodgeCard({ room }: { room: Room }) {
@@ -26,8 +34,8 @@ export default function LodgeCard({ room }: { room: Room }) {
   const cardImage = room.cardImage ?? room.images[0];
 
   return (
-    <div className="flex w-full flex-col gap-4 rounded-3xl bg-white px-2 pt-2 pb-5 shadow-md">
-      <div className="relative aspect-[7.62/4] w-full overflow-hidden rounded-[20px] bg-neutral-100">
+    <div className="flex w-full flex-col gap-4 rounded-3xl bg-white pb-5 shadow-md md:px-2 md:pt-2">
+      <div className="relative aspect-[7.62/4] w-full overflow-hidden rounded-t-[20px] bg-neutral-100 md:rounded-[20px]">
         <Image
           src={cardImage}
           alt={cardTitle}

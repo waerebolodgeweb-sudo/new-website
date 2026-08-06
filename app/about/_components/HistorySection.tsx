@@ -162,7 +162,7 @@ export default function HistorySection() {
           </div>
 
           <div className="relative">
-            <div className="absolute top-0 bottom-0 left-[18px] w-px bg-savana-200 lg:left-[-48px]" />
+            <div className="absolute top-0 bottom-0 left-[18px] w-1 bg-savana-200 lg:left-[-48px]" />
             <div className="space-y-8 lg:space-y-28">
               {milestones.map((milestone, index) => (
                 <article
@@ -175,10 +175,10 @@ export default function HistorySection() {
                   className="relative pl-11 lg:pl-0"
                 >
                   <span
-                    className={`absolute top-36 left-[11px] z-10 h-4 w-4 rounded-full border-4 border-savana-50 transition-colors lg:top-10 lg:left-[-55px] ${
+                    className={`absolute top-36 left-[7px] z-10 h-6 w-6 rounded-full transition-colors lg:top-28 lg:left-[-58px] ${
                       index === activeMilestone
-                        ? "bg-savana-500"
-                        : "bg-savana-200"
+                        ? "border-4 border-savana-050 bg-savana-500"
+                        : "border-4 border-savana-200 bg-savana-200"
                     }`}
                   />
 
@@ -193,13 +193,13 @@ export default function HistorySection() {
                       />
                     </div>
                     <div className="p-5 lg:p-9">
-                      <p className="mb-2 text-sm font-semibold text-savana-500">
+                      <p className="mb-2 text-xl text-savana-600 italic">
                         {milestone.year}
                       </p>
                       <h3 className="text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
                         {t(`about.history.${milestone.key}.title`)}
                       </h3>
-                      <p className="mt-4 text-[13px] leading-relaxed font-medium text-neutral-500 lg:text-sm">
+                      <p className="mt-4 text-[13px] leading-relaxed text-savana-800 lg:text-sm">
                         {t(`about.history.${milestone.key}.text`)}
                       </p>
                     </div>
