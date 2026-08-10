@@ -21,80 +21,127 @@ const videos = [
     thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-01.webp",
     quote: '"I did not expect my stay to be this welcoming."',
     caption:
-      "Hear why Nic loved his two-night stay, from the incredible home-cooked meals to the owner's guided tours of Waerebo and Mulas Island.",
+      "Hear why Nick loved his two-night stay, from the incredible home-cooked meals to the owner's guided tours of Waerebo and Mulas Island.",
     url: "https://youtu.be/Rp7MpKgdeWA",
   },
   {
     id: "uT3myORIxcs",
-    title: "Christophe & Jean from French",
+    title: "Christophe and family",
     thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-02.webp",
-    quote: '"A great place, and the staff is super nice."',
+    quote: '"A great place, and the staff is super nice with children."',
     caption:
-      "Listen to this wonderful family highlight the kindness, comfort, and amazing service that made their Waerebo Lodge stay memorable.",
+      "Listen to this wonderful family highlighting Waerebo Lodge's welcoming atmosphere, delicious local cuisine, and amazing views.",
     url: "https://youtu.be/uT3myORIxcs",
   },
   {
-    id: "7q3DuaYQcfI",
-    title: "Daisy & Edy Indonesia",
+    id: "xSXuJHTuqgc",
+    title: "Iris from Germany - Vegetarian dinner",
     thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-03.webp",
-    quote: '"When you open the door, you immediately see this beautiful view."',
+    quote: '"What I told you, I love it, I really love it!"',
     caption:
-      "Daisy and Edy share why Waerebo Lodge's comfortable rooms, beautiful rice-paddy views, and incredibly attentive staff made their Flores trip unforgettable.",
+      "Iris shares her excitement over the amazing dinner service. Watch as she highlights the lodge's ability to whip up a fantastic vegetarian spaghetti bolognese to suit her needs.",
+    url: "https://youtube.com/shorts/xSXuJHTuqgc?feature=share",
+  },
+  {
+    id: "7q3DuaYQcfI",
+    title: "Daisy and Edi Indonesia",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-04.webp",
+    quote:
+      '"When you open the door, you immediately see the lush rice paddies."',
+    caption:
+      "Daisy and Edi share why Waerebo Lodge's comfortable AC rooms, beautiful rice-paddy views, and incredibly attentive staff made their Flores trip unforgettable.",
     url: "https://youtu.be/7q3DuaYQcfI",
+  },
+  {
+    id: "8dUNAZ-vhB8",
+    title: "Kristoff and Flo",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-05.webp",
+    quote: '"The nicest views with the best people around you."',
+    caption:
+      "Kristoff and Flo share the magic of Waerebo Lodge! From the beautiful rice fields and nature to connecting with the local staff and exploring the village.",
+    url: "https://youtu.be/8dUNAZ-vhB8",
+  },
+  {
+    id: "eWlwpNx2DKs",
+    title: "Guests at Waerebo Lodge",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-06.webp",
+    quote: '"If you pass by, stay 1 night here or more."',
+    caption:
+      "Hear why these guests highly recommend stopping by Waerebo Lodge for a night or more. Discover their experience with the very clean rooms, welcoming staff, and delicious traditional food.",
+    url: "https://youtube.com/shorts/eWlwpNx2DKs?feature=share",
   },
   {
     id: "3xFSsOk7SL8",
     title: "Iris from Germany",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-04.webp",
-    quote: '"What I told you, I loved, I really love it."',
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-07.webp",
+    quote: '"You get an amazing, beautiful sunset… it’s like a dream."',
     caption:
-      "Iris shares her admiration for the stunning natural scenery, authentic local experiences, and genuine hospitality she found in Waerebo.",
-    url: "https://youtu.be/3xFSsOk7SL8",
-  },
-  {
-    id: "8dUNAZ-vhB8",
-    title: "Christoph and Flo",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-05.webp",
-    quote: '"The nicest views with the best people you can meet."',
-    caption:
-      "Hear Christoph and Flo share the magic of Waerebo Lodge: from the beautiful scenic trails and stories to meeting both locals and travelers along the village.",
-    url: "https://youtu.be/8dUNAZ-vhB8",
+      "Iris shares her highlights from incredible drone views of the rice paddies at sunset to the welcoming staff and a dream-like trip to nearby Mulas Island.",
+    url: "https://youtube.com/shorts/3xFSsOk7SL8?feature=share",
   },
   {
     id: "KErr-2E1I_g",
-    title: "NO NAME",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-06.webp",
-    quote: '"If you pass by, stay right here or more."',
-    caption:
-      "This happy traveler explains why Waerebo Lodge became such a wonderful stop in the region, from discovering the places around the area to the warm rooms, restaurant view, and delicious traditional food.",
-    url: "https://youtube.com/shorts/KErr-2E1I_g",
-  },
-  {
-    id: "xSXuJHTuqgc",
-    title: "Iris from Germany",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-07.webp",
-    quote: '"To get an amazing, beautiful sunset..."',
-    caption:
-      "Iris shares her highlights from incredible dinner views at the restaurant and sunset to the welcoming staff and clean rooms that made Waerebo special.",
-    url: "https://youtube.com/shorts/xSXuJHTuqgc?feature=share",
-  },
-  {
-    id: "missing-video-8",
-    title: "Christoph and Flo",
+    title: "Christoph from Austria",
     thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-08.webp",
-    quote: '"We really felt around here."',
+    quote: '"We really like it around here."',
     caption:
-      "Christoph and Flo share the feeling of arriving at Waerebo Lodge, discovering a scenic place, and the confidence to explore the lodge and nearby areas.",
-    url: "",
+      "Hear from Kristof about his amazing three-day stay at Waerebo Lodge. Discover why he loved the beautiful rice field views, the comfortable AC rooms, and his unforgettable trips to the village and nearby island.",
+    url: "https://youtube.com/shorts/KErr-2E1I_g?feature=share",
   },
   {
-    id: "missing-video-9",
-    title: "NO NAME",
+    id: "39UPV4ZfW0c",
+    title: "Indonesian guests at Waerebo Lodge",
     thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-09.webp",
-    quote: '"If you are heading to Waerebo, do not forget to come here."',
+    quote: '"If you are heading to Waerebo, don’t forget to come here!"',
     caption:
       "Discover why these guests highly recommend stopping at Waerebo Lodge to enjoy the beautiful green rice fields and fantastic local meals.",
-    url: "",
+    url: "https://youtu.be/39UPV4ZfW0c",
+  },
+  {
+    id: "JtwXIwmVk0M",
+    title: "Indonesian guests before their Waerebo trek",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-10.webp",
+    quote:
+      '"The facilities are very complete, and the place is truly unique and beautiful."',
+    caption:
+      "These Indonesian guests share why Waerebo Lodge is the perfect stop before the trek, from complete facilities and hearty meals to meaningful moments with the welcoming local community.",
+    url: "https://youtube.com/shorts/JtwXIwmVk0M?feature=share",
+  },
+  {
+    id: "M-NRn8NP3cQ",
+    title: "Indonesian guests with Pak Martin",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-11.webp",
+    quote: '"The service is amazing, and everyone here is so friendly."',
+    caption:
+      "Hear how conversations with Pak Martin, delicious meals three times a day, sea views, and the warmth of the family, staff, and guides made this stay memorable.",
+    url: "https://youtube.com/shorts/M-NRn8NP3cQ?feature=share",
+  },
+  {
+    id: "6azFda8-7ew",
+    title: "Esther from France",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-12.webp",
+    quote: '"The view is superb. We’re surrounded by rice fields here."',
+    caption:
+      "Esther from France recommends Waerebo Lodge for its warm welcome, comfortable beds, excellent meals, spectacular rice-field views, and thoughtful help planning her return to Labuan Bajo.",
+    url: "https://youtu.be/6azFda8-7ew",
+  },
+  {
+    id: "ZOl1Wnkkq34",
+    title: "Lucy from Surabaya, Indonesia",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-13.webp",
+    quote: '"If seven stars is the maximum, I’d give it an eight."',
+    caption:
+      "Lucy from Surabaya shares why the generous dinner and breakfast, comfortable en-suite room, mountain and coastal views, and warm hospitality made Waerebo Lodge an easy recommendation.",
+    url: "https://youtu.be/ZOl1Wnkkq34",
+  },
+  {
+    id: "W3doldxPeQ0",
+    title: "Sebastian and Isabel from Germany",
+    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-14.webp",
+    quote: '"You wake up to a beautiful view of the rice fields."',
+    caption:
+      "Sebastian and Isabel from Germany share a comfortable night at Waerebo Lodge, where friendly hosts and beautiful morning views made the perfect start to their Waerebo tour.",
+    url: "https://youtu.be/W3doldxPeQ0",
   },
 ];
 
@@ -187,14 +234,14 @@ export default function GuestExperienceSection() {
               </div>
               <div className="relative z-10 grid h-full lg:grid-cols-[410px_1fr] lg:gap-[58px]">
                 <div className="relative z-20 flex min-w-0 flex-col">
-                  <div className="mb-10 flex gap-2 lg:mb-9">
+                  <div className="mb-10 flex gap-1.5 lg:mb-9">
                     {videos.map((video, index) => (
                       <button
                         key={video.id}
                         data-slide-index={index}
                         onClick={handlePaginationClick}
                         aria-label={`Show guest video ${index + 1}`}
-                        className="h-1.5 w-10 overflow-hidden rounded-full bg-white/25 lg:w-[40px]"
+                        className="h-1.5 w-3 overflow-hidden rounded-full bg-white/25 sm:w-5"
                       >
                         <span
                           className={`block h-full rounded-full bg-white transition-all duration-500 ${

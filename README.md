@@ -1,6 +1,6 @@
 # Waerebo Lodge — Company Profile Website
 
-Frontend-only company profile and booking website for **Waerebo Lodge**, a highland lodge and trekking basecamp located in Dintor, Manggarai, Flores, Indonesia — the gateway to the legendary Wae Rebo village.
+Frontend-only company profile and booking website for **Waerebo Lodge**, a highland lodge and trekking basecamp located in Dintor, Manggarai, Flores, Indonesia — the gateway to the legendary Waerebo village.
 
 ---
 

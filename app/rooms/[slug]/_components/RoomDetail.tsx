@@ -155,14 +155,17 @@ export default function RoomDetail({
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const previewThumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const { t } = useLang();
+  const { lang, t } = useLang();
 
-  const bookMessage = `Hello Waerebo Lodge!\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
+  const bookMessage =
+    lang === "id"
+      ? `Halo Waerebo Lodge!\n\nSaya ingin memesan kamar "${room.title}".\n\nMohon informasikan ketersediaan dan harganya. Terima kasih!`
+      : `Hello Waerebo Lodge!\n\nI'd like to book the "${room.title}".\n\nPlease share availability and pricing. Thank you!`;
   const bookLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     bookMessage
   )}`;
   const emailLink = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(
-    `Booking ${room.title}`
+    lang === "id" ? `Pemesanan ${room.title}` : `Booking ${room.title}`
   )}&body=${encodeURIComponent(bookMessage)}`;
   const orderedOtherRooms = [
     ...MORE_ROOM_ORDER.map((slug) =>
@@ -228,7 +231,7 @@ export default function RoomDetail({
           <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-start gap-0 lg:grid-cols-[minmax(0,1.05fr)_minmax(420px,0.75fr)] lg:gap-12">
             <div className="relative min-w-0 lg:sticky lg:top-28">
               <nav
-                aria-label="Breadcrumb"
+                aria-label={lang === "id" ? "Navigasi jejak" : "Breadcrumb"}
                 className="absolute top-5 left-5 z-10 flex items-center gap-2 text-sm font-semibold text-white drop-shadow-sm lg:static lg:mb-6 lg:text-pale-savana-500 lg:drop-shadow-none"
               >
                 <Link
@@ -245,7 +248,11 @@ export default function RoomDetail({
                 <button
                   type="button"
                   onClick={() => openPreview()}
-                  aria-label="Open room image preview"
+                  aria-label={
+                    lang === "id"
+                      ? "Buka pratinjau foto kamar"
+                      : "Open room image preview"
+                  }
                   className="group relative block aspect-[393/360] w-full overflow-hidden bg-savana-200 text-left md:aspect-[7.62/4] md:rounded-lg lg:shadow-sm"
                 >
                   <Image
@@ -267,7 +274,11 @@ export default function RoomDetail({
                     <button
                       type="button"
                       onClick={showPreviousImage}
-                      aria-label="View previous room image"
+                      aria-label={
+                        lang === "id"
+                          ? "Lihat foto kamar sebelumnya"
+                          : "View previous room image"
+                      }
                       className="absolute top-1/2 left-5 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-pale-savana-200/70 text-white shadow-sm transition-colors hover:bg-pale-savana-300"
                     >
                       <IoChevronBack size={24} />
@@ -275,7 +286,11 @@ export default function RoomDetail({
                     <button
                       type="button"
                       onClick={showNextImage}
-                      aria-label="View next room image"
+                      aria-label={
+                        lang === "id"
+                          ? "Lihat foto kamar berikutnya"
+                          : "View next room image"
+                      }
                       className="absolute top-1/2 right-5 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-pale-savana-200/70 text-white shadow-sm transition-colors hover:bg-pale-savana-300"
                     >
                       <IoChevronForward size={24} />
@@ -295,7 +310,7 @@ export default function RoomDetail({
                       type="button"
                       onClick={() => setActiveImage(imageIndex)}
                       onDoubleClick={() => openPreview(imageIndex)}
-                      aria-label={`View image ${imageIndex + 1}`}
+                      aria-label={`${lang === "id" ? "Lihat foto" : "View image"} ${imageIndex + 1}`}
                       className={`relative h-20 w-20 flex-none overflow-hidden rounded-lg border-2 transition-all lg:h-24 lg:w-32 lg:border ${
                         activeImage === imageIndex
                           ? "border-pale-savana-500 opacity-100"
@@ -332,7 +347,7 @@ export default function RoomDetail({
                   {t("booking.via.email")}
                 </a>
               </div>
-              <div className="fixed bottom-0 z-20 mt-4 pb-5 flex w-full flex-col items-center justify-center gap-3 rounded-t-2xl bg-white px-5 py-3 shadow-2xl sm:flex-row lg:hidden">
+              <div className="fixed bottom-0 z-20 mt-4 flex w-full flex-col items-center justify-center gap-3 rounded-t-2xl bg-white px-5 py-3 pb-5 shadow-2xl sm:flex-row lg:hidden">
                 <a
                   href={bookLink}
                   target="_blank"
@@ -423,7 +438,7 @@ export default function RoomDetail({
                 </h2>
                 <div className="relative mt-4 h-48 w-full overflow-hidden rounded-xl bg-savana-200 lg:h-40 lg:rounded-lg lg:shadow-sm">
                   <iframe
-                    title={`${room.title} location map`}
+                    title={`${room.title} ${lang === "id" ? "peta lokasi" : "location map"}`}
                     src="https://www.google.com/maps?q=-8.8465902,120.3055812&z=17&output=embed"
                     className="absolute inset-0 h-full w-full border-0"
                     loading="lazy"
@@ -522,12 +537,14 @@ export default function RoomDetail({
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${room.title} image preview`}
+          aria-label={`${room.title} ${lang === "id" ? "pratinjau foto" : "image preview"}`}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 py-5 backdrop-blur-sm"
         >
           <button
             type="button"
-            aria-label="Close image preview"
+            aria-label={
+              lang === "id" ? "Tutup pratinjau foto" : "Close image preview"
+            }
             onClick={() => setIsPreviewOpen(false)}
             className="absolute top-5 right-5 z-20 grid h-12 w-12 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white"
           >
@@ -539,7 +556,11 @@ export default function RoomDetail({
               <button
                 type="button"
                 onClick={showPreviousImage}
-                aria-label="View previous room image"
+                aria-label={
+                  lang === "id"
+                    ? "Lihat foto kamar sebelumnya"
+                    : "View previous room image"
+                }
                 className="absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white lg:left-8"
               >
                 <IoChevronBack size={28} />
@@ -547,7 +568,11 @@ export default function RoomDetail({
               <button
                 type="button"
                 onClick={showNextImage}
-                aria-label="View next room image"
+                aria-label={
+                  lang === "id"
+                    ? "Lihat foto kamar berikutnya"
+                    : "View next room image"
+                }
                 className="absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white lg:right-8"
               >
                 <IoChevronForward size={28} />
@@ -576,7 +601,7 @@ export default function RoomDetail({
                     }}
                     type="button"
                     onClick={() => setActiveImage(imageIndex)}
-                    aria-label={`Preview image ${imageIndex + 1}`}
+                    aria-label={`${lang === "id" ? "Pratinjau foto" : "Preview image"} ${imageIndex + 1}`}
                     className={`relative h-20 w-28 flex-none overflow-hidden rounded-xl border-2 transition-all sm:h-24 sm:w-36 ${
                       activeImage === imageIndex
                         ? "border-white opacity-100"

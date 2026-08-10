@@ -50,7 +50,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Flores, Desa Dintor, Satar Lenda, Satar Mese Barat, Manggarai Regency, East Nusa Tenggara",
     "purpose.village.title": "Waerebo Village",
     "purpose.village.caption":
-      "Discover the iconic Wae Rebo houses, sustained by responsible and mindful travel choices.",
+      "Discover the iconic Waerebo houses, sustained by responsible and mindful travel choices.",
 
     // ── Services (home accordion)
     "services.eyebrow": "Our Services",
@@ -89,7 +89,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Taking a moment to soak in the golden rice terraces and coastal breeze at Dintor before hiking up to the sky village",
     "gallery.photo2.title": "The Sky Village Awaits",
     "gallery.photo2.caption":
-      "The iconic cone-shaped Mbaru Niang houses of Wae Rebo, wrapped in morning mist high above the clouds",
+      "The iconic cone-shaped Mbaru Niang houses of Waerebo, wrapped in morning mist high above the clouds",
     "gallery.photo3.title": "Rooftops in the Clouds",
     "gallery.photo3.caption":
       "Straw-thatched rooftops of the ancestral village — a living heritage perched on the mountain ridge",
@@ -308,7 +308,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Inspired by community-based ecotourism, Martin and Isabela laid the first stones of Waerebo Lodge — a humble resting place at the foot of the trail.",
     "about.history.m2.title.old": "Growing With the Village",
     "about.history.m2.text.old":
-      "As more travelers discovered Wae Rebo, the lodge grew alongside the community — adding comfortable rooms, a kitchen, and trusted local guides.",
+      "As more travelers discovered Waerebo, the lodge grew alongside the community — adding comfortable rooms, a kitchen, and trusted local guides.",
     "about.history.m3.title.old": "A Living Gateway to the Clouds",
     "about.history.m3.text.old":
       "Today the lodge welcomes guests from around the world, giving back to the Waerebo community while offering the perfect basecamp before the ascent.",
@@ -414,6 +414,44 @@ const dict: Record<Lang, Record<string, string>> = {
     "booking.travelers.placeholder": "Select number of guests",
     "booking.via.whatsapp": "Book Via Whatsapp",
     "booking.via.email": "Book Via Email",
+
+    // Trip detail page
+    "trip.home": "Home",
+    "trip.previousPackage": "Previous trip package",
+    "trip.nextPackage": "Next trip package",
+    "trip.pageSections": "Trip page sections",
+    "trip.summary": "Trip Summary",
+    "trip.accommodation": "Accommodation",
+    "trip.meals": "Meals & Dining",
+    "trip.itinerary": "Itinerary Timeline",
+    "trip.itineraryDay": "Itinerary",
+    "trip.whatYouGet": "What You Get",
+    "trip.travelersNotes": "Travelers Notes",
+    "trip.reminder": "Reminder:",
+    "trip.bookWhatsapp": "Book Trip via WhatsApp",
+    "trip.bookEmail": "Book Trip via Email",
+    "trip.custom.heading": "Looking for a more flexible trip?",
+    "trip.custom.body":
+      "We can help you create a private itinerary based on your travel dates, group size, interests, and preferred pace. Whether you want to combine Waerebo with waterfalls, rice fields, local villages, island trips, or a longer Flores overland journey, we will help design the experience that suits you best.",
+    "trip.custom.notes1":
+      "As this is a fully customized journey, the physical requirements and available facilities will depend on your final itinerary. However, travel to Waerebo and the surrounding Flores regions generally involves outdoor activities, varying climates (from coastal heat to mountain chill), and basic village infrastructure with limited electricity.",
+    "trip.custom.notes2":
+      "We recommend versatile clothing, comfortable walking or trekking shoes, a flashlight, sun protection, light rain gear, and personal essentials. Our team will provide a specific, detailed packing list once your itinerary is finalized.",
+    "trip.custom.whatsapp": "Create Custom Trip via WhatsApp",
+    "trip.custom.email": "Create Custom Trip via Email",
+    "trip.custom.feature.travelers": "Private & Group Travelers",
+    "trip.custom.feature.team": "Local Expert Team",
+    "trip.custom.feature.flexible": "Flexible Itinerary",
+    "trip.custom.feature.lodge": "Waerebo Lodge Package",
+    "trip.custom.feature.village": "Waerebo Village Overnight Stay",
+    "trip.custom.feature.authentic": "Iconic & Authentic Experience",
+    "trip.custom.feature.meals": "Arranged Breakfast, Meals, Dinner, etc.",
+    "trip.custom.feature.accommodation": "Pick Personal Accommodation",
+    "trip.message.book": "Hello Waerebo Lodge! I would like to book this trip:",
+    "trip.message.custom":
+      "Hello Waerebo Lodge! I would like to create a custom Flores and Waerebo itinerary.",
+    "trip.email.bookSubject": "Trip booking request",
+    "trip.email.customSubject": "Custom Waerebo itinerary request",
 
     // ── Room detail
     "room.available": "Available",
@@ -543,6 +581,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Waerebo Lodge — Dintor, Manggarai, Flores, Indonesia.",
 
     // ── Footer
+    "footer.follow": "Follow us for more updates & information!",
     "footer.rights": "All rights reserved.",
     "footer.terms": "Terms & Conditions",
     "footer.privacy": "Privacy Policy",
@@ -588,7 +627,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Flores, Desa Dintor, Satar Lenda, Satar Mese Barat, Kabupaten Manggarai, Nusa Tenggara Timur",
     "purpose.village.title": "Desa Waerebo",
     "purpose.village.caption":
-      "Temukan keunikan rumah adat Wae Rebo, yang terjaga oleh pilihan perjalanan yang bertanggung jawab.",
+      "Temukan keunikan rumah adat Waerebo, yang terjaga oleh pilihan perjalanan yang bertanggung jawab.",
 
     // ── Services (home accordion)
     "services.eyebrow": "Layanan Kami",
@@ -627,7 +666,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Menikmati sejenak keindahan sawah keemasan dan angin pantai di Dintor sebelum mendaki ke desa di atas awan",
     "gallery.photo2.title": "Desa di Atas Awan",
     "gallery.photo2.caption":
-      "Rumah kerucut Mbaru Niang yang ikonik di Wae Rebo, diselimuti kabut pagi tinggi di atas awan",
+      "Rumah kerucut Mbaru Niang yang ikonik di Waerebo, diselimuti kabut pagi tinggi di atas awan",
     "gallery.photo3.title": "Atap di Antara Awan",
     "gallery.photo3.caption":
       "Atap jerami desa leluhur — warisan hidup yang berdiri kokoh di punggungan gunung",
@@ -847,7 +886,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Terinspirasi oleh ekowisata berbasis komunitas, Martin dan Isabela meletakkan batu pertama Waerebo Lodge — tempat istirahat sederhana di kaki jalur pendakian.",
     "about.history.m2.title.old": "Tumbuh Bersama Desa",
     "about.history.m2.text.old":
-      "Seiring semakin banyak wisatawan yang menemukan Wae Rebo, lodge ini tumbuh bersama komunitas — menambah kamar-kamar nyaman, dapur, dan pemandu lokal terpercaya.",
+      "Seiring semakin banyak wisatawan yang menemukan Waerebo, lodge ini tumbuh bersama komunitas — menambah kamar-kamar nyaman, dapur, dan pemandu lokal terpercaya.",
     "about.history.m3.title.old": "Gerbang Hidup Menuju Awan",
     "about.history.m3.text.old":
       "Kini lodge ini menyambut tamu dari seluruh dunia, memberi kembali kepada komunitas Waerebo sambil menawarkan basecamp terbaik sebelum pendakian.",
@@ -954,6 +993,44 @@ const dict: Record<Lang, Record<string, string>> = {
     "booking.travelers.placeholder": "Pilih jumlah tamu",
     "booking.via.whatsapp": "Pesan Via WhatsApp",
     "booking.via.email": "Pesan Via Email",
+
+    // Halaman detail trip
+    "trip.home": "Beranda",
+    "trip.previousPackage": "Paket trip sebelumnya",
+    "trip.nextPackage": "Paket trip berikutnya",
+    "trip.pageSections": "Bagian halaman trip",
+    "trip.summary": "Ringkasan Trip",
+    "trip.accommodation": "Akomodasi",
+    "trip.meals": "Makanan & Bersantap",
+    "trip.itinerary": "Rangkaian Itinerary",
+    "trip.itineraryDay": "Itinerary",
+    "trip.whatYouGet": "Yang Anda Dapatkan",
+    "trip.travelersNotes": "Catatan untuk Wisatawan",
+    "trip.reminder": "Pengingat:",
+    "trip.bookWhatsapp": "Pesan Trip via WhatsApp",
+    "trip.bookEmail": "Pesan Trip via Email",
+    "trip.custom.heading": "Mencari trip yang lebih fleksibel?",
+    "trip.custom.body":
+      "Kami dapat membantu membuat itinerary privat berdasarkan tanggal perjalanan, jumlah peserta, minat, dan tempo yang Anda inginkan. Baik Anda ingin memadukan Waerebo dengan air terjun, sawah, desa lokal, wisata pulau, maupun perjalanan darat Flores yang lebih panjang, kami akan membantu merancang pengalaman yang paling sesuai.",
+    "trip.custom.notes1":
+      "Karena perjalanan ini sepenuhnya disesuaikan, kebutuhan fisik dan fasilitas yang tersedia bergantung pada itinerary akhir. Namun, perjalanan ke Waerebo dan wilayah Flores di sekitarnya umumnya melibatkan aktivitas luar ruang, perubahan iklim dari panas pesisir hingga dingin pegunungan, serta infrastruktur desa sederhana dengan listrik terbatas.",
+    "trip.custom.notes2":
+      "Kami menyarankan pakaian serbaguna, sepatu jalan atau trekking yang nyaman, senter, pelindung matahari, jas hujan ringan, dan keperluan pribadi. Tim kami akan memberikan daftar perlengkapan yang spesifik dan terperinci setelah itinerary Anda selesai disusun.",
+    "trip.custom.whatsapp": "Buat Trip Kustom via WhatsApp",
+    "trip.custom.email": "Buat Trip Kustom via Email",
+    "trip.custom.feature.travelers": "Wisatawan Privat & Grup",
+    "trip.custom.feature.team": "Tim Ahli Lokal",
+    "trip.custom.feature.flexible": "Itinerary Fleksibel",
+    "trip.custom.feature.lodge": "Paket Waerebo Lodge",
+    "trip.custom.feature.village": "Menginap di Desa Waerebo",
+    "trip.custom.feature.authentic": "Pengalaman Ikonik & Autentik",
+    "trip.custom.feature.meals": "Sarapan, Makan Siang, Makan Malam, dll.",
+    "trip.custom.feature.accommodation": "Pilih Akomodasi Pribadi",
+    "trip.message.book": "Halo Waerebo Lodge! Saya ingin memesan trip ini:",
+    "trip.message.custom":
+      "Halo Waerebo Lodge! Saya ingin membuat itinerary kustom Flores dan Waerebo.",
+    "trip.email.bookSubject": "Permintaan pemesanan trip",
+    "trip.email.customSubject": "Permintaan itinerary kustom Waerebo",
 
     // ── Room detail
     "room.available": "Tersedia",
@@ -1083,6 +1160,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Waerebo Lodge — Dintor, Manggarai, Flores, Indonesia.",
 
     // ── Footer
+    "footer.follow": "Ikuti kami untuk info & kabar terbaru!",
     "footer.rights": "Semua hak dilindungi.",
     "footer.terms": "Syarat & Ketentuan",
     "footer.privacy": "Kebijakan Privasi",

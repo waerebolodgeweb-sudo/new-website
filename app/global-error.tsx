@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 // Root-layout crash fallback — must render its own <html>/<body>.
 // Global CSS may not be available here, so styles are inline.
 export default function GlobalError({
@@ -8,8 +10,25 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const [lang] = useState<"en" | "id">(() => {
+    if (typeof window === "undefined") return "en";
+    return window.localStorage.getItem("waerebo-lang") === "id" ? "id" : "en";
+  });
+  const copy =
+    lang === "id"
+      ? {
+          heading: "Terjadi kesalahan",
+          body: "Terjadi kesalahan penting saat memuat situs. Silakan coba lagi.",
+          retry: "Coba lagi",
+        }
+      : {
+          heading: "Something went wrong",
+          body: "A critical error occurred while loading the site. Please try again.",
+          retry: "Try again",
+        };
+
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body
         style={{
           margin: 0,
@@ -46,7 +65,7 @@ export default function GlobalError({
               fontWeight: 600,
             }}
           >
-            Something went wrong
+            {copy.heading}
           </h1>
           <p
             style={{
@@ -56,7 +75,7 @@ export default function GlobalError({
               color: "rgba(250,248,242,0.75)",
             }}
           >
-            A critical error occurred while loading the site. Please try again.
+            {copy.body}
           </p>
           <button
             onClick={reset}
@@ -72,7 +91,7 @@ export default function GlobalError({
               cursor: "pointer",
             }}
           >
-            Try again
+            {copy.retry}
           </button>
         </div>
       </body>

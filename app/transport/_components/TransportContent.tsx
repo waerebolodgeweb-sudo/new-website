@@ -4,12 +4,6 @@ import Image from "next/image";
 import ContactSection from "@/components/sections/ContactSection";
 import { useLang } from "@/lib/i18n";
 
-const bookMessage =
-  "Hello Waerebo Lodge!\n\nI'd like to arrange transport for my trip.\n\nPlease share availability and options. Thank you!";
-const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
-  bookMessage
-)}`;
-
 const rides = [
   {
     title: "Oto Colt",
@@ -26,7 +20,14 @@ const rides = [
 ];
 
 export default function TransportContent() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
+  const bookMessage =
+    lang === "id"
+      ? "Halo Waerebo Lodge!\n\nSaya ingin mengatur transportasi untuk perjalanan saya.\n\nMohon informasikan ketersediaan dan pilihannya. Terima kasih!"
+      : "Hello Waerebo Lodge!\n\nI'd like to arrange transport for my trip.\n\nPlease share availability and options. Thank you!";
+  const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
+    bookMessage
+  )}`;
 
   return (
     <main className="pt-16 lg:pt-20">
@@ -57,7 +58,11 @@ export default function TransportContent() {
               <div className="relative min-h-[320px] rounded-[28px] border-white bg-white lg:min-h-[440px]">
                 <Image
                   src="/transport/Waerebo-Transport-Photo-Oto-Colt-Main.webp"
-                  alt="Guests riding local transport to Waerebo Lodge"
+                  alt={
+                    lang === "id"
+                      ? "Tamu menggunakan transportasi lokal menuju Waerebo Lodge"
+                      : "Guests riding local transport to Waerebo Lodge"
+                  }
                   fill
                   priority
                   sizes="(min-width: 1024px) 65vw, 100vw"
@@ -76,7 +81,13 @@ export default function TransportContent() {
                 <div className="relative min-h-[240px] sm:min-h-[220px]">
                   <Image
                     src={ride.image}
-                    alt={ride.alt}
+                    alt={
+                      lang === "id"
+                        ? ride.title === "Oto Colt"
+                          ? "Wisatawan menaiki kendaraan Oto Colt"
+                          : "Kendaraan transportasi privat Toyota Innova"
+                        : ride.alt
+                    }
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 100vw"
                     className="rounded-[28px] object-cover"

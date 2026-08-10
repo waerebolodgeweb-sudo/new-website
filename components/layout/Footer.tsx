@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="bg-white pb-5 sm:pb-8">
       <div className="mx-auto flex max-w-7xl flex-row items-center justify-between px-5 sm:px-8 lg:px-20">
         <p className="block text-xs text-savana-800 lg:hidden">
-          Follow us to get more updates & information!
+          {t("footer.follow")}
         </p>
         <div className="hidden flex-col-reverse items-center gap-3 py-5 sm:flex-row sm:gap-4 sm:py-6 lg:flex">
           <div className="text-[11px] font-medium text-neutral-400 sm:text-base">

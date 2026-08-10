@@ -6,7 +6,6 @@ import type { IconType } from "react-icons";
 import { NewIcon, type NewIconName } from "@/components/icons/new-icons";
 import {
   IoCalendar,
-  IoCalendarClear,
   IoCar,
   IoChevronBack,
   IoChevronForward,
@@ -14,31 +13,27 @@ import {
   IoLogoWhatsapp,
   IoMail,
   IoMailOutline,
-  IoMap,
   IoPeople,
   IoThumbsUp,
   IoTime,
 } from "react-icons/io5";
-import {
-  tripPrograms,
-  type InfoCard,
-  type SummaryIcon,
-  type TripProgram,
-} from "../data";
+import { type InfoCard, type SummaryIcon, type TripProgram } from "../data";
+import { getTripPrograms } from "../localize";
+import { useLang } from "@/lib/i18n";
 
 const customFeatures: {
-  title: string;
+  titleKey: string;
   Icon?: IconType;
   iconName?: NewIconName;
 }[] = [
-  { title: "Private & Group Travelers", Icon: IoPeople },
-  { title: "Local Expert Team", Icon: IoThumbsUp },
-  { title: "Flexible Itinerary", Icon: IoCalendar },
-  { title: "Waerebo Lodge Package", Icon: IoHome },
-  { title: "Waerebo Village Overnight Stay", iconName: "village" },
-  { title: "Iconic & Authentic Experience", iconName: "waterfalls" },
-  { title: "Arranged Breakfast, Meals, Dinner, etc.", iconName: "lunch" },
-  { title: "Pick Personal Accommodation", Icon: IoCar },
+  { titleKey: "trip.custom.feature.travelers", Icon: IoPeople },
+  { titleKey: "trip.custom.feature.team", Icon: IoThumbsUp },
+  { titleKey: "trip.custom.feature.flexible", Icon: IoCalendar },
+  { titleKey: "trip.custom.feature.lodge", Icon: IoHome },
+  { titleKey: "trip.custom.feature.village", iconName: "village" },
+  { titleKey: "trip.custom.feature.authentic", iconName: "waterfalls" },
+  { titleKey: "trip.custom.feature.meals", iconName: "lunch" },
+  { titleKey: "trip.custom.feature.accommodation", Icon: IoCar },
 ];
 
 const whatsappNumber = "6285339021145";
@@ -53,6 +48,8 @@ function Hero({
   onPrevious: () => void;
   onNext: () => void;
 }) {
+  const { t } = useLang();
+
   return (
     <section
       className="relative min-h-[485px] overflow-hidden bg-savana-green-700 sm:min-h-[620px] lg:min-h-[650px]"
@@ -79,7 +76,7 @@ function Hero({
       <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/5 to-black/70" />
 
       <div className="absolute top-24 right-0 left-0 z-10 mx-auto max-w-[1512px] px-5 text-[11px] text-white/70 sm:top-28 sm:px-8 sm:text-sm lg:px-32 xl:px-36">
-        <span>Home</span>
+        <span>{t("trip.home")}</span>
         <span className="mx-2 text-white/40">/</span>
         <span className="font-semibold text-white">{program.title}</span>
       </div>
@@ -87,7 +84,7 @@ function Hero({
       <button
         type="button"
         onClick={onPrevious}
-        aria-label="Previous trip package"
+        aria-label={t("trip.previousPackage")}
         className="absolute top-1/2 left-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:left-8 sm:h-11 sm:w-11"
       >
         <IoChevronBack size={22} />
@@ -95,7 +92,7 @@ function Hero({
       <button
         type="button"
         onClick={onNext}
-        aria-label="Next trip package"
+        aria-label={t("trip.nextPackage")}
         className="absolute top-1/2 right-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:right-8 sm:h-11 sm:w-11"
       >
         <IoChevronForward size={22} />
@@ -114,16 +111,18 @@ function Hero({
 }
 
 function ProgramSelector({
+  programs,
   activeId,
   onSelect,
 }: {
+  programs: TripProgram[];
   activeId: string;
   onSelect: (id: string) => void;
 }) {
   return (
     <div className="relative z-20 -mt-11 sm:-mt-14">
       <div className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
-        {tripPrograms.map((program) => {
+        {programs.map((program) => {
           const active = program.id === activeId;
           return (
             <button
@@ -188,12 +187,13 @@ function SummaryItemIcon({ icon }: { icon: SummaryIcon }) {
 function getStopMetaIcon(meta: string): NewIconName | undefined {
   const normalized = meta.toLowerCase();
 
-  if (/motorbike|motorcycle|ojek|bike/.test(normalized)) return "bike";
-  if (/walk|trek|hiking/.test(normalized)) return "walk";
-  if (/boat/.test(normalized)) return "boat";
-  if (/car|vehicle|transfer/.test(normalized)) return "car";
-  if (/breakfast|coffee/.test(normalized)) return "breakfast";
-  if (/lunch/.test(normalized)) return "lunch";
+  if (/motorbike|motorcycle|ojek|bike|sepeda motor/.test(normalized))
+    return "bike";
+  if (/walk|trek|hiking|berjalan|jalan kaki/.test(normalized)) return "walk";
+  if (/boat|perahu/.test(normalized)) return "boat";
+  if (/car|vehicle|transfer|mobil|kendaraan/.test(normalized)) return "car";
+  if (/breakfast|coffee|sarapan|kopi/.test(normalized)) return "breakfast";
+  if (/lunch|makan siang/.test(normalized)) return "lunch";
 
   return undefined;
 }
@@ -389,6 +389,7 @@ function splitDay(day: string) {
 }
 
 function TripSidebar({ program }: { program: TripProgram }) {
+  const { t } = useLang();
   const [activeSection, setActiveSection] = useState("trip-summary");
   const navRef = useRef<HTMLElement>(null);
   const days = useMemo(
@@ -397,9 +398,11 @@ function TripSidebar({ program }: { program: TripProgram }) {
   );
   const singleDay = program.id === "one-day-trek";
   const whatsappMessage = encodeURIComponent(
-    `Hello Waerebo Lodge! I would like to book the ${program.title} trip.`
+    `${t("trip.message.book")} ${program.title}.`
   );
-  const emailSubject = encodeURIComponent(`Booking request — ${program.title}`);
+  const emailSubject = encodeURIComponent(
+    `${t("trip.email.bookSubject")} — ${program.title}`
+  );
 
   useEffect(() => {
     const sectionIds = [
@@ -507,7 +510,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
       <div className="sticky top-24 [scrollbar-width:thin] overflow-y-auto pb-3">
         <nav
           ref={navRef}
-          aria-label={`${program.title} page sections`}
+          aria-label={`${program.title}: ${t("trip.pageSections")}`}
           className="trip-sidebar-scrollbar h-[528px] max-h-[528px] overflow-y-auto rounded-xl bg-white px-5 py-5 shadow-[0_4px_8px_rgba(69,61,24,0.10)]"
         >
           <div className="space-y-2 text-base font-semibold">
@@ -520,7 +523,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
               onClick={() => setActiveSection("trip-summary")}
               className={sectionLinkClass("trip-summary")}
             >
-              Trip Summary
+              {t("trip.summary")}
             </a>
             <a
               href="#accommodation"
@@ -531,7 +534,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
               onClick={() => setActiveSection("accommodation")}
               className={sectionLinkClass("accommodation")}
             >
-              Accommodation
+              {t("trip.accommodation")}
             </a>
             <a
               href="#meals-dining"
@@ -542,7 +545,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
               onClick={() => setActiveSection("meals-dining")}
               className={sectionLinkClass("meals-dining")}
             >
-              Meals &amp; Dining
+              {t("trip.meals")}
             </a>
           </div>
 
@@ -560,7 +563,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
                   onClick={() => setActiveSection("itinerary-timeline")}
                   className={`${sectionLinkClass("itinerary-timeline")} text-base font-semibold`}
                 >
-                  Itinerary Timeline
+                  {t("trip.itinerary")}
                 </a>
                 {renderStopLinks(program.stops)}
               </div>
@@ -599,14 +602,14 @@ function TripSidebar({ program }: { program: TripProgram }) {
             className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-3 text-[11px] font-semibold text-white transition-colors hover:bg-savana-700"
           >
             <IoLogoWhatsapp size={15} />
-            Book Trip via WhatsApp
+            {t("trip.bookWhatsapp")}
           </a>
           <a
             href={`mailto:${email}?subject=${emailSubject}`}
             className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-600 bg-white px-3 text-[11px] font-semibold text-savana-800 transition-colors hover:bg-savana-200"
           >
             <IoMail size={15} />
-            Book Trip via Email
+            {t("trip.bookEmail")}
           </a>
         </div>
       </div>
@@ -615,12 +618,14 @@ function TripSidebar({ program }: { program: TripProgram }) {
 }
 
 function TripOverview({ program }: { program: TripProgram }) {
+  const { t } = useLang();
+
   return (
     <section className="in-view px-5 pt-8 pb-14 sm:px-8 sm:pb-20 lg:px-0 lg:pt-0 lg:pb-14">
       <div id="trip-summary" className="scroll-mt-28">
         <div>
           <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
-            Trip Summary
+            {t("trip.summary")}
           </h2>
           <p className="mt-3 max-w-[65ch] text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
             {program.overview}
@@ -630,12 +635,14 @@ function TripOverview({ program }: { program: TripProgram }) {
 
         <div className="mt-10 space-y-9">
           <div>
-            <h2 className="text-xl font-bold text-savana-800">What You Get</h2>
+            <h2 className="text-xl font-bold text-savana-800">
+              {t("trip.whatYouGet")}
+            </h2>
             <BulletList items={program.experiences} />
           </div>
           <div>
             <h2 className="text-xl font-bold text-savana-800">
-              Travelers Notes
+              {t("trip.travelersNotes")}
             </h2>
             <ParagraphList items={program.notes} />
           </div>
@@ -645,19 +652,21 @@ function TripOverview({ program }: { program: TripProgram }) {
       <div className="mt-11 grid gap-10">
         <div id="accommodation" className="scroll-mt-28">
           <h2 className="text-2xl font-bold text-savana-800 sm:text-3xl">
-            Accommodation
+            {t("trip.accommodation")}
           </h2>
           <InfoCards cards={program.accommodation} variant="accommodation" />
           {program.accommodationReminder && (
             <p className="mt-3 text-[10px] leading-relaxed text-savana-800 sm:text-xs">
-              <span className="font-semibold text-red-500">*Reminder:</span>{" "}
+              <span className="font-semibold text-red-500">
+                *{t("trip.reminder")}
+              </span>{" "}
               {program.accommodationReminder}
             </p>
           )}
         </div>
         <div id="meals-dining" className="scroll-mt-28">
           <h2 className="text-2xl font-bold text-savana-800 sm:text-3xl">
-            Meals &amp; Dining
+            {t("trip.meals")}
           </h2>
           <InfoCards cards={program.meals} />
           {program.mealsNote && (
@@ -703,6 +712,7 @@ function Connector({ index }: { index: number }) {
 }
 
 function Itinerary({ program }: { program: TripProgram }) {
+  const { t } = useLang();
   const singleDay = program.id === "one-day-trek";
   const days = Array.from(new Set(program.stops.map((stop) => stop.day)));
 
@@ -713,7 +723,7 @@ function Itinerary({ program }: { program: TripProgram }) {
     >
       {singleDay && (
         <h2 className="mb-10 text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:mb-16 sm:text-3xl lg:mb-14">
-          Itinerary Timeline
+          {t("trip.itinerary")}
         </h2>
       )}
 
@@ -734,14 +744,14 @@ function Itinerary({ program }: { program: TripProgram }) {
                 >
                   <div className="flex items-center gap-3 lg:hidden">
                     <span className="text-xl font-semibold text-savana-800">
-                      Itinerary {dayLabel}
+                      {t("trip.itineraryDay")} {dayLabel}
                     </span>
                     {/* <span className="h-px flex-1 bg-savana-200" /> */}
                   </div>
                   {route && (
                     <>
                       <p className="hidden text-xl font-semibold text-savana-800 lg:block">
-                        Itinerary {dayLabel}
+                        {t("trip.itineraryDay")} {dayLabel}
                       </p>
                       <h3 className="mt-1 text-[28px] font-bold text-savana-800 lg:text-[32px]">
                         {route}
@@ -788,30 +798,25 @@ function Itinerary({ program }: { program: TripProgram }) {
 }
 
 function CustomItinerary() {
-  const whatsappMessage = encodeURIComponent(
-    "Hello Waerebo Lodge! I would like to create a custom Flores and Waerebo itinerary."
-  );
-  const emailSubject = encodeURIComponent("Custom Waerebo itinerary request");
+  const { t } = useLang();
+  const whatsappMessage = encodeURIComponent(t("trip.message.custom"));
+  const emailSubject = encodeURIComponent(t("trip.email.customSubject"));
 
   return (
     <section className="in-view mx-auto max-w-[880px] px-5 pt-9 pb-20 sm:px-8 sm:pt-16 sm:pb-28 lg:max-w-[780px] lg:px-0 lg:pt-20 lg:pb-32">
       <div className="max-w-[670px]">
         <h2 className="text-[25px] leading-[1.08] font-bold tracking-[-0.03em] text-savana-800 sm:text-4xl">
-          Looking for a more flexible trip?
+          {t("trip.custom.heading")}
         </h2>
         <p className="mt-4 text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
-          We can help you create a private itinerary based on your travel dates,
-          group size, interests, and preferred pace. Whether you want to combine
-          Waerebo with waterfalls, rice fields, local villages, island trips, or
-          a longer Flores overland journey, we will help design the experience
-          that suits you best.
+          {t("trip.custom.body")}
         </p>
       </div>
 
       <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {customFeatures.map(({ title, Icon, iconName }) => (
+        {customFeatures.map(({ titleKey, Icon, iconName }) => (
           <div
-            key={title}
+            key={titleKey}
             className="flex min-h-[108px] flex-col items-center justify-center rounded-lg bg-[#DED6B133] px-3 py-4 text-center shadow-[0_2px_6px_rgba(69,61,24,0.10)]"
           >
             {iconName ? (
@@ -831,7 +836,7 @@ function CustomItinerary() {
               )
             )}
             <h3 className="mt-2 text-[10px] leading-snug font-semibold text-savana-800 sm:text-xs">
-              {title}
+              {t(titleKey)}
             </h3>
           </div>
         ))}
@@ -839,21 +844,13 @@ function CustomItinerary() {
 
       <div className="mt-16">
         <h2 className="text-[21px] font-bold text-savana-800 sm:text-3xl">
-          Travelers Notes
+          {t("trip.travelersNotes")}
         </h2>
         <p className="mt-2 text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
-          As this is a fully customized journey, the physical requirements and
-          available facilities will depend on your final itinerary. However,
-          travel to Waerebo and the surrounding Flores regions generally
-          involves outdoor activities, varying climates (from coastal heat to
-          mountain chill), and basic village infrastructure with limited
-          electricity.
+          {t("trip.custom.notes1")}
         </p>
         <p className="mt-4 text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
-          We recommend versatile clothing, comfortable walking or trekking
-          shoes, a flashlight, sun protection, light rain gear, and personal
-          essentials. Our team will provide a specific, detailed packing list
-          once your itinerary is finalized.
+          {t("trip.custom.notes2")}
         </p>
       </div>
 
@@ -865,14 +862,14 @@ function CustomItinerary() {
           className="flex min-h-12 items-center justify-center gap-2 rounded-lg bg-savana-800 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-savana-700 sm:text-sm"
         >
           <IoLogoWhatsapp size={18} />
-          Create Custom Trip via WhatsApp
+          {t("trip.custom.whatsapp")}
         </a>
         <a
           href={`mailto:${email}?subject=${emailSubject}`}
           className="flex min-h-12 items-center justify-center gap-2 rounded-lg border border-savana-800 px-5 py-3 text-center text-xs font-semibold text-savana-800 transition-colors hover:bg-savana-200 sm:text-sm"
         >
           <IoMailOutline size={18} />
-          Create Custom Trip via Email
+          {t("trip.custom.email")}
         </a>
       </div>
     </section>
@@ -892,17 +889,19 @@ function TripDetails({ program }: { program: TripProgram }) {
 }
 
 export default function TripContent() {
-  const [activeId, setActiveId] = useState(tripPrograms[0].id);
+  const { lang } = useLang();
+  const programs = useMemo(() => getTripPrograms(lang), [lang]);
+  const [activeId, setActiveId] = useState(programs[0].id);
   const activeIndex = Math.max(
     0,
-    tripPrograms.findIndex((program) => program.id === activeId)
+    programs.findIndex((program) => program.id === activeId)
   );
-  const program = tripPrograms[activeIndex];
+  const program = programs[activeIndex];
 
   const move = (direction: -1 | 1) => {
     const nextIndex =
-      (activeIndex + direction + tripPrograms.length) % tripPrograms.length;
-    setActiveId(tripPrograms[nextIndex].id);
+      (activeIndex + direction + programs.length) % programs.length;
+    setActiveId(programs[nextIndex].id);
   };
 
   return (
@@ -912,7 +911,11 @@ export default function TripContent() {
         onPrevious={() => move(-1)}
         onNext={() => move(1)}
       />
-      <ProgramSelector activeId={activeId} onSelect={setActiveId} />
+      <ProgramSelector
+        programs={programs}
+        activeId={activeId}
+        onSelect={setActiveId}
+      />
 
       <div
         key={program.id}

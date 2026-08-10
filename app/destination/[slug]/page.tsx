@@ -25,16 +25,12 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${destination.name} — Waerebo Lodge`,
+    title: `${destination.name.en} — Waerebo Lodge`,
     description: destination.body1.en,
   };
 }
 
-export default async function DestinationPage({
-  params,
-}: {
-  params: Params;
-}) {
+export default async function DestinationPage({ params }: { params: Params }) {
   const { slug } = await params;
   const destination = getDestination(slug);
 

@@ -112,7 +112,9 @@ export default function DestinationDetail({
             {labels.breadcrumbHome[lang]}
           </Link>
           <span className="mx-2">/</span>
-          <span className="font-medium text-white">{destination.name}</span>
+          <span className="font-medium text-white">
+            {destination.name[lang]}
+          </span>
         </p>
 
         <div
@@ -159,7 +161,7 @@ export default function DestinationDetail({
                 <div className="relative aspect-[226/255] w-full overflow-hidden rounded-[20px] shadow-[0_8px_16px_rgba(38,35,22,0.12)] sm:aspect-[321/400] sm:rounded-3xl sm:shadow-none">
                   <Image
                     src={assets.photos[0]}
-                    alt={destination.name}
+                    alt={destination.name[lang]}
                     fill
                     sizes="(min-width: 1280px) 321px, (min-width: 640px) 38vw, calc(100vw - 40px)"
                     className="object-cover"
@@ -167,10 +169,10 @@ export default function DestinationDetail({
                 </div>
                 <div className="mt-4 hidden sm:block">
                   <p className="text-base font-semibold text-pale-savana-500">
-                    {destination.name}
+                    {destination.name[lang]}
                   </p>
                   <p className="mt-1 text-sm text-pale-savana-300">
-                    {destination.address}
+                    {destination.address[lang]}
                   </p>
                 </div>
               </div>
@@ -216,10 +218,10 @@ export default function DestinationDetail({
               </p>
               <div className="mb-5 sm:hidden">
                 <p className="text-lg font-semibold text-pale-savana-500">
-                  {destination.name}
+                  {destination.name[lang]}
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-pale-savana-300">
-                  {destination.address}
+                  {destination.address[lang]}
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">

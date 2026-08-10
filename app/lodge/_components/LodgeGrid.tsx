@@ -22,7 +22,7 @@ const LODGE_CARD_ORDER = [
 const WHATSAPP_NUMBER = "6285339567549";
 
 export default function LodgeGrid({ rooms }: { rooms: Room[] }) {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const orderedRooms = [...rooms].sort(
     (first, second) =>
       LODGE_CARD_ORDER.indexOf(first.slug) -
@@ -49,11 +49,13 @@ export default function LodgeGrid({ rooms }: { rooms: Room[] }) {
       </div>
       <a
         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-          "Hello Waerebo Lodge!\n\nI'd like to book a room.\n\nPlease share availability and pricing. Thank you!"
+          lang === "id"
+            ? "Halo Waerebo Lodge!\n\nSaya ingin memesan kamar.\n\nMohon informasikan ketersediaan dan harganya. Terima kasih!"
+            : "Hello Waerebo Lodge!\n\nI'd like to book a room.\n\nPlease share availability and pricing. Thank you!"
         )}`}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Book room via WhatsApp"
+        aria-label={`${t("lodge.bookNow")} via WhatsApp`}
         className="fixed right-5 bottom-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_12px_30px_rgba(37,211,102,0.35)] transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 lg:right-8 lg:bottom-8 lg:h-16 lg:w-16"
       >
         <IoLogoWhatsapp size={30} />

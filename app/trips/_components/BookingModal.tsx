@@ -33,22 +33,13 @@ interface FormState {
   travelers: string;
 }
 
-const travelersOptions = [
-  "1 Person",
-  "2 People",
-  "3 People",
-  "4 People",
-  "5 People",
-  "6+ People",
-];
-
 export default function BookingModal({
   isOpen,
   onClose,
   programs,
   defaultProgramId,
 }: Props) {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const [form, setForm] = useState<FormState>({
     name: "",
     origin: "",
@@ -79,7 +70,28 @@ export default function BookingModal({
   const programLabel =
     programs.find((p) => p.id === form.program)?.title ?? form.program;
 
-  const messageBody = `Hello Waerebo Lodge! 🌿
+  const travelersOptions = Array.from({ length: 5 }, (_, index) =>
+    lang === "id"
+      ? `${index + 1} Orang`
+      : `${index + 1} ${index === 0 ? "Person" : "People"}`
+  ).concat(lang === "id" ? "6+ Orang" : "6+ People");
+
+  const messageBody =
+    lang === "id"
+      ? `Halo Waerebo Lodge! 🌿
+
+Saya ingin memesan trip:
+
+Nama: ${form.name}
+Asal: ${form.origin}
+Telepon: ${form.phone}
+Email: ${form.email}
+Program Trip: ${programLabel}
+Tanggal Trip: ${form.date}
+Jumlah Wisatawan: ${form.travelers}
+
+Terima kasih!`
+      : `Hello Waerebo Lodge! 🌿
 
 I'd like to book a trip:
 
@@ -95,7 +107,9 @@ Thank you!`;
 
   const waLink = `https://wa.me/6285339021145?text=${encodeURIComponent(messageBody)}`;
   const mailLink = `mailto:waerebolodge@gmail.com?subject=${encodeURIComponent(
-    `Booking Request — ${programLabel}`
+    lang === "id"
+      ? `Permintaan Pemesanan — ${programLabel}`
+      : `Booking Request — ${programLabel}`
   )}&body=${encodeURIComponent(messageBody)}`;
 
   if (!isOpen) return null;
@@ -118,7 +132,7 @@ Thank you!`;
           <button
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-300 transition-colors hover:bg-pale-green-100/30"
-            aria-label="Close"
+            aria-label={lang === "id" ? "Tutup" : "Close"}
           >
             <IoCloseOutline size={20} />
           </button>

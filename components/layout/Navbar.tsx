@@ -59,6 +59,8 @@ const mobileSocialLinks = [
   },
 ];
 
+const desktopNavMediaQuery = "(min-width: 1280px)";
+
 function LangToggle({ transparent }: { transparent: boolean }) {
   const { lang, toggle } = useLang();
   return (
@@ -99,6 +101,16 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  useEffect(() => {
+    const desktopNav = window.matchMedia(desktopNavMediaQuery);
+    const closeMobileMenu = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
+    };
+
+    desktopNav.addEventListener("change", closeMobileMenu);
+    return () => desktopNav.removeEventListener("change", closeMobileMenu);
+  }, []);
 
   useEffect(() => {
     const updateHash = () => setCurrentHash(window.location.hash);
@@ -156,18 +168,28 @@ export default function Navbar() {
             className="flex items-center"
             aria-label="Waerebo Lodge — Home"
           >
-            <Image
-              src={transparent ? "/logo-white.png" : "/logo.png"}
-              alt="Waerebo Lodge"
-              width={508}
-              height={168}
-              priority
-              className="h-10 w-auto"
-            />
+            <picture>
+              <source
+                media={desktopNavMediaQuery}
+                srcSet={transparent ? "/logo-white.png" : "/logo.png"}
+              />
+              <Image
+                src={
+                  transparent
+                    ? "/Logo Waerebo/Logo-Waerebo-New-v1.2-With-Text-Light.svg"
+                    : "/Logo Waerebo/Brown-Logo-Waerebo-New-v1.2-With-Text-Dark.svg"
+                }
+                alt="Waerebo Lodge"
+                width={231}
+                height={100}
+                fetchPriority="high"
+                className="h-10 w-auto"
+              />
+            </picture>
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap lg:flex xl:gap-7">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 whitespace-nowrap xl:flex">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.key} className="group relative">
@@ -217,7 +239,7 @@ export default function Navbar() {
           </div>
 
           {/* Language toggle + Contact Us — right */}
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-3 xl:flex">
             <LangToggle transparent={transparent} />
             <Link
               href="/#contact"
@@ -232,7 +254,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: language toggle + menu button */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <LangToggle transparent={transparent} />
             <button
               className={`p-2 text-[32px] ${transparent ? "text-white" : "text-savana-green-500"}`}
@@ -252,7 +274,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 lg:hidden">
+        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 xl:hidden">
           <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6">
             <div className="space-y-1">
               <Link

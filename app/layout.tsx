@@ -19,7 +19,7 @@ const dancing = Dancing_Script({
 export const metadata: Metadata = {
   title: "Waerebo Lodge — A Lodge Stop Before Your Journey",
   description:
-    "The perfect basecamp before your trek to Wae Rebo village, nestled in the highlands of Flores, Indonesia.",
+    "The perfect basecamp before your trek to Waerebo village, nestled in the highlands of Flores, Indonesia.",
 };
 
 export default function RootLayout({

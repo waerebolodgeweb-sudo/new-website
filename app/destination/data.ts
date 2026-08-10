@@ -9,8 +9,8 @@ export interface Destination {
   /** File name stem used across hero + photo assets */
   stem: string;
   heroTitle: Localized;
-  name: string;
-  address: string;
+  name: Localized;
+  address: Localized;
   heading: Localized;
   body1: Localized;
   body2: Localized;
@@ -25,8 +25,11 @@ export const destinations: Destination[] = [
       en: "The Village Above the Clouds",
       id: "Desa di Atas Awan",
     },
-    name: "Waerebo Traditional Village",
-    address: "Satar Lenda, Satar Mese Barat, Manggarai Regency.",
+    name: { en: "Waerebo Traditional Village", id: "Desa Adat Waerebo" },
+    address: {
+      en: "Satar Lenda, Satar Mese Barat, Manggarai Regency.",
+      id: "Satar Lenda, Satar Mese Barat, Kabupaten Manggarai.",
+    },
     heading: { en: "Discover The Village", id: "Temukan Desa Ini" },
     body1: {
       en: "Located deep in the mountains of Manggarai, Waerebo is a traditional village that has preserved its ancient way of life for generations. Reached only by a scenic trek through the dense forest, arriving here feels like stepping back in time.",
@@ -45,8 +48,11 @@ export const destinations: Destination[] = [
       en: "A Hidden Island Paradise",
       id: "Surga Pulau Tersembunyi",
     },
-    name: "Mules Island",
-    address: "South Coast of Manggarai, East Nusa Tenggara.",
+    name: { en: "Mules Island", id: "Pulau Mules" },
+    address: {
+      en: "South Coast of Manggarai, East Nusa Tenggara.",
+      id: "Pesisir Selatan Manggarai, Nusa Tenggara Timur.",
+    },
     heading: { en: "Escape to Nusa Molas", id: "Kabur ke Nusa Molas" },
     body1: {
       en: "Just a short boat ride from the southern coast of Flores lies Nusa Molas, a pristine island getaway untouched by mass tourism. With its crystal-clear turquoise waters and soft white sands, it's the perfect place to unwind and recharge.",
@@ -65,9 +71,15 @@ export const destinations: Destination[] = [
       en: "A Refreshing Jungle Oasis",
       id: "Oasis Hutan yang Menyegarkan",
     },
-    name: "Pleas Waterfall Oasis",
-    address: "A jungle cascade located in the heart of Flores.",
-    heading: { en: "Hidden Pleas Waterfall", id: "Air Terjun Pleas Tersembunyi" },
+    name: { en: "Pleas Waterfall Oasis", id: "Oasis Air Terjun Pleas" },
+    address: {
+      en: "A jungle cascade located in the heart of Flores.",
+      id: "Air terjun di tengah hutan Flores.",
+    },
+    heading: {
+      en: "Hidden Pleas Waterfall",
+      id: "Air Terjun Pleas Tersembunyi",
+    },
     body1: {
       en: "Hidden away within the lush, verdant jungles of Flores, Pleas Waterfall is a breathtaking natural wonder. The cool, cascading waters flow down into a crystal-clear natural pool, creating a serene environment that feels miles away from civilization.",
       id: "Tersembunyi di dalam hutan Flores yang hijau subur, Air Terjun Pleas adalah keajaiban alam yang memukau. Airnya yang sejuk mengalir ke kolam alami sebening kristal, menciptakan suasana damai yang terasa jauh dari keramaian.",
@@ -85,8 +97,14 @@ export const destinations: Destination[] = [
       en: "The Iconic Spider Web Rice Fields",
       id: "Sawah Jaring Laba-laba yang Ikonik",
     },
-    name: "Lingko Spider Web Rice Fields",
-    address: "Cancar, Ruteng, Manggarai Regency.",
+    name: {
+      en: "Lingko Spider Web Rice Fields",
+      id: "Sawah Jaring Laba-laba Lingko",
+    },
+    address: {
+      en: "Cancar, Ruteng, Manggarai Regency.",
+      id: "Cancar, Ruteng, Kabupaten Manggarai.",
+    },
     heading: { en: "The Spider Web Fields", id: "Sawah Jaring Laba-laba" },
     body1: {
       en: "Flores is home to one of the most unique agricultural landscapes in the world — the Lingko spider web rice fields. More than just beautiful, it represents an ancient Manggarai system of land division where plots radiate outward from a central point.",
@@ -105,8 +123,14 @@ export const destinations: Destination[] = [
       en: "Step Inside the Home of the Hobbit",
       id: "Masuki Rumah Sang Hobbit",
     },
-    name: "Liang Bua Archaeological Cave",
-    address: "Rampasasa, Ruteng, Manggarai Regency.",
+    name: {
+      en: "Liang Bua Archaeological Cave",
+      id: "Gua Arkeologi Liang Bua",
+    },
+    address: {
+      en: "Rampasasa, Ruteng, Manggarai Regency.",
+      id: "Rampasasa, Ruteng, Kabupaten Manggarai.",
+    },
     heading: { en: "Inside Liang Bua Cave", id: "Di Dalam Gua Liang Bua" },
     body1: {
       en: 'Travel back in time at Liang Bua, the world-renowned archaeological cave where the remains of Homo floresiensis — affectionately known as the "Flores Hobbit" — were discovered. This massive limestone cavern holds the secrets of an ancient human species that once roamed this island.',
@@ -125,8 +149,11 @@ export const destinations: Destination[] = [
       en: "Majestic Peaks and Tri-Colored Bays",
       id: "Puncak Megah dan Teluk Tiga Warna",
     },
-    name: "Padar Island Viewpoint",
-    address: "Komodo National Park, West Manggarai.",
+    name: { en: "Padar Island Viewpoint", id: "Titik Pandang Pulau Padar" },
+    address: {
+      en: "Komodo National Park, West Manggarai.",
+      id: "Taman Nasional Komodo, Manggarai Barat.",
+    },
     heading: { en: "Padar Island Views", id: "Panorama Pulau Padar" },
     body1: {
       en: "Padar Island is renowned for its dramatic, rugged landscape and stunning viewpoints. A hike to the island's summit rewards you with one of the most iconic panoramas in Indonesia, featuring sweeping views of three distinct bays with unique sand colors: white, black, and pink.",

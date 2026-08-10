@@ -27,7 +27,7 @@ interface CaptionTile {
 export interface IconicDestination {
   icon: NewIconName;
   image: string;
-  title: string;
+  title: Localized;
   caption: Localized;
   slug: string;
 }
@@ -44,7 +44,7 @@ export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-01`,
     slug: "waerebo-village",
-    title: "Waerebo Village",
+    title: { en: "Waerebo Village", id: "Desa Waerebo" },
     icon: "village",
     caption: {
       en: 'Discover the magic of the "Village Above the Clouds" and immerse yourself in the ancient heritage of the Mbaru Niang.',
@@ -54,7 +54,7 @@ export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-02`,
     slug: "nusa-molas",
-    title: "Nusa Molas",
+    title: { en: "Nusa Molas", id: "Nusa Molas" },
     icon: "sea-2",
     caption: {
       en: "Escape to this pristine island just off the coast. Enjoy crystal-clear waters, white sands, and incredible, quiet snorkeling.",
@@ -64,7 +64,7 @@ export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-03`,
     slug: "pleas-waterfall",
-    title: "Pleas Waterfall",
+    title: { en: "Pleas Waterfall", id: "Air Terjun Pleas" },
     icon: "waterfalls",
     caption: {
       en: "Refresh yourself in the cool, cascading waters of this hidden jungle oasis. The perfect spot to relax after a long trek.",
@@ -74,7 +74,7 @@ export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-04`,
     slug: "lingko-spider-web",
-    title: "Rice Fields",
+    title: { en: "Rice Fields", id: "Persawahan" },
     icon: "rice",
     caption: {
       en: "Explore the iconic spider-web rice fields (Lingko) that showcase the unique agricultural traditions and stunning landscapes of Flores.",
@@ -84,7 +84,7 @@ export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-05`,
     slug: "liang-bua",
-    title: "Hobbit Cave",
+    title: { en: "Hobbit Cave", id: "Gua Hobbit" },
     icon: "cave",
     caption: {
       en: "Step back in time at Liang Bua, the world-famous archaeological cave where the ancient Homo floresiensis was discovered.",
@@ -94,7 +94,7 @@ export const iconicDestinations: IconicDestination[] = [
   {
     image: `${G}/Waerebo-Lodge-Gallery-Iconic-Destination-06`,
     slug: "padar-island",
-    title: "Padar Island",
+    title: { en: "Padar Island", id: "Pulau Padar" },
     icon: "mountain",
     caption: {
       en: "Trek to the summit of this iconic island and be rewarded with breathtaking, panoramic views of its dramatic hills and uniquely colored bays.",

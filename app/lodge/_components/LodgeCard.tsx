@@ -53,8 +53,8 @@ export default function LodgeCard({ room }: { room: Room }) {
             const Icon = CARD_SPEC_ICON[spec.key];
             const label =
               spec.key === "people"
-                ? spec.label.replace("Guests", "People")
-                : spec.label;
+                ? t("cardSpec.people", spec.label.replace("Guests", "People"))
+                : t(`cardSpec.${spec.key}`, spec.label);
             return (
               <div key={spec.key} className="flex items-center gap-3">
                 {i > 0 && (

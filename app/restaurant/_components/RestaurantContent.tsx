@@ -6,12 +6,6 @@ import ContactSection from "@/components/sections/ContactSection";
 import { useLang } from "@/lib/i18n";
 import DailyMenuSlider from "./DailyMenuSlider";
 
-const bookMessage =
-  "Hello Waerebo Lodge!\n\nI'd like to book a table / meal at the Waerebo Lodge Restaurant.\n\nPlease share availability. Thank you!";
-const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
-  bookMessage
-)}`;
-
 const heroImages = [
   "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-01.webp",
   "/restaurant/Waerebo-Restaurant-Photo-Eating-Lunch-02.webp",
@@ -22,8 +16,15 @@ const heroImages = [
 ];
 
 export default function RestaurantContent() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const [activeHero, setActiveHero] = useState(0);
+  const bookMessage =
+    lang === "id"
+      ? "Halo Waerebo Lodge!\n\nSaya ingin memesan meja / makanan di Restoran Waerebo Lodge.\n\nMohon informasikan ketersediaannya. Terima kasih!"
+      : "Hello Waerebo Lodge!\n\nI'd like to book a table / meal at the Waerebo Lodge Restaurant.\n\nPlease share availability. Thank you!";
+  const bookHref = `https://wa.me/6285339021145?text=${encodeURIComponent(
+    bookMessage
+  )}`;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -63,7 +64,11 @@ export default function RestaurantContent() {
                 <Image
                   key={image}
                   src={image}
-                  alt="Guests sharing a home-cooked meal at Waerebo Lodge Restaurant"
+                  alt={
+                    lang === "id"
+                      ? "Tamu menikmati hidangan rumahan di Restoran Waerebo Lodge"
+                      : "Guests sharing a home-cooked meal at Waerebo Lodge Restaurant"
+                  }
                   fill
                   priority={index === 0}
                   sizes="(min-width: 1024px) 65vw, 100vw"
@@ -77,7 +82,7 @@ export default function RestaurantContent() {
                   <button
                     key={image}
                     type="button"
-                    aria-label={`Show restaurant photo ${index + 1}`}
+                    aria-label={`${lang === "id" ? "Tampilkan foto restoran" : "Show restaurant photo"} ${index + 1}`}
                     onClick={() => setActiveHero(index)}
                     className={`h-1 rounded-full transition-all ${
                       index === activeHero
@@ -95,7 +100,11 @@ export default function RestaurantContent() {
               <div className="relative min-h-[250px] overflow-hidden rounded-t-[28px] rounded-l-none rounded-tl-[28px] bg-white lg:rounded-t-none lg:rounded-l-[28px]">
                 <Image
                   src="/restaurant/Waerebo-Restaurant-Photo-Eating-Favorite-Food.webp"
-                  alt="Fresh fish favourite menu at Waerebo Lodge Restaurant"
+                  alt={
+                    lang === "id"
+                      ? "Menu ikan segar favorit di Restoran Waerebo Lodge"
+                      : "Fresh fish favourite menu at Waerebo Lodge Restaurant"
+                  }
                   fill
                   sizes="(min-width: 1024px) 36vw, 100vw"
                   className="object-cover"

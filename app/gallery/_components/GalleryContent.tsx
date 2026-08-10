@@ -248,39 +248,39 @@ function BentoGrid({
                 onClick={() => setActivePhoto(isActive ? null : cell.index)}
                 className={`group relative cursor-pointer overflow-hidden rounded-[20px] text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-savana-600 ${spanClass[cell.span]}`}
               >
-              <Image
-                src={photo.image}
-                alt={photo.title[lang]}
-                fill
-                sizes="(min-width: 1024px) 25vw, 50vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              />
-              <div
-                aria-hidden="true"
-                className={`absolute inset-x-0 bottom-0 flex h-[100px] flex-col justify-end bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 text-white transition-[opacity,transform,backdrop-filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none xl:p-5 ${
-                  isActive
-                    ? "translate-y-0 opacity-100 backdrop-blur-[1px]"
-                    : "translate-y-3 opacity-0 backdrop-blur-none group-hover:translate-y-0 group-hover:opacity-100 group-hover:backdrop-blur-[1px] group-focus-visible:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:backdrop-blur-[1px]"
-                }`}
-              >
-                <p
-                  className={`${
-                    isCompact
-                      ? "text-[9px] leading-3 md:text-[10px] md:leading-4 xl:text-xs"
-                      : "text-[10px] leading-4 md:text-xs xl:text-sm xl:leading-5"
-                  } font-medium text-white/90`}
+                <Image
+                  src={photo.image}
+                  alt={photo.title[lang]}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+                <div
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 bottom-0 flex h-[100px] flex-col justify-end bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 text-white transition-[opacity,transform,backdrop-filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none xl:p-5 ${
+                    isActive
+                      ? "translate-y-0 opacity-100 backdrop-blur-[1px]"
+                      : "translate-y-3 opacity-0 backdrop-blur-none group-hover:translate-y-0 group-hover:opacity-100 group-hover:backdrop-blur-[1px] group-focus-visible:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:backdrop-blur-[1px]"
+                  }`}
                 >
-                  {photo.title[lang]}
-                </p>
-                <p
-                  className={`${
-                    isCompact
-                      ? "text-[10px] leading-[14px] md:text-xs md:leading-4 xl:text-sm xl:leading-5"
-                      : "text-xs leading-4 md:text-sm md:leading-5 xl:text-base xl:leading-6"
-                  } mt-1 font-bold text-white`}
-                >
-                  {photo.caption[lang]}
-                </p>
+                  <p
+                    className={`${
+                      isCompact
+                        ? "text-[9px] leading-3 md:text-[10px] md:leading-4 xl:text-xs"
+                        : "text-[10px] leading-4 md:text-xs xl:text-sm xl:leading-5"
+                    } font-medium text-white/90`}
+                  >
+                    {photo.title[lang]}
+                  </p>
+                  <p
+                    className={`${
+                      isCompact
+                        ? "text-[10px] leading-[14px] md:text-xs md:leading-4 xl:text-sm xl:leading-5"
+                        : "text-xs leading-4 md:text-sm md:leading-5 xl:text-base xl:leading-6"
+                    } mt-1 font-bold text-white`}
+                  >
+                    {photo.caption[lang]}
+                  </p>
                 </div>
               </button>
             );
@@ -481,9 +481,9 @@ function IconicCarousel({ lang }: { lang: Lang }) {
         <div className="relative aspect-[340/560] w-[96%] max-w-[380px] flex-shrink-0 overflow-hidden rounded-[20px] lg:aspect-auto lg:h-[400px] lg:w-auto lg:max-w-none lg:flex-1">
           {iconicDestinations.map((dest, i) => (
             <Image
-              key={dest.title}
+              key={dest.slug}
               src={`${dest.image}-Desktop.webp`}
-              alt={dest.title}
+              alt={dest.title[lang]}
               fill
               sizes="(min-width: 1024px) 60vw, 380px"
               className={`object-cover transition-all duration-700 ease-out ${
@@ -494,7 +494,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <Link
             href={`/destination/${featured.slug}`}
-            key={featured.title}
+            key={featured.slug}
             className="group iconic-fade absolute inset-0 z-10"
           >
             <div className="absolute bottom-5 left-5 max-w-md">
@@ -502,7 +502,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
                 <NewIcon name={featured.icon} size={24} />
               </div>
               <h3 className="text-lg font-semibold text-white underline-offset-4 group-hover:underline">
-                {featured.title}
+                {featured.title[lang]}
               </h3>
               <p className="mt-1 text-sm text-white/85">
                 {featured.caption[lang]}
@@ -533,7 +533,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
         <div key={start} className="iconic-fade flex gap-3">
           {rest.map((dest, i) => (
             <Link
-              key={dest.title}
+              key={dest.slug}
               href={`/destination/${dest.slug}`}
               className={`group relative w-[160px] flex-shrink-0 overflow-hidden rounded-[20px] lg:h-[400px] lg:w-[140px] ${
                 i === 3 ? "lg:hidden xl:block" : ""
@@ -541,7 +541,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
             >
               <Image
                 src={`${dest.image}-Desktop.webp`}
-                alt={dest.title}
+                alt={dest.title[lang]}
                 fill
                 sizes="140px"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -551,7 +551,9 @@ function IconicCarousel({ lang }: { lang: Lang }) {
                 <div className="flex h-10 w-10 items-center justify-center rounded-full text-white">
                   <NewIcon name={dest.icon} size={24} />
                 </div>
-                <p className="text-sm font-semibold text-white">{dest.title}</p>
+                <p className="text-sm font-semibold text-white">
+                  {dest.title[lang]}
+                </p>
                 <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-white/75">
                   {dest.caption[lang]}
                 </p>

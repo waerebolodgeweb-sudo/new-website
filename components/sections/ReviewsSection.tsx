@@ -67,7 +67,7 @@ const testimonials = [
     id: 7,
     name: "Alfons Adam",
     rating: 5,
-    text: "Staying at Wae Rebo Lodge means always half board with good food and is always a preparation for a visit to the famous traditional village Wae Rebo in the mountains.",
+    text: "Staying at Waerebo Lodge means always half board with good food and is always a preparation for a visit to the famous traditional village Waerebo in the mountains.",
     avatar:
       "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-07-Alfons-Adam.webp",
   },
@@ -83,7 +83,7 @@ const testimonials = [
     id: 9,
     name: "Alex Abramenkov",
     rating: 5,
-    text: "Very good. Thx Mr Martin for the hospitality and stories about Wae Rebo village and Manggarai people",
+    text: "Very good. Thx Mr Martin for the hospitality and stories about Waerebo village and Manggarai people",
     avatar:
       "/homepage/Homepage-Waerebo-Lodge-Profile-Picture-Google-Review-09-Alex-Abramenkov.webp",
   },

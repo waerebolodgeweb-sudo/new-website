@@ -3,13 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  IoArrowForwardOutline,
-  IoArrowUpOutline,
-  IoLogoInstagram,
-  IoLogoTiktok,
-  IoLogoYoutube,
-} from "react-icons/io5";
+import { IoArrowForwardOutline, IoArrowUpOutline } from "react-icons/io5";
 import { rooms } from "@/app/rooms/data";
 import { destinationAssets, destinations } from "@/app/destination/data";
 import { useLang } from "@/lib/i18n";
@@ -26,7 +20,7 @@ const destinationSlides = destinations.map((destination) => ({
 }));
 
 export default function ContactSection() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const [activeLodgeSlide, setActiveLodgeSlide] = useState(0);
   const [activeDestination, setActiveDestination] = useState(0);
 
@@ -126,7 +120,7 @@ export default function ContactSection() {
               <span key={slide.slug} className="absolute inset-0">
                 <Image
                   src={slide.heroDesktop}
-                  alt={slide.name}
+                  alt={slide.name[lang]}
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   className={`hidden object-cover transition-all duration-1000 ease-out group-hover:scale-105 sm:block ${
@@ -137,7 +131,7 @@ export default function ContactSection() {
                 />
                 <Image
                   src={slide.heroMobile}
-                  alt={slide.name}
+                  alt={slide.name[lang]}
                   fill
                   sizes="100vw"
                   className={`object-cover transition-all duration-1000 ease-out group-hover:scale-105 sm:hidden ${
@@ -153,7 +147,7 @@ export default function ContactSection() {
               key={destinationSlides[activeDestination].slug}
               className="iconic-fade absolute bottom-3 left-3 text-sm font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)] sm:bottom-5 sm:left-5 sm:text-2xl"
             >
-              {destinationSlides[activeDestination].name}
+              {destinationSlides[activeDestination].name[lang]}
             </p>
           </Link>
 
@@ -253,10 +247,7 @@ export default function ContactSection() {
             </a>
           </div>
         </div>
-        <div className="mt-8 flex items-center justify-between gap-5  ">
-        
-          
-        </div>
+        <div className="mt-8 flex items-center justify-between gap-5"></div>
       </div>
     </section>
   );
