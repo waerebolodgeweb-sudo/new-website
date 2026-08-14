@@ -7,8 +7,10 @@ import { NewIcon, type NewIconName } from "@/components/icons/new-icons";
 import {
   IoCalendar,
   IoCar,
+  IoCheckmark,
   IoChevronBack,
   IoChevronForward,
+  IoClose,
   IoHome,
   IoLogoWhatsapp,
   IoMail,
@@ -17,7 +19,7 @@ import {
   IoThumbsUp,
   IoTime,
 } from "react-icons/io5";
-import { type InfoCard, type SummaryIcon, type TripProgram } from "../data";
+import { type TripInclusion, type TripProgram } from "../data";
 import { getTripPrograms } from "../localize";
 import { useLang } from "@/lib/i18n";
 
@@ -165,25 +167,6 @@ function ProgramSelector({
   );
 }
 
-function SummaryItemIcon({ icon }: { icon: SummaryIcon }) {
-  if (icon === "people") {
-    return <IoPeople aria-hidden="true" size={24} className="flex-none" />;
-  }
-  if (icon === "thumbs-up") {
-    return <IoThumbsUp aria-hidden="true" size={24} className="flex-none" />;
-  }
-  if (icon === "car") {
-    return <IoCar aria-hidden="true" size={24} className="flex-none" />;
-  }
-  if (icon === "calendar") {
-    return <IoCalendar aria-hidden="true" size={24} className="flex-none" />;
-  }
-
-  return (
-    <NewIcon aria-hidden="true" name={icon} size={24} className="flex-none" />
-  );
-}
-
 function getStopMetaIcon(meta: string): NewIconName | undefined {
   const normalized = meta.toLowerCase();
 
@@ -237,48 +220,73 @@ function StopMeta({ meta }: { meta: string }) {
   );
 }
 
-function SummaryList({ program }: { program: TripProgram }) {
-  return (
-    <div className="mt-7 space-y-3">
-      {program.summary.map((item) => (
-        <div
-          key={item.title}
-          className="flex items-center gap-4 border-b border-savana-200 py-6 last:border-b-0 last:pb-0"
-        >
-          <span className="mt-0.5 text-savana-500">
-            <SummaryItemIcon icon={item.icon} />
-          </span>
-          <div>
-            <h3 className="text-base leading-snug font-semibold text-savana-800 sm:text-xl">
-              {item.title}
-            </h3>
-            {item.description && (
-              <p className="mt-0.5 text-[11px] leading-relaxed text-savana-800 sm:text-sm">
-                {item.description}
-              </p>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
+function HighlightedText({ item }: { item: TripInclusion }) {
+  const phrases = item.emphasis ?? [];
+  if (phrases.length === 0) return item.text;
+
+  const parts: { text: string; emphasized: boolean }[] = [];
+  let cursor = 0;
+
+  while (cursor < item.text.length) {
+    const nextMatch = phrases
+      .map((phrase) => ({ phrase, index: item.text.indexOf(phrase, cursor) }))
+      .filter(({ index }) => index >= 0)
+      .sort(
+        (a, b) => a.index - b.index || b.phrase.length - a.phrase.length
+      )[0];
+
+    if (!nextMatch) {
+      parts.push({ text: item.text.slice(cursor), emphasized: false });
+      break;
+    }
+
+    if (nextMatch.index > cursor) {
+      parts.push({
+        text: item.text.slice(cursor, nextMatch.index),
+        emphasized: false,
+      });
+    }
+
+    parts.push({ text: nextMatch.phrase, emphasized: true });
+    cursor = nextMatch.index + nextMatch.phrase.length;
+  }
+
+  return parts.map((part, index) =>
+    part.emphasized ? (
+      <strong key={`${part.text}-${index}`} className="font-semibold">
+        {part.text}
+      </strong>
+    ) : (
+      <span key={`${part.text}-${index}`}>{part.text}</span>
+    )
   );
 }
 
-function BulletList({ items }: { items: string[] }) {
+function WhatYouGetList({ items }: { items: TripInclusion[] }) {
   return (
-    <ul className="mt-4 space-y-3">
+    <ul className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2">
       {items.map((item) => (
         <li
-          key={item}
-          className="flex gap-3 text-[11px] leading-relaxed text-savana-800 sm:text-sm"
+          key={item.text}
+          className={`flex gap-2.5 text-[12px] leading-[1.55] sm:text-sm ${
+            item.included ? "text-savana-800" : "text-savana-800/50"
+          }`}
         >
-          <NewIcon
+          <span
             aria-hidden="true"
-            name="check"
-            size={24}
-            className="mt-1 flex-none text-savana-500"
-          />
-          <span>{item}</span>
+            className={`mt-px flex-none ${
+              item.included ? "text-savana-500" : "text-red-400"
+            }`}
+          >
+            {item.included ? (
+              <IoCheckmark size={20} strokeWidth={12} />
+            ) : (
+              <IoClose size={20} strokeWidth={8} />
+            )}
+          </span>
+          <span>
+            <HighlightedText item={item} />
+          </span>
         </li>
       ))}
     </ul>
@@ -300,92 +308,23 @@ function ParagraphList({ items }: { items: string[] }) {
   );
 }
 
-function HighlightedCardText({ card }: { card: InfoCard }) {
-  const separator = card.separator ?? ", ";
-  const content = `${card.title}${separator}${card.description}`;
-  const emphasizedPhrases = card.emphasis ?? [card.title];
-
-  if (emphasizedPhrases.length === 0) {
-    return content;
-  }
-
-  const parts: { text: string; emphasized: boolean }[] = [];
-  let cursor = 0;
-
-  while (cursor < content.length) {
-    const nextMatch = emphasizedPhrases
-      .map((phrase) => ({ phrase, index: content.indexOf(phrase, cursor) }))
-      .filter(({ index }) => index >= 0)
-      .sort(
-        (a, b) => a.index - b.index || b.phrase.length - a.phrase.length
-      )[0];
-
-    if (!nextMatch) {
-      parts.push({ text: content.slice(cursor), emphasized: false });
-      break;
-    }
-
-    if (nextMatch.index > cursor) {
-      parts.push({
-        text: content.slice(cursor, nextMatch.index),
-        emphasized: false,
-      });
-    }
-
-    parts.push({ text: nextMatch.phrase, emphasized: true });
-    cursor = nextMatch.index + nextMatch.phrase.length;
-  }
-
-  return parts.map((part, index) =>
-    part.emphasized ? (
-      <strong
-        key={`${part.text}-${index}`}
-        className={
-          card.emphasisTone === "danger"
-            ? "font-semibold text-red-500"
-            : "font-semibold text-savana-800"
-        }
-      >
-        {part.text}
-      </strong>
-    ) : (
-      <span key={`${part.text}-${index}`}>{part.text}</span>
-    )
-  );
-}
-
-function InfoCards({
-  cards,
-  variant = "default",
-}: {
-  cards: InfoCard[];
-  variant?: "default" | "accommodation";
-}) {
-  return (
-    <div
-      className={`mt-4 grid gap-2 sm:gap-3 ${
-        cards.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
-      }`}
-    >
-      {cards.map((card) => (
-        <div
-          key={card.title}
-          className={`rounded-lg px-4 py-3.5 text-[14px] leading-relaxed text-savana-800/80 sm:text-base ${
-            variant === "accommodation"
-              ? "border border-savana-200 bg-savana-200/25"
-              : "bg-savana-200"
-          }`}
-        >
-          <HighlightedCardText card={card} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function splitDay(day: string) {
   const [label, ...route] = day.split(" - ");
   return { label, route: route.join(" - ") };
+}
+
+function getSidebarStops(stops: TripProgram["stops"]) {
+  const originalOrder = new Map(
+    stops.map((stop, index) => [stop.id, index] as const)
+  );
+
+  return stops
+    .filter((stop) => !stop.sidebar?.hidden)
+    .sort(
+      (a, b) =>
+        (a.sidebar?.order ?? originalOrder.get(a.id) ?? 0) -
+        (b.sidebar?.order ?? originalOrder.get(b.id) ?? 0)
+    );
 }
 
 function TripSidebar({ program }: { program: TripProgram }) {
@@ -407,14 +346,17 @@ function TripSidebar({ program }: { program: TripProgram }) {
   useEffect(() => {
     const sectionIds = [
       "trip-summary",
-      "accommodation",
-      "meals-dining",
       ...(singleDay
-        ? ["itinerary-timeline", ...program.stops.map((stop) => stop.id)]
+        ? [
+            "itinerary-timeline",
+            ...program.stops
+              .filter((stop) => !stop.sidebar?.hidden)
+              .map((stop) => stop.id),
+          ]
         : days.flatMap((day, dayIndex) => [
             `itinerary-day-${dayIndex + 1}`,
             ...program.stops
-              .filter((stop) => stop.day === day)
+              .filter((stop) => stop.day === day && !stop.sidebar?.hidden)
               .map((stop) => stop.id),
           ])),
     ];
@@ -487,21 +429,25 @@ function TripSidebar({ program }: { program: TripProgram }) {
 
   const renderStopLinks = (stops: TripProgram["stops"]) => (
     <div className="mt-1.5 text-xs">
-      {stops.map((stop) => (
-        <a
-          key={stop.id}
-          href={`#${stop.id}`}
-          data-section-id={stop.id}
-          aria-current={activeSection === stop.id ? "location" : undefined}
-          onClick={() => setActiveSection(stop.id)}
-          className={sectionLinkClass(stop.id, true)}
-        >
-          <span aria-hidden="true">↳</span>
-          <span className="min-w-0 truncate text-xs" title={stop.title}>
-            {stop.title}
-          </span>
-        </a>
-      ))}
+      {getSidebarStops(stops).map((stop) => {
+        const label = stop.sidebar?.title ?? stop.title;
+
+        return (
+          <a
+            key={stop.id}
+            href={`#${stop.id}`}
+            data-section-id={stop.id}
+            aria-current={activeSection === stop.id ? "location" : undefined}
+            onClick={() => setActiveSection(stop.id)}
+            className={sectionLinkClass(stop.id, true)}
+          >
+            <span aria-hidden="true">↳</span>
+            <span className="min-w-0 truncate text-xs" title={label}>
+              {label}
+            </span>
+          </a>
+        );
+      })}
     </div>
   );
 
@@ -513,7 +459,7 @@ function TripSidebar({ program }: { program: TripProgram }) {
           aria-label={`${program.title}: ${t("trip.pageSections")}`}
           className="trip-sidebar-scrollbar h-[528px] max-h-[528px] overflow-y-auto rounded-xl bg-white px-5 py-5 shadow-[0_4px_8px_rgba(69,61,24,0.10)]"
         >
-          <div className="space-y-2 text-base font-semibold">
+          <div className="text-base font-semibold">
             <a
               href="#trip-summary"
               data-section-id="trip-summary"
@@ -524,28 +470,6 @@ function TripSidebar({ program }: { program: TripProgram }) {
               className={sectionLinkClass("trip-summary")}
             >
               {t("trip.summary")}
-            </a>
-            <a
-              href="#accommodation"
-              data-section-id="accommodation"
-              aria-current={
-                activeSection === "accommodation" ? "location" : undefined
-              }
-              onClick={() => setActiveSection("accommodation")}
-              className={sectionLinkClass("accommodation")}
-            >
-              {t("trip.accommodation")}
-            </a>
-            <a
-              href="#meals-dining"
-              data-section-id="meals-dining"
-              aria-current={
-                activeSection === "meals-dining" ? "location" : undefined
-              }
-              onClick={() => setActiveSection("meals-dining")}
-              className={sectionLinkClass("meals-dining")}
-            >
-              {t("trip.meals")}
             </a>
           </div>
 
@@ -623,57 +547,18 @@ function TripOverview({ program }: { program: TripProgram }) {
   return (
     <section className="in-view px-5 pt-8 pb-14 sm:px-8 sm:pb-20 lg:px-0 lg:pt-0 lg:pb-14">
       <div id="trip-summary" className="scroll-mt-28">
-        <div>
-          <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
-            {t("trip.summary")}
-          </h2>
-          <p className="mt-3 max-w-[65ch] text-[11px] leading-[1.75] text-savana-800 sm:text-sm">
-            {program.overview}
-          </p>
-          <SummaryList program={program} />
-        </div>
+        <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
+          {t("trip.summary")}
+        </h2>
+        <p className="mt-2 max-w-[72ch] text-[12px] leading-[1.7] text-savana-800 sm:text-sm">
+          {program.overview}
+        </p>
 
-        <div className="mt-10 space-y-9">
-          <div>
-            <h2 className="text-xl font-bold text-savana-800">
-              {t("trip.whatYouGet")}
-            </h2>
-            <BulletList items={program.experiences} />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-savana-800">
-              {t("trip.travelersNotes")}
-            </h2>
-            <ParagraphList items={program.notes} />
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-11 grid gap-10">
-        <div id="accommodation" className="scroll-mt-28">
-          <h2 className="text-2xl font-bold text-savana-800 sm:text-3xl">
-            {t("trip.accommodation")}
-          </h2>
-          <InfoCards cards={program.accommodation} variant="accommodation" />
-          {program.accommodationReminder && (
-            <p className="mt-3 text-[10px] leading-relaxed text-savana-800 sm:text-xs">
-              <span className="font-semibold text-red-500">
-                *{t("trip.reminder")}
-              </span>{" "}
-              {program.accommodationReminder}
-            </p>
-          )}
-        </div>
-        <div id="meals-dining" className="scroll-mt-28">
-          <h2 className="text-2xl font-bold text-savana-800 sm:text-3xl">
-            {t("trip.meals")}
-          </h2>
-          <InfoCards cards={program.meals} />
-          {program.mealsNote && (
-            <p className="mt-3 max-w-[72ch] text-[10px] leading-relaxed text-savana-600 sm:text-xs">
-              *{program.mealsNote}
-            </p>
-          )}
+        <div className="mt-4">
+          <h3 className="text-base font-bold text-savana-800 sm:text-lg">
+            {t("trip.whatYouGet")}
+          </h3>
+          <WhatYouGetList items={program.whatYouGet ?? []} />
         </div>
       </div>
     </section>
@@ -792,6 +677,16 @@ function Itinerary({ program }: { program: TripProgram }) {
             </div>
           );
         })}
+      </div>
+
+      <div
+        id="travelers-notes"
+        className="mt-14 scroll-mt-28 border-t border-savana-200 pt-8 sm:mt-20 sm:pt-10"
+      >
+        <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
+          {t("trip.travelersNotes")}
+        </h2>
+        <ParagraphList items={program.notes} />
       </div>
     </section>
   );

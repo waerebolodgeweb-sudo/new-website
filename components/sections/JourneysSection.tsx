@@ -24,9 +24,25 @@ import {
   IoLeafOutline,
   IoWalkOutline,
   IoWaterOutline,
+  IoPeople,
+  IoThumbsUp,
+  IoCar,
+  IoCalendar,
+  IoHome,
 } from "react-icons/io5";
 import { rooms, type Room } from "@/app/rooms/data";
 import { useLang } from "@/lib/i18n";
+import {
+  ACIcon,
+  BoatIcon,
+  CaveIcon,
+  FanIcon,
+  LunchIcon,
+  RiceIcon,
+  VillageIcon,
+  WalkIcon,
+  WaterfallsIcon,
+} from "@/components/icons/new-icons";
 
 type TabKey = "trip" | "lodge" | "restaurant" | "transport";
 const tabKeys: TabKey[] = ["trip", "lodge", "restaurant", "transport"];
@@ -38,7 +54,7 @@ const whatsappNumber = "6285339021145";
 const email = "waerebolodge@gmail.com";
 
 interface TripFeatureDef {
-  icon: IconType;
+  icon: any;
   labelKey: string;
 }
 
@@ -56,7 +72,7 @@ interface LodgeCardDef {
   title: string;
   image: string;
   meta: {
-    icon: IconType;
+    icon: any;
     label: string;
   }[];
 }
@@ -75,9 +91,9 @@ const tripDefs: JourneyCardDef[] = [
     durationKey: "journeys.trip1.duration",
     image: "/Trip Package/Hero webp/Trip-Waerebo-Lodge-1D-0N-Hero-Desktop.webp",
     features: [
-      { icon: IoHomeOutline, labelKey: "journeys.feature.villageVisit" },
-      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
-      { icon: IoRestaurantOutline, labelKey: "journeys.feature.lunch" },
+      { icon: VillageIcon, labelKey: "journeys.feature.villageVisit" },
+      { icon: WalkIcon, labelKey: "journeys.feature.trekking" },
+      { icon: LunchIcon, labelKey: "journeys.feature.lunch" },
     ],
     descKey: "journeys.trip1.desc",
   },
@@ -87,9 +103,9 @@ const tripDefs: JourneyCardDef[] = [
     durationKey: "journeys.trip2.duration",
     image: "/Trip Package/Hero webp/Trip-Waerebo-Lodge-2D-1N-Hero-Desktop.webp",
     features: [
-      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
-      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
-      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
+      { icon: VillageIcon, labelKey: "journeys.feature.villageStay" },
+      { icon: WalkIcon, labelKey: "journeys.feature.trekking" },
+      { icon: LunchIcon, labelKey: "journeys.feature.meals" },
     ],
     descKey: "journeys.trip2.desc",
   },
@@ -99,11 +115,11 @@ const tripDefs: JourneyCardDef[] = [
     durationKey: "journeys.trip3.duration",
     image: "/Trip Package/Hero webp/Trip-Waerebo-Lodge-3D-2N-Hero-Desktop.webp",
     features: [
-      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
-      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
-      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
-      { icon: IoWaterOutline, labelKey: "journeys.feature.waterfalls" },
-      { icon: IoLeafOutline, labelKey: "journeys.feature.riceFields" },
+      { icon: VillageIcon, labelKey: "journeys.feature.villageStay" },
+      { icon: WalkIcon, labelKey: "journeys.feature.trekking" },
+      { icon: LunchIcon, labelKey: "journeys.feature.meals" },
+      { icon: WaterfallsIcon, labelKey: "journeys.feature.waterfalls" },
+      { icon: RiceIcon, labelKey: "journeys.feature.riceFields" },
     ],
     descKey: "journeys.trip3.desc",
   },
@@ -114,11 +130,11 @@ const tripDefs: JourneyCardDef[] = [
     image:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Island-Escape-Hero-Desktop.webp",
     features: [
-      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
-      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
-      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
-      { icon: IoBoatOutline, labelKey: "journeys.feature.nucaMolas" },
-      { icon: IoLeafOutline, labelKey: "journeys.feature.riceFields" },
+      { icon: VillageIcon, labelKey: "journeys.feature.villageStay" },
+      { icon: WalkIcon, labelKey: "journeys.feature.trekking" },
+      { icon: LunchIcon, labelKey: "journeys.feature.meals" },
+      { icon: BoatIcon, labelKey: "journeys.feature.nucaMolas" },
+      { icon: RiceIcon, labelKey: "journeys.feature.riceFields" },
     ],
     descKey: "journeys.trip4.desc",
   },
@@ -129,32 +145,32 @@ const tripDefs: JourneyCardDef[] = [
     image:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Flores-Hero-Desktop.webp",
     features: [
-      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
-      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
-      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
-      { icon: IoWaterOutline, labelKey: "journeys.feature.waterfalls" },
-      { icon: IoLeafOutline, labelKey: "journeys.feature.riceFields" },
-      { icon: IoEarthOutline, labelKey: "journeys.feature.cave" },
+      { icon: VillageIcon, labelKey: "journeys.feature.villageStay" },
+      { icon: WalkIcon, labelKey: "journeys.feature.trekking" },
+      { icon: LunchIcon, labelKey: "journeys.feature.meals" },
+      { icon: WaterfallsIcon, labelKey: "journeys.feature.waterfalls" },
+      { icon: RiceIcon, labelKey: "journeys.feature.riceFields" },
+      { icon: CaveIcon, labelKey: "journeys.feature.cave" },
     ],
     descKey: "journeys.trip5.desc",
   },
 ];
 
 const customJourneyFeatures: TripFeatureDef[] = [
-  { icon: IoPeopleOutline, labelKey: "trip.custom.feature.travelers" },
-  { icon: IoMapOutline, labelKey: "trip.custom.feature.team" },
-  { icon: IoCalendarOutline, labelKey: "trip.custom.feature.flexible" },
-  { icon: IoBedOutline, labelKey: "trip.custom.feature.lodge" },
-  { icon: IoHomeOutline, labelKey: "trip.custom.feature.village" },
-  { icon: IoLeafOutline, labelKey: "trip.custom.feature.authentic" },
-  { icon: IoRestaurantOutline, labelKey: "trip.custom.feature.meals" },
-  { icon: IoCarOutline, labelKey: "trip.custom.feature.accommodation" },
+  { icon: IoPeople, labelKey: "trip.custom.feature.travelers" },
+  { icon: IoThumbsUp, labelKey: "trip.custom.feature.team" },
+  { icon: IoCalendar, labelKey: "trip.custom.feature.flexible" },
+  { icon: IoHome, labelKey: "trip.custom.feature.lodge" },
+  { icon: VillageIcon, labelKey: "trip.custom.feature.village" },
+  { icon: WaterfallsIcon, labelKey: "trip.custom.feature.authentic" },
+  { icon: LunchIcon, labelKey: "trip.custom.feature.meals" },
+  { icon: IoCar, labelKey: "trip.custom.feature.accommodation" },
 ];
 
-const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], IconType> = {
-  people: IoPeopleOutline,
-  ac: IoSnowOutline,
-  fan: IoLeafOutline,
+const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], any> = {
+  people: IoPeople,
+  ac: ACIcon,
+  fan: FanIcon,
   shower: IoThermometerOutline,
   bed: IoBedOutline,
 };
@@ -579,21 +595,21 @@ function TripSlider() {
               ))}
             </div>
 
-            <div className="mt-2 grid gap-2 sm:grid-cols-2">
+            <div className="mt-auto grid gap-2 pt-3 sm:grid-cols-2">
               <a
                 href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-4 py-2.5 text-center text-[11px] font-semibold text-white transition-colors hover:bg-savana-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+                className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-4 py-2.5 text-center text-base font-semibold text-white transition-colors hover:bg-savana-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
               >
-                <IoLogoWhatsapp aria-hidden="true" className="h-4 w-4" />
+                <IoLogoWhatsapp aria-hidden="true" className="h-5 w-5" />
                 {t("journeys.custom.whatsapp")}
               </a>
               <a
                 href={`mailto:${email}?subject=${emailSubject}`}
-                className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-700 px-4 py-2.5 text-center text-[11px] font-semibold text-savana-800 transition-colors hover:bg-savana-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+                className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-700 px-4 py-2.5 text-center text-base font-semibold text-savana-800 transition-colors hover:bg-savana-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
               >
-                <IoMailOutline aria-hidden="true" className="h-4 w-4" />
+                <IoMailOutline aria-hidden="true" className="h-5 w-5" />
                 {t("journeys.custom.email")}
               </a>
             </div>

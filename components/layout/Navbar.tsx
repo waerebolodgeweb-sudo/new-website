@@ -35,9 +35,7 @@ const navLinks: NavLink[] = [
     ],
   },
   { key: "nav.about", href: "/about" },
-  { key: "nav.testimonials", href: "/#testimonials" },
-  { key: "nav.gallery", href: "/gallery" },
-  { key: "nav.reviews", href: "/#reviews" },
+  { key: "nav.moments", href: "/gallery" },
   { key: "nav.faq", href: "/faq" },
 ];
 
@@ -168,24 +166,18 @@ export default function Navbar() {
             className="flex items-center"
             aria-label="Waerebo Lodge — Home"
           >
-            <picture>
-              <source
-                media={desktopNavMediaQuery}
-                srcSet={transparent ? "/logo-white.png" : "/logo.png"}
-              />
-              <Image
-                src={
-                  transparent
-                    ? "/Logo Waerebo/Logo-Waerebo-New-v1.2-With-Text-Light.svg"
-                    : "/Logo Waerebo/Brown-Logo-Waerebo-New-v1.2-With-Text-Dark.svg"
-                }
-                alt="Waerebo Lodge"
-                width={231}
-                height={100}
-                fetchPriority="high"
-                className="h-10 w-auto"
-              />
-            </picture>
+            <Image
+              src={
+                transparent
+                  ? "/Logo Waerebo/Logo-Waerebo-New-v1.2-With-Text-Light.svg"
+                  : "/Logo Waerebo/Brown-Logo-Waerebo-New-v1.2-With-Text-Dark.svg"
+              }
+              alt="Waerebo Lodge"
+              width={231}
+              height={100}
+              fetchPriority="high"
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop nav — centered */}

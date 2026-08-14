@@ -5,6 +5,11 @@ export interface TripStop {
   meta: string;
   description: string;
   image: string;
+  sidebar?: {
+    title?: string;
+    hidden?: boolean;
+    order?: number;
+  };
 }
 
 export type SummaryIcon =
@@ -22,6 +27,12 @@ export interface TripSummaryItem {
   title: string;
   description?: string;
   icon: SummaryIcon;
+}
+
+export interface TripInclusion {
+  text: string;
+  included: boolean;
+  emphasis?: string[];
 }
 
 export interface InfoCard {
@@ -43,6 +54,7 @@ export interface TripProgram {
   heroDesktop: string;
   heroMobile: string;
   overview: string;
+  whatYouGet?: TripInclusion[];
   summary: TripSummaryItem[];
   experiences: string[];
   notes: string[];
@@ -168,14 +180,22 @@ const floresStopCopy: Record<string, string> = {
   "Lunch & Coffee Experience":
     "Enjoy a local lunch and authentic Waerebo coffee after the ceremony.",
   "Waerebo Lodge Return":
-    "Upon arrival at Waerebo Lodge, guests may take a shower and enjoy lunch before completing the journey.",
+    "Upon arrival at Waerebo Lodge, guests may take a shower and enjoy lunch. After lunch, the journey continues back to Labuan Bajo, where the trip ends.",
+};
+
+const islandStopCopy: Record<string, string> = {
+  ...commonTrekCopy,
+  ...overlandCopy,
+  "Waerebo Lodge Return":
+    "After returning from Nuca Molas Island, continue by boat to Dintor and transfer to Waerebo Lodge. Dinner will be prepared at the lodge before your second overnight stay.",
 };
 
 function buildStops(
   folder: string,
   prefix: string,
   seeds: StopSeed[],
-  descriptions: Record<string, string>
+  descriptions: Record<string, string>,
+  sidebar: Record<string, NonNullable<TripStop["sidebar"]>> = {}
 ): TripStop[] {
   return seeds.map(([day, title, meta, imageNumber], index) => ({
     id: `${prefix}-${index + 1}`,
@@ -188,6 +208,7 @@ function buildStops(
       overlandCopy[title] ??
       "Travel with a local guide and experience another distinctive part of the Flores landscape and culture.",
     image: `/Trip Package/${folder}/${prefix}-${String(imageNumber ?? index + 1).padStart(2, "0")}.webp`,
+    sidebar: sidebar[title],
   }));
 }
 
@@ -208,7 +229,30 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-1D-0N-Hero-Desktop.webp",
     overview:
-      "This one-day trip is perfect for travelers who want to visit Waerebo in a shorter time. Starting from Waerebo Lodge, the journey combines a scenic drive, forest trekking, cultural introduction, local lunch, and Waerebo coffee before returning to Dintor in the afternoon.",
+      "A quick, immersive one-day trip from Waerebo Lodge featuring scenic views, a forest trek, a cultural introduction, local lunch, and Waerebo coffee before returning to Dintor in the afternoon.",
+    whatYouGet: [
+      {
+        text: "A total of 1 day, with no overnight stay.",
+        included: true,
+        emphasis: ["1 day", "no overnight stay"],
+      },
+      { text: "Cultural village exploration.", included: true },
+      { text: "Lunch prepared in the village.", included: true },
+      {
+        text: "Rumah Gendang (main house) visit.",
+        included: true,
+        emphasis: ["Rumah Gendang"],
+      },
+      { text: "Some transportation provided.", included: true },
+      { text: "Waerebo Village stay not included.", included: false },
+      {
+        text: "A taste of authentic Waerebo coffee.",
+        included: true,
+        emphasis: ["authentic Waerebo coffee"],
+      },
+      { text: "Lodge stay not included.", included: false },
+      { text: "A scenic trek through the forest.", included: true },
+    ],
     summary: [
       {
         icon: "people",
@@ -321,7 +365,30 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-2D-1N-Hero-Mobile.webp",
     overview:
-      "This overnight experience is the best way to truly feel the atmosphere of Waerebo. More than just a trek, this journey allows guests to spend time with the local community, learn about traditional houses, enjoy local food and coffee, and stay overnight inside the iconic cone-shaped traditional house.",
+      "Immerse yourself in a two-day, one-night Waerebo trip. Trek to the village, connect with the local community over traditional food and coffee, and sleep inside the iconic cone-shaped house.",
+    whatYouGet: [
+      {
+        text: "A total of 2 days and 1 night.",
+        included: true,
+        emphasis: ["2 days and 1 night"],
+      },
+      { text: "Cultural village exploration.", included: true },
+      { text: "Multiple meals prepared during the trip.", included: true },
+      {
+        text: "Rumah Gendang (main house) visit.",
+        included: true,
+        emphasis: ["Rumah Gendang"],
+      },
+      { text: "Some transportation provided.", included: true },
+      { text: "1-night stay in Waerebo Village.", included: true },
+      {
+        text: "A taste of authentic Waerebo coffee.",
+        included: true,
+        emphasis: ["authentic Waerebo coffee"],
+      },
+      { text: "Lodge stay not included.", included: false },
+      { text: "A scenic trek through the forest.", included: true },
+    ],
     summary: [
       {
         icon: "people",
@@ -450,9 +517,9 @@ export const tripPrograms: TripProgram[] = [
   },
   {
     id: "nature-culture-journey",
-    label: "Nature & Culture Journey",
+    label: "Nature & Culture",
     duration: "3 days, 2 nights",
-    title: "Nature & Culture Journey",
+    title: "Nature & Culture",
     heroTitle:
       "A complete nature, culture, and trekking journey from Labuan Bajo",
     subtitle:
@@ -462,7 +529,32 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-3D-2N-Hero-Mobile.webp",
     overview:
-      "This 3-day journey is designed for travelers who want a complete Waerebo experience starting from Labuan Bajo. The trip combines waterfall, rice field scenery, coastal viewpoints, a peaceful stay at Waerebo Lodge, forest trekking, cultural experience, and an overnight stay inside Waerebo’s traditional cone-shaped house.",
+      "Starting from Labuan Bajo, enjoy scenic waterfalls, rice terraces, and coastal views, paired with stays at Waerebo Lodge and Waerebo Village, including a visit inside the traditional cone-shaped house (Mbaru Niang). The journey lasts three days and two nights.",
+    whatYouGet: [
+      {
+        text: "A total of 3 days and 2 nights.",
+        included: true,
+        emphasis: ["3 days and 2 nights"],
+      },
+      { text: "Iconic rice field and beach visits.", included: true },
+      { text: "Multiple meals prepared during the trip.", included: true },
+      { text: "Cultural village exploration.", included: true },
+      { text: "Some transportation provided.", included: true },
+      {
+        text: "Rumah Gendang (main house) visit.",
+        included: true,
+        emphasis: ["Rumah Gendang"],
+      },
+      {
+        text: "A taste of authentic Waerebo coffee.",
+        included: true,
+        emphasis: ["authentic Waerebo coffee"],
+      },
+      { text: "1-night stay in Waerebo Village.", included: true },
+      { text: "A scenic trek through the forest.", included: true },
+      { text: "1-night stay at Waerebo Lodge.", included: true },
+      { text: "Cunca Plias Waterfall visit.", included: true },
+    ],
     summary: [
       { icon: "people", title: "Private & Group options available" },
       {
@@ -603,7 +695,21 @@ export const tripPrograms: TripProgram[] = [
         ],
         ["Day 3 - Waerebo to Dintor", "Waerebo Lodge Return", "Trek Back Down"],
       ],
-      { ...commonTrekCopy, ...overlandCopy }
+      { ...commonTrekCopy, ...overlandCopy },
+      {
+        "Labuan Bajo Pickup": { title: "Pickup" },
+        "Cunca Plias Waterfall Visit": { title: "Pleas Waterfall" },
+        "Lembor Rice Fields": {
+          title: "Lembor irrigation rice fields",
+        },
+        "Watu Weri Beach Coastal Views": { title: "Watu Weri Beach" },
+        "Arrival at Waerebo Lodge": { title: "Waerebo Lodge Arrival" },
+        "Forest Trekking to Waerebo": {
+          title: "Forest Trekking from Pos 1",
+        },
+        "Lunch & Coffee Experience": { order: 4 },
+        "Village Experience": { order: 5 },
+      }
     ),
   },
   {
@@ -620,7 +726,33 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Island-Escape-Hero-Mobile.webp",
     overview:
-      "This 4-day journey combines the cultural and mountain experience of Waerebo with a relaxing island escape to Nuca Molas. Starting from Labuan Bajo, the trip includes waterfall scenery, rice fields, coastal viewpoints, forest trekking, an overnight stay in Waerebo’s traditional cone-shaped house, a boat trip to Nuca Molas Island, and a visit to the spider web rice field viewpoint before returning to Labuan Bajo.",
+      "Combine mountain culture with a relaxing island escape on a four-day, three-night trip. Depart from Labuan Bajo to experience waterfalls, an overnight stay in Waerebo Village, a Nuca Molas Island boat trip, and the famous spider web rice fields.",
+    whatYouGet: [
+      {
+        text: "A total of 4 days and 3 nights.",
+        included: true,
+        emphasis: ["4 days and 3 nights"],
+      },
+      { text: "Cunca Plias Waterfall visit.", included: true },
+      { text: "Multiple meals prepared during the trip.", included: true },
+      { text: "Iconic rice field and beach visits.", included: true },
+      { text: "Some transportation provided.", included: true },
+      { text: "Cultural village exploration.", included: true },
+      {
+        text: "A taste of authentic Waerebo coffee.",
+        included: true,
+        emphasis: ["authentic Waerebo coffee"],
+      },
+      {
+        text: "Rumah Gendang (main house) visit.",
+        included: true,
+        emphasis: ["Rumah Gendang"],
+      },
+      { text: "A scenic trek through the forest.", included: true },
+      { text: "1-night stay in Waerebo Village.", included: true },
+      { text: "Boat trip to Nuca Molas Island.", included: true },
+      { text: "2-night stay at Waerebo Lodge.", included: true },
+    ],
     summary: [
       {
         icon: "people",
@@ -772,7 +904,19 @@ export const tripPrograms: TripProgram[] = [
         ],
         ["Day 4 - Dintor to Labuan Bajo", "Labuan Bajo", "Afternoon"],
       ],
-      { ...commonTrekCopy, ...overlandCopy }
+      islandStopCopy,
+      {
+        "Labuan Bajo Pickup": { title: "Pickup" },
+        "Cunca Plias Waterfall Visit": { title: "Pleas Waterfall" },
+        "Lembor Irrigation Rice Fields": {
+          title: "Lembor irrigation rice fields",
+        },
+        "Forest Trekking to Waerebo": {
+          title: "Forest Trekking from Pos 1",
+        },
+        "Lunch & Coffee Experience": { order: 4 },
+        "Village Experience": { order: 5 },
+      }
     ),
   },
   {
@@ -789,7 +933,35 @@ export const tripPrograms: TripProgram[] = [
     heroMobile:
       "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Flores-Hero-Mobile.webp",
     overview:
-      "This 4-day journey is designed for travelers who want to explore more of Flores beyond Waerebo. The trip combines natural scenery, cultural landmarks, traditional landscapes, the historical Liang Bua Hobbit Cave, and an overnight cultural experience inside Waerebo’s traditional cone-shaped house.",
+      "Explore deeper into Flores on a four-day, three-night trip. Combine your Waerebo overnight stay with breathtaking scenery, cultural landmarks, and a visit to the historic Liang Bua Hobbit Cave.",
+    whatYouGet: [
+      {
+        text: "A total of 4 days and 3 nights.",
+        included: true,
+        emphasis: ["4 days and 3 nights"],
+      },
+      { text: "Cunca Plias Waterfall visit.", included: true },
+      { text: "Multiple meals prepared during the trip.", included: true },
+      { text: "Iconic rice field and beach visits.", included: true },
+      { text: "Some transportation provided.", included: true },
+      { text: "Cultural village exploration.", included: true },
+      {
+        text: "A taste of authentic Waerebo coffee.",
+        included: true,
+        emphasis: ["authentic Waerebo coffee"],
+      },
+      {
+        text: "Rumah Gendang (main house) visit.",
+        included: true,
+        emphasis: ["Rumah Gendang"],
+      },
+      { text: "A scenic trek through the forest.", included: true },
+      { text: "1-night stay in Ruteng.", included: true },
+      { text: "Ruteng Cathedral and market visits.", included: true },
+      { text: "1-night stay in Waerebo Village.", included: true },
+      { text: "Entry to Liang Bua Hobbit Cave.", included: true },
+      { text: "1-night stay at Waerebo Lodge.", included: true },
+    ],
     summary: [
       {
         icon: "people",
@@ -976,7 +1148,21 @@ export const tripPrograms: TripProgram[] = [
         ],
         ["Day 4 - Waerebo to Dintor", "Waerebo Lodge Return", "Evening", 23],
       ],
-      floresStopCopy
+      floresStopCopy,
+      {
+        "Labuan Bajo Pickup": { title: "Pickup" },
+        "Cunca Plias Waterfall Visit": { title: "Pleas Waterfall" },
+        "Lembor Irrigation Rice Fields": {
+          title: "Lembor irrigation rice fields",
+        },
+        "Arrival at Ruteng": { hidden: true },
+        "Hobbit Cave Liang Bua": { title: "Hobbit Cave" },
+        "Forest Trekking to Waerebo": {
+          title: "Forest Trekking from Pos 1",
+        },
+        "Lunch & Coffee Experience": { order: 4 },
+        "Village Experience": { order: 5 },
+      }
     ),
   },
   {

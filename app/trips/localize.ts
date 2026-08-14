@@ -325,6 +325,60 @@ const indonesia: Record<string, string> = {
   "Morning · Breakfast by the village": "Pagi · Sarapan dari desa",
   "Upon arrival at Waerebo Lodge, guests may take a shower and enjoy lunch before completing the journey.":
     "Setibanya di Waerebo Lodge, tamu dapat mandi dan menikmati makan siang sebelum mengakhiri perjalanan.",
+  "Upon arrival at Waerebo Lodge, guests may take a shower and enjoy lunch. After lunch, the journey continues back to Labuan Bajo, where the trip ends.":
+    "Setibanya di Waerebo Lodge, tamu dapat mandi dan menikmati makan siang. Setelah makan siang, perjalanan dilanjutkan kembali ke Labuan Bajo, tempat trip berakhir.",
+  "After returning from Nuca Molas Island, continue by boat to Dintor and transfer to Waerebo Lodge. Dinner will be prepared at the lodge before your second overnight stay.":
+    "Setelah kembali dari Pulau Nuca Molas, lanjutkan perjalanan dengan perahu ke Dintor lalu transfer ke Waerebo Lodge. Makan malam akan disiapkan di lodge sebelum bermalam untuk malam kedua.",
+  "A quick, immersive one-day trip from Waerebo Lodge featuring scenic views, a forest trek, a cultural introduction, local lunch, and Waerebo coffee before returning to Dintor in the afternoon.":
+    "Perjalanan satu hari yang singkat dan mendalam dari Waerebo Lodge, mencakup pemandangan indah, trekking hutan, pengenalan budaya, makan siang lokal, dan kopi Waerebo sebelum kembali ke Dintor pada sore hari.",
+  "Immerse yourself in a two-day, one-night Waerebo trip. Trek to the village, connect with the local community over traditional food and coffee, and sleep inside the iconic cone-shaped house.":
+    "Nikmati perjalanan Waerebo selama dua hari satu malam. Trekking menuju desa, berinteraksi dengan masyarakat setempat sambil menikmati makanan tradisional dan kopi, lalu bermalam di rumah kerucut yang ikonik.",
+  "Nature & Culture": "Alam & Budaya",
+  "Starting from Labuan Bajo, enjoy scenic waterfalls, rice terraces, and coastal views, paired with stays at Waerebo Lodge and Waerebo Village, including a visit inside the traditional cone-shaped house (Mbaru Niang). The journey lasts three days and two nights.":
+    "Berangkat dari Labuan Bajo, nikmati air terjun, terasering sawah, dan pemandangan pesisir, dilengkapi dengan menginap di Waerebo Lodge dan Desa Waerebo serta mengunjungi bagian dalam rumah adat berbentuk kerucut (Mbaru Niang). Perjalanan berlangsung selama tiga hari dua malam.",
+  "Combine mountain culture with a relaxing island escape on a four-day, three-night trip. Depart from Labuan Bajo to experience waterfalls, an overnight stay in Waerebo Village, a Nuca Molas Island boat trip, and the famous spider web rice fields.":
+    "Padukan budaya pegunungan dengan liburan santai di pulau selama empat hari tiga malam. Berangkat dari Labuan Bajo untuk menikmati air terjun, bermalam di Desa Waerebo, perjalanan perahu ke Pulau Nuca Molas, dan sawah jaring laba-laba yang terkenal.",
+  "Explore deeper into Flores on a four-day, three-night trip. Combine your Waerebo overnight stay with breathtaking scenery, cultural landmarks, and a visit to the historic Liang Bua Hobbit Cave.":
+    "Jelajahi Flores lebih dalam selama empat hari tiga malam. Padukan pengalaman bermalam di Waerebo dengan pemandangan menakjubkan, landmark budaya, dan kunjungan ke Gua Hobbit Liang Bua yang bersejarah.",
+  "A total of 1 day, with no overnight stay.": "Total 1 hari, tanpa menginap.",
+  "1 day": "1 hari",
+  "no overnight stay": "tanpa menginap",
+  "A total of 2 days and 1 night.": "Total 2 hari dan 1 malam.",
+  "2 days and 1 night": "2 hari dan 1 malam",
+  "A total of 3 days and 2 nights.": "Total 3 hari dan 2 malam.",
+  "3 days and 2 nights": "3 hari dan 2 malam",
+  "A total of 4 days and 3 nights.": "Total 4 hari dan 3 malam.",
+  "4 days and 3 nights": "4 hari dan 3 malam",
+  "Cultural village exploration.": "Eksplorasi desa budaya.",
+  "Lunch prepared in the village.": "Makan siang disiapkan di desa.",
+  "Multiple meals prepared during the trip.":
+    "Beberapa hidangan disiapkan selama perjalanan.",
+  "Rumah Gendang (main house) visit.":
+    "Kunjungan ke Rumah Gendang (rumah utama).",
+  "Some transportation provided.": "Sebagian transportasi disediakan.",
+  "Waerebo Village stay not included.":
+    "Menginap di Desa Waerebo tidak termasuk.",
+  "A taste of authentic Waerebo coffee.":
+    "Mencicipi kopi Waerebo yang autentik.",
+  "authentic Waerebo coffee": "kopi Waerebo yang autentik",
+  "Lodge stay not included.": "Menginap di lodge tidak termasuk.",
+  "A scenic trek through the forest.":
+    "Trekking berpemandangan indah melalui hutan.",
+  "1-night stay in Waerebo Village.": "Menginap 1 malam di Desa Waerebo.",
+  "Iconic rice field and beach visits.":
+    "Kunjungan ke sawah dan pantai yang ikonik.",
+  "1-night stay at Waerebo Lodge.": "Menginap 1 malam di Waerebo Lodge.",
+  "2-night stay at Waerebo Lodge.": "Menginap 2 malam di Waerebo Lodge.",
+  "Cunca Plias Waterfall visit.": "Kunjungan ke Air Terjun Cunca Plias.",
+  "Boat trip to Nuca Molas Island.": "Perjalanan perahu ke Pulau Nuca Molas.",
+  "1-night stay in Ruteng.": "Menginap 1 malam di Ruteng.",
+  "Ruteng Cathedral and market visits.":
+    "Kunjungan ke Katedral dan pasar Ruteng.",
+  "Entry to Liang Bua Hobbit Cave.": "Tiket masuk ke Gua Hobbit Liang Bua.",
+  Pickup: "Penjemputan",
+  "Pleas Waterfall": "Air Terjun Pleas",
+  "Lembor irrigation rice fields": "Sawah irigasi Lembor",
+  "Hobbit Cave": "Gua Hobbit",
   "Create Your Own Itineraries": "Buat Itinerary Anda Sendiri",
   Custom: "Kustom",
   "A flexible journey combining Waerebo trekking with your chosen destinations":
