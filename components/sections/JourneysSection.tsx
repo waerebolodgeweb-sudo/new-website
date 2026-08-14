@@ -6,15 +6,24 @@ import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, TouchEvent } from "react";
 import type { IconType } from "react-icons";
 import {
+  IoBoatOutline,
+  IoCalendarOutline,
+  IoCarOutline,
   IoChevronBack,
   IoChevronForward,
-  IoFlag,
-  IoPartlySunny,
   IoPeopleOutline,
   IoBedOutline,
+  IoEarthOutline,
+  IoHomeOutline,
+  IoLogoWhatsapp,
+  IoMapOutline,
+  IoMailOutline,
+  IoRestaurantOutline,
   IoSnowOutline,
   IoThermometerOutline,
   IoLeafOutline,
+  IoWalkOutline,
+  IoWaterOutline,
 } from "react-icons/io5";
 import { rooms, type Room } from "@/app/rooms/data";
 import { useLang } from "@/lib/i18n";
@@ -25,17 +34,20 @@ const MOBILE_SLIDE_DURATION_MS = 5000;
 const DEFAULT_DESKTOP_SLIDE_DURATION_MS = 6000;
 const TRIP_DESKTOP_SLIDE_DURATION_MS = 9000;
 const LODGE_DESKTOP_SLIDE_DURATION_MS = 6000;
+const whatsappNumber = "6285339021145";
+const email = "waerebolodge@gmail.com";
 
-interface CardMetaDef {
+interface TripFeatureDef {
   icon: IconType;
-  textKey: string;
+  labelKey: string;
 }
 
 interface JourneyCardDef {
   id: string;
   titleKey: string;
+  durationKey: string;
   image: string;
-  meta: [CardMetaDef, CardMetaDef];
+  features: TripFeatureDef[];
   descKey: string;
 }
 
@@ -60,35 +72,83 @@ const tripDefs: JourneyCardDef[] = [
   {
     id: "1-day",
     titleKey: "journeys.trip1.title",
-    image:
-      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Large-01-Trip.webp",
-    meta: [
-      { icon: IoPartlySunny, textKey: "journeys.trip1.meta0" },
-      { icon: IoFlag, textKey: "journeys.trip1.meta1" },
+    durationKey: "journeys.trip1.duration",
+    image: "/Trip Package/Hero webp/Trip-Waerebo-Lodge-1D-0N-Hero-Desktop.webp",
+    features: [
+      { icon: IoHomeOutline, labelKey: "journeys.feature.villageVisit" },
+      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
+      { icon: IoRestaurantOutline, labelKey: "journeys.feature.lunch" },
     ],
     descKey: "journeys.trip1.desc",
   },
   {
     id: "2d1n",
     titleKey: "journeys.trip2.title",
-    image: "/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Desktop.webp",
-    meta: [
-      { icon: IoPartlySunny, textKey: "journeys.trip2.meta0" },
-      { icon: IoFlag, textKey: "journeys.trip2.meta1" },
+    durationKey: "journeys.trip2.duration",
+    image: "/Trip Package/Hero webp/Trip-Waerebo-Lodge-2D-1N-Hero-Desktop.webp",
+    features: [
+      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
+      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
+      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
     ],
     descKey: "journeys.trip2.desc",
   },
   {
     id: "3d2n",
     titleKey: "journeys.trip3.title",
-    image:
-      "/homepage/Homepage-Dropdown-Our-Services-Detail-Waerebo-Small-01-Trip.webp",
-    meta: [
-      { icon: IoPartlySunny, textKey: "journeys.trip3.meta0" },
-      { icon: IoFlag, textKey: "journeys.trip3.meta1" },
+    durationKey: "journeys.trip3.duration",
+    image: "/Trip Package/Hero webp/Trip-Waerebo-Lodge-3D-2N-Hero-Desktop.webp",
+    features: [
+      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
+      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
+      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
+      { icon: IoWaterOutline, labelKey: "journeys.feature.waterfalls" },
+      { icon: IoLeafOutline, labelKey: "journeys.feature.riceFields" },
     ],
     descKey: "journeys.trip3.desc",
   },
+  {
+    id: "island-escape",
+    titleKey: "journeys.trip4.title",
+    durationKey: "journeys.trip4.duration",
+    image:
+      "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Island-Escape-Hero-Desktop.webp",
+    features: [
+      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
+      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
+      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
+      { icon: IoBoatOutline, labelKey: "journeys.feature.nucaMolas" },
+      { icon: IoLeafOutline, labelKey: "journeys.feature.riceFields" },
+    ],
+    descKey: "journeys.trip4.desc",
+  },
+  {
+    id: "flores-heritage",
+    titleKey: "journeys.trip5.title",
+    durationKey: "journeys.trip5.duration",
+    image:
+      "/Trip Package/Hero webp/Trip-Waerebo-Lodge-4D-3N-Flores-Hero-Desktop.webp",
+    features: [
+      { icon: IoHomeOutline, labelKey: "journeys.feature.villageStay" },
+      { icon: IoWalkOutline, labelKey: "journeys.feature.trekking" },
+      { icon: IoRestaurantOutline, labelKey: "journeys.feature.meals" },
+      { icon: IoWaterOutline, labelKey: "journeys.feature.waterfalls" },
+      { icon: IoLeafOutline, labelKey: "journeys.feature.riceFields" },
+      { icon: IoEarthOutline, labelKey: "journeys.feature.cave" },
+    ],
+    descKey: "journeys.trip5.desc",
+  },
+];
+
+const customJourneyFeatures: TripFeatureDef[] = [
+  { icon: IoPeopleOutline, labelKey: "trip.custom.feature.travelers" },
+  { icon: IoMapOutline, labelKey: "trip.custom.feature.team" },
+  { icon: IoCalendarOutline, labelKey: "trip.custom.feature.flexible" },
+  { icon: IoBedOutline, labelKey: "trip.custom.feature.lodge" },
+  { icon: IoHomeOutline, labelKey: "trip.custom.feature.village" },
+  { icon: IoLeafOutline, labelKey: "trip.custom.feature.authentic" },
+  { icon: IoRestaurantOutline, labelKey: "trip.custom.feature.meals" },
+  { icon: IoCarOutline, labelKey: "trip.custom.feature.accommodation" },
 ];
 
 const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], IconType> = {
@@ -276,64 +336,61 @@ function SliderArrow({
   );
 }
 
-function Card({
-  def,
-  href,
-  labelKey,
-}: {
-  def: JourneyCardDef;
-  href: string;
-  labelKey: string;
-}) {
+function Card({ def }: { def: JourneyCardDef }) {
   const { t } = useLang();
-  const Icon0 = def.meta[0].icon;
-  const Icon1 = def.meta[1].icon;
+
   return (
-    <div
+    <article
       data-reveal
-      className="overflow-hidden rounded-2xl bg-white p-2 shadow-sm transition-shadow hover:shadow-md"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white p-2 shadow-[0_4px_8px_rgba(69,61,24,0.14)] transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none"
     >
-      <div className="relative h-72 rounded-[28px] lg:h-[320px]">
+      <div className="relative aspect-[1.72] overflow-hidden rounded-xl">
         <Image
           src={def.image}
           alt={t(def.titleKey)}
           fill
-          className="rounded-[28px] object-cover"
+          sizes="(min-width: 1024px) 28vw, (min-width: 768px) 44vw, 82vw"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transform-none"
         />
-        <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-slate-950/60 px-3 py-2 text-sm text-white">
-          <span className="h-2.5 w-2.5 rounded-full bg-white" />
-          <span className="font-normal">{t("journeys.available")}</span>
-        </div>
+        <span className="absolute top-3 left-3 rounded-md bg-neutral-900/60 px-2.5 py-1.5 text-[10px] font-medium text-white backdrop-blur-sm sm:text-xs">
+          {t(def.durationKey)}
+        </span>
       </div>
-      <div className="p-5">
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-neutral-900">
+
+      <div className="flex flex-1 flex-col px-2 pt-3 pb-1 sm:px-3 sm:pt-4">
+        <div className="flex-1">
+          <h3 className="text-lg leading-tight font-semibold text-balance text-neutral-900 sm:text-xl">
             {t(def.titleKey)}
           </h3>
-          <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-neutral-500">
-            <div className="flex items-center gap-2 text-sm text-neutral-400">
-              <Icon0 className="h-5 w-5 text-neutral-300" />
-              <span>{t(def.meta[0].textKey)}</span>
-            </div>
-            <div className="flex h-2 w-2 items-center gap-2 rounded-full bg-neutral-200 text-sm" />
-            <div className="flex items-center gap-2 text-sm text-neutral-400">
-              <Icon1 className="h-5 w-5 text-neutral-300" />
-              <span>{t(def.meta[1].textKey)}</span>
-            </div>
+
+          <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-2 text-[10px] leading-tight font-medium text-neutral-500 sm:text-[11px]">
+            {def.features.map(({ icon: Icon, labelKey }, index) => (
+              <div key={labelKey} className="flex items-center gap-2">
+                {index > 0 && <span className="h-3 w-px bg-neutral-100" />}
+                <span className="flex items-center gap-1.5">
+                  <Icon
+                    aria-hidden="true"
+                    className="h-3.5 w-3.5 flex-none text-neutral-300"
+                  />
+                  {t(labelKey)}
+                </span>
+              </div>
+            ))}
           </div>
-          <p className="line-clamp-3 text-sm leading-6 font-normal text-neutral-500">
+
+          <p className="mt-4 text-xs leading-5 text-pretty text-neutral-500 sm:text-sm sm:leading-6">
             {t(def.descKey)}
           </p>
         </div>
 
         <Link
-          href={href}
-          className="mt-4 block w-full rounded-[12px] bg-savana-800 px-4 py-3 text-center text-base font-medium text-white transition-colors hover:bg-savana-700"
+          href="/trips"
+          className="mt-5 flex min-h-11 w-full items-center justify-center rounded-lg bg-savana-800 px-3 py-2 text-center text-xs font-semibold text-white transition-colors hover:bg-savana-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800 sm:text-sm"
         >
-          {t(labelKey)}
+          {t("journeys.seeTripDetails")}
         </Link>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -442,37 +499,114 @@ function TripSlider() {
     });
   const visibleTrips = getVisibleSlides(tripDefs, activeIndex, 3);
   const { t } = useLang();
+  const whatsappMessage = encodeURIComponent(t("trip.message.custom"));
+  const emailSubject = encodeURIComponent(t("trip.email.customSubject"));
 
   return (
-    <div className="relative">
-      <SliderArrow
-        direction="previous"
-        onClick={goToPrevious}
-        label="Previous trips"
-      />
-      <SliderArrow direction="next" onClick={goToNext} label="Next trips" />
-      <div className="grid grid-cols-1 gap-6 px-11 md:grid-cols-2 xl:grid-cols-3 xl:px-0">
-        {visibleTrips.map((def, index) => (
-          <div
-            key={`${activeIndex}-${def.id}`}
-            className={`${index === 1 ? "hidden md:block" : ""} ${
-              index === 2 ? "hidden xl:block" : ""
-            }`}
-          >
-            <Card def={def} href="/trips" labelKey="journeys.seeTripDetails" />
-          </div>
-        ))}
+    <div className="mx-auto max-w-[1180px]">
+      <div className="relative">
+        <SliderArrow
+          direction="previous"
+          onClick={goToPrevious}
+          label={t("trip.previousPackage")}
+        />
+        <SliderArrow
+          direction="next"
+          onClick={goToNext}
+          label={t("trip.nextPackage")}
+        />
+
+        <div className="grid grid-cols-1 gap-5 px-8 md:grid-cols-2 lg:grid-cols-3 lg:px-0">
+          {visibleTrips.map((def, index) => (
+            <div
+              key={`${activeIndex}-${def.id}`}
+              className={`${index === 1 ? "hidden md:block" : ""} ${
+                index === 2 ? "hidden lg:block" : ""
+              }`}
+            >
+              <Card def={def} />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <SliderPagination
+            items={tripDefs}
+            activeIndex={activeIndex}
+            onSelect={setActiveIndex}
+            getLabel={(index) => t(tripDefs[index].titleKey)}
+            duration={duration}
+          />
+        </div>
       </div>
 
-      <div className="mt-7">
-        <SliderPagination
-          items={tripDefs}
-          activeIndex={activeIndex}
-          onSelect={setActiveIndex}
-          getLabel={(index) => t(tripDefs[index].titleKey)}
-          duration={duration}
-        />
-      </div>
+      <section className="mt-7 overflow-hidden rounded-2xl bg-white p-2 shadow-[0_4px_8px_rgba(69,61,24,0.14)]">
+        <div className="grid gap-2 lg:grid-cols-[1.05fr_1fr]">
+          <div className="relative min-h-64 overflow-hidden rounded-xl lg:min-h-[300px]">
+            <Image
+              src="/Trip Package/Hero webp/Trip-Waerebo-Lodge-Custom-Hero-Desktop.webp"
+              alt={t("journeys.custom.title")}
+              fill
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+            <div className="absolute right-0 bottom-0 left-0 p-5 text-white sm:p-6">
+              <h3 className="text-xl leading-tight font-semibold text-balance sm:text-2xl">
+                {t("journeys.custom.title")}
+              </h3>
+              <p className="mt-2 max-w-xl text-xs leading-5 text-pretty text-white/90 sm:text-sm">
+                {t("journeys.custom.desc")}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center p-2 sm:p-3">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {customJourneyFeatures.map(({ icon: Icon, labelKey }) => (
+                <div
+                  key={labelKey}
+                  className="flex min-h-20 flex-col items-center justify-center rounded-lg bg-savana-50 px-2 py-3 text-center"
+                >
+                  <Icon
+                    aria-hidden="true"
+                    className="h-5 w-5 flex-none text-savana-600"
+                  />
+                  <span className="mt-1.5 text-[9px] leading-tight font-semibold text-savana-800 sm:text-[10px]">
+                    {t(labelKey)}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-2 grid gap-2 sm:grid-cols-2">
+              <a
+                href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-4 py-2.5 text-center text-[11px] font-semibold text-white transition-colors hover:bg-savana-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+              >
+                <IoLogoWhatsapp aria-hidden="true" className="h-4 w-4" />
+                {t("journeys.custom.whatsapp")}
+              </a>
+              <a
+                href={`mailto:${email}?subject=${emailSubject}`}
+                className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-700 px-4 py-2.5 text-center text-[11px] font-semibold text-savana-800 transition-colors hover:bg-savana-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+              >
+                <IoMailOutline aria-hidden="true" className="h-4 w-4" />
+                {t("journeys.custom.email")}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Link
+        href="/trips"
+        className="mx-auto mt-7 flex min-h-12 w-full max-w-[280px] items-center justify-center rounded-lg border border-savana-700 px-6 text-sm font-semibold text-savana-800 transition-colors hover:bg-savana-800 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+      >
+        {t("journeys.exploreAllTrips")}
+      </Link>
     </div>
   );
 }
@@ -660,16 +794,28 @@ export default function JourneysSection() {
       <div className="relative mx-auto max-w-[1312px] px-6 lg:px-20">
         <div className="relative z-40 -mt-24 lg:-mt-16">
           <div className="overflow-hidden rounded-2xl border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
-            <p className="mb-2 text-base font-normal text-savana-600">
+            <p
+              className={`mb-2 font-normal text-savana-600 ${
+                activeTab === "trip" ? "text-xs" : "text-base"
+              }`}
+            >
               {t(`journeys.${activeTab}.eyebrow`)}
             </p>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <h2 className="text-2xl leading-tight text-neutral-900 lg:text-4xl">
-                {t(`journeys.${activeTab}.head`)}
-                <span className="font-semibold">
-                  {t(`journeys.${activeTab}.emph`)}
-                </span>
-              </h2>
+              <div className="max-w-2xl">
+                <h2
+                  className={`leading-tight text-balance text-neutral-900 ${
+                    activeTab === "trip"
+                      ? "text-xl lg:text-3xl"
+                      : "text-2xl lg:text-4xl"
+                  }`}
+                >
+                  {t(`journeys.${activeTab}.head`)}
+                  <span className="font-semibold">
+                    {t(`journeys.${activeTab}.emph`)}
+                  </span>
+                </h2>
+              </div>
               {tabBar("hidden lg:flex")}
             </div>
           </div>

@@ -97,25 +97,25 @@ const videos = [
       "Discover why these guests highly recommend stopping at Waerebo Lodge to enjoy the beautiful green rice fields and fantastic local meals.",
     url: "https://youtu.be/39UPV4ZfW0c",
   },
-  {
-    id: "JtwXIwmVk0M",
-    title: "Indonesian guests before their Waerebo trek",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-10.webp",
-    quote:
-      '"The facilities are very complete, and the place is truly unique and beautiful."',
-    caption:
-      "These Indonesian guests share why Waerebo Lodge is the perfect stop before the trek, from complete facilities and hearty meals to meaningful moments with the welcoming local community.",
-    url: "https://youtube.com/shorts/JtwXIwmVk0M?feature=share",
-  },
-  {
-    id: "M-NRn8NP3cQ",
-    title: "Indonesian guests with Pak Martin",
-    thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-11.webp",
-    quote: '"The service is amazing, and everyone here is so friendly."',
-    caption:
-      "Hear how conversations with Pak Martin, delicious meals three times a day, sea views, and the warmth of the family, staff, and guides made this stay memorable.",
-    url: "https://youtube.com/shorts/M-NRn8NP3cQ?feature=share",
-  },
+  // {
+  //   id: "JtwXIwmVk0M",
+  //   title: "Indonesian guests before their Waerebo trek",
+  //   thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-10.webp",
+  //   quote:
+  //     '"The facilities are very complete, and the place is truly unique and beautiful."',
+  //   caption:
+  //     "These Indonesian guests share why Waerebo Lodge is the perfect stop before the trek, from complete facilities and hearty meals to meaningful moments with the welcoming local community.",
+  //   url: "https://youtube.com/shorts/JtwXIwmVk0M?feature=share",
+  // },
+  // {
+  //   id: "M-NRn8NP3cQ",
+  //   title: "Indonesian guests with Pak Martin",
+  //   thumbnail: "/homepage/Homepage-Waerebo-Thumbnail-Video-Review-11.webp",
+  //   quote: '"The service is amazing, and everyone here is so friendly."',
+  //   caption:
+  //     "Hear how conversations with Pak Martin, delicious meals three times a day, sea views, and the warmth of the family, staff, and guides made this stay memorable.",
+  //   url: "https://youtube.com/shorts/M-NRn8NP3cQ?feature=share",
+  // },
   {
     id: "6azFda8-7ew",
     title: "Esther from France",
