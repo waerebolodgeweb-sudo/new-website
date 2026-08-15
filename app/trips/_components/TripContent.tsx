@@ -573,11 +573,11 @@ function HighlightedText({ item }: { item: TripInclusion }) {
 
 function WhatYouGetList({ items }: { items: TripInclusion[] }) {
   return (
-    <ul className="mt-3 space-y-2 lg:columns-2 lg:gap-8 lg:space-y-0">
+    <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:gap-x-8">
       {items.map((item) => (
         <li
           key={item.text}
-          className={`flex break-inside-avoid gap-2.5 text-[12px] leading-[1.55] sm:text-sm lg:mb-2 ${
+          className={`flex min-w-0 gap-2 text-[11px] leading-[1.55] sm:gap-2.5 sm:text-sm ${
             item.included ? "text-savana-800" : "text-savana-800/50"
           }`}
         >
