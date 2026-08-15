@@ -1,7 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type RefObject,
+} from "react";
 import type { IconType } from "react-icons";
 import { NewIcon, type NewIconName } from "@/components/icons/new-icons";
 import {
@@ -40,6 +48,213 @@ const customFeatures: {
 
 const whatsappNumber = "6285339021145";
 const email = "waerebolodge@gmail.com";
+const mobileTripMediaQuery = "(max-width: 1023px)";
+const mobileNavbarHeight = 80;
+
+type MobileTripStickyState = {
+  pinned: boolean;
+  active: boolean;
+  exiting: boolean;
+  stackHeight: number;
+};
+
+function useMobileTripStickyState(
+  rootRef: RefObject<HTMLDivElement | null>,
+  stackRef: RefObject<HTMLDivElement | null>
+) {
+  const [state, setState] = useState<MobileTripStickyState>({
+    pinned: false,
+    active: false,
+    exiting: false,
+    stackHeight: 160,
+  });
+
+  useEffect(() => {
+    const mobile = window.matchMedia(mobileTripMediaQuery);
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const root = rootRef.current;
+      const stack = stackRef.current;
+
+      if (!root || !stack || !mobile.matches) {
+        setState((current) =>
+          current.pinned || current.active || current.exiting
+            ? {
+                ...current,
+                pinned: false,
+                active: false,
+                exiting: false,
+              }
+            : current
+        );
+        return;
+      }
+
+      const stackHeight = Math.ceil(stack.getBoundingClientRect().height);
+      const stackRect = stack.getBoundingClientRect();
+      const rootRect = root.getBoundingClientRect();
+      const stickyBottom = mobileNavbarHeight + stackHeight;
+      const pinned =
+        stackRect.top <= mobileNavbarHeight + 0.5 &&
+        rootRect.bottom > stickyBottom;
+      const exiting = pinned && rootRect.bottom <= window.innerHeight;
+      const active = pinned && !exiting;
+
+      setState((current) => {
+        if (
+          current.pinned === pinned &&
+          current.active === active &&
+          current.exiting === exiting &&
+          current.stackHeight === stackHeight
+        ) {
+          return current;
+        }
+
+        return { pinned, active, exiting, stackHeight };
+      });
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    };
+
+    const resizeObserver = new ResizeObserver(scheduleUpdate);
+    if (rootRef.current) resizeObserver.observe(rootRef.current);
+    if (stackRef.current) resizeObserver.observe(stackRef.current);
+
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    mobile.addEventListener("change", scheduleUpdate);
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      mobile.removeEventListener("change", scheduleUpdate);
+    };
+  }, [rootRef, stackRef]);
+
+  return state;
+}
+
+function getTripSectionIds(program: TripProgram) {
+  if (program.custom) return ["custom-itinerary"];
+
+  const days = Array.from(new Set(program.stops.map((stop) => stop.day)));
+  const visibleStopIds = (day?: string) =>
+    program.stops
+      .filter((stop) => (!day || stop.day === day) && !stop.sidebar?.hidden)
+      .map((stop) => stop.id);
+
+  return [
+    "trip-summary",
+    ...(program.id === "one-day-trek"
+      ? ["itinerary-timeline", ...visibleStopIds()]
+      : days.flatMap((day, dayIndex) => [
+          `itinerary-day-${dayIndex + 1}`,
+          ...visibleStopIds(day),
+        ])),
+  ];
+}
+
+function useTripSectionNavigation(
+  program: TripProgram,
+  stackRef: RefObject<HTMLDivElement | null>,
+  stackHeight: number
+) {
+  const initialSection = program.custom ? "custom-itinerary" : "trip-summary";
+  const [activeState, setActiveState] = useState({
+    programId: program.id,
+    sectionId: initialSection,
+  });
+  const activeSection =
+    activeState.programId === program.id
+      ? activeState.sectionId
+      : initialSection;
+  const sectionIds = useMemo(() => getTripSectionIds(program), [program]);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateActiveSection = () => {
+      frame = 0;
+      const mobile = window.matchMedia(mobileTripMediaQuery).matches;
+      const activationLine = mobile
+        ? Math.min(
+            mobileNavbarHeight + stackHeight + 24,
+            window.innerHeight * 0.45
+          )
+        : Math.min(180, window.innerHeight * 0.25);
+      let nextSection = sectionIds[0];
+
+      for (const sectionId of sectionIds) {
+        const section = document.getElementById(sectionId);
+        if (!section || section.getBoundingClientRect().top > activationLine) {
+          break;
+        }
+        nextSection = sectionId;
+      }
+
+      setActiveState((current) =>
+        current.programId === program.id && current.sectionId === nextSection
+          ? current
+          : { programId: program.id, sectionId: nextSection }
+      );
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(updateActiveSection);
+    };
+
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, [program.id, sectionIds, stackHeight]);
+
+  const navigateToSection = useCallback(
+    (sectionId: string) => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      const mobile = window.matchMedia(mobileTripMediaQuery).matches;
+      const offset = mobile
+        ? mobileNavbarHeight +
+          (stackRef.current?.getBoundingClientRect().height ?? stackHeight) +
+          16
+        : 112;
+      const top = section.getBoundingClientRect().top + window.scrollY - offset;
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      setActiveState({ programId: program.id, sectionId });
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}#${sectionId}`
+      );
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: reduceMotion ? "auto" : "smooth",
+      });
+    },
+    [program.id, stackHeight, stackRef]
+  );
+
+  return { activeSection, navigateToSection };
+}
 
 function Hero({
   program,
@@ -122,7 +337,7 @@ function ProgramSelector({
   onSelect: (id: string) => void;
 }) {
   return (
-    <div className="relative z-20 -mt-11 sm:-mt-14">
+    <div className="relative">
       <div className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
         {programs.map((program) => {
           const active = program.id === activeId;
@@ -133,14 +348,20 @@ function ProgramSelector({
               aria-pressed={active}
               onClick={(event) => {
                 onSelect(program.id);
-                event.currentTarget.scrollIntoView({
+                const scroller = event.currentTarget.parentElement;
+                if (!scroller) return;
+
+                const left =
+                  event.currentTarget.offsetLeft -
+                  (scroller.clientWidth - event.currentTarget.offsetWidth) / 2;
+
+                scroller.scrollTo({
+                  left: Math.max(0, left),
                   behavior: window.matchMedia(
                     "(prefers-reduced-motion: reduce)"
                   ).matches
                     ? "auto"
                     : "smooth",
-                  block: "nearest",
-                  inline: "center",
                 });
               }}
               className={`min-h-[86px] flex-none snap-center overflow-hidden rounded-xl px-4 py-3 text-left transition-[width,flex-basis,background-color,color,transform] duration-300 motion-reduce:transition-none lg:min-w-0 ${
@@ -162,6 +383,94 @@ function ProgramSelector({
             </button>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function MobileTripTabs({
+  program,
+  activeSection,
+  onNavigate,
+}: {
+  program: TripProgram;
+  activeSection: string;
+  onNavigate: (sectionId: string) => void;
+}) {
+  const { t } = useLang();
+  const itineraryTarget =
+    program.id === "one-day-trek" ? "itinerary-timeline" : "itinerary-day-1";
+  const activeTab =
+    activeSection === "trip-summary" ? "trip-summary" : itineraryTarget;
+
+  const tabClass = (sectionId: string) =>
+    `relative flex min-h-12 items-center justify-center px-3 text-sm font-medium transition-colors after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:origin-center after:transition-transform motion-reduce:transition-none ${
+      activeTab === sectionId
+        ? "text-savana-800 after:scale-x-100 after:bg-savana-800"
+        : "text-savana-700 after:scale-x-0 after:bg-savana-800 hover:text-savana-800"
+    }`;
+
+  return (
+    <nav
+      aria-label={`${program.title}: ${t("trip.pageSections")}`}
+      className="grid grid-cols-2 border-b border-savana-200 bg-savana-50 lg:hidden"
+    >
+      <button
+        type="button"
+        aria-current={activeTab === "trip-summary" ? "location" : undefined}
+        onClick={() => onNavigate("trip-summary")}
+        className={tabClass("trip-summary")}
+      >
+        {t("trip.summary")}
+      </button>
+      <button
+        type="button"
+        aria-current={activeTab === itineraryTarget ? "location" : undefined}
+        onClick={() => onNavigate(itineraryTarget)}
+        className={tabClass(itineraryTarget)}
+      >
+        {t("trip.itinerary")}
+      </button>
+    </nav>
+  );
+}
+
+function MobileBookingBar({ program }: { program: TripProgram }) {
+  const { t } = useLang();
+  const whatsappMessage = encodeURIComponent(
+    program.custom
+      ? t("trip.message.custom")
+      : `${t("trip.message.book")} ${program.title}.`
+  );
+  const emailSubject = encodeURIComponent(
+    program.custom
+      ? t("trip.email.customSubject")
+      : `${t("trip.email.bookSubject")} â€” ${program.title}`
+  );
+
+  return (
+    <div
+      role="region"
+      aria-label={t("trip.bookingActions")}
+      className="fixed right-0 bottom-0 left-0 z-40 bg-white px-3 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] shadow-[0_-4px_8px_rgba(38,35,22,0.16)] motion-safe:animate-[trip-booking-bar-in_260ms_cubic-bezier(0.22,1,0.36,1)] sm:px-4 lg:hidden"
+    >
+      <div className="mx-auto grid max-w-lg grid-cols-2 gap-1.5 min-[360px]:gap-2.5">
+        <a
+          href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-2 text-[11px] font-semibold whitespace-nowrap text-white transition-colors hover:bg-savana-700"
+        >
+          <IoLogoWhatsapp aria-hidden="true" size={16} />
+          {t("trip.whatsappBooking")}
+        </a>
+        <a
+          href={`mailto:${email}?subject=${emailSubject}`}
+          className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-600 px-2 text-[11px] font-semibold whitespace-nowrap text-savana-800 transition-colors hover:bg-savana-200"
+        >
+          <IoMailOutline aria-hidden="true" size={16} />
+          {t("trip.emailBooking")}
+        </a>
       </div>
     </div>
   );
@@ -264,11 +573,11 @@ function HighlightedText({ item }: { item: TripInclusion }) {
 
 function WhatYouGetList({ items }: { items: TripInclusion[] }) {
   return (
-    <ul className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+    <ul className="mt-3 space-y-2 lg:columns-2 lg:gap-8 lg:space-y-0">
       {items.map((item) => (
         <li
           key={item.text}
-          className={`flex gap-2.5 text-[12px] leading-[1.55] sm:text-sm ${
+          className={`flex break-inside-avoid gap-2.5 text-[12px] leading-[1.55] sm:text-sm lg:mb-2 ${
             item.included ? "text-savana-800" : "text-savana-800/50"
           }`}
         >
@@ -327,9 +636,16 @@ function getSidebarStops(stops: TripProgram["stops"]) {
     );
 }
 
-function TripSidebar({ program }: { program: TripProgram }) {
+function TripSidebar({
+  program,
+  activeSection,
+  onNavigate,
+}: {
+  program: TripProgram;
+  activeSection: string;
+  onNavigate: (sectionId: string) => void;
+}) {
   const { t } = useLang();
-  const [activeSection, setActiveSection] = useState("trip-summary");
   const navRef = useRef<HTMLElement>(null);
   const days = useMemo(
     () => Array.from(new Set(program.stops.map((stop) => stop.day))),
@@ -342,59 +658,6 @@ function TripSidebar({ program }: { program: TripProgram }) {
   const emailSubject = encodeURIComponent(
     `${t("trip.email.bookSubject")} — ${program.title}`
   );
-
-  useEffect(() => {
-    const sectionIds = [
-      "trip-summary",
-      ...(singleDay
-        ? [
-            "itinerary-timeline",
-            ...program.stops
-              .filter((stop) => !stop.sidebar?.hidden)
-              .map((stop) => stop.id),
-          ]
-        : days.flatMap((day, dayIndex) => [
-            `itinerary-day-${dayIndex + 1}`,
-            ...program.stops
-              .filter((stop) => stop.day === day && !stop.sidebar?.hidden)
-              .map((stop) => stop.id),
-          ])),
-    ];
-    let frame = 0;
-
-    const updateActiveSection = () => {
-      frame = 0;
-      const activationLine = Math.min(180, window.innerHeight * 0.25);
-      let nextSection = sectionIds[0];
-
-      for (const sectionId of sectionIds) {
-        const section = document.getElementById(sectionId);
-        if (!section || section.getBoundingClientRect().top > activationLine) {
-          break;
-        }
-        nextSection = sectionId;
-      }
-
-      setActiveSection((current) =>
-        current === nextSection ? current : nextSection
-      );
-    };
-
-    const scheduleUpdate = () => {
-      if (frame) cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(updateActiveSection);
-    };
-
-    scheduleUpdate();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-
-    return () => {
-      if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-    };
-  }, [days, program.id, program.stops, singleDay]);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -438,7 +701,10 @@ function TripSidebar({ program }: { program: TripProgram }) {
             href={`#${stop.id}`}
             data-section-id={stop.id}
             aria-current={activeSection === stop.id ? "location" : undefined}
-            onClick={() => setActiveSection(stop.id)}
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigate(stop.id);
+            }}
             className={sectionLinkClass(stop.id, true)}
           >
             <span aria-hidden="true">↳</span>
@@ -466,7 +732,10 @@ function TripSidebar({ program }: { program: TripProgram }) {
               aria-current={
                 activeSection === "trip-summary" ? "location" : undefined
               }
-              onClick={() => setActiveSection("trip-summary")}
+              onClick={(event) => {
+                event.preventDefault();
+                onNavigate("trip-summary");
+              }}
               className={sectionLinkClass("trip-summary")}
             >
               {t("trip.summary")}
@@ -484,7 +753,10 @@ function TripSidebar({ program }: { program: TripProgram }) {
                       ? "location"
                       : undefined
                   }
-                  onClick={() => setActiveSection("itinerary-timeline")}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onNavigate("itinerary-timeline");
+                  }}
                   className={`${sectionLinkClass("itinerary-timeline")} text-base font-semibold`}
                 >
                   {t("trip.itinerary")}
@@ -505,7 +777,10 @@ function TripSidebar({ program }: { program: TripProgram }) {
                       aria-current={
                         activeSection === dayId ? "location" : undefined
                       }
-                      onClick={() => setActiveSection(dayId)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        onNavigate(dayId);
+                      }}
                       className={`${sectionLinkClass(dayId)} text-base leading-snug font-semibold`}
                     >
                       {day}
@@ -546,7 +821,10 @@ function TripOverview({ program }: { program: TripProgram }) {
 
   return (
     <section className="in-view px-5 pt-8 pb-14 sm:px-8 sm:pb-20 lg:px-0 lg:pt-0 lg:pb-14">
-      <div id="trip-summary" className="scroll-mt-28">
+      <div
+        id="trip-summary"
+        className="scroll-mt-[var(--trip-scroll-offset)] lg:scroll-mt-28"
+      >
         <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
           {t("trip.summary")}
         </h2>
@@ -604,7 +882,7 @@ function Itinerary({ program }: { program: TripProgram }) {
   return (
     <section
       id={singleDay ? "itinerary-timeline" : undefined}
-      className="in-view scroll-mt-28 px-5 pb-20 sm:px-8 sm:pb-28 lg:px-0"
+      className="in-view scroll-mt-[var(--trip-scroll-offset)] px-5 pb-20 sm:px-8 sm:pb-28 lg:scroll-mt-28 lg:px-0"
     >
       {singleDay && (
         <h2 className="mb-10 text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:mb-16 sm:text-3xl lg:mb-14">
@@ -625,7 +903,7 @@ function Itinerary({ program }: { program: TripProgram }) {
               {newDay && !singleDay && (
                 <div
                   id={`itinerary-day-${dayIndex + 1}`}
-                  className="mb-7 scroll-mt-28 sm:mb-10 lg:mb-12"
+                  className="mb-7 scroll-mt-[var(--trip-scroll-offset)] sm:mb-10 lg:mb-12 lg:scroll-mt-28"
                 >
                   <div className="flex items-center gap-3 lg:hidden">
                     <span className="text-xl font-semibold text-savana-800">
@@ -648,7 +926,7 @@ function Itinerary({ program }: { program: TripProgram }) {
 
               <article
                 id={stop.id}
-                className={`flex scroll-mt-28 flex-col gap-4 lg:min-h-[280px] lg:items-center lg:gap-10 ${
+                className={`flex scroll-mt-[var(--trip-scroll-offset)] flex-col gap-4 lg:min-h-[280px] lg:scroll-mt-28 lg:items-center lg:gap-10 ${
                   reverse ? "lg:flex-row-reverse" : "lg:flex-row"
                 }`}
               >
@@ -681,7 +959,7 @@ function Itinerary({ program }: { program: TripProgram }) {
 
       <div
         id="travelers-notes"
-        className="mt-14 scroll-mt-28 border-t border-savana-200 pt-8 sm:mt-20 sm:pt-10"
+        className="mt-14 scroll-mt-[var(--trip-scroll-offset)] border-t border-savana-200 pt-8 sm:mt-20 sm:pt-10 lg:scroll-mt-28"
       >
         <h2 className="text-[23px] leading-tight font-bold tracking-[-0.025em] text-savana-800 sm:text-3xl">
           {t("trip.travelersNotes")}
@@ -698,7 +976,10 @@ function CustomItinerary() {
   const emailSubject = encodeURIComponent(t("trip.email.customSubject"));
 
   return (
-    <section className="in-view mx-auto max-w-[880px] px-5 pt-9 pb-20 sm:px-8 sm:pt-16 sm:pb-28 lg:max-w-[780px] lg:px-0 lg:pt-20 lg:pb-32">
+    <section
+      id="custom-itinerary"
+      className="in-view mx-auto max-w-[880px] scroll-mt-[var(--trip-scroll-offset)] px-5 pt-9 pb-[calc(5rem+env(safe-area-inset-bottom))] sm:px-8 sm:pt-16 sm:pb-28 lg:max-w-[780px] lg:scroll-mt-28 lg:px-0 lg:pt-20 lg:pb-32"
+    >
       <div className="max-w-[670px]">
         <h2 className="text-[25px] leading-[1.08] font-bold tracking-[-0.03em] text-savana-800 sm:text-4xl">
           {t("trip.custom.heading")}
@@ -771,10 +1052,22 @@ function CustomItinerary() {
   );
 }
 
-function TripDetails({ program }: { program: TripProgram }) {
+function TripDetails({
+  program,
+  activeSection,
+  onNavigate,
+}: {
+  program: TripProgram;
+  activeSection: string;
+  onNavigate: (sectionId: string) => void;
+}) {
   return (
-    <div className="mx-auto flex max-w-[1224px] flex-row gap-[68px] lg:px-4 lg:pt-16">
-      <TripSidebar program={program} />
+    <div className="mx-auto flex max-w-[1224px] flex-row gap-[68px] pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:px-4 lg:pt-16 lg:pb-0">
+      <TripSidebar
+        program={program}
+        activeSection={activeSection}
+        onNavigate={onNavigate}
+      />
       <div className="min-w-0 flex-1">
         <TripOverview program={program} />
         <Itinerary program={program} />
@@ -784,20 +1077,51 @@ function TripDetails({ program }: { program: TripProgram }) {
 }
 
 export default function TripContent() {
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const programs = useMemo(() => getTripPrograms(lang), [lang]);
   const [activeId, setActiveId] = useState(programs[0].id);
+  const [selectionAnnouncement, setSelectionAnnouncement] = useState("");
+  const tripRootRef = useRef<HTMLDivElement>(null);
+  const stickyStackRef = useRef<HTMLDivElement>(null);
+  const resetAfterSelectionRef = useRef(false);
   const activeIndex = Math.max(
     0,
     programs.findIndex((program) => program.id === activeId)
   );
   const program = programs[activeIndex];
+  const stickyState = useMobileTripStickyState(tripRootRef, stickyStackRef);
+  const { activeSection, navigateToSection } = useTripSectionNavigation(
+    program,
+    stickyStackRef,
+    stickyState.stackHeight
+  );
+
+  const selectProgram = (id: string) => {
+    if (id === activeId) return;
+    const selectedProgram = programs.find((item) => item.id === id);
+    if (selectedProgram) {
+      setSelectionAnnouncement(
+        t("trip.packageSelected").replace("{trip}", selectedProgram.title)
+      );
+    }
+    resetAfterSelectionRef.current = stickyState.pinned;
+    setActiveId(id);
+  };
 
   const move = (direction: -1 | 1) => {
     const nextIndex =
       (activeIndex + direction + programs.length) % programs.length;
-    setActiveId(programs[nextIndex].id);
+    selectProgram(programs[nextIndex].id);
   };
+
+  useEffect(() => {
+    if (!resetAfterSelectionRef.current) return;
+    resetAfterSelectionRef.current = false;
+
+    const targetId = program.custom ? "custom-itinerary" : "trip-summary";
+    const frame = requestAnimationFrame(() => navigateToSection(targetId));
+    return () => cancelAnimationFrame(frame);
+  }, [navigateToSection, program.custom, program.id]);
 
   return (
     <div className="bg-savana-50">
@@ -806,21 +1130,61 @@ export default function TripContent() {
         onPrevious={() => move(-1)}
         onNext={() => move(1)}
       />
-      <ProgramSelector
-        programs={programs}
-        activeId={activeId}
-        onSelect={setActiveId}
-      />
 
       <div
-        key={program.id}
-        className="motion-safe:animate-[trip-content-in_500ms_cubic-bezier(0.22,1,0.36,1)]"
+        ref={tripRootRef}
+        style={
+          {
+            "--trip-scroll-offset": `${mobileNavbarHeight + stickyState.stackHeight + 16}px`,
+          } as CSSProperties
+        }
       >
-        {program.custom ? (
-          <CustomItinerary />
-        ) : (
-          <TripDetails program={program} />
-        )}
+        <div
+          ref={stickyStackRef}
+          className={`sticky top-20 z-40 -mt-11 transition-[transform,opacity,box-shadow,background-color] duration-300 ease-out motion-reduce:transition-none sm:-mt-14 lg:relative lg:top-auto lg:z-20 lg:translate-y-0 lg:bg-transparent lg:opacity-100 lg:shadow-none ${
+            stickyState.pinned
+              ? "bg-savana-50 shadow-[0_4px_8px_rgba(38,35,22,0.14)]"
+              : "bg-transparent"
+          } ${
+            stickyState.pinned && stickyState.exiting
+              ? "pointer-events-none -translate-y-full opacity-0"
+              : "translate-y-0 opacity-100"
+          }`}
+        >
+          <ProgramSelector
+            programs={programs}
+            activeId={activeId}
+            onSelect={selectProgram}
+          />
+          {!program.custom && (
+            <MobileTripTabs
+              program={program}
+              activeSection={activeSection}
+              onNavigate={navigateToSection}
+            />
+          )}
+        </div>
+
+        <div
+          key={program.id}
+          className="motion-safe:animate-[trip-content-in_500ms_cubic-bezier(0.22,1,0.36,1)]"
+        >
+          {program.custom ? (
+            <CustomItinerary />
+          ) : (
+            <TripDetails
+              program={program}
+              activeSection={activeSection}
+              onNavigate={navigateToSection}
+            />
+          )}
+        </div>
+
+        {stickyState.active && <MobileBookingBar program={program} />}
+
+        <p className="sr-only" aria-live="polite">
+          {selectionAnnouncement}
+        </p>
       </div>
     </div>
   );

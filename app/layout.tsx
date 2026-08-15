@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -20,6 +20,12 @@ export const metadata: Metadata = {
   title: "Waerebo Lodge — A Lodge Stop Before Your Journey",
   description:
     "The perfect basecamp before your trek to Waerebo village, nestled in the highlands of Flores, Indonesia.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

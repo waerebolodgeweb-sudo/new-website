@@ -457,6 +457,10 @@ const dict: Record<Lang, Record<string, string>> = {
     "trip.reminder": "Reminder:",
     "trip.bookWhatsapp": "Book Trip via WhatsApp",
     "trip.bookEmail": "Book Trip via Email",
+    "trip.whatsappBooking": "WhatsApp Booking",
+    "trip.emailBooking": "Email Booking",
+    "trip.bookingActions": "Trip booking options",
+    "trip.packageSelected": "{trip} selected. Trip details updated.",
     "trip.custom.heading": "Looking for a more flexible trip?",
     "trip.custom.body":
       "We can help you create a private itinerary based on your travel dates, group size, interests, and preferred pace. Whether you want to combine Waerebo with waterfalls, rice fields, local villages, island trips, or a longer Flores overland journey, we will help design the experience that suits you best.",
@@ -1063,6 +1067,10 @@ const dict: Record<Lang, Record<string, string>> = {
     "trip.reminder": "Pengingat:",
     "trip.bookWhatsapp": "Pesan Trip via WhatsApp",
     "trip.bookEmail": "Pesan Trip via Email",
+    "trip.whatsappBooking": "Pesan via WhatsApp",
+    "trip.emailBooking": "Pesan via Email",
+    "trip.bookingActions": "Pilihan pemesanan trip",
+    "trip.packageSelected": "{trip} dipilih. Detail trip diperbarui.",
     "trip.custom.heading": "Mencari trip yang lebih fleksibel?",
     "trip.custom.body":
       "Kami dapat membantu membuat itinerary privat berdasarkan tanggal perjalanan, jumlah peserta, minat, dan tempo yang Anda inginkan. Baik Anda ingin memadukan Waerebo dengan air terjun, sawah, desa lokal, wisata pulau, maupun perjalanan darat Flores yang lebih panjang, kami akan membantu merancang pengalaman yang paling sesuai.",

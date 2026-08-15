@@ -141,7 +141,6 @@ export default function Navbar() {
   const servicesRouteActive =
     isActivePath("/#services") || servicePaths.some(isActivePath);
   const servicesActive = mobileServicesOpen || servicesRouteActive;
-
   const desktopLinkClass = (active: boolean) => {
     if (transparent) {
       return active ? "text-white" : "text-white/70 hover:text-white";
@@ -152,7 +151,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 right-0 left-0 z-50 transition-colors duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-50 transition-[background-color,border-color] duration-300 ${
         transparent
           ? "bg-transparent"
           : "border-b border-pale-green-100/40 bg-white/95 backdrop-blur-sm"
