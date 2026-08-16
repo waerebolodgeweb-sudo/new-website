@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -57,7 +57,9 @@ const mobileSocialLinks = [
   },
 ];
 
-const desktopNavMediaQuery = "(min-width: 1280px)";
+const desktopNavMediaQuery = "(min-width: 1024px)";
+const navbarRevealOffset = 80;
+const scrollDirectionThreshold = 8;
 
 function LangToggle({ transparent }: { transparent: boolean }) {
   const { lang, toggle } = useLang();
@@ -82,15 +84,47 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [currentHash, setCurrentHash] = useState("");
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
   const { t } = useLang();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    let animationFrame: number | null = null;
+
+    const updateNavbar = () => {
+      const currentScrollY = Math.max(window.scrollY, 0);
+      const scrollDelta = currentScrollY - lastScrollY.current;
+
+      setScrolled(currentScrollY > 8);
+
+      if (currentScrollY <= navbarRevealOffset) {
+        setNavHidden(false);
+        lastScrollY.current = currentScrollY;
+      } else if (Math.abs(scrollDelta) >= scrollDirectionThreshold) {
+        setNavHidden(scrollDelta > 0);
+        lastScrollY.current = currentScrollY;
+      }
+
+      animationFrame = null;
+    };
+
+    const onScroll = () => {
+      if (animationFrame === null) {
+        animationFrame = window.requestAnimationFrame(updateNavbar);
+      }
+    };
+
+    lastScrollY.current = Math.max(window.scrollY, 0);
+    updateNavbar();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -151,7 +185,9 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 right-0 left-0 z-50 transition-[background-color,border-color] duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-50 transition-[transform,background-color,border-color] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] focus-within:translate-y-0 motion-reduce:transition-none ${
+        navHidden && !open ? "-translate-y-full" : "translate-y-0"
+      } ${
         transparent
           ? "bg-transparent"
           : "border-b border-pale-green-100/40 bg-white/95 backdrop-blur-sm"
@@ -180,7 +216,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 whitespace-nowrap xl:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap lg:flex xl:gap-7">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.key} className="group relative">
@@ -230,7 +266,7 @@ export default function Navbar() {
           </div>
 
           {/* Language toggle + Contact Us — right */}
-          <div className="hidden items-center gap-3 xl:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <LangToggle transparent={transparent} />
             <Link
               href="/#contact"
@@ -245,7 +281,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: language toggle + menu button */}
-          <div className="flex items-center gap-2 xl:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <LangToggle transparent={transparent} />
             <button
               className={`p-2 text-[32px] ${transparent ? "text-white" : "text-savana-green-500"}`}
@@ -265,7 +301,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 xl:hidden">
+        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 lg:hidden">
           <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6">
             <div className="space-y-1">
               <Link

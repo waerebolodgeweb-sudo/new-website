@@ -336,34 +336,67 @@ function ProgramSelector({
   activeId: string;
   onSelect: (id: string) => void;
 }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const manuallyAdjustedRef = useRef(false);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || !window.matchMedia(mobileTripMediaQuery).matches) return;
+
+    manuallyAdjustedRef.current = false;
+
+    const centerActiveProgram = () => {
+      const activeButton = Array.from(
+        scroller.querySelectorAll<HTMLButtonElement>("[data-program-id]")
+      ).find((button) => button.dataset.programId === activeId);
+      if (!activeButton) return;
+
+      const targetLeft =
+        activeButton.offsetLeft -
+        (scroller.clientWidth - activeButton.offsetWidth) / 2;
+      const maxLeft = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+
+      scroller.scrollTo({
+        left: Math.min(maxLeft, Math.max(0, targetLeft)),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    };
+
+    const frame = requestAnimationFrame(centerActiveProgram);
+    const settleTimer = window.setTimeout(() => {
+      if (!manuallyAdjustedRef.current) centerActiveProgram();
+    }, 340);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(settleTimer);
+    };
+  }, [activeId]);
+
+  const markAsManuallyAdjusted = () => {
+    manuallyAdjustedRef.current = true;
+  };
+
   return (
     <div className="relative">
-      <div className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
+      <div
+        ref={scrollerRef}
+        onPointerDown={markAsManuallyAdjusted}
+        onTouchStart={markAsManuallyAdjusted}
+        onWheel={markAsManuallyAdjusted}
+        className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden"
+      >
         {programs.map((program) => {
           const active = program.id === activeId;
           return (
             <button
               key={program.id}
               type="button"
+              data-program-id={program.id}
               aria-pressed={active}
-              onClick={(event) => {
-                onSelect(program.id);
-                const scroller = event.currentTarget.parentElement;
-                if (!scroller) return;
-
-                const left =
-                  event.currentTarget.offsetLeft -
-                  (scroller.clientWidth - event.currentTarget.offsetWidth) / 2;
-
-                scroller.scrollTo({
-                  left: Math.max(0, left),
-                  behavior: window.matchMedia(
-                    "(prefers-reduced-motion: reduce)"
-                  ).matches
-                    ? "auto"
-                    : "smooth",
-                });
-              }}
+              onClick={() => onSelect(program.id)}
               className={`min-h-[86px] flex-none snap-center overflow-hidden rounded-xl px-4 py-3 text-left transition-[width,flex-basis,background-color,color,transform] duration-300 motion-reduce:transition-none lg:min-w-0 ${
                 active
                   ? "w-[250px] bg-white text-savana-800 shadow-[0_5px_8px_rgba(38,35,22,0.16)] sm:w-[280px] lg:w-auto lg:max-w-[280px] lg:flex-[2_1_220px]"
