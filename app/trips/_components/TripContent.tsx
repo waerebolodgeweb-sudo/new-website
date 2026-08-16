@@ -49,7 +49,6 @@ const customFeatures: {
 const whatsappNumber = "6285339021145";
 const email = "waerebolodge@gmail.com";
 const mobileTripMediaQuery = "(max-width: 1023px)";
-const mobileNavbarHeight = 80;
 
 type MobileTripStickyState = {
   pinned: boolean;
@@ -95,10 +94,7 @@ function useMobileTripStickyState(
       const stackHeight = Math.ceil(stack.getBoundingClientRect().height);
       const stackRect = stack.getBoundingClientRect();
       const rootRect = root.getBoundingClientRect();
-      const stickyBottom = mobileNavbarHeight + stackHeight;
-      const pinned =
-        stackRect.top <= mobileNavbarHeight + 0.5 &&
-        rootRect.bottom > stickyBottom;
+      const pinned = stackRect.top <= 0.5 && rootRect.bottom > stackHeight;
       const exiting = pinned && rootRect.bottom <= window.innerHeight;
       const active = pinned && !exiting;
 
@@ -185,10 +181,7 @@ function useTripSectionNavigation(
       frame = 0;
       const mobile = window.matchMedia(mobileTripMediaQuery).matches;
       const activationLine = mobile
-        ? Math.min(
-            mobileNavbarHeight + stackHeight + 24,
-            window.innerHeight * 0.45
-          )
+        ? Math.min(stackHeight + 24, window.innerHeight * 0.45)
         : Math.min(180, window.innerHeight * 0.25);
       let nextSection = sectionIds[0];
 
@@ -230,9 +223,7 @@ function useTripSectionNavigation(
 
       const mobile = window.matchMedia(mobileTripMediaQuery).matches;
       const offset = mobile
-        ? mobileNavbarHeight +
-          (stackRef.current?.getBoundingClientRect().height ?? stackHeight) +
-          16
+        ? (stackRef.current?.getBoundingClientRect().height ?? stackHeight) + 16
         : 112;
       const top = section.getBoundingClientRect().top + window.scrollY - offset;
       const reduceMotion = window.matchMedia(
@@ -1168,13 +1159,13 @@ export default function TripContent() {
         ref={tripRootRef}
         style={
           {
-            "--trip-scroll-offset": `${mobileNavbarHeight + stickyState.stackHeight + 16}px`,
+            "--trip-scroll-offset": `${stickyState.stackHeight + 16}px`,
           } as CSSProperties
         }
       >
         <div
           ref={stickyStackRef}
-          className={`sticky top-20 z-40 -mt-11 transition-[transform,opacity,box-shadow,background-color] duration-300 ease-out motion-reduce:transition-none sm:-mt-14 lg:relative lg:top-auto lg:z-20 lg:translate-y-0 lg:bg-transparent lg:opacity-100 lg:shadow-none ${
+          className={`sticky top-0 z-40 -mt-11 transition-[transform,opacity,box-shadow,background-color] duration-300 ease-out motion-reduce:transition-none sm:-mt-14 lg:relative lg:top-auto lg:z-20 lg:translate-y-0 lg:bg-transparent lg:opacity-100 lg:shadow-none ${
             stickyState.pinned
               ? "bg-savana-50 shadow-[0_4px_8px_rgba(38,35,22,0.14)]"
               : "bg-transparent"
