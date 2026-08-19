@@ -32,6 +32,13 @@ export default function Footer() {
           >
             {t("footer.privacy")}
           </Link>
+          <span className="h-3 w-px bg-black/20 sm:h-4" />
+          <Link
+            href="/credits"
+            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+          >
+            {t("footer.credits")}
+          </Link>
         </div>
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row items-center gap-2 font-semibold text-savana-600">
@@ -93,6 +100,13 @@ export default function Footer() {
             className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
           >
             {t("footer.privacy")}
+          </Link>
+          <span className="h-3 w-px bg-black/20 sm:h-4" />
+          <Link
+            href="/credits"
+            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+          >
+            {t("footer.credits")}
           </Link>
         </div>
       </div>

@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/faq", priority: 0.6 },
     { path: "/terms", priority: 0.3 },
     { path: "/privacy", priority: 0.3 },
+    { path: "/credits", priority: 0.3 },
   ].map(({ path, priority }) => ({
     url: `${BASE_URL}${path}`,
     lastModified: new Date(),

@@ -616,6 +616,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "footer.rights": "All rights reserved.",
     "footer.terms": "Terms & Conditions",
     "footer.privacy": "Privacy Policy",
+    "footer.credits": "Photo Credits",
   },
 
   id: {
@@ -1226,6 +1227,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "footer.rights": "Semua hak dilindungi.",
     "footer.terms": "Syarat & Ketentuan",
     "footer.privacy": "Kebijakan Privasi",
+    "footer.credits": "Kredit Foto",
   },
 };
 

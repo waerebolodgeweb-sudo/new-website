@@ -69,6 +69,14 @@ const termsContent: LegalContentMap = {
         ],
       },
       {
+        heading: "Intellectual Property & Photography",
+        body: [
+          "All text, logos, layout, and original photography and video on this website are the property of Waerebo Lodge and are protected by copyright. They may not be copied, reproduced, redistributed, or used commercially without our prior written permission.",
+          "Some images on this site belong to third-party photographers, publications, and creators. These are used with attribution and remain the property of their respective owners; a full list is published on our Photo Credits page.",
+          "If you are a rights holder and believe an image has been credited incorrectly or used without proper permission, contact us at waerebolodge@gmail.com. We will correct the credit or remove the image promptly.",
+        ],
+      },
+      {
         heading: "Changes to These Terms",
         body: [
           "We may update these Terms & Conditions from time to time. The version in effect at the time of your booking is the one that applies to your stay.",
@@ -123,6 +131,14 @@ const termsContent: LegalContentMap = {
         body: [
           "Sejauh yang diizinkan oleh hukum, Waerebo Lodge tidak bertanggung jawab atas cedera, kehilangan, atau kerusakan yang timbul dari aktivitas yang dilakukan atas risiko Anda sendiri, termasuk trekking dan perjalanan di luar ruangan, kecuali yang disebabkan oleh kelalaian kami yang terbukti.",
           "Kami sangat menyarankan semua tamu untuk mengatur asuransi perjalanan dan medis mereka sendiri sebelum perjalanan.",
+        ],
+      },
+      {
+        heading: "Hak Kekayaan Intelektual & Fotografi",
+        body: [
+          "Seluruh teks, logo, tata letak, serta foto dan video orisinal di situs ini adalah milik Waerebo Lodge dan dilindungi hak cipta. Semuanya tidak boleh disalin, diperbanyak, disebarluaskan, atau digunakan secara komersial tanpa izin tertulis dari kami.",
+          "Sebagian gambar di situs ini adalah milik fotografer, media, dan kreator pihak ketiga. Gambar tersebut digunakan dengan pencantuman kredit dan tetap menjadi milik pemiliknya masing-masing; daftar lengkapnya kami terbitkan di halaman Kredit Foto.",
+          "Jika Anda pemegang hak dan menilai sebuah gambar salah dikreditkan atau digunakan tanpa izin yang semestinya, hubungi kami di waerebolodge@gmail.com. Kami akan segera memperbaiki kredit atau menghapus gambar tersebut.",
         ],
       },
       {
