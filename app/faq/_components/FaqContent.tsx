@@ -4,34 +4,44 @@ import { useEffect, useRef, useState } from "react";
 import { NewIcon } from "@/components/icons/new-icons";
 import { useLang } from "@/lib/i18n";
 
-type CatKey = "trip" | "lodge" | "restaurant" | "transport";
+type CatKey =
+  | "location"
+  | "rooms"
+  | "reservation"
+  | "restaurant"
+  | "waerebo"
+  | "general";
 
-const catKeys: CatKey[] = ["trip", "lodge", "restaurant", "transport"];
+const catKeys: CatKey[] = [
+  "location",
+  "rooms",
+  "reservation",
+  "restaurant",
+  "waerebo",
+  "general",
+];
 
 interface FaqItem {
   qKey: string;
   aKey: string;
 }
 
+const createFaqItems = (category: CatKey, count: number): FaqItem[] =>
+  Array.from({ length: count }, (_, index) => ({
+    qKey: `faq.${category}.q${index + 1}`,
+    aKey: `faq.${category}.a${index + 1}`,
+  }));
+
 const faqItems: Record<CatKey, FaqItem[]> = {
-  trip: [
-    { qKey: "faq.trip.q1", aKey: "faq.trip.a1" },
-    { qKey: "faq.trip.q2", aKey: "faq.trip.a2" },
-    { qKey: "faq.trip.q3", aKey: "faq.trip.a3" },
-    { qKey: "faq.trip.q4", aKey: "faq.trip.a4" },
-  ],
-  lodge: [
-    { qKey: "faq.lodge.q1", aKey: "faq.lodge.a1" },
-    { qKey: "faq.lodge.q2", aKey: "faq.lodge.a2" },
-  ],
-  restaurant: [
-    { qKey: "faq.restaurant.q1", aKey: "faq.restaurant.a1" },
-    { qKey: "faq.restaurant.q2", aKey: "faq.restaurant.a2" },
-  ],
-  transport: [{ qKey: "faq.transport.q1", aKey: "faq.transport.a1" }],
+  location: createFaqItems("location", 6),
+  rooms: createFaqItems("rooms", 5),
+  reservation: createFaqItems("reservation", 4),
+  restaurant: createFaqItems("restaurant", 5),
+  waerebo: createFaqItems("waerebo", 5),
+  general: createFaqItems("general", 4),
 };
 
-/* Running number across every group (figma: 01 … 09) */
+/* Running number across every group (01 … 29) */
 const startIndex: Record<CatKey, number> = catKeys.reduce(
   (acc, cat) => {
     acc.map[cat] = acc.next;
@@ -41,8 +51,52 @@ const startIndex: Record<CatKey, number> = catKeys.reduce(
   { map: {} as Record<CatKey, number>, next: 1 }
 ).map;
 
+function formatInline(text: string) {
+  return text
+    .split(/(\*\*.+?\*\*|_.+?_)/g)
+    .filter(Boolean)
+    .map((segment, index) => {
+      if (segment.startsWith("**") && segment.endsWith("**")) {
+        return (
+          <strong key={index} className="font-semibold text-savana-800">
+            {segment.slice(2, -2)}
+          </strong>
+        );
+      }
+
+      if (segment.startsWith("_") && segment.endsWith("_")) {
+        return <em key={index}>{segment.slice(1, -1)}</em>;
+      }
+
+      return <span key={index}>{segment}</span>;
+    });
+}
+
+function FaqAnswer({ text }: { text: string }) {
+  return (
+    <div className="mt-3 space-y-3 pr-8 text-sm leading-6 text-pale-savana-300 lg:mt-4 lg:pr-9 lg:text-base lg:leading-7">
+      {text.split("\n\n").map((block, blockIndex) => {
+        const lines = block.split("\n").filter(Boolean);
+        const isList = lines.every((line) => line.startsWith("- "));
+
+        if (isList) {
+          return (
+            <ul key={blockIndex} className="list-disc space-y-1 pl-5">
+              {lines.map((line, lineIndex) => (
+                <li key={lineIndex}>{formatInline(line.slice(2))}</li>
+              ))}
+            </ul>
+          );
+        }
+
+        return <p key={blockIndex}>{formatInline(block)}</p>;
+      })}
+    </div>
+  );
+}
+
 export default function FaqContent() {
-  const [active, setActive] = useState<CatKey>("trip");
+  const [active, setActive] = useState<CatKey>("location");
   const [open, setOpen] = useState<string | null>(null);
   const { t } = useLang();
 
@@ -117,12 +171,12 @@ export default function FaqContent() {
         </div>
 
         {/* Mobile — tab row, pinned under the navbar while scrolling */}
-        <div className="sticky top-16 z-20 -mx-5 mt-3 flex items-center justify-between gap-2 border-b border-savana-200 bg-savana-050 px-5 sm:justify-start sm:gap-10 lg:hidden">
+        <div className="sticky top-16 z-20 -mx-5 mt-3 flex [scrollbar-width:none] items-center gap-5 overflow-x-auto border-b border-savana-200 bg-savana-050 px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
           {catKeys.map((cat) => (
             <button
               key={cat}
               onClick={() => goTo(cat)}
-              className={`h-12 border-b-2 text-base transition-colors ${
+              className={`h-12 flex-none border-b-2 text-sm whitespace-nowrap transition-colors sm:text-base ${
                 active === cat
                   ? "border-savana-800 font-semibold text-savana-800"
                   : "border-transparent text-pale-savana-200"
@@ -178,11 +232,7 @@ export default function FaqContent() {
                         className="mt-0.5 text-savana-600"
                       />
                     </button>
-                    {isOpen && (
-                      <p className="mt-3 pr-8 text-sm leading-6 text-pale-savana-300 lg:mt-4 lg:pr-9 lg:text-base lg:leading-7">
-                        {t(faq.aKey)}
-                      </p>
-                    )}
+                    {isOpen && <FaqAnswer text={t(faq.aKey)} />}
                   </div>
                 );
               })}

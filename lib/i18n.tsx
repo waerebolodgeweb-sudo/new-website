@@ -382,41 +382,116 @@ const dict: Record<Lang, Record<string, string>> = {
 
     "faq.heading1": "Got Questions?",
     "faq.heading2": "We’ve Got Answers.",
-    "faq.cat.trip": "Trip",
-    "faq.cat.lodge": "Lodge",
+    "faq.cat.location": "Location",
+    "faq.cat.rooms": "Rooms",
+    "faq.cat.reservation": "Booking",
     "faq.cat.restaurant": "Restaurant",
-    "faq.cat.transport": "Transport",
-    "faq.nav.trip": "Trip, Trekking, and Travel",
-    "faq.nav.lodge": "Lodge and Room",
-    "faq.nav.restaurant": "Food and Restaurant",
-    "faq.nav.transport": "Transportation",
-    "faq.trip.q1": "How difficult is the trek to Waerebo Village?",
-    "faq.trip.a1":
-      "The trek is considered moderate and typically takes about 2 to 3 hours from Pos 1, depending on your pace. The path goes uphill through a shaded mountain forest. A basic level of fitness is recommended, but you can take your time and enjoy the cool air!",
-    "faq.trip.q2": "Where will I sleep when staying overnight in the village?",
-    "faq.trip.a2":
-      "You will sleep inside the authentic Mbaru Niang (traditional cone-shaped house). It is a communal setup where you sleep on mattresses in an open-tent arrangement alongside other travelers. Please note that the bathrooms are located outside the main house.",
-    "faq.trip.q3": "Is there electricity in Waerebo Village?",
-    "faq.trip.a3":
-      "Electricity in the village is very limited and generally only runs from 6:00 PM to 10:00 PM. We highly recommend bringing a power bank to keep your camera or phone charged!",
-    "faq.trip.q4": 'What is the "Ojek" service mentioned in the itinerary?',
-    "faq.trip.a4":
-      'An "Ojek" is a local motorcycle taxi. On rougher sections of the lower trail you can choose to ride an ojek for part of the way to save energy, or you can simply walk the whole route. It is an optional service arranged with local drivers.',
-    "faq.lodge.q1": "Where exactly is Waerebo Lodge located?",
-    "faq.lodge.a1":
-      "Our basecamp is located in Dintor, right at the valley below Waerebo. It sits beautifully in the middle of rice fields, offering stunning open views of the Flores Sea and the surrounding mountains.",
-    "faq.lodge.q2": "Do the lodge rooms have AC and hot water?",
-    "faq.lodge.a2":
-      "Yes. Our AC rooms include air conditioning and a hot shower. Our fan rooms have a fan and a private bathroom with a shower and traditional bucket bath. All rooms include breakfast and dinner — lunch is priced separately.",
-    "faq.restaurant.q1": "Do you provide food for the trekking journey?",
+    "faq.cat.waerebo": "Wae Rebo",
+    "faq.cat.general": "General",
+    "faq.nav.location": "Location and Access",
+    "faq.nav.rooms": "Rooms and Facilities",
+    "faq.nav.reservation": "Check-in and Reservations",
+    "faq.nav.restaurant": "Restaurant and Food",
+    "faq.nav.waerebo": "Journey to Wae Rebo Village",
+    "faq.nav.general": "General Information",
+    "faq.location.q1": "Where exactly is Waerebo Lodge located?",
+    "faq.location.a1":
+      "Waerebo Lodge is located in Dintor Village, West Satar Mese District, Manggarai Regency, Flores. Our lodge sits among rice fields, with views of the surrounding hills and Mules Island.",
+    "faq.location.q2": "Is Waerebo Lodge inside Wae Rebo Village?",
+    "faq.location.a2":
+      "No. Waerebo Lodge is in Dintor Village, while Wae Rebo Village is in the mountains and can only be reached by trekking. Our lodge is a convenient place to rest before or after your journey to Wae Rebo Village.",
+    "faq.location.q3": "How do I get to Waerebo Lodge from Labuan Bajo?",
+    "faq.location.a3":
+      "Waerebo Lodge can be reached by road from Labuan Bajo to Dintor Village. The journey usually takes around four hours, depending on road conditions, weather, and the places visited along the way.\n\nWe can arrange pickup from the airport or your hotel in Labuan Bajo.",
+    "faq.location.q4":
+      "Does the transportation price include the driver and fuel?",
+    "faq.location.a4":
+      "Yes. The transportation price includes the driver and fuel. Our vehicles are only available with a driver and cannot be rented for self-drive use.",
+    "faq.location.q5": "What vehicle capacities are available?",
+    "faq.location.a5":
+      "A Toyota Innova can accommodate up to four guests without a guide, or three guests when accompanied by a guide. For groups, an otocolt is available with capacity for up to 20 people.\n\nCapacity may need to be adjusted based on the amount and size of the luggage.",
+    "faq.location.q6": "What places can we visit on the way to the lodge?",
+    "faq.location.a6":
+      "On the way to Waerebo Lodge, you can visit several interesting places such as Cunca Plias, the Lembor rice fields, Dahot, and Watu Weri.\n\nThe places visited depend on your travel package and available time. Full information is available in the details for each travel package.",
+    "faq.rooms.q1": "How many rooms are available at Waerebo Lodge?",
+    "faq.rooms.a1":
+      "Waerebo Lodge has a total of 11 rooms, with several room types and different facilities.",
+    "faq.rooms.q2": "What room types are available?",
+    "faq.rooms.a2":
+      "We offer three room types:\n\n- Standard Room: a permanent building with tiled flooring and a fan.\n- Basic Room: a wooden-style room with a fan.\n- Deluxe Room: a permanent building with tiled flooring, air conditioning, and hot water.\n\nFull capacity and facility information is available on each room type’s page.",
+    "faq.rooms.q3": "Does every room have a private bathroom?",
+    "faq.rooms.a3":
+      "Yes. Every room has a private bathroom. However, bathroom facilities vary depending on the room type selected.",
+    "faq.rooms.q4": "Do all rooms have air conditioning and hot water?",
+    "faq.rooms.a4":
+      "No. Air conditioning and hot water are only available in Deluxe Rooms. Standard Rooms and Basic Rooms use fans and do not include hot water.",
+    "faq.rooms.q5": "Are mosquito nets provided in the rooms?",
+    "faq.rooms.a5":
+      "Yes. Mosquito nets are provided for additional comfort while resting.",
+    "faq.reservation.q1": "How do I make a reservation?",
+    "faq.reservation.a1":
+      "You can make a reservation through our WhatsApp. Please provide your arrival date, number of guests, preferred room or package, and any transportation requirements.",
+    "faq.reservation.q2": "Do guests need to reserve in advance?",
+    "faq.reservation.a2":
+      "Advance reservations are highly recommended, especially for group visits and travel during peak season. This helps us confirm the availability of rooms, vehicles, guides, and meals.",
+    "faq.reservation.q3":
+      "Can transportation be booked without a travel package?",
+    "faq.reservation.a3":
+      "Yes. Transportation can be booked separately or as part of a Waerebo Lodge travel package.",
+    "faq.reservation.q4": "Is breakfast included in the room rate?",
+    "faq.reservation.a4": "Yes. Breakfast is included in the room rate.",
+    "faq.restaurant.q1":
+      "Is the restaurant open to visitors who are not staying overnight?",
     "faq.restaurant.a1":
-      "Yes. Meals are sold per person — you can purchase lunch before heading up the trail. Breakfast and dinner are included in the room rate for overnight guests, while lunch is priced separately.",
-    "faq.restaurant.q2": "What kind of food can I expect at the lodge?",
+      "Yes. Waerebo Lodge Restaurant is open to overnight guests and general visitors. Advance reservations are recommended, especially for group visits.",
+    "faq.restaurant.q2": "Can the restaurant accommodate groups?",
     "faq.restaurant.a2":
-      "Every meal includes rice, vegetables, and a seasonal protein. We serve fresh fish when it is in season, and chicken or tempe when it is not — so the menu changes naturally with the harvest. You do not need to be staying overnight to eat here; many trekkers stop in for lunch before heading up to the village.",
-    "faq.transport.q1": "How do I get from Labuan Bajo to Waerebo Lodge?",
-    "faq.transport.a1":
-      "We offer two vehicle options: an otopool (a diesel truck with wooden bench seating in the back) and a Toyota Innova, both guided by Pak Martin. Transport can be booked as part of a full lodge-and-trekking package, or rented separately for just the drive.",
+      "Yes. Our restaurant can accommodate up to 30 people. For group visits, we recommend reserving in advance so we can prepare the space and meals properly.",
+    "faq.restaurant.q3": "What food is available?",
+    "faq.restaurant.a3":
+      'Our restaurant serves dishes made with fresh ingredients. One of our signature dishes is grilled fish with "Mati Tempat" sambal. Other menu options depend on the ingredients available that day.',
+    "faq.restaurant.q4":
+      "Are vegetarian meals or special dietary options available?",
+    "faq.restaurant.a4":
+      "Guests with allergies, dietary restrictions, or specific dietary requirements should inform us before arrival. Our team will do its best to prepare suitable options based on ingredient availability.",
+    "faq.restaurant.q5":
+      "Is there a place to enjoy the sunset near the restaurant?",
+    "faq.restaurant.a5":
+      "Yes. There are several attractive spots around the restaurant for enjoying the sunset. Our team will be happy to show you the best location based on the weather conditions at the time.",
+    "faq.waerebo.q1":
+      "How long does it take to reach the trekking starting point from the lodge?",
+    "faq.waerebo.a1":
+      "The drive from Waerebo Lodge to the starting area for the Wae Rebo journey takes around 20 minutes. From there, guests can continue to Pos 1 on foot or by local motorcycle taxi.",
+    "faq.waerebo.q2":
+      "What is the elevation, and how difficult is the trek to Wae Rebo Village?",
+    "faq.waerebo.a2":
+      "Wae Rebo Village is located at approximately **1,200 meters above sea level**. The trek from Pos 1 is considered **moderate**, covering around **4 km** with an average travel time of **2–3 hours**, depending on each guest’s fitness and walking pace.\n\nThe trekking route is predominantly uphill and passes through mountain forest. Basic fitness and comfortable, non-slip footwear are therefore highly recommended.",
+    "faq.waerebo.q3": "Does the journey require a guide?",
+    "faq.waerebo.a3":
+      "We strongly recommend traveling with a local guide who understands the route, terrain conditions, and visiting customs in Wae Rebo Village. Waerebo Lodge can help arrange a guide for your journey.",
+    "faq.waerebo.q4":
+      "What is the motorcycle taxi service mentioned in the itinerary?",
+    "faq.waerebo.a4":
+      "A local motorcycle taxi, or ojek, is operated by a local driver. It can be used to reach Pos 1, helping guests save time and energy before beginning the trek.\n\n_This service is optional. Guests may also choose to walk._",
+    "faq.waerebo.q5":
+      "Where do guests sleep when staying overnight in Wae Rebo Village?",
+    "faq.waerebo.a5":
+      "Guests sleep inside a traditional cone-shaped house known as a Mbaru Niang. The accommodation is communal, so the sleeping space is shared with other travelers.\n\nSimple mattresses, pillows, and blankets are provided. Bathrooms are located outside the main house and are shared.",
+    "faq.general.q1":
+      "Is electricity available 24 hours a day in Wae Rebo Village?",
+    "faq.general.a1":
+      "No. Electricity in Wae Rebo Village is generally only available from around 6:00 PM to 10:00 PM. We recommend fully charging your electronic devices before starting the trek and carrying a power bank during the journey.",
+    "faq.general.q2":
+      "Is electricity available 24 hours a day at Waerebo Lodge?",
+    "faq.general.a2":
+      "Yes. Electricity at Waerebo Lodge is available 24 hours a day.",
+    "faq.general.q3":
+      "Are Wi-Fi and mobile phone signals available at Waerebo Lodge?",
+    "faq.general.a3":
+      "Mobile phone signals around the lodge are generally unavailable or very weak. However, Waerebo Lodge provides a Starlink Wi-Fi connection for guests who need internet access.",
+    "faq.general.q4": "Is luggage storage available during the trek?",
+    "faq.general.a4":
+      "Yes. You can leave luggage and unnecessary belongings at Waerebo Lodge to make the trek to Wae Rebo Village more comfortable. We recommend carrying only a small bag with the items needed for the journey and overnight stay in the village.",
 
     // ── Trips page
     "trips.chooseProgram": "Choose your Program",
@@ -992,42 +1067,115 @@ const dict: Record<Lang, Record<string, string>> = {
 
     "faq.heading1": "Punya Pertanyaan?",
     "faq.heading2": "Kami Punya Jawabannya.",
-    "faq.cat.trip": "Trip",
-    "faq.cat.lodge": "Penginapan",
+    "faq.cat.location": "Lokasi",
+    "faq.cat.rooms": "Kamar",
+    "faq.cat.reservation": "Reservasi",
     "faq.cat.restaurant": "Restoran",
-    "faq.cat.transport": "Transportasi",
-    "faq.nav.trip": "Trip, Trekking, dan Perjalanan",
-    "faq.nav.lodge": "Penginapan dan Kamar",
-    "faq.nav.restaurant": "Makanan dan Restoran",
-    "faq.nav.transport": "Transportasi",
-    "faq.trip.q1": "Seberapa sulit trek ke Desa Waerebo?",
-    "faq.trip.a1":
-      "Trek ini tergolong sedang dan biasanya membutuhkan waktu sekitar 2 hingga 3 jam dari Pos 1, tergantung kecepatan Anda. Jalurnya mendaki melalui hutan gunung yang rindang. Disarankan memiliki kebugaran dasar, namun Anda bisa bersantai dan menikmati udara yang sejuk!",
-    "faq.trip.q2": "Di mana saya tidur saat menginap semalam di desa?",
-    "faq.trip.a2":
-      "Anda akan tidur di dalam Mbaru Niang yang autentik (rumah kerucut tradisional). Ini adalah pengaturan komunal di mana Anda tidur di atas kasur dalam susunan tenda terbuka bersama wisatawan lain. Harap dicatat bahwa kamar mandi terletak di luar rumah utama.",
-    "faq.trip.q3": "Apakah ada listrik di Desa Waerebo?",
-    "faq.trip.a3":
-      "Listrik di desa sangat terbatas dan umumnya hanya menyala dari pukul 18.00 hingga 22.00. Kami sangat menyarankan Anda membawa power bank untuk mengisi daya kamera atau ponsel!",
-    "faq.trip.q4": 'Apa itu layanan "Ojek" yang disebutkan dalam itinerary?',
-    "faq.trip.a4":
-      '"Ojek" adalah ojek motor lokal. Di bagian jalur bawah yang lebih kasar, Anda bisa memilih naik ojek untuk menghemat tenaga, atau cukup berjalan kaki sepanjang rute. Ini adalah layanan opsional yang diatur bersama pengemudi lokal.',
-    "faq.lodge.q1": "Di mana tepatnya Waerebo Lodge berada?",
-    "faq.lodge.a1":
-      "Basecamp kami terletak di Dintor, tepat di lembah bawah Waerebo. Berada indah di tengah sawah, menawarkan pemandangan terbuka yang menakjubkan ke Laut Flores dan pegunungan sekitar.",
-    "faq.lodge.q2": "Apakah kamar lodge memiliki AC dan air panas?",
-    "faq.lodge.a2":
-      "Ya. Kamar AC dilengkapi pendingin udara dan shower air panas. Kamar kipas angin memiliki kipas dan kamar mandi pribadi dengan shower serta bak mandi tradisional. Semua kamar sudah termasuk sarapan dan makan malam — makan siang dihitung terpisah.",
+    "faq.cat.waerebo": "Wae Rebo",
+    "faq.cat.general": "Umum",
+    "faq.nav.location": "Lokasi dan Akses",
+    "faq.nav.rooms": "Kamar dan Fasilitas",
+    "faq.nav.reservation": "Check-in dan Reservasi",
+    "faq.nav.restaurant": "Restoran dan Makanan",
+    "faq.nav.waerebo": "Perjalanan ke Kampung Wae Rebo",
+    "faq.nav.general": "Informasi Umum",
+    "faq.location.q1": "Di mana tepatnya Waerebo Lodge berada?",
+    "faq.location.a1":
+      "Waerebo Lodge berlokasi di Desa Dintor, Kecamatan Satar Mese Barat, Kabupaten Manggarai, Flores. Lodge kami berada di tengah persawahan, dengan pemandangan perbukitan dan Pulau Mules.",
+    "faq.location.q2": "Apakah Waerebo Lodge berada di dalam Kampung Wae Rebo?",
+    "faq.location.a2":
+      "Tidak. Waerebo Lodge berada di Desa Dintor, sedangkan Kampung Wae Rebo berada di kawasan pegunungan dan hanya dapat dicapai dengan trekking. Lodge kami cocok sebagai tempat beristirahat sebelum atau setelah perjalanan ke Kampung Wae Rebo.",
+    "faq.location.q3": "Bagaimana cara menuju Waerebo Lodge dari Labuan Bajo?",
+    "faq.location.a3":
+      "Waerebo Lodge dapat dicapai melalui perjalanan darat dari Labuan Bajo menuju Desa Dintor. Perjalanan biasanya memerlukan waktu sekitar empat jam, tergantung kondisi jalan, cuaca, dan tempat yang dikunjungi selama perjalanan.\n\nKami dapat mengatur penjemputan dari bandara atau hotel di Labuan Bajo.",
+    "faq.location.q4":
+      "Apakah harga transportasi sudah termasuk pengemudi dan bahan bakar?",
+    "faq.location.a4":
+      "Ya. Harga transportasi sudah termasuk pengemudi dan bahan bakar. Kendaraan kami hanya tersedia dengan pengemudi dan tidak disewakan secara lepas kunci.",
+    "faq.location.q5": "Berapa kapasitas kendaraan yang tersedia?",
+    "faq.location.a5":
+      "Toyota Innova dapat menampung maksimal empat tamu tanpa pemandu, atau tiga tamu apabila perjalanan didampingi pemandu. Untuk rombongan, tersedia otocolt dengan kapasitas hingga 20 orang.\n\nKapasitas dapat disesuaikan kembali berdasarkan jumlah dan ukuran bagasi.",
+    "faq.location.q6":
+      "Tempat apa saja yang dapat dikunjungi dalam perjalanan menuju lodge?",
+    "faq.location.a6":
+      "Dalam perjalanan menuju Waerebo Lodge, Anda dapat mengunjungi beberapa tempat menarik seperti Cunca Plias, persawahan Lembor, Dahot, dan Watu Weri.\n\nTempat yang dikunjungi bergantung pada paket perjalanan dan waktu yang tersedia. Informasi lengkap dapat dilihat pada rincian masing-masing paket perjalanan.",
+    "faq.rooms.q1": "Berapa jumlah kamar yang tersedia di Waerebo Lodge?",
+    "faq.rooms.a1":
+      "Waerebo Lodge memiliki total 11 kamar dengan beberapa pilihan tipe dan fasilitas yang berbeda.",
+    "faq.rooms.q2": "Apa saja tipe kamar yang tersedia?",
+    "faq.rooms.a2":
+      "Kami menyediakan tiga tipe kamar:\n\n- Standard Room: bangunan permanen, lantai keramik, dan kipas angin.\n- Basic Room: kamar bergaya kayu dengan kipas angin.\n- Deluxe Room: bangunan permanen, lantai keramik, AC, dan air panas.\n\nInformasi lengkap mengenai kapasitas dan fasilitas dapat dilihat pada halaman masing-masing tipe kamar.",
+    "faq.rooms.q3": "Apakah setiap kamar memiliki kamar mandi pribadi?",
+    "faq.rooms.a3":
+      "Ya. Setiap kamar memiliki kamar mandi pribadi. Namun, fasilitas kamar mandi dapat berbeda sesuai tipe kamar yang dipilih.",
+    "faq.rooms.q4": "Apakah semua kamar memiliki AC dan air panas?",
+    "faq.rooms.a4":
+      "Tidak. AC dan air panas hanya tersedia di Deluxe Room. Standard Room dan Basic Room menggunakan kipas angin serta tidak dilengkapi air panas.",
+    "faq.rooms.q5": "Apakah tersedia kelambu di dalam kamar?",
+    "faq.rooms.a5":
+      "Ya. Kelambu tersedia untuk memberikan kenyamanan tambahan saat beristirahat.",
+    "faq.reservation.q1": "Bagaimana cara melakukan reservasi?",
+    "faq.reservation.a1":
+      "Reservasi dapat dilakukan melalui WhatsApp kami. Mohon informasikan tanggal kedatangan, jumlah tamu, pilihan kamar atau paket, serta kebutuhan transportasi.",
+    "faq.reservation.q2":
+      "Apakah tamu perlu melakukan reservasi terlebih dahulu?",
+    "faq.reservation.a2":
+      "Reservasi sebelumnya sangat disarankan, terutama untuk kunjungan rombongan dan perjalanan pada musim ramai. Hal ini membantu kami memastikan ketersediaan kamar, kendaraan, pemandu, dan makanan.",
+    "faq.reservation.q3":
+      "Apakah transportasi dapat dipesan tanpa mengambil paket perjalanan?",
+    "faq.reservation.a3":
+      "Ya. Transportasi dapat dipesan secara terpisah maupun sebagai bagian dari paket perjalanan Waerebo Lodge.",
+    "faq.reservation.q4": "Apakah sarapan sudah termasuk dalam harga kamar?",
+    "faq.reservation.a4": "Ya. Sarapan sudah termasuk dalam harga menginap.",
     "faq.restaurant.q1":
-      "Apakah Anda menyediakan makanan untuk perjalanan trekking?",
+      "Apakah restoran terbuka untuk pengunjung yang tidak menginap?",
     "faq.restaurant.a1":
-      "Ya. Makanan dijual per orang — Anda bisa membeli makan siang sebelum naik ke jalur. Sarapan dan makan malam sudah termasuk dalam harga kamar bagi tamu yang menginap, sedangkan makan siang dihitung terpisah.",
-    "faq.restaurant.q2": "Makanan apa yang bisa saya harapkan di lodge?",
+      "Ya. Restoran Waerebo Lodge terbuka untuk tamu yang menginap maupun pengunjung umum. Reservasi sebelumnya disarankan, khususnya untuk kunjungan rombongan.",
+    "faq.restaurant.q2": "Apakah restoran dapat menerima rombongan?",
     "faq.restaurant.a2":
-      "Setiap hidangan selalu ada nasi, sayur, dan lauk bergizi. Kami menyajikan ikan segar saat musimnya, dan ayam atau tempe saat di luar musim — jadi menu berubah mengikuti alam. Anda tidak harus menginap untuk makan di sini; banyak pendaki yang mampir makan siang sebelum naik ke desa.",
-    "faq.transport.q1": "Bagaimana cara ke Waerebo Lodge dari Labuan Bajo?",
-    "faq.transport.a1":
-      "Kami menyediakan dua pilihan kendaraan: otopool (truk diesel dengan kursi kayu di bagian belakang) dan Toyota Innova, keduanya dipandu oleh Pak Martin. Transportasi bisa dipesan sebagai bagian dari paket lodge dan trekking, atau disewa tersendiri hanya untuk perjalanannya saja.",
+      "Ya. Restoran kami dapat menampung hingga 30 orang. Untuk kunjungan rombongan, kami menyarankan reservasi terlebih dahulu agar kami dapat mempersiapkan tempat dan hidangan dengan baik.",
+    "faq.restaurant.q3": "Makanan apa saja yang tersedia?",
+    "faq.restaurant.a3":
+      'Restoran kami menyajikan hidangan yang dibuat menggunakan bahan-bahan segar. Salah satu menu khas kami adalah ikan bakar dengan sambal "Mati Tempat". Pilihan menu lainnya bergantung pada ketersediaan bahan pada hari tersebut.',
+    "faq.restaurant.q4":
+      "Apakah tersedia makanan vegetarian atau untuk kebutuhan diet tertentu?",
+    "faq.restaurant.a4":
+      "Tamu yang memiliki alergi, pantangan makanan, atau kebutuhan diet tertentu disarankan menginformasikannya sebelum kedatangan. Tim kami akan berusaha menyiapkan pilihan yang sesuai berdasarkan ketersediaan bahan.",
+    "faq.restaurant.q5":
+      "Apakah ada tempat untuk menikmati matahari terbenam di sekitar restoran?",
+    "faq.restaurant.a5":
+      "Ya. Terdapat beberapa spot menarik di sekitar restoran untuk menikmati matahari terbenam. Tim kami dengan senang hati akan membantu menunjukkan lokasi terbaik sesuai kondisi cuaca saat itu.",
+    "faq.waerebo.q1":
+      "Berapa lama perjalanan dari lodge menuju titik awal trekking?",
+    "faq.waerebo.a1":
+      "Perjalanan dari Waerebo Lodge menuju area awal perjalanan ke Kampung Wae Rebo memerlukan waktu sekitar 20 menit dengan kendaraan. Setelah itu, tamu dapat melanjutkan perjalanan menuju Pos 1 dengan berjalan kaki atau menggunakan ojek lokal.",
+    "faq.waerebo.q2":
+      "Berapa ketinggian dan seberapa sulit trekking menuju Kampung Wae Rebo?",
+    "faq.waerebo.a2":
+      "Kampung Wae Rebo berada di ketinggian sekitar **1.200 meter di atas permukaan laut (mdpl)**. Trekking dari Pos 1 tergolong **tingkat kesulitan sedang**, dengan jarak sekitar **4 km** dan waktu tempuh rata-rata **2–3 jam**, tergantung kondisi fisik serta kecepatan berjalan masing-masing.\n\nJalur trekking didominasi tanjakan dan melewati hutan pegunungan. Oleh karena itu, kebugaran dasar serta penggunaan alas kaki yang nyaman dan tidak licin sangat disarankan.",
+    "faq.waerebo.q3": "Apakah perjalanan harus didampingi pemandu?",
+    "faq.waerebo.a3":
+      "Kami sangat menyarankan perjalanan didampingi pemandu lokal yang memahami jalur, kondisi medan, dan tata cara kunjungan ke Kampung Wae Rebo. Waerebo Lodge dapat membantu mengatur pemandu untuk perjalanan Anda.",
+    "faq.waerebo.q4": "Apa itu layanan ojek yang disebutkan dalam itinerary?",
+    "faq.waerebo.a4":
+      "Ojek adalah layanan transportasi sepeda motor yang dioperasikan oleh pengemudi lokal. Ojek dapat digunakan untuk menuju Pos 1 sehingga tamu dapat menghemat waktu dan tenaga sebelum memulai trekking.\n\n_Layanan ini bersifat opsional. Tamu juga dapat memilih berjalan kaki._",
+    "faq.waerebo.q5": "Di mana tamu tidur saat menginap di Kampung Wae Rebo?",
+    "faq.waerebo.a5":
+      "Tamu akan tidur di dalam rumah tradisional berbentuk kerucut yang dikenal sebagai Mbaru Niang. Sistem menginapnya bersifat komunal sehingga ruang tidur digunakan bersama wisatawan lain.\n\nKasur, bantal, dan selimut sederhana disediakan. Kamar mandi berada di luar rumah utama dan digunakan bersama.",
+    "faq.general.q1":
+      "Apakah listrik tersedia selama 24 jam di Kampung Wae Rebo?",
+    "faq.general.a1":
+      "Tidak. Listrik di Kampung Wae Rebo umumnya hanya tersedia sekitar pukul 18.00–22.00. Kami menyarankan Anda mengisi penuh perangkat elektronik sebelum memulai trekking dan membawa power bank selama perjalanan.",
+    "faq.general.q2": "Apakah listrik tersedia selama 24 jam di Waerebo Lodge?",
+    "faq.general.a2": "Ya. Listrik di Waerebo Lodge tersedia selama 24 jam.",
+    "faq.general.q3":
+      "Apakah tersedia Wi-Fi dan sinyal telepon di Waerebo Lodge?",
+    "faq.general.a3":
+      "Sinyal telepon seluler di sekitar lodge umumnya tidak tersedia atau sangat lemah. Namun, Waerebo Lodge menyediakan koneksi Wi-Fi melalui Starlink bagi tamu yang membutuhkan akses internet.",
+    "faq.general.q4":
+      "Apakah tersedia layanan penitipan koper selama trekking?",
+    "faq.general.a4":
+      "Ya. Anda dapat menitipkan koper dan barang yang tidak diperlukan di Waerebo Lodge agar perjalanan trekking menuju Kampung Wae Rebo lebih nyaman. Kami menyarankan hanya membawa tas kecil berisi perlengkapan yang diperlukan selama perjalanan dan menginap di kampung.",
 
     // ── Trips page
     "trips.chooseProgram": "Pilih Program Anda",
