@@ -35,7 +35,9 @@ const navLinks: NavLink[] = [
     ],
   },
   { key: "nav.about", href: "/about" },
+  { key: "nav.testimonials", href: "/#testimonials" },
   { key: "nav.moments", href: "/gallery" },
+  { key: "nav.reviews", href: "/#reviews" },
   { key: "nav.faq", href: "/faq" },
 ];
 
@@ -57,7 +59,7 @@ const mobileSocialLinks = [
   },
 ];
 
-const desktopNavMediaQuery = "(min-width: 1024px)";
+const desktopNavMediaQuery = "(min-width: 1280px)";
 const navbarRevealOffset = 80;
 const scrollDirectionThreshold = 8;
 
@@ -216,7 +218,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 whitespace-nowrap lg:flex xl:gap-7">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 whitespace-nowrap xl:flex">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.key} className="group relative">
@@ -266,7 +268,7 @@ export default function Navbar() {
           </div>
 
           {/* Language toggle + Contact Us — right */}
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-3 xl:flex">
             <LangToggle transparent={transparent} />
             <Link
               href="/#contact"
@@ -281,7 +283,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: language toggle + menu button */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <LangToggle transparent={transparent} />
             <button
               className={`p-2 text-[32px] ${transparent ? "text-white" : "text-savana-green-500"}`}
@@ -301,7 +303,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 lg:hidden">
+        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 xl:hidden">
           <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6">
             <div className="space-y-1">
               <Link
