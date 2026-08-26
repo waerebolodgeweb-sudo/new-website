@@ -49,6 +49,7 @@ const customFeatures: {
 const whatsappNumber = "6285339021145";
 const email = "waerebolodge@gmail.com";
 const mobileTripMediaQuery = "(max-width: 1023px)";
+const ITINERARY_IMAGE_SCALE = 1.5;
 
 type MobileTripStickyState = {
   pinned: boolean;
@@ -954,13 +955,14 @@ function Itinerary({ program }: { program: TripProgram }) {
                   reverse ? "lg:flex-row-reverse" : "lg:flex-row"
                 }`}
               >
-                <div className="relative h-[300px] w-full sm:h-[400px] lg:h-[260px] lg:w-1/2">
+                <div className="relative h-[300px] w-full overflow-hidden sm:h-[400px] lg:h-[260px] lg:w-1/2">
                   <Image
                     src={stop.image}
                     alt={stop.title}
                     fill
                     sizes="(min-width: 1024px) 380px, 90vw"
-                    className="object-contain"
+                    className="origin-center object-contain"
+                    style={{ transform: `scale(${ITINERARY_IMAGE_SCALE})` }}
                   />
                 </div>
 
