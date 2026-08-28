@@ -66,7 +66,7 @@ export default function RoomsSection() {
           Accommodation
         </p>
         <h2 className="mb-10 text-3xl font-bold text-neutral-900 lg:text-5xl">
-          Rest Before the Ascent.
+          Rest Before the Ascent
         </h2>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

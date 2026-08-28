@@ -357,7 +357,7 @@ export const tripPrograms: TripProgram[] = [
     duration: "2 days, 1 night",
     title: "Overnight Experience",
     heroTitle:
-      "Experience local village life and stay overnight in Waerebo's traditional cone-shaped house",
+      "Experience village life and stay overnight in Mbaru Niang house",
     subtitle:
       "Trek into Waerebo, share an evening with the community, and wake to the quiet beauty of the highlands.",
     heroDesktop:
@@ -718,7 +718,7 @@ export const tripPrograms: TripProgram[] = [
     duration: "4 days, 3 nights",
     title: "Waerebo & Island Escape",
     heroTitle:
-      "A journey that combines Waerebo mountain trekking with the beauty of Nuca Molas Island",
+      "A journey of Waerebo trekking with the beauty of Nuca Molas Island",
     subtitle:
       "Move from mountain culture to the sea on a four-day journey through western Flores and its nearby islands.",
     heroDesktop:
@@ -1170,8 +1170,7 @@ export const tripPrograms: TripProgram[] = [
     label: "Create Your Own Itineraries",
     duration: "Custom",
     title: "Create Your Own Itineraries",
-    heroTitle:
-      "A flexible journey combining Waerebo trekking with your chosen destinations",
+    heroTitle: "A flexible journey in Waerebo with your chosen destinations.",
     subtitle:
       "Tell us your dates and interests; our local team will shape a private Flores journey around you.",
     heroDesktop:

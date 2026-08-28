@@ -104,14 +104,14 @@ export default function HistorySection() {
       <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-20">
         <div className="grid gap-7 lg:grid-cols-[1fr_0.95fr] lg:gap-28">
           <div>
-            <p className="mb-2 text-[12px] font-medium text-savana-600">
+            <p className="mb-2 text-base font-medium text-savana-600">
               {t("about.history.eyebrow")}
             </p>
-            <h2 className="text-3xl leading-tight font-normal text-savana-800 lg:text-[40px]">
-              {t("about.history.heading1")}{" "}
+            <h2 className="text-4xl leading-tight font-normal text-savana-800">
               <span className="font-semibold">
-                {t("about.history.heading2")}
+                {t("about.history.heading1")}{" "}
               </span>
+              {t("about.history.heading2")}
             </h2>
           </div>
           <p className="text-sm leading-relaxed font-medium text-neutral-700 lg:text-base">

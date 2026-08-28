@@ -36,8 +36,8 @@ const navLinks: NavLink[] = [
   },
   { key: "nav.about", href: "/about" },
   { key: "nav.testimonials", href: "/#testimonials" },
-  { key: "nav.moments", href: "/gallery" },
   { key: "nav.reviews", href: "/#reviews" },
+  { key: "nav.moments", href: "/gallery" },
   { key: "nav.faq", href: "/faq" },
 ];
 

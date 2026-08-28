@@ -55,9 +55,9 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── Services (home accordion)
     "services.eyebrow": "Our Services",
-    "services.heading": "Everything You Need.",
+    "services.heading": "Everything You Need!",
     "services.headingStrong": "Everything",
-    "services.headingRest": "You Need.",
+    "services.headingRest": "You Need!",
     "services.body":
       "We offer more than just a stay. Enjoy warm Flores hospitality, expert local guides, and thoughtfully planned journeys so you can focus on the moments that matter",
     "services.learnMore": "Learn More",
@@ -81,7 +81,7 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Gallery
     "gallery.eyebrow": "Testimonials",
     "gallery.head1": "Hear From Our ",
-    "gallery.head2": "Guest.",
+    "gallery.head2": "Guest",
     "moments.eyebrow": "Our Gallery",
     "moments.head1": "Moments ",
     "moments.head2": "Captured.",
@@ -134,13 +134,13 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.trip.emph": "Journeys",
     "journeys.lodge.eyebrow": "Your Stay",
     "journeys.lodge.head": "Rest Before the ",
-    "journeys.lodge.emph": "Ascent.",
+    "journeys.lodge.emph": "Ascent",
     "journeys.restaurant.eyebrow": "Food & Beverage",
     "journeys.restaurant.head": "Authentic Local ",
-    "journeys.restaurant.emph": "Flavors.",
+    "journeys.restaurant.emph": "Flavors",
     "journeys.transport.eyebrow": "Transportation",
     "journeys.transport.head": "Effortless ",
-    "journeys.transport.emph": "Travel Solutions.",
+    "journeys.transport.emph": "Travel Solutions",
     "journeys.available": "Available",
     "journeys.seeTripDetails": "See Trip Details",
     "journeys.seeLodgeDetails": "See Details",
@@ -305,7 +305,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Sincere greetings from the heart of Flores. We are Martin and Isabela Anggo, and we built Waerebo Lodge after being inspired by community-based ecotourism in 2007. Our goal is to provide a comfortable resting place for travelers while giving back to the Waerebo community. Come and take a break with us before your ascent.",
     "about.story.martinName.old": "Mr. Martin",
     "about.story.martinBio":
-      "Born in Waerebo Village in 1969, Martin has been a dedicated local guide since 2003. For more than two decades, he has introduced visitors from around the world to the culture, traditions, and natural beauty of Waerebo. As the founder of Waerebo Lodge, Martin enjoys sharing stories about village life and helping guests experience the authentic spirit of Waerebo and Flores.",
+      "Born in Waerebo Village in 1969, Martin has been a dedicated local guide since 2003. As the founder of Waerebo Lodge, he has spent over two decades sharing village stories and helping global travelers experience the authentic culture and natural beauty of Flores.",
 
     // ── About page — Offer grid
     "about.offer.eyebrow": "Our Services",
@@ -342,11 +342,11 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── FAQ page
     "about.story.body":
-      "We are Martin and Isabela Anggo, the founders of Waerebo Lodge.\n\nWhat began as a simple dream to welcome travelers visiting Waerebo grew into Waerebo Lodge in 2010, starting with just three modest guest rooms. Isabela, known for her warm hospitality and love of local cooking, has always been at the heart of the guest experience. As more travelers discovered the beauty of Waerebo, the lodge gradually expanded into the eleven-room property you see today.\n\nWaerebo Lodge was built with a simple purpose: to provide a comfortable place for travelers to rest before and after their journey to Waerebo Village, while supporting community-based tourism and creating benefits for local families.\n\nWe invite you to slow down, experience the peaceful beauty of rural Flores, enjoy genuine local hospitality, and become part of the story that continues to grow here.",
+      "Founded in 2010 by Martin and Isabela Anggo, Waerebo Lodge began as a simple dream with just three modest rooms. With Isabela’s warm hospitality and love for local cooking at its heart, our home gradually expanded into the eleven-room retreat you see today as more travelers discovered the area.\n\nOur purpose remains simple: to offer a comfortable resting place for travelers journeying to Waerebo Village. In doing so, we proudly support community-based tourism that creates real benefits for local families.\n\nWe invite you to slow down and experience the peaceful beauty of rural Flores. Enjoy our genuine local hospitality, and become part of the story that continues to grow here.",
     "about.story.martinName": "Mr. Martin & Mrs. Isabela",
     "about.history.eyebrow": "Our History",
-    "about.history.heading1": "The Journey of",
-    "about.history.heading2": "Waerebo Lodge",
+    "about.history.heading1": "The Journey ",
+    "about.history.heading2": "of Waerebo Lodge",
     "about.history.body":
       "The journey of Waerebo Lodge is about more than building a place to stay. Growing alongside the Waerebo community, the lodge has evolved from a humble family-run guesthouse into a gateway for travelers seeking the natural beauty of Flores, the richness of local culture, and the genuine hospitality passed down through generations.",
     "about.history.m1.title": "Where It All Began",
@@ -689,7 +689,7 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Footer
     "footer.follow": "Follow us for more updates & information!",
     "footer.rights": "All rights reserved.",
-    "footer.terms": "Terms & Conditions",
+    "footer.terms": "T&C",
     "footer.privacy": "Privacy Policy",
     "footer.credits": "Photo Credits",
   },
@@ -739,9 +739,9 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── Services (home accordion)
     "services.eyebrow": "Layanan Kami",
-    "services.heading": "Semua yang Anda Butuhkan.",
+    "services.heading": "Semua yang Anda Butuhkan!",
     "services.headingStrong": "Semua",
-    "services.headingRest": "yang Anda Butuhkan.",
+    "services.headingRest": "yang Anda Butuhkan!",
     "services.body":
       "Kami menawarkan lebih dari sekadar tempat menginap. Nikmati keramahan Flores, pemandu lokal berpengalaman, dan perjalanan yang dirancang dengan baik agar Anda bisa fokus pada momen yang berarti.",
     "services.learnMore": "Pelajari Lebih Lanjut",
@@ -765,7 +765,7 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Gallery
     "gallery.eyebrow": "Testimoni",
     "gallery.head1": "Cerita Dari ",
-    "gallery.head2": "Tamu.",
+    "gallery.head2": "Tamu",
     "moments.eyebrow": "Galeri Kami",
     "moments.head1": "Momen yang ",
     "moments.head2": "Diabadikan.",
@@ -817,13 +817,13 @@ const dict: Record<Lang, Record<string, string>> = {
     "journeys.trip.emph": "Pilihan",
     "journeys.lodge.eyebrow": "Tempat Menginap",
     "journeys.lodge.head": "Istirahat Sebelum ",
-    "journeys.lodge.emph": "Pendakian.",
+    "journeys.lodge.emph": "Pendakian",
     "journeys.restaurant.eyebrow": "Makanan & Minuman",
     "journeys.restaurant.head": "Cita Rasa Lokal ",
-    "journeys.restaurant.emph": "Autentik.",
+    "journeys.restaurant.emph": "Autentik",
     "journeys.transport.eyebrow": "Transportasi",
     "journeys.transport.head": "Solusi Perjalanan ",
-    "journeys.transport.emph": "Mudah.",
+    "journeys.transport.emph": "Mudah",
     "journeys.available": "Tersedia",
     "journeys.seeTripDetails": "Lihat Detail Trip",
     "journeys.seeLodgeDetails": "Lihat Detail",
@@ -990,7 +990,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Salam tulus dari jantung Flores. Kami adalah Martin dan Isabela Anggo, yang membangun Waerebo Lodge terinspirasi dari ekowisata berbasis komunitas pada tahun 2007. Tujuan kami adalah menyediakan tempat istirahat yang nyaman bagi wisatawan sambil memberi kembali kepada komunitas Waerebo. Singgahlah bersama kami sebelum pendakianmu.",
     "about.story.martinName.old": "Pak Martin",
     "about.story.martinBio":
-      "Lahir di Desa Waerebo pada tahun 1969, Martin telah menjadi pemandu lokal yang berdedikasi sejak 2003. Selama lebih dari dua dekade, ia memperkenalkan budaya, tradisi, dan keindahan alam Waerebo kepada pengunjung dari seluruh dunia. Sebagai pendiri Waerebo Lodge, Martin senang berbagi cerita tentang kehidupan desa dan membantu tamu merasakan semangat autentik Waerebo dan Flores.",
+      "Lahir di Desa Waerebo pada tahun 1969, Martin telah berdedikasi sebagai pemandu lokal sejak 2003. Sebagai pendiri Waerebo Lodge, selama lebih dari dua dekade ia telah berbagi kisah desa dan membantu wisatawan dari seluruh dunia mengenal budaya autentik serta keindahan alam Flores.",
 
     // ── About page — Offer grid
     "about.offer.eyebrow": "Layanan Kami",
@@ -1027,7 +1027,7 @@ const dict: Record<Lang, Record<string, string>> = {
 
     // ── FAQ page
     "about.story.body":
-      "Kami adalah Martin dan Isabela Anggo, pendiri Waerebo Lodge.\n\nBerawal dari mimpi sederhana untuk menyambut wisatawan yang berkunjung ke Waerebo, Waerebo Lodge berdiri pada tahun 2010 dengan hanya tiga kamar tamu sederhana. Isabela, yang dikenal dengan keramahan hangat dan kecintaannya pada masakan lokal, selalu menjadi bagian penting dari pengalaman para tamu. Seiring semakin banyak wisatawan menemukan keindahan Waerebo, lodge ini perlahan berkembang menjadi properti sebelas kamar seperti yang Anda lihat hari ini.\n\nWaerebo Lodge dibangun dengan tujuan sederhana: menyediakan tempat yang nyaman bagi wisatawan untuk beristirahat sebelum dan sesudah perjalanan mereka ke Desa Waerebo, sambil mendukung pariwisata berbasis komunitas dan menciptakan manfaat bagi keluarga lokal.\n\nKami mengundang Anda untuk melambat sejenak, menikmati keindahan Flores yang damai, merasakan keramahan lokal yang tulus, dan menjadi bagian dari cerita yang terus tumbuh di sini.",
+      "Didirikan pada tahun 2010 oleh Martin dan Isabela Anggo, Waerebo Lodge berawal dari sebuah mimpi sederhana dengan hanya tiga kamar. Berkat keramahan Isabela yang hangat dan kecintaannya pada masakan lokal yang menjadi jiwa tempat ini, rumah kami perlahan berkembang menjadi penginapan dengan sebelas kamar seperti yang Anda lihat hari ini, seiring semakin banyak wisatawan mengenal kawasan ini.\n\nTujuan kami tetap sederhana: menyediakan tempat istirahat yang nyaman bagi wisatawan dalam perjalanan menuju Desa Waerebo. Melalui hal ini, kami dengan bangga mendukung pariwisata berbasis komunitas yang memberikan manfaat nyata bagi keluarga-keluarga lokal.\n\nKami mengundang Anda untuk melambat sejenak dan menikmati keindahan pedesaan Flores yang menenangkan. Rasakan keramahan lokal kami yang tulus dan jadilah bagian dari kisah yang terus tumbuh di sini.",
     "about.story.martinName": "Pak Martin & Ibu Isabela",
     "about.history.eyebrow": "Sejarah Kami",
     "about.history.heading1": "Perjalanan",
@@ -1373,7 +1373,7 @@ const dict: Record<Lang, Record<string, string>> = {
     // ── Footer
     "footer.follow": "Ikuti kami untuk info & kabar terbaru!",
     "footer.rights": "Semua hak dilindungi.",
-    "footer.terms": "Syarat & Ketentuan",
+    "footer.terms": "S&K",
     "footer.privacy": "Kebijakan Privasi",
     "footer.credits": "Kredit Foto",
   },

@@ -16,6 +16,7 @@ const lodgeThumbnailSlides = rooms.map((room) => ({
 const destinationSlides = destinations.map((destination) => ({
   slug: destination.slug,
   name: destination.name,
+  heroTitle: destination.heroTitle,
   ...destinationAssets(destination.stem),
 }));
 
@@ -143,12 +144,26 @@ export default function ContactSection() {
               </span>
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <p
-              key={destinationSlides[activeDestination].slug}
-              className="iconic-fade absolute bottom-3 left-3 text-sm font-semibold text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)] sm:bottom-5 sm:left-5 sm:text-2xl"
-            >
-              {destinationSlides[activeDestination].name[lang]}
-            </p>
+            <div className="iconic-fade absolute bottom-3 left-3 text-sm text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.25)] sm:bottom-5 sm:left-5 sm:text-2xl">
+              <div
+                className="text-sm italic"
+                key={
+                  destinationSlides[activeDestination].slug +
+                  destinationSlides[activeDestination].name[lang]
+                }
+              >
+                {destinationSlides[activeDestination].name[lang]}
+              </div>
+              <div
+                className="text-base font-semibold lg:text-2xl"
+                key={
+                  destinationSlides[activeDestination].slug +
+                  destinationSlides[activeDestination].heroTitle[lang]
+                }
+              >
+                {destinationSlides[activeDestination].heroTitle[lang]}
+              </div>
+            </div>
           </Link>
 
           {/* 2x2 tile grid */}

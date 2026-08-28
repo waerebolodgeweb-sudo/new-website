@@ -9,8 +9,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-white pb-5 sm:pb-8">
-      <div className="mx-auto flex max-w-7xl flex-row items-center justify-between px-5 sm:px-8 lg:px-20">
-        <p className="block text-xs text-savana-800 lg:hidden">
+      <div className="mx-auto flex max-w-[1512px] flex-row items-center justify-between px-5 sm:px-8 lg:px-20">
+        <p className="block text-sm text-savana-800 lg:hidden">
           {t("footer.follow")}
         </p>
         <div className="hidden flex-col-reverse items-center gap-3 py-5 sm:flex-row sm:gap-4 sm:py-6 lg:flex">
@@ -21,21 +21,21 @@ export default function Footer() {
 
           <Link
             href="/terms"
-            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+            className="text-[14px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 md:text-base"
           >
             {t("footer.terms")}
           </Link>
           <span className="h-3 w-px bg-black/20 sm:h-4" />
           <Link
             href="/privacy"
-            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+            className="text-[14px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 md:text-base"
           >
             {t("footer.privacy")}
           </Link>
           <span className="h-3 w-px bg-black/20 sm:h-4" />
           <Link
             href="/credits"
-            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+            className="text-[14px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 md:text-base"
           >
             {t("footer.credits")}
           </Link>
@@ -47,7 +47,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800 lg:text-savana-600"
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#DED6B140] text-savana-800 lg:bg-transparent lg:text-savana-600"
             >
               <IoLogoYoutube size={19} />
             </a>
@@ -60,7 +60,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800 lg:text-savana-600"
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#DED6B140] text-savana-800 lg:bg-transparent lg:text-savana-600"
             >
               <IoLogoInstagram size={19} />
             </a>
@@ -74,7 +74,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-savana-200 text-savana-800 lg:text-savana-600"
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#DED6B140] text-savana-800 lg:bg-transparent lg:text-savana-600"
             >
               <IoLogoTiktok size={18} />
             </a>
@@ -87,24 +87,24 @@ export default function Footer() {
           &copy;{new Date().getFullYear()} Waerebo Lodge. {t("footer.rights")}
         </div>
 
-        <div className="flex w-full flex-row items-center justify-around gap-2">
+        <div className="flex w-full flex-row items-center justify-center gap-2">
           <Link
             href="/terms"
-            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+            className="text-[14px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 md:text-base"
           >
             {t("footer.terms")}
           </Link>
           <span className="h-3 w-px bg-black/20 sm:h-4" />
           <Link
             href="/privacy"
-            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+            className="text-[14px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 md:text-base"
           >
             {t("footer.privacy")}
           </Link>
           <span className="h-3 w-px bg-black/20 sm:h-4" />
           <Link
             href="/credits"
-            className="text-[11px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 sm:text-base"
+            className="text-[14px] font-medium text-neutral-400 transition-colors hover:text-neutral-600 md:text-base"
           >
             {t("footer.credits")}
           </Link>

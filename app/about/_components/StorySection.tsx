@@ -66,7 +66,7 @@ export default function StorySection() {
           </div>
 
           <div className="mt-7 px-4 sm:px-6">
-            <h1 className="text-2xl leading-tight font-semibold text-neutral-900">
+            <h1 className="text-4xl leading-tight font-semibold text-neutral-900 md:text-5xl">
               {t("about.story.heading1")}
               <br />
               {t("about.story.heading2")}
@@ -92,14 +92,18 @@ export default function StorySection() {
             <p className="mt-4 text-sm font-bold text-neutral-900">
               {t("about.story.martinName")}
             </p>
-            <p className="mt-2 text-sm leading-relaxed font-medium text-neutral-500">
-              {t("about.story.martinBio")}
-            </p>
+            <div className="mt-2 space-y-3 text-sm leading-relaxed font-medium text-neutral-500">
+              {t("about.story.martinBio")
+                .split("\n\n")
+                .map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+            </div>
           </div>
         </div>
 
-        <div className="hidden items-start gap-8 lg:grid lg:grid-cols-[1fr_0.86fr_0.56fr_0.72fr] xl:gap-10">
-          <div className="pt-24">
+        <div className="hidden items-start lg:grid lg:grid-cols-[1fr_0.86fr_0.56fr_0.72fr]">
+          <div className="pt-24 pr-6 lg:pr-10">
             <h1 className="text-[52px] leading-[1.04] font-normal text-neutral-900">
               <span className="font-semibold">{t("about.story.heading1")}</span>
               <br />
@@ -128,9 +132,13 @@ export default function StorySection() {
               <p className="text-xl leading-tight font-bold text-neutral-900">
                 {t("about.story.martinName")}
               </p>
-              <p className="mt-2 text-[15px] leading-relaxed font-normal text-neutral-900">
-                {t("about.story.martinBio")}
-              </p>
+              <div className="mt-2 space-y-3 text-[15px] leading-relaxed font-normal text-neutral-900">
+                {t("about.story.martinBio")
+                  .split("\n\n")
+                  .map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+              </div>
             </div>
           </div>
 

@@ -236,7 +236,7 @@ export default function ReviewsSection() {
       id="reviews"
       className="scroll-mt-20 bg-savana-050 py-12 lg:scroll-mt-24 lg:py-24"
     >
-      <div className="mx-auto w-full max-w-[1512px] px-5 lg:px-20">
+      <div className="mx-auto w-full max-w-[1512px] lg:px-20">
         <div className="relative aspect-[1179/2400] overflow-hidden sm:aspect-auto sm:h-[720px] xl:aspect-[2784/1830] xl:h-auto xl:overflow-visible">
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"

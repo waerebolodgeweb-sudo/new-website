@@ -11,7 +11,11 @@ import {
   type RefObject,
 } from "react";
 import type { IconType } from "react-icons";
-import { NewIcon, type NewIconName } from "@/components/icons/new-icons";
+import {
+  NewIcon,
+  type NewIconName,
+  ArrowDownRightIcon,
+} from "@/components/icons/new-icons";
 import {
   IoCalendar,
   IoCar,
@@ -30,6 +34,7 @@ import {
 import { type TripInclusion, type TripProgram } from "../data";
 import { getTripPrograms } from "../localize";
 import { useLang } from "@/lib/i18n";
+import Link from "next/link";
 
 const customFeatures: {
   titleKey: string;
@@ -49,6 +54,7 @@ const customFeatures: {
 const whatsappNumber = "6285339021145";
 const email = "waerebolodge@gmail.com";
 const mobileTripMediaQuery = "(max-width: 1023px)";
+const compactProgramSelectorMediaQuery = "(max-width: 1279px)";
 const ITINERARY_IMAGE_SCALE = 1.5;
 
 type MobileTripStickyState = {
@@ -284,8 +290,8 @@ function Hero({
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/5 to-black/70" />
 
-      <div className="absolute top-24 right-0 left-0 z-10 mx-auto max-w-[1512px] px-5 text-[11px] text-white/70 sm:top-28 sm:px-8 sm:text-sm lg:px-32 xl:px-36">
-        <span>{t("trip.home")}</span>
+      <div className="absolute top-24 right-0 left-0 z-10 mx-auto max-w-[1512px] px-5 text-[11px] text-white/70 sm:top-28 sm:text-sm lg:hidden">
+        <Link href="/">{t("trip.home")}</Link>
         <span className="mx-2 text-white/40">/</span>
         <span className="font-semibold text-white">{program.title}</span>
       </div>
@@ -307,7 +313,12 @@ function Hero({
         <IoChevronForward size={22} />
       </button>
 
-      <div className="absolute right-0 bottom-16 left-0 z-10 mx-auto max-w-[1512px] px-5 sm:bottom-24 sm:px-8 lg:px-32 xl:px-36">
+      <div className="absolute right-0 bottom-16 left-0 z-10 mx-auto max-w-[1512px] px-5 sm:bottom-24 lg:px-20">
+        <div className="mb-4 hidden text-sm text-white/70 lg:block">
+          <Link href="/">{t("trip.home")}</Link>
+          <span className="mx-2 text-white/40">/</span>
+          <span className="font-semibold text-white">{program.title}</span>
+        </div>
         <h1
           id="trip-heading"
           className="max-w-[600px] text-[26px] leading-[1.22] font-semibold tracking-[-0.025em] text-white text-shadow-lg sm:text-4xl lg:max-w-[700px] lg:text-[42px] lg:leading-[1.12]"
@@ -333,7 +344,11 @@ function ProgramSelector({
 
   useEffect(() => {
     const scroller = scrollerRef.current;
-    if (!scroller || !window.matchMedia(mobileTripMediaQuery).matches) return;
+    if (
+      !scroller ||
+      !window.matchMedia(compactProgramSelectorMediaQuery).matches
+    )
+      return;
 
     manuallyAdjustedRef.current = false;
 
@@ -378,7 +393,7 @@ function ProgramSelector({
         onPointerDown={markAsManuallyAdjusted}
         onTouchStart={markAsManuallyAdjusted}
         onWheel={markAsManuallyAdjusted}
-        className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pt-5 pb-3 sm:px-8 md:pt-0 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden"
+        className="mx-auto flex w-full max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pt-5 pb-3 md:pt-6 xl:gap-2 xl:overflow-visible xl:px-20 [&::-webkit-scrollbar]:hidden"
       >
         {programs.map((program) => {
           const active = program.id === activeId;
@@ -389,13 +404,15 @@ function ProgramSelector({
               data-program-id={program.id}
               aria-pressed={active}
               onClick={() => onSelect(program.id)}
-              className={`min-h-[86px] flex-none snap-center overflow-hidden rounded-xl px-4 py-3 text-left transition-[width,flex-basis,background-color,color,transform] duration-300 motion-reduce:transition-none lg:min-w-0 ${
+              className={`min-h-[86px] flex-none snap-center overflow-hidden rounded-xl px-4 py-3 text-left transition-[width,flex-basis,background-color,color,transform] duration-300 motion-reduce:transition-none xl:min-w-0 ${
                 active
-                  ? "w-[250px] bg-white text-savana-800 shadow-[0_5px_8px_rgba(38,35,22,0.16)] sm:w-[280px] lg:w-auto lg:max-w-[280px] lg:flex-[2_1_220px]"
-                  : "w-[180px] max-w-[180px] bg-white/92 text-savana-800 shadow-sm hover:-translate-y-0.5 hover:bg-white lg:w-auto lg:flex-[1_1_140px]"
+                  ? "bg-white text-savana-700 shadow-[0_5px_8px_rgba(38,35,22,0.16)] xl:w-fit xl:flex-[2_1_220px]"
+                  : "w-auto max-w-[200px] bg-savana-50 text-[#675b2375] shadow-sm hover:-translate-y-0.5 hover:bg-white xl:w-auto xl:flex-[1_1_140px]"
               }`}
             >
-              <span className="mb-1 block truncate text-[14px] text-savana-700 italic">
+              <span
+                className={`mb-1 block truncate text-[14px] ${active ? "text-savana-500" : "text-[#675b2375]"} italic`}
+              >
                 {program.duration}
               </span>
               <span
@@ -732,7 +749,11 @@ function TripSidebar({
             }}
             className={sectionLinkClass(stop.id, true)}
           >
-            <span aria-hidden="true">↳</span>
+            <span aria-hidden="true">
+              <ArrowDownRightIcon
+                className={`mr-1.5 ml-3 inline-block h-3 w-3 transition-transform`}
+              />
+            </span>
             <span className="min-w-0 truncate text-xs" title={label}>
               {label}
             </span>
@@ -743,8 +764,8 @@ function TripSidebar({
   );
 
   return (
-    <aside className="hidden w-[360px] flex-none lg:block">
-      <div className="sticky top-24 [scrollbar-width:thin] overflow-y-auto pb-3">
+    <aside className="hidden w-[300px] flex-none bg-transparent lg:block xl:w-[360px]">
+      <div className="sticky top-24 -mx-2 [scrollbar-width:thin] overflow-y-auto bg-transparent px-2 pb-3">
         <nav
           ref={navRef}
           aria-label={`${program.title}: ${t("trip.pageSections")}`}
@@ -877,7 +898,7 @@ function Connector({ index }: { index: number }) {
   return (
     <div
       aria-hidden="true"
-      className="my-1 h-[112px] sm:h-[150px] lg:h-[285px]"
+      className="my-1 h-[190px] sm:h-[280px] lg:h-[285px]"
     >
       <Image
         src={mobile}
@@ -885,7 +906,7 @@ function Connector({ index }: { index: number }) {
         width={353}
         height={201}
         unoptimized
-        className="h-full w-full object-contain lg:hidden"
+        className="h-full w-full object-contain md:hidden"
       />
       <Image
         src={desktop}
@@ -893,7 +914,7 @@ function Connector({ index }: { index: number }) {
         width={910}
         height={360}
         unoptimized
-        className="hidden h-full w-full object-contain lg:block"
+        className="hidden h-full w-full object-contain md:block"
       />
     </div>
   );
@@ -928,7 +949,7 @@ function Itinerary({ program }: { program: TripProgram }) {
               {newDay && !singleDay && (
                 <div
                   id={`itinerary-day-${dayIndex + 1}`}
-                  className="mb-7 scroll-mt-[var(--trip-scroll-offset)] sm:mb-10 lg:mb-12 lg:scroll-mt-28"
+                  className="mt-7 lg:mt-12"
                 >
                   <div className="flex items-center gap-3 lg:hidden">
                     <span className="text-xl font-semibold text-savana-800">
@@ -977,7 +998,10 @@ function Itinerary({ program }: { program: TripProgram }) {
                 </div>
               </article>
 
-              {index < program.stops.length - 1 && <Connector index={index} />}
+              {index < program.stops.length - 1 &&
+                (program?.stops?.[index + 1]?.day ?? "") === stop.day && (
+                  <Connector index={index} />
+                )}
             </div>
           );
         })}
@@ -1019,7 +1043,7 @@ function CustomItinerary() {
         {customFeatures.map(({ titleKey, Icon, iconName }) => (
           <div
             key={titleKey}
-            className="flex min-h-[108px] flex-col items-center justify-center rounded-lg bg-[#DED6B133] px-3 py-4 text-center shadow-[0_2px_6px_rgba(69,61,24,0.10)]"
+            className="flex min-h-[108px] flex-col items-center justify-center rounded-lg border-1 border-savana-200 bg-[#DED6B133] px-3 py-4 text-center"
           >
             {iconName ? (
               <NewIcon
@@ -1088,7 +1112,7 @@ function TripDetails({
   onNavigate: (sectionId: string) => void;
 }) {
   return (
-    <div className="mx-auto flex max-w-[1224px] flex-row gap-[68px] pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:px-4 lg:pt-16 lg:pb-0">
+    <div className="mx-auto flex w-full max-w-[1512px] flex-row gap-8 pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:px-20 lg:pt-16 lg:pb-0 xl:gap-[68px]">
       <TripSidebar
         program={program}
         activeSection={activeSection}

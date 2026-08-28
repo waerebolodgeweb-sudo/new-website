@@ -39,9 +39,9 @@ export default function SocialMediaSection() {
   const channel = CHANNELS.find((c) => c.id === active)!;
 
   return (
-    <section className="bg-savana-050 py-20 lg:py-28">
+    <section className="bg-savana-050 py-2.5 lg:py-20">
       <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
-        <div className="flex flex-col gap-6 rounded-[28px] bg-white p-2 shadow-xl lg:flex-row lg:gap-10">
+        <div className="flex flex-col gap-0 rounded-[28px] bg-white p-2 shadow-xl lg:flex-row lg:gap-10">
           <a
             href={`https://www.instagram.com/p/${channel.shortcode}/`}
             target="_blank"
@@ -74,7 +74,7 @@ export default function SocialMediaSection() {
                 <button
                   key={ch.id}
                   onClick={() => setActive(ch.id)}
-                  className={`-mb-0.5 border-b-2 px-4 py-3 text-xl font-semibold transition-colors ${
+                  className={`-mb-0.5 w-1/2 border-b-2 px-4 py-3 text-xl font-semibold transition-colors lg:w-fit ${
                     active === ch.id
                       ? "border-yellow-600 text-savana-800"
                       : "border-transparent text-savana-800 opacity-40 hover:opacity-70"

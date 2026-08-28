@@ -95,22 +95,16 @@ export default function OfferGrid() {
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-7">
           {/* Heading cell */}
           <div className="col-span-2 flex flex-col justify-center py-2 lg:col-span-1 lg:aspect-square">
-            <p className="mb-3 text-[12px] font-medium text-savana-600 lg:text-sm">
+            <p className="mb-3 text-[14px] font-medium text-savana-600 lg:text-base">
               {t("about.offer.eyebrow")}
             </p>
-            <h2 className="mb-4 text-3xl leading-tight font-normal text-savana-800 lg:text-[52px]">
+            <h2 className="mb-4 text-[28px] leading-tight font-normal text-savana-800 lg:text-[26px]">
               <span className="font-semibold">{t("about.offer.heading1")}</span>{" "}
               {t("about.offer.heading2")}
             </h2>
             <p className="mb-6 max-w-sm text-sm leading-relaxed font-medium text-pale-savana-300 lg:text-base">
               {t("about.offer.body")}
             </p>
-            <Link
-              href="#contact"
-              className="button-primary inline-flex min-h-9 w-fit items-center justify-center rounded-md px-5 text-sm font-semibold transition-colors"
-            >
-              {t("about.offer.cta")}
-            </Link>
           </div>
 
           {/* Tiles */}
