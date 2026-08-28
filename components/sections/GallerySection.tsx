@@ -168,7 +168,7 @@ export default function GallerySection() {
   }, [modalIndex]);
 
   return (
-    <section className="bg-savana-050 py-12 lg:py-20">
+    <section className="bg-savana-050 py-2.5 lg:py-20">
       <div className="mr-auto w-[calc(100%_-_32px)] max-w-[1845px] lg:w-[90.1vw]">
         <div className="relative min-h-[640px] overflow-hidden rounded-l-none rounded-r-[28px] shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[676px] lg:rounded-r-[36px]">
           <Image
@@ -201,7 +201,7 @@ export default function GallerySection() {
                   type="button"
                   onClick={prev}
                   aria-label="Previous moment"
-                  className="flex h-12 w-12 items-center justify-center text-white/90 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                  className="carousel-chevron-overlay flex h-12 w-12 items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
                   <IoChevronBack size={34} />
                 </button>
@@ -209,7 +209,7 @@ export default function GallerySection() {
                   type="button"
                   onClick={next}
                   aria-label="Next moment"
-                  className="flex h-12 w-12 items-center justify-center text-white/90 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                  className="carousel-chevron-overlay flex h-12 w-12 items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
                   <IoChevronForward size={34} />
                 </button>
@@ -350,7 +350,7 @@ export default function GallerySection() {
               type="button"
               onClick={prevModal}
               aria-label="Previous gallery photo"
-              className="absolute top-[42%] left-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:left-5"
+              className="carousel-chevron-overlay absolute top-[42%] left-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:left-5"
             >
               <IoChevronBack size={32} />
             </button>
@@ -358,7 +358,7 @@ export default function GallerySection() {
               type="button"
               onClick={nextModal}
               aria-label="Next gallery photo"
-              className="absolute top-[42%] right-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:right-5"
+              className="carousel-chevron-overlay absolute top-[42%] right-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:right-5"
             >
               <IoChevronForward size={32} />
             </button>

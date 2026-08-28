@@ -110,7 +110,7 @@ export default function RoomsSection() {
                   </div>
                   <Link
                     href={`/rooms/${room.slug}`}
-                    className="rounded-full bg-neutral-900 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-green-400"
+                    className="button-primary rounded-full px-4 py-2 text-xs font-semibold transition-colors"
                   >
                     See Lodge Details
                   </Link>

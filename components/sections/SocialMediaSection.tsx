@@ -98,7 +98,7 @@ export default function SocialMediaSection() {
               href={`https://www.instagram.com/p/${channel.shortcode}/`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-lg border border-savana-800 px-6 py-4  lg:text-lg font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+              className="button-outline inline-flex w-full items-center justify-center rounded-lg px-6 py-4 font-medium transition-colors lg:text-lg"
             >
               {t("social.cta")}
             </a>

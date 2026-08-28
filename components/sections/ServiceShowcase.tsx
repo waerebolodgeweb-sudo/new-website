@@ -61,7 +61,7 @@ export default function ServiceShowcase({
               href={bookHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit flex-shrink-0 items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-neutral-900 transition-colors hover:bg-light-green-100"
+              className="button-light inline-flex w-fit flex-shrink-0 items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-colors"
             >
               {displayButtonLabel}
             </a>
@@ -76,7 +76,12 @@ export default function ServiceShowcase({
               data-reveal
               className="relative h-40 overflow-hidden rounded-2xl shadow-sm sm:h-48 lg:h-52"
             >
-              <Image src={thumb.src} alt={thumb.alt} fill className="object-cover" />
+              <Image
+                src={thumb.src}
+                alt={thumb.alt}
+                fill
+                className="object-cover"
+              />
             </div>
           ))}
         </div>

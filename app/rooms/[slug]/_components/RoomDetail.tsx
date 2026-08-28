@@ -132,7 +132,7 @@ function RoomCard({ room }: { room: Room }) {
         <div className="mt-auto px-2 pt-3 lg:px-4 lg:pt-0">
           <Link
             href={`/rooms/${room.slug}`}
-            className="flex min-h-10 w-full items-center justify-center rounded-lg bg-savana-800 px-3 text-sm font-medium text-white transition-colors hover:bg-savana-700 lg:min-h-12 lg:rounded-xl lg:px-4 lg:text-base"
+            className="button-primary flex min-h-10 w-full items-center justify-center rounded-lg px-3 text-sm font-medium transition-colors lg:min-h-12 lg:rounded-xl lg:px-4 lg:text-base"
           >
             {t("room.seeRoom")}
           </Link>
@@ -279,7 +279,7 @@ export default function RoomDetail({
                           ? "Lihat foto kamar sebelumnya"
                           : "View previous room image"
                       }
-                      className="absolute top-1/2 left-5 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-pale-savana-200/70 text-white shadow-sm transition-colors hover:bg-pale-savana-300"
+                      className="carousel-chevron-overlay absolute top-1/2 left-5 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors"
                     >
                       <IoChevronBack size={24} />
                     </button>
@@ -291,7 +291,7 @@ export default function RoomDetail({
                           ? "Lihat foto kamar berikutnya"
                           : "View next room image"
                       }
-                      className="absolute top-1/2 right-5 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-pale-savana-200/70 text-white shadow-sm transition-colors hover:bg-pale-savana-300"
+                      className="carousel-chevron-overlay absolute top-1/2 right-5 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors"
                     >
                       <IoChevronForward size={24} />
                     </button>
@@ -334,14 +334,14 @@ export default function RoomDetail({
                   href={bookLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-14 items-center justify-center gap-2 rounded-md bg-savana-800 px-5 py-3 text-base font-semibold text-white transition-colors hover:bg-savana-green-600"
+                  className="button-primary flex min-h-14 items-center justify-center gap-2 rounded-md px-5 py-3 text-base font-semibold transition-colors"
                 >
                   <IoLogoWhatsapp size={20} />
                   {t("booking.via.whatsapp")}
                 </a>
                 <a
                   href={emailLink}
-                  className="flex min-h-14 items-center justify-center gap-2 rounded-md border border-pale-savana-300 px-5 py-3 text-base font-semibold text-pale-savana-500 transition-colors hover:bg-white"
+                  className="button-outline flex min-h-14 items-center justify-center gap-2 rounded-md px-5 py-3 text-base font-semibold transition-colors"
                 >
                   <IoMailOutline size={20} />
                   {t("booking.via.email")}
@@ -352,14 +352,14 @@ export default function RoomDetail({
                   href={bookLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md bg-savana-800 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-savana-green-600"
+                  className="button-primary flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors"
                 >
                   <IoLogoWhatsapp size={14} />
                   {t("booking.via.whatsapp")}
                 </a>
                 <a
                   href={emailLink}
-                  className="flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md border border-pale-savana-300 px-5 py-3 text-sm font-semibold text-pale-savana-500 transition-colors hover:bg-white"
+                  className="button-outline flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors"
                 >
                   <IoMailOutline size={14} />
                   {t("booking.via.email")}
@@ -524,7 +524,7 @@ export default function RoomDetail({
             <div className="mt-10 flex justify-center lg:mt-16">
               <Link
                 href="/lodge"
-                className="flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+                className="button-outline flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg px-6 text-base font-medium transition-colors"
               >
                 {t("room.seeAllRoom")}
               </Link>
@@ -561,7 +561,7 @@ export default function RoomDetail({
                     ? "Lihat foto kamar sebelumnya"
                     : "View previous room image"
                 }
-                className="absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white lg:left-8"
+                className="carousel-chevron-overlay absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors lg:left-8"
               >
                 <IoChevronBack size={28} />
               </button>
@@ -573,7 +573,7 @@ export default function RoomDetail({
                     ? "Lihat foto kamar berikutnya"
                     : "View next room image"
                 }
-                className="absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-savana-800 shadow-lg transition-colors hover:bg-white lg:right-8"
+                className="carousel-chevron-overlay absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors lg:right-8"
               >
                 <IoChevronForward size={28} />
               </button>

@@ -59,7 +59,7 @@ const mobileSocialLinks = [
   },
 ];
 
-const desktopNavMediaQuery = "(min-width: 1280px)";
+const desktopNavMediaQuery = "(min-width: 1440px)";
 const navbarRevealOffset = 80;
 const scrollDirectionThreshold = 8;
 
@@ -195,7 +195,7 @@ export default function Navbar() {
           : "border-b border-pale-green-100/40 bg-white/95 backdrop-blur-sm"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
         <div className="relative flex h-20 items-center justify-between">
           {/* Logo */}
           <Link
@@ -218,7 +218,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav — centered */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 whitespace-nowrap xl:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 whitespace-nowrap min-[1440px]:flex">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.key} className="group relative">
@@ -268,14 +268,12 @@ export default function Navbar() {
           </div>
 
           {/* Language toggle + Contact Us — right */}
-          <div className="hidden items-center gap-3 xl:flex">
+          <div className="hidden items-center gap-3 min-[1440px]:flex">
             <LangToggle transparent={transparent} />
             <Link
               href="/#contact"
               className={`rounded-xl px-4 py-2.5 text-base font-medium transition-colors ${
-                transparent
-                  ? "bg-white text-neutral-900 hover:bg-white/90"
-                  : "bg-neutral-900 text-white hover:bg-green-400"
+                transparent ? "button-light" : "button-primary"
               }`}
             >
               {t("nav.contact")}
@@ -283,7 +281,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: language toggle + menu button */}
-          <div className="flex items-center gap-2 xl:hidden">
+          <div className="flex items-center gap-2 min-[1440px]:hidden">
             <LangToggle transparent={transparent} />
             <button
               className={`p-2 text-[32px] ${transparent ? "text-white" : "text-savana-green-500"}`}
@@ -303,8 +301,8 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="fixed top-20 right-0 bottom-0 left-0 flex h-[92vh] flex-col bg-savana-50 xl:hidden">
-          <div className="flex-1 overflow-y-auto px-4 pt-4 pb-6">
+        <div className="fixed top-20 right-0 left-0 flex h-[calc(100dvh-5rem)] flex-col bg-savana-50 min-[1440px]:hidden">
+          <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-6">
             <div className="space-y-1">
               <Link
                 href="/"
@@ -387,10 +385,10 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="px-4 pb-4">
+          <div className="shrink-0 px-4 pb-10">
             <Link
               href="/#contact"
-              className="block rounded-lg bg-savana-green-500 px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-savana-green-400"
+              className="button-primary block rounded-lg px-5 py-2.5 text-center text-sm font-semibold transition-colors"
               onClick={() => setOpen(false)}
             >
               {t("nav.contact")}

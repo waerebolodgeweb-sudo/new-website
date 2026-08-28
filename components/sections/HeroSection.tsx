@@ -159,7 +159,7 @@ export default function HeroSection() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-      <div className="relative z-20 mx-auto w-full px-4 pt-24 pb-16 sm:px-6 lg:px-8 lg:py-28">
+      <div className="relative z-20 mx-auto w-full max-w-[1512px] px-5 pt-24 pb-16 lg:px-20 lg:py-28">
         {/* <div
           aria-hidden="true"
           className="absolute top-0 bottom-0 left-0 -mt-24 hidden h-[calc(100vh-86px)] w-[660px] md:block"
@@ -190,22 +190,25 @@ export default function HeroSection() {
               key={`progress-${video}`}
               type="button"
               aria-label={`Show hero video ${index + 1}`}
+              aria-pressed={index === activeVideo || index === incomingVideo}
               onClick={() => startTransition(index)}
-              className="h-1 flex-1 overflow-hidden rounded-full bg-white/30"
+              className="group flex h-11 flex-1 items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              <span
-                className="block h-full rounded-full bg-white transition-[width] duration-150 ease-linear"
-                style={{
-                  width:
-                    index < activeVideo
-                      ? "100%"
-                      : index === activeVideo
-                        ? `${Math.max(progress * 100, 8)}%`
-                        : index === incomingVideo
-                          ? "100%"
-                          : "0%",
-                }}
-              />
+              <span className="h-1 w-full overflow-hidden rounded-full bg-white/30 transition-colors group-hover:bg-white/45">
+                <span
+                  className="block h-full rounded-full bg-white transition-[width] duration-150 ease-linear"
+                  style={{
+                    width:
+                      index < activeVideo
+                        ? "100%"
+                        : index === activeVideo
+                          ? `${Math.max(progress * 100, 8)}%`
+                          : index === incomingVideo
+                            ? "100%"
+                            : "0%",
+                  }}
+                />
+              </span>
             </button>
           ))}
         </div>

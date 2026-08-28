@@ -250,14 +250,14 @@ Thank you!`;
             href={waLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 rounded-full bg-green-400 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-pale-green-500"
+            className="button-primary flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold transition-colors"
           >
             <IoLogoWhatsapp size={16} />
             {t("booking.via.whatsapp")}
           </a>
           <a
             href={mailLink}
-            className="flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-300/80"
+            className="button-outline flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold transition-colors"
           >
             <IoSendOutline size={15} />
             {t("booking.via.email")}

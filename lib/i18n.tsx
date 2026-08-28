@@ -20,7 +20,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "nav.lodge": "Lodge",
     "nav.restaurant": "Restaurant",
     "nav.transport": "Transport",
-    "nav.testimonials": "Guest Experiences",
+    "nav.testimonials": "Testimonials",
     "nav.gallery": "Our Gallery",
     "nav.moments": "Moments",
     "nav.reviews": "Reviews",
@@ -79,7 +79,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "testimonials.heading": "Word on the Trail.",
 
     // ── Gallery
-    "gallery.eyebrow": "Guest Experiences",
+    "gallery.eyebrow": "Testimonials",
     "gallery.head1": "Hear From Our ",
     "gallery.head2": "Guest.",
     "moments.eyebrow": "Our Gallery",
@@ -703,7 +703,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "nav.lodge": "Penginapan",
     "nav.restaurant": "Restoran",
     "nav.transport": "Transportasi",
-    "nav.testimonials": "Pengalaman Tamu",
+    "nav.testimonials": "Testimoni",
     "nav.gallery": "Galeri",
     "nav.moments": "Momen",
     "nav.reviews": "Ulasan",
@@ -763,7 +763,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "testimonials.heading": "Cerita dari Jalur Pendakian.",
 
     // ── Gallery
-    "gallery.eyebrow": "Pengalaman Tamu",
+    "gallery.eyebrow": "Testimoni",
     "gallery.head1": "Cerita Dari ",
     "gallery.head2": "Tamu.",
     "moments.eyebrow": "Galeri Kami",

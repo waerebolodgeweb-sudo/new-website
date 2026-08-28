@@ -104,7 +104,7 @@ export default function TransportContent() {
                     href={bookHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-7 flex min-h-12 items-center justify-center rounded-lg bg-savana-800 px-6 text-base font-semibold text-white transition-colors hover:bg-savana-green-600"
+                    className="button-primary mt-7 flex min-h-12 items-center justify-center rounded-lg px-6 text-base font-semibold transition-colors"
                   >
                     {t("transport.bookLabel")}
                   </a>

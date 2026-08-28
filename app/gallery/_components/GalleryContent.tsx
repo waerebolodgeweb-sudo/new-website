@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import type { Swiper as SwiperClass } from "swiper";
+import { A11y } from "swiper/modules";
+import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import { NewIcon } from "@/components/icons/new-icons";
 import { useLang } from "@/lib/i18n";
+import "swiper/css";
 import {
   captionTiles,
   featureIkat,
@@ -436,15 +440,112 @@ function FeatureImage({
    ──────────────────────────────────────────────── */
 function IconicCarousel({ lang }: { lang: Lang }) {
   const [start, setStart] = useState(0);
+  const startRef = useRef(0);
+  const mobileSwiperRef = useRef<SwiperRef>(null);
+  const desktopCardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const animationFrameRef = useRef<number | null>(null);
   const total = iconicDestinations.length;
-  const prev = () => setStart((s) => (s - 1 + total) % total);
-  const next = () => setStart((s) => (s + 1) % total);
 
-  const featured = iconicDestinations[start];
-  const rest = Array.from(
-    { length: total - 1 },
-    (_, i) => iconicDestinations[(start + 1 + i) % total]
+  const animateTo = (nextIndex: number) => {
+    startRef.current = nextIndex;
+
+    if (window.innerWidth < 1024) {
+      setStart(nextIndex);
+      return;
+    }
+
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    const cards = desktopCardsRef.current;
+    const initialGrow = cards.map((card) =>
+      card ? Number.parseFloat(getComputedStyle(card).flexGrow) : 1
+    );
+    cards.forEach((card, index) => {
+      if (card) card.style.flexGrow = String(initialGrow[index]);
+    });
+    setStart(nextIndex);
+    const activeGrow =
+      window.innerWidth >= 1536
+        ? 4.23
+        : window.innerWidth >= 1280
+          ? 3.85
+          : 3.05;
+    const targetGrow = cards.map((_, index) =>
+      index === nextIndex ? activeGrow : 1
+    );
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? 360
+      : 520;
+    let startedAt: number | null = null;
+
+    const tick = (now: number) => {
+      startedAt ??= now;
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+
+      cards.forEach((card, index) => {
+        if (!card) return;
+        const grow =
+          initialGrow[index] + (targetGrow[index] - initialGrow[index]) * eased;
+        card.style.flexGrow = String(grow);
+      });
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      cards.forEach((card) => card?.style.removeProperty("flex-grow"));
+      animationFrameRef.current = null;
+    };
+
+    animationFrameRef.current = requestAnimationFrame(tick);
+  };
+
+  const prev = () => {
+    if (window.innerWidth < 1024 && mobileSwiperRef.current) {
+      mobileSwiperRef.current.swiper.slidePrev();
+      return;
+    }
+
+    animateTo((startRef.current - 1 + total) % total);
+  };
+
+  const next = () => {
+    if (window.innerWidth < 1024 && mobileSwiperRef.current) {
+      mobileSwiperRef.current.swiper.slideNext();
+      return;
+    }
+
+    animateTo((startRef.current + 1) % total);
+  };
+
+  const handleMobileSlideChange = (swiper: SwiperClass) => {
+    startRef.current = swiper.realIndex;
+    setStart(swiper.realIndex);
+  };
+
+  useEffect(
+    () => () => {
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    },
+    []
   );
+
+  const selectDestination = (
+    event: MouseEvent<HTMLAnchorElement>,
+    index: number
+  ) => {
+    if (index === startRef.current) return;
+
+    event.preventDefault();
+    animateTo(index);
+  };
 
   return (
     <div>
@@ -462,105 +563,153 @@ function IconicCarousel({ lang }: { lang: Lang }) {
           <button
             onClick={prev}
             aria-label="Previous destination"
-            className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white text-savana-800 shadow-sm transition-colors hover:bg-savana-800 hover:text-white"
+            className="carousel-chevron-light flex h-[52px] w-[52px] items-center justify-center transition-colors"
           >
             <IoChevronBack size={22} />
           </button>
           <button
             onClick={next}
             aria-label="Next destination"
-            className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white text-savana-800 shadow-sm transition-colors hover:bg-savana-800 hover:text-white"
+            className="carousel-chevron-light flex h-[52px] w-[52px] items-center justify-center transition-colors"
           >
             <IoChevronForward size={22} />
           </button>
         </div>
       </div>
 
-      <div className="flex items-stretch gap-3">
-        {/* Featured — all images stacked, crossfade on change */}
-        <div className="relative aspect-[340/560] w-[96%] max-w-[380px] flex-shrink-0 overflow-hidden rounded-[20px] lg:aspect-auto lg:h-[400px] lg:w-auto lg:max-w-none lg:flex-1">
-          {iconicDestinations.map((dest, i) => (
-            <Image
+      <div className="relative -mr-5 lg:hidden">
+        <Swiper
+          ref={mobileSwiperRef}
+          modules={[A11y]}
+          loop
+          grabCursor
+          slidesPerView="auto"
+          spaceBetween={12}
+          speed={500}
+          threshold={6}
+          slidesOffsetAfter={20}
+          onRealIndexChange={handleMobileSlideChange}
+          className="!overflow-visible"
+        >
+          {iconicDestinations.map((dest, index) => (
+            <SwiperSlide
               key={dest.slug}
-              src={`${dest.image}-Desktop.webp`}
-              alt={dest.title[lang]}
-              fill
-              sizes="(min-width: 1024px) 60vw, 380px"
-              className={`object-cover transition-all duration-700 ease-out ${
-                i === start ? "scale-100 opacity-100" : "scale-105 opacity-0"
-              }`}
-            />
+              className="!h-auto !w-[calc(100%_-_28px)] max-w-[380px]"
+            >
+              <Link
+                href={`/destination/${dest.slug}`}
+                aria-current={index === start ? "true" : undefined}
+                className="group relative block aspect-[340/520] w-full overflow-hidden rounded-[20px]"
+              >
+                <Image
+                  src={`${dest.image}-Desktop.webp`}
+                  alt={dest.title[lang]}
+                  fill
+                  sizes="(max-width: 640px) calc(100vw - 48px), 380px"
+                  loading={index === start ? "eager" : "lazy"}
+                  className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute right-5 bottom-5 left-5 text-left text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full">
+                    <NewIcon name={dest.icon} size={24} />
+                  </div>
+                  <h3 className="text-lg font-semibold underline-offset-4 group-hover:underline">
+                    {dest.title[lang]}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-white/85">
+                    {dest.caption[lang]}
+                  </p>
+                </div>
+              </Link>
+            </SwiperSlide>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          <Link
-            href={`/destination/${featured.slug}`}
-            key={featured.slug}
-            className="group iconic-fade absolute inset-0 z-10"
-          >
-            <div className="absolute bottom-5 left-5 max-w-md">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full text-white backdrop-blur-sm">
-                <NewIcon name={featured.icon} size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-white underline-offset-4 group-hover:underline">
-                {featured.title[lang]}
-              </h3>
-              <p className="mt-1 text-sm text-white/85">
-                {featured.caption[lang]}
-              </p>
-            </div>
-          </Link>
+        </Swiper>
 
-          {/* Mobile arrows — overlaid on the featured card (figma) */}
-          <button
-            onClick={prev}
-            aria-label="Previous destination"
-            className="absolute top-1/2 -left-2 z-20 flex h-[52px] w-[52px] -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm lg:hidden"
-          >
-            <IoChevronBack size={22} />
-          </button>
-          <button
-            onClick={next}
-            aria-label="Next destination"
-            className="absolute top-1/2 right-0 z-20 flex h-[52px] w-[52px] -translate-y-1/2 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm lg:hidden"
-          >
-            <IoChevronForward size={22} />
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={prev}
+          aria-label="Previous destination"
+          className="carousel-chevron-overlay absolute top-1/2 -left-2 z-20 flex h-[52px] w-[52px] -translate-y-1/2 items-center justify-center transition-colors"
+        >
+          <IoChevronBack size={22} />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Next destination"
+          className="carousel-chevron-overlay absolute top-1/2 right-4 z-20 flex h-[52px] w-[52px] -translate-y-1/2 items-center justify-center transition-colors"
+        >
+          <IoChevronForward size={22} />
+        </button>
+      </div>
 
-        {/* 5 narrow cards — 160x560 mobile peek, 140x400 desktop.
-            Card 4 & 5 disembunyikan di rentang lg/xl supaya featured tidak
-            tergencet; full 5 kartu (figma 592w featured) muncul di 2xl. */}
-        <div key={start} className="iconic-fade flex gap-3">
-          {rest.map((dest, i) => (
+      {/* Desktop accordion: the active card expands in its own position. */}
+      <div className="hidden h-[400px] items-stretch gap-3 lg:flex">
+        {iconicDestinations.map((dest, index) => {
+          const isActive = index === start;
+
+          return (
             <Link
               key={dest.slug}
+              ref={(element) => {
+                desktopCardsRef.current[index] = element;
+              }}
               href={`/destination/${dest.slug}`}
-              className={`group relative w-[160px] flex-shrink-0 overflow-hidden rounded-[20px] lg:h-[400px] lg:w-[140px] ${
-                i === 3 ? "lg:hidden xl:block" : ""
-              } ${i === 4 ? "lg:hidden 2xl:block" : ""}`}
+              onClick={(event) => selectDestination(event, index)}
+              aria-current={isActive ? "true" : undefined}
+              aria-label={
+                isActive
+                  ? `Open ${dest.title[lang]}`
+                  : `Feature ${dest.title[lang]}`
+              }
+              className={`group relative min-w-0 basis-0 overflow-hidden rounded-[20px] ${
+                isActive ? "grow-[3.05] xl:grow-[3.85] 2xl:grow-[4.23]" : "grow"
+              }`}
             >
               <Image
                 src={`${dest.image}-Desktop.webp`}
                 alt={dest.title[lang]}
                 fill
-                sizes="140px"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                loading={isActive ? "eager" : "lazy"}
+                sizes={
+                  isActive
+                    ? "(min-width: 1536px) 592px, (min-width: 1024px) 45vw, 380px"
+                    : "140px"
+                }
+                className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-              <div className="absolute right-2 bottom-4 left-3 text-left">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full text-white">
+              <div
+                className={`absolute inset-0 bg-gradient-to-t transition-colors duration-500 motion-reduce:transition-none ${
+                  isActive
+                    ? "from-black/80 via-black/20 to-transparent"
+                    : "from-black/90 via-black/30 to-black/10"
+                }`}
+              />
+              <div className="absolute right-3 bottom-4 left-3 text-left text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full">
                   <NewIcon name={dest.icon} size={24} />
                 </div>
-                <p className="text-sm font-semibold text-white">
+                <h3
+                  className={`font-semibold underline-offset-4 group-hover:underline ${
+                    isActive ? "text-lg" : "text-sm"
+                  }`}
+                >
                   {dest.title[lang]}
-                </p>
-                <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-white/75">
+                </h3>
+                <p
+                  className={`mt-1 overflow-hidden text-white/80 transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                    isActive
+                      ? "max-h-20 text-sm opacity-100"
+                      : "line-clamp-2 max-h-8 text-[11px] leading-snug opacity-80"
+                  }`}
+                >
                   {dest.caption[lang]}
                 </p>
               </div>
             </Link>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
   );

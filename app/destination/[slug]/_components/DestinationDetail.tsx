@@ -95,14 +95,14 @@ export default function DestinationDetail({
         <button
           onClick={prev}
           aria-label="Previous destination"
-          className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-white transition-colors hover:text-white/75 sm:left-6 lg:left-10 lg:h-[52px] lg:w-[52px] lg:rounded-full lg:bg-white/20 lg:backdrop-blur-sm lg:hover:bg-white lg:hover:text-neutral-900"
+          className="carousel-chevron-overlay absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center transition-colors sm:left-6 lg:left-10 lg:h-[52px] lg:w-[52px]"
         >
           <IoChevronBack size={22} />
         </button>
         <button
           onClick={next}
           aria-label="Next destination"
-          className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-white transition-colors hover:text-white/75 sm:right-6 lg:right-10 lg:h-[52px] lg:w-[52px] lg:rounded-full lg:bg-white/20 lg:backdrop-blur-sm lg:hover:bg-white lg:hover:text-neutral-900"
+          className="carousel-chevron-overlay absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center transition-colors sm:right-6 lg:right-10 lg:h-[52px] lg:w-[52px]"
         >
           <IoChevronForward size={22} />
         </button>
@@ -227,7 +227,7 @@ export default function DestinationDetail({
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/trips"
-                  className="flex flex-1 items-center justify-center rounded-md bg-savana-800 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-savana-700 sm:rounded-xl sm:py-4 sm:text-base"
+                  className="button-primary flex flex-1 items-center justify-center rounded-md px-5 py-3 text-sm font-medium transition-colors sm:rounded-xl sm:py-4 sm:text-base"
                 >
                   {labels.discoverTrip[lang]}
                 </Link>
@@ -235,7 +235,7 @@ export default function DestinationDetail({
                   href={destination.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-1 items-center justify-center rounded-md border border-savana-800 px-5 py-3 text-sm font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white sm:rounded-xl sm:py-4 sm:text-base"
+                  className="button-outline flex flex-1 items-center justify-center rounded-md px-5 py-3 text-sm font-medium transition-colors sm:rounded-xl sm:py-4 sm:text-base"
                 >
                   {labels.openMap[lang]}
                 </a>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { IoAdd } from "react-icons/io5";
+import { IoAdd, IoRemoveOutline } from "react-icons/io5";
 import { useLang } from "@/lib/i18n";
 
 type ServiceId = "trip" | "lodge" | "restaurant" | "transport";
@@ -63,8 +63,8 @@ export default function ServicesSection() {
 
   return (
     <section id="services" className="bg-savana-50 py-16 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
-        <div className="rounded-[28px] bg-[#f8f6ef] px-6 py-10 lg:rounded-[32px] lg:px-20 lg:py-20">
+      <div className="mx-auto w-full max-w-[1512px] px-5 lg:px-20">
+        <div className="rounded-[28px] px-0 py-10 lg:rounded-[32px] lg:py-20">
           <div className="mb-10 grid gap-6 lg:mb-14 lg:grid-cols-[1fr_1fr] lg:items-end">
             <div>
               <p className="mb-2 text-base font-normal text-savana-600">
@@ -75,7 +75,7 @@ export default function ServicesSection() {
                 {t("services.headingRest")}
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-relaxed font-normal text-neutral-900 lg:justify-self-end lg:text-center lg:text-lg">
+            <p className="max-w-2xl text-base leading-relaxed font-normal text-neutral-900 lg:justify-self-end lg:text-right lg:text-lg">
               {t("services.body")}
             </p>
           </div>
@@ -101,27 +101,31 @@ export default function ServicesSection() {
                       >
                         {t(`services.${id}.label`)}
                       </span>
-                      {!isOpen && (
-                        <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-savana-200 text-savana-800 transition-colors lg:h-12 lg:w-12">
+                      {!isOpen ? (
+                        <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-savana-800 transition-colors lg:h-12 lg:w-12">
                           <IoAdd size={24} />
+                        </span>
+                      ) : (
+                        <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-savana-500 transition-colors lg:h-12 lg:w-12">
+                          <IoRemoveOutline size={24} />
                         </span>
                       )}
                     </button>
 
                     {isOpen && (
-                      <div className="mb-5 grid min-h-[330px] gap-5 rounded-3xl bg-white p-3 shadow-[0_16px_36px_rgba(38,35,22,0.12)] sm:min-h-[204px] sm:grid-cols-[1fr_180px] sm:items-stretch lg:mb-6">
+                      <div className="mb-5 flex min-h-[330px] flex-col-reverse gap-5 rounded-3xl bg-white p-3 shadow-[0_16px_36px_rgba(38,35,22,0.12)] sm:min-h-[204px] sm:flex-row sm:items-stretch lg:mb-6">
                         <div className="flex min-h-[152px] flex-col justify-between gap-6 px-2 py-2 sm:px-3">
                           <p className="line-clamp-3 text-base leading-relaxed font-normal text-neutral-500 lg:text-lg">
                             {t(`services.${id}.content`)}
                           </p>
                           <Link
                             href={serviceHrefs[id]}
-                            className="inline-flex min-h-11 w-fit min-w-[150px] items-center justify-center rounded-lg bg-savana-800 px-6 text-base font-medium text-white transition-colors hover:bg-savana-700"
+                            className="button-primary inline-flex min-h-11 w-full min-w-[150px] items-center justify-center rounded-lg px-6 text-base font-medium transition-colors md:w-fit"
                           >
                             {t("services.learnMore")}
                           </Link>
                         </div>
-                        <div className="relative h-44 overflow-hidden rounded-2xl sm:h-auto">
+                        <div className="relative h-44 min-w-[180px] overflow-hidden rounded-2xl sm:h-auto">
                           <Image
                             src={serviceThumbs[id]}
                             alt={t(`services.${id}.label`)}
@@ -144,7 +148,7 @@ export default function ServicesSection() {
               })}
             </div>
 
-            <div className="relative hidden h-80 w-full overflow-hidden rounded-3xl shadow-[0_18px_38px_rgba(38,35,22,0.16)] md:block lg:h-[486px]">
+            <div className="relative hidden h-80 w-full overflow-hidden rounded-3xl shadow-[0_18px_38px_rgba(38,35,22,0.16)] lg:block lg:h-[486px]">
               <Image
                 key={`${open}-desktop`}
                 src={serviceHeroImages[open].desktop}

@@ -61,14 +61,14 @@ export default function NotFound() {
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-4 text-base font-medium text-savana-800 transition-colors hover:bg-cream-200"
+              className="button-light inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-medium transition-colors"
             >
               <IoArrowBackOutline size={18} />
               {copy.home[lang]}
             </Link>
             <Link
               href="/gallery"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/60 px-6 py-4 text-base font-medium text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800"
+              className="button-outline-light inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-medium transition-colors"
             >
               <IoImagesOutline size={18} />
               {copy.gallery[lang]}

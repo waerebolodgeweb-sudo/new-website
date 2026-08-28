@@ -11,12 +11,12 @@ export default function PurposeSection() {
       id="about"
       className="bg-savana-200 py-20 xl:flex xl:min-h-screen xl:items-center xl:py-0"
     >
-      <div className="mx-auto w-full max-w-[1512px] px-7 sm:px-8 xl:px-11">
-        <div className="grid gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(440px,548px)] xl:items-center xl:gap-20">
+      <div className="mx-auto w-full max-w-[1512px] px-5 lg:px-20">
+        <div className="flex flex-col gap-12 xl:flex-row xl:items-center xl:gap-10">
           {/* Image section */}
-          <div className="w-full">
+          <div className="w-full xl:w-3/5">
             {/* Mobile layout */}
-            <div className="flex flex-col gap-4 md:hidden">
+            <div className="flex flex-col gap-4 min-[480px]:hidden">
               {/* Gambar 1 — paling besar di atas */}
               <Image
                 src="/homepage/Homepage-About-Us-Waerebo-Lodge-Picture-Clean-01.webp"
@@ -25,7 +25,7 @@ export default function PurposeSection() {
                 height={810}
                 priority
                 sizes="100vw"
-                className="h-auto w-full rounded-[24px] object-cover"
+                className="h-auto w-full rounded-[24px] object-cover shadow-md"
               />
 
               {/* Gambar 2 dan 3 */}
@@ -38,7 +38,7 @@ export default function PurposeSection() {
                     width={420}
                     height={500}
                     sizes="58vw"
-                    className="h-auto w-full rounded-[24px] object-cover"
+                    className="h-auto w-full rounded-[24px] object-cover shadow-md"
                   />
                 </div>
 
@@ -50,14 +50,14 @@ export default function PurposeSection() {
                     width={320}
                     height={370}
                     sizes="42vw"
-                    className="h-auto w-full rounded-[24px] object-cover"
+                    className="h-auto w-full rounded-[24px] object-cover shadow-md"
                   />
                 </div>
               </div>
             </div>
 
             {/* Tablet dan desktop */}
-            <div className="hidden w-full items-stretch gap-6 md:flex md:h-[560px] xl:h-[520px]">
+            <div className="hidden w-full items-stretch gap-6 min-[480px]:flex xl:h-[520px]">
               {/* Kiri — rata atas */}
               <div className="w-[38%] self-start">
                 <Image
@@ -67,14 +67,14 @@ export default function PurposeSection() {
                   height={410}
                   priority
                   sizes="(min-width: 1280px) 22vw, 38vw"
-                  className="h-auto w-full rounded-[24px] object-cover"
+                  className="h-auto w-full rounded-[24px] object-cover shadow-md"
                 />
-                <div className="mb-8 hidden md:block">
-                  <h4 className="text-[20px] leading-tight font-semibold text-pale-savana-500">
+                <div className="mt-2 hidden min-[480px]:block">
+                  <h4 className="text-base leading-tight font-semibold text-pale-savana-500 md:text-[20px]">
                     {t("purpose.location.title")}
                   </h4>
 
-                  <p className="mt-2 text-[14px] leading-relaxed font-normal text-pale-savana-500">
+                  <p className="mt-2 text-[12px] leading-relaxed font-normal text-pale-savana-500">
                     {t("purpose.location.address")}
                   </p>
                 </div>
@@ -88,7 +88,7 @@ export default function PurposeSection() {
                   width={290}
                   height={340}
                   sizes="(min-width: 1280px) 19vw, 32vw"
-                  className="h-auto w-full rounded-[24px] object-cover"
+                  className="h-auto w-full rounded-[24px] object-cover shadow-md"
                 />
               </div>
 
@@ -100,34 +100,34 @@ export default function PurposeSection() {
                   width={280}
                   height={320}
                   sizes="(min-width: 1280px) 18vw, 30vw"
-                  className="h-auto w-full rounded-[24px] object-cover"
+                  className="h-auto w-full rounded-[24px] object-cover shadow-md"
                 />
               </div>
             </div>
           </div>
 
           {/* Content */}
-          <div className="xl:translate-y-20">
-            <p className="mb-2 text-base font-normal text-savana-600 xl:mb-4 xl:text-xl">
+          <div className="w-full xl:w-2/5 xl:translate-y-20">
+            <p className="mb-2 text-sm font-normal text-savana-600 xl:mb-4 xl:text-base">
               {t("purpose.eyebrow")}
             </p>
 
-            <h3 className="mb-6 max-w-xl text-[34px] leading-[1.12] font-semibold text-savana-800 sm:text-[40px] xl:text-[52px] xl:leading-[1.05]">
+            <h3 className="mb-6 max-w-xl text-[24px] leading-[1.12] font-semibold text-savana-800 xl:text-[36px] xl:leading-[1.05]">
               {t("purpose.heading")}
             </h3>
 
-            <p className="mb-5 text-xl leading-[1.35] font-normal text-pale-savana-500 xl:text-[22px]">
+            <p className="mb-5 text-sm leading-[1.35] font-normal text-pale-savana-500 xl:text-base">
               {t("purpose.body1.pre")}
               <span className="font-semibold">{t("purpose.body1.bold")}</span>
               {t("purpose.body1.post")}
             </p>
 
-            <p className="mb-8 text-xl leading-[1.35] font-normal text-pale-savana-500 xl:mb-14 xl:text-[22px]">
+            <p className="mb-8 text-sm leading-[1.35] font-normal text-pale-savana-500 xl:mb-14 xl:text-base">
               {t("purpose.body2")}
             </p>
 
             {/* Location mobile and tablet */}
-            <div className="mb-8 md:hidden">
+            <div className="mb-8 min-[480px]:hidden">
               <h4 className="text-[20px] leading-tight font-semibold text-pale-savana-500">
                 {t("purpose.location.title")}
               </h4>
@@ -140,7 +140,7 @@ export default function PurposeSection() {
             <div className="grid gap-4 sm:grid-cols-2 xl:gap-5">
               <a
                 href="/about"
-                className="inline-flex min-h-16 items-center justify-center rounded-lg bg-savana-800 px-8 text-xl font-medium text-white transition-colors hover:bg-savana-700 xl:min-h-20 xl:text-2xl"
+                className="button-primary inline-flex min-h-12 items-center justify-center rounded-lg px-8 text-base font-medium transition-colors xl:min-h-15 xl:text-lg"
               >
                 {t("purpose.cta")}
               </a>
@@ -149,7 +149,7 @@ export default function PurposeSection() {
                 href="https://www.google.com/maps/@-8.8465902,120.3055812,17z"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-16 items-center justify-center rounded-lg border border-savana-800 px-8 text-xl font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white xl:min-h-20 xl:text-2xl"
+                className="button-outline inline-flex min-h-12 items-center justify-center rounded-lg px-8 text-base font-medium transition-colors xl:min-h-15 xl:text-lg"
               >
                 <span className="xl:hidden">{t("purpose.mapCtaMobile")}</span>
                 <span className="hidden xl:inline">{t("purpose.mapCta")}</span>

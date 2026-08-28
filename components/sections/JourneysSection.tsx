@@ -341,7 +341,7 @@ function SliderArrow({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`absolute top-[43%] z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-[0_10px_28px_rgba(38,35,22,0.16)] transition-colors hover:text-savana-800 md:h-12 md:w-12 ${
+      className={`carousel-chevron-light absolute top-[43%] z-20 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors md:h-12 md:w-12 ${
         direction === "previous"
           ? "left-0 -translate-x-1/2 xl:-left-11"
           : "right-0 translate-x-1/2 xl:-right-11"
@@ -401,7 +401,7 @@ function Card({ def }: { def: JourneyCardDef }) {
 
         <Link
           href="/trips"
-          className="mt-5 flex min-h-11 w-full items-center justify-center rounded-lg bg-savana-800 px-3 py-2 text-center text-xs font-semibold text-white transition-colors hover:bg-savana-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800 sm:text-sm"
+          className="button-primary mt-5 flex min-h-11 w-full items-center justify-center rounded-lg px-3 py-2 text-center text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800 sm:text-sm"
         >
           {t("journeys.seeTripDetails")}
         </Link>
@@ -447,7 +447,7 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
         </div>
         <Link
           href={`/rooms/${def.slug}`}
-          className="mt-6 flex min-h-12 w-full items-center justify-center rounded-xl bg-savana-800 px-5 text-base font-medium text-white transition-colors hover:bg-savana-700"
+          className="button-primary mt-6 flex min-h-12 w-full items-center justify-center rounded-xl px-5 text-base font-medium transition-colors"
         >
           {t("journeys.seeLodgeDetails")}
         </Link>
@@ -499,7 +499,7 @@ function LodgePreview() {
 
       <Link
         href="/lodge"
-        className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+        className="button-outline mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg px-6 text-base font-medium transition-colors"
       >
         {t("journeys.discoverAllRoom")}
       </Link>
@@ -600,14 +600,14 @@ function TripSlider() {
                 href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-4 py-2.5 text-center text-base font-semibold text-white transition-colors hover:bg-savana-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+                className="button-primary flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-base font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
               >
                 <IoLogoWhatsapp aria-hidden="true" className="h-5 w-5" />
                 {t("journeys.custom.whatsapp")}
               </a>
               <a
                 href={`mailto:${email}?subject=${emailSubject}`}
-                className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-700 px-4 py-2.5 text-center text-base font-semibold text-savana-800 transition-colors hover:bg-savana-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+                className="button-outline flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-base font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
               >
                 <IoMailOutline aria-hidden="true" className="h-5 w-5" />
                 {t("journeys.custom.email")}
@@ -619,7 +619,7 @@ function TripSlider() {
 
       <Link
         href="/trips"
-        className="mx-auto mt-7 flex min-h-12 w-full max-w-[280px] items-center justify-center rounded-lg border border-savana-700 px-6 text-sm font-semibold text-savana-800 transition-colors hover:bg-savana-800 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
+        className="button-outline mx-auto mt-7 flex min-h-12 w-full max-w-[280px] items-center justify-center rounded-lg px-6 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
       >
         {t("journeys.exploreAllTrips")}
       </Link>
@@ -661,7 +661,7 @@ function TransportPreview() {
 
       <Link
         href="/transport"
-        className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white"
+        className="button-outline mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg px-6 text-base font-medium transition-colors"
       >
         {t("journeys.seeTransportDetails")}
       </Link>
@@ -741,7 +741,7 @@ function RestaurantPreview() {
               type="button"
               onClick={goToPrevious}
               aria-label="Previous restaurant image"
-              className="absolute top-1/2 left-2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-white transition-colors hover:bg-black/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-3"
+              className="carousel-chevron-overlay absolute top-1/2 left-2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-3"
             >
               <IoChevronBack className="h-6 w-6" />
             </button>
@@ -749,7 +749,7 @@ function RestaurantPreview() {
               type="button"
               onClick={goToNext}
               aria-label="Next restaurant image"
-              className="absolute top-1/2 right-2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-white transition-colors hover:bg-black/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:right-3"
+              className="carousel-chevron-overlay absolute top-1/2 right-2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:right-3"
             >
               <IoChevronForward className="h-6 w-6" />
             </button>
@@ -770,7 +770,7 @@ function RestaurantPreview() {
 
       <Link
         href="/restaurant"
-        className="mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg border border-savana-800 px-6 text-base font-medium text-savana-800 transition-colors hover:bg-savana-800 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-savana-800"
+        className="button-outline mx-auto mt-8 flex min-h-14 w-full max-w-[320px] items-center justify-center rounded-lg px-6 text-base font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-savana-800"
       >
         {t("journeys.seeRestaurantDetails")}
       </Link>
@@ -790,10 +790,10 @@ export default function JourneysSection() {
         <button
           key={tab}
           onClick={() => setActiveTab(tab)}
-          className={`-mb-px border-b-2 px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors md:text-lg ${
+          className={`-mb-px px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors md:text-lg ${
             activeTab === tab
-              ? "border-b-4 border-savana-600 text-neutral-900"
-              : "border-transparent text-neutral-300 hover:text-neutral-900"
+              ? "border-b-2 border-savana-800 text-neutral-900"
+              : "border-b-2 border-neutral-50 text-neutral-200 hover:text-neutral-900"
           }`}
         >
           {t(`journeys.tab.${tab}`)}

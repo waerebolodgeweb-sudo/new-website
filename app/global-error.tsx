@@ -44,6 +44,18 @@ export default function GlobalError({
           padding: "24px",
         }}
       >
+        <style>{`
+          .global-error-button {
+            background: #ffffff;
+            color: #453d18;
+            transition: background-color 150ms ease, color 150ms ease;
+          }
+
+          .global-error-button:hover {
+            background: #ded6b1;
+            color: #453d18;
+          }
+        `}</style>
         <div style={{ maxWidth: 480 }}>
           <p
             style={{
@@ -79,13 +91,12 @@ export default function GlobalError({
           </p>
           <button
             onClick={reset}
+            className="global-error-button"
             style={{
               marginTop: 32,
               padding: "14px 28px",
               borderRadius: 12,
               border: "none",
-              background: "#faf8f2",
-              color: "#453d18",
               fontSize: 16,
               fontWeight: 500,
               cursor: "pointer",

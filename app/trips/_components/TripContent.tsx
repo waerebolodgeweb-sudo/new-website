@@ -294,7 +294,7 @@ function Hero({
         type="button"
         onClick={onPrevious}
         aria-label={t("trip.previousPackage")}
-        className="absolute top-1/2 left-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:left-8 sm:h-11 sm:w-11"
+        className="carousel-chevron-overlay absolute top-1/2 left-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center transition-colors sm:left-8 sm:h-11 sm:w-11"
       >
         <IoChevronBack size={22} />
       </button>
@@ -302,7 +302,7 @@ function Hero({
         type="button"
         onClick={onNext}
         aria-label={t("trip.nextPackage")}
-        className="absolute top-1/2 right-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:right-8 sm:h-11 sm:w-11"
+        className="carousel-chevron-overlay absolute top-1/2 right-4 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center transition-colors sm:right-8 sm:h-11 sm:w-11"
       >
         <IoChevronForward size={22} />
       </button>
@@ -378,7 +378,7 @@ function ProgramSelector({
         onPointerDown={markAsManuallyAdjusted}
         onTouchStart={markAsManuallyAdjusted}
         onWheel={markAsManuallyAdjusted}
-        className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-3 sm:px-8 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden"
+        className="mx-auto flex max-w-[1512px] snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pt-5 pb-3 sm:px-8 md:pt-0 lg:max-w-[1224px] lg:gap-2 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {programs.map((program) => {
           const active = program.id === activeId;
@@ -484,14 +484,14 @@ function MobileBookingBar({ program }: { program: TripProgram }) {
           href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-2 text-[11px] font-semibold whitespace-nowrap text-white transition-colors hover:bg-savana-700"
+          className="button-primary flex min-h-11 items-center justify-center gap-2 rounded-lg px-2 text-[11px] font-semibold whitespace-nowrap transition-colors"
         >
           <IoLogoWhatsapp aria-hidden="true" size={16} />
           {t("trip.whatsappBooking")}
         </a>
         <a
           href={`mailto:${email}?subject=${emailSubject}`}
-          className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-600 px-2 text-[11px] font-semibold whitespace-nowrap text-savana-800 transition-colors hover:bg-savana-200"
+          className="button-outline flex min-h-11 items-center justify-center gap-2 rounded-lg px-2 text-[11px] font-semibold whitespace-nowrap transition-colors"
         >
           <IoMailOutline aria-hidden="true" size={16} />
           {t("trip.emailBooking")}
@@ -823,14 +823,14 @@ function TripSidebar({
             href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-savana-800 px-3 text-[11px] font-semibold text-white transition-colors hover:bg-savana-700"
+            className="button-primary flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-[11px] font-semibold transition-colors"
           >
             <IoLogoWhatsapp size={15} />
             {t("trip.bookWhatsapp")}
           </a>
           <a
             href={`mailto:${email}?subject=${emailSubject}`}
-            className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-savana-600 bg-white px-3 text-[11px] font-semibold text-savana-800 transition-colors hover:bg-savana-200"
+            className="button-outline flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-[11px] font-semibold transition-colors"
           >
             <IoMail size={15} />
             {t("trip.bookEmail")}
@@ -951,22 +951,22 @@ function Itinerary({ program }: { program: TripProgram }) {
 
               <article
                 id={stop.id}
-                className={`flex scroll-mt-[var(--trip-scroll-offset)] flex-col gap-4 lg:min-h-[280px] lg:scroll-mt-28 lg:items-center lg:gap-10 ${
-                  reverse ? "lg:flex-row-reverse" : "lg:flex-row"
+                className={`flex scroll-mt-[var(--trip-scroll-offset)] flex-col gap-4 xl:min-h-[280px] xl:scroll-mt-28 xl:items-center xl:gap-10 ${
+                  reverse ? "xl:flex-row-reverse" : "xl:flex-row"
                 }`}
               >
-                <div className="relative h-[300px] w-full overflow-hidden sm:h-[400px] lg:h-[260px] lg:w-1/2">
+                <div className="relative h-[300px] w-full overflow-hidden sm:h-[400px] lg:h-[400px] xl:w-2/3">
                   <Image
                     src={stop.image}
                     alt={stop.title}
                     fill
                     sizes="(min-width: 1024px) 380px, 90vw"
                     className="origin-center object-contain"
-                    style={{ transform: `scale(${ITINERARY_IMAGE_SCALE})` }}
+                    // style={{ transform: `scale(${ITINERARY_IMAGE_SCALE})` }}
                   />
                 </div>
 
-                <div className="lg:w-1/2">
+                <div className="xl:w-1/3">
                   <h3 className="text-2xl leading-tight font-semibold tracking-[-0.015em] text-savana-800 sm:text-3xl">
                     {stop.title}
                   </h3>
@@ -1061,14 +1061,14 @@ function CustomItinerary() {
           href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-12 items-center justify-center gap-2 rounded-lg bg-savana-800 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-savana-700 sm:text-sm"
+          className="button-primary flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 py-3 text-center text-xs font-semibold transition-colors sm:text-sm"
         >
           <IoLogoWhatsapp size={18} />
           {t("trip.custom.whatsapp")}
         </a>
         <a
           href={`mailto:${email}?subject=${emailSubject}`}
-          className="flex min-h-12 items-center justify-center gap-2 rounded-lg border border-savana-800 px-5 py-3 text-center text-xs font-semibold text-savana-800 transition-colors hover:bg-savana-200 sm:text-sm"
+          className="button-outline flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 py-3 text-center text-xs font-semibold transition-colors sm:text-sm"
         >
           <IoMailOutline size={18} />
           {t("trip.custom.email")}

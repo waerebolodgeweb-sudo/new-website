@@ -107,7 +107,7 @@ export default function OfferGrid() {
             </p>
             <Link
               href="#contact"
-              className="inline-flex min-h-9 w-fit items-center justify-center rounded-md bg-savana-800 px-5 text-sm font-semibold text-white transition-colors hover:bg-savana-700"
+              className="button-primary inline-flex min-h-9 w-fit items-center justify-center rounded-md px-5 text-sm font-semibold transition-colors"
             >
               {t("about.offer.cta")}
             </Link>

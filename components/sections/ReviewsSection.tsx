@@ -236,7 +236,7 @@ export default function ReviewsSection() {
       id="reviews"
       className="scroll-mt-20 bg-savana-050 py-12 lg:scroll-mt-24 lg:py-24"
     >
-      <div className="mx-auto max-w-[1512px] sm:px-6 lg:px-10 xl:px-20">
+      <div className="mx-auto w-full max-w-[1512px] px-5 lg:px-20">
         <div className="relative aspect-[1179/2400] overflow-hidden sm:aspect-auto sm:h-[720px] xl:aspect-[2784/1830] xl:h-auto xl:overflow-visible">
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
@@ -271,7 +271,7 @@ export default function ReviewsSection() {
                   type="button"
                   onClick={prev}
                   aria-label="Previous reviews"
-                  className="flex size-10 items-center justify-center rounded-full bg-black/20 text-white transition-colors hover:bg-black/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:size-[52px]"
+                  className="carousel-chevron-overlay flex size-10 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:size-[52px]"
                 >
                   <IoChevronBack aria-hidden="true" size={25} />
                 </button>
@@ -279,7 +279,7 @@ export default function ReviewsSection() {
                   type="button"
                   onClick={next}
                   aria-label="Next reviews"
-                  className="flex size-10 items-center justify-center rounded-full bg-black/20 text-white transition-colors hover:bg-black/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:size-[52px]"
+                  className="carousel-chevron-overlay flex size-10 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:size-[52px]"
                 >
                   <IoChevronForward aria-hidden="true" size={25} />
                 </button>

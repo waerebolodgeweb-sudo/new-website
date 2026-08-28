@@ -96,7 +96,7 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
           aria-label="Previous menu item"
           onClick={() => selectMenu(activeIndex - 1)}
           disabled={activeIndex === 0}
-          className="absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-lg transition-colors hover:text-savana-800 disabled:pointer-events-none disabled:opacity-40 sm:left-8 sm:h-14 sm:w-14"
+          className="carousel-chevron-light absolute top-1/2 left-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors disabled:pointer-events-none disabled:opacity-40 sm:left-8 sm:h-14 sm:w-14"
         >
           <IoChevronBack size={28} />
         </button>
@@ -105,7 +105,7 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
           aria-label="Next menu item"
           onClick={() => selectMenu(activeIndex + 1)}
           disabled={activeIndex === menuItems.length - 1}
-          className="absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white text-savana-500 shadow-lg transition-colors hover:text-savana-800 disabled:pointer-events-none disabled:opacity-40 sm:right-8 sm:h-14 sm:w-14"
+          className="carousel-chevron-light absolute top-1/2 right-4 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors disabled:pointer-events-none disabled:opacity-40 sm:right-8 sm:h-14 sm:w-14"
         >
           <IoChevronForward size={28} />
         </button>
@@ -173,7 +173,7 @@ export default function DailyMenuSlider({ bookHref }: { bookHref: string }) {
         href={bookHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="mx-auto mt-8 flex min-h-14 w-full max-w-[300px] items-center justify-center rounded-lg bg-savana-800 px-6 text-base font-semibold text-white transition-colors hover:bg-savana-700"
+        className="button-primary mx-auto mt-8 flex min-h-14 w-full max-w-[300px] items-center justify-center rounded-lg px-6 text-base font-semibold transition-colors"
       >
         {t("restaurant.bookNow")}
       </a>

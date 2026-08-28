@@ -201,7 +201,7 @@ export default function GuestExperienceSection() {
   }, []);
 
   return (
-    <section className="bg-savana-050 py-16 lg:py-20" id="testimonials">
+    <section className="bg-savana-050 py-2.5 lg:py-20" id="testimonials">
       <div className="ml-auto w-full max-w-[1920px]">
         <div className="ml-auto w-[calc(100%_-_32px)] max-w-[1845px] lg:w-[90.1vw]">
           <div className="mc:aspect-[1845/998] relative min-h-[980px] overflow-hidden rounded-l-[28px] rounded-r-none shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[1100px] lg:min-h-0 lg:rounded-l-[36px]">
@@ -224,24 +224,24 @@ export default function GuestExperienceSection() {
             <div className="absolute inset-x-0 bottom-0 h-[36%] bg-gradient-to-t from-black/45 to-transparent" />
             <div className="flex flex-col py-12 pl-5 sm:pl-10 lg:gap-8 lg:py-[60px] lg:pl-[80px]">
               <div className="z-10 flex flex-col">
-                <p className="mb-2 text-sm font-normal text-white/90 lg:text-base">
+                <p className="text-sm font-normal text-white/90 lg:text-base">
                   {t("gallery.eyebrow")}
                 </p>
-                <h2 className="mt-5 mb-0 text-[32px] text-white sm:text-[56px] lg:mt-8 lg:text-[54px]">
+                <h2 className="mb-5 text-[32px] text-white sm:text-[56px] lg:mb-0 lg:text-[54px]">
                   <span className="font-light">{t("gallery.head1")}</span>
                   <span className="font-bold">{t("gallery.head2")}</span>
                 </h2>
               </div>
               <div className="relative z-10 grid h-full lg:grid-cols-[410px_1fr] lg:gap-[58px]">
                 <div className="relative z-20 flex min-w-0 flex-col">
-                  <div className="mb-10 flex gap-1.5 lg:mb-9">
+                  <div className="mb-10 flex gap-1.5 pr-4 lg:mb-9">
                     {videos.map((video, index) => (
                       <button
                         key={video.id}
                         data-slide-index={index}
                         onClick={handlePaginationClick}
                         aria-label={`Show guest video ${index + 1}`}
-                        className="h-1.5 w-3 overflow-hidden rounded-full bg-white/25 sm:w-5"
+                        className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/25 sm:w-5"
                       >
                         <span
                           className={`block h-full rounded-full bg-white transition-all duration-500 ${
@@ -341,10 +341,10 @@ export default function GuestExperienceSection() {
                     isTextVisible ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <h3 className="mb-5 text-[28px] leading-[1.35] font-semibold text-white italic">
+                  <h3 className="mb-5 text-[18px] leading-[1.35] font-semibold text-white italic">
                     {activeVideo.quote}
                   </h3>
-                  <p className="text-xl leading-[1.4] font-normal text-white/70">
+                  <p className="text-sm leading-[1.4] font-normal text-white/70">
                     {activeVideo.caption}
                   </p>
                 </div>
@@ -356,7 +356,7 @@ export default function GuestExperienceSection() {
                 type="button"
                 onClick={prev}
                 aria-label="Previous video"
-                className="flex h-14 w-14 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                className="carousel-chevron-overlay flex h-14 w-14 items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
               >
                 <IoChevronBackOutline size={34} />
               </button>
@@ -364,7 +364,7 @@ export default function GuestExperienceSection() {
                 type="button"
                 onClick={next}
                 aria-label="Next video"
-                className="flex h-14 w-14 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-savana-800 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                className="carousel-chevron-overlay flex h-14 w-14 items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
               >
                 <IoChevronForwardOutline size={34} />
               </button>

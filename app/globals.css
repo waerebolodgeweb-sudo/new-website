@@ -192,6 +192,90 @@ body {
   color: var(--foreground);
 }
 
+/* Shared button states from the Waerebo component-state specification. */
+.button-primary {
+  background-color: var(--color-savana-800);
+  color: var(--color-neutral-000);
+  transition-property: background-color, border-color, color;
+}
+
+.button-primary:hover {
+  background-color: var(--color-savana-700);
+}
+
+.button-outline {
+  border: 1px solid var(--color-savana-800);
+  background-color: transparent;
+  color: var(--color-savana-800);
+  transition-property: background-color, border-color, color;
+}
+
+.button-outline:hover {
+  border-color: var(--color-savana-500);
+  color: var(--color-savana-700);
+}
+
+.button-ghost {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-savana-600);
+  transition-property: background-color, border-color, color;
+}
+
+.button-ghost:hover {
+  color: var(--color-savana-500);
+}
+
+.button-light {
+  background-color: var(--color-neutral-000);
+  color: var(--color-savana-800);
+  transition-property: background-color, border-color, color;
+}
+
+.button-light:hover {
+  background-color: var(--color-savana-200);
+  color: var(--color-savana-800);
+}
+
+.button-outline-light {
+  border: 1px solid var(--color-neutral-000);
+  background-color: transparent;
+  color: var(--color-neutral-000);
+  transition-property: background-color, border-color, color;
+}
+
+.button-outline-light:hover {
+  border-color: var(--color-savana-500);
+  background-color: transparent;
+  color: var(--color-savana-200);
+}
+
+/* Shared carousel chevron states from the component-state specification. */
+.carousel-chevron-light {
+  border-radius: 9999px;
+  background-color: var(--color-neutral-000);
+  color: var(--color-savana-500);
+  box-shadow: 0 8px 20px rgb(69 61 24 / 20%);
+  transition-property: background-color, color;
+}
+
+.carousel-chevron-light:hover {
+  background-color: var(--color-savana-500);
+  color: var(--color-neutral-000);
+}
+
+.carousel-chevron-overlay {
+  border-radius: 9999px;
+  background-color: rgb(69 61 24 / 35%);
+  color: var(--color-neutral-000);
+  transition-property: background-color, color;
+}
+
+.carousel-chevron-overlay:hover {
+  background-color: var(--color-neutral-000);
+  color: var(--color-savana-700);
+}
+
 /* Appear-on-scroll animation (applied via <ScrollReveal />) */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {

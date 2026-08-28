@@ -72,7 +72,7 @@ export default function LodgeCard({ room }: { room: Room }) {
       <div className="px-4">
         <Link
           href={`/rooms/${room.slug}`}
-          className="flex w-full items-center justify-center rounded-xl bg-savana-800 px-4 py-3 text-base font-medium text-white transition-colors hover:bg-savana-700"
+          className="button-primary flex w-full items-center justify-center rounded-xl px-4 py-3 text-base font-medium transition-colors"
         >
           {t("lodge.seeDetails")}
         </Link>
