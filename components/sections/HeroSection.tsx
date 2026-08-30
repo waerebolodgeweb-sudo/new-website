@@ -5,17 +5,41 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLang } from "@/lib/i18n";
 
 const desktopVideos = [
-  "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-1.mp4",
-  "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-2.mp4",
-  "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-3.mp4",
-  "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-4.mp4",
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-1.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-1.mp4",
+  },
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-2.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-2.mp4",
+  },
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-3.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-3.mp4",
+  },
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-4.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Desktop-Video-4.mp4",
+  },
 ];
 
 const mobileVideos = [
-  "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-1.mp4",
-  "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-2.mp4",
-  "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-3.mp4",
-  "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-4.mp4",
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-1.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-1.mp4",
+  },
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-2.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-2.mp4",
+  },
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-3.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-3.mp4",
+  },
+  {
+    webm: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-4.webm",
+    mp4: "/homepage/hero/Waerebo-Lodge-Hero-Mobile-Video-4.mp4",
+  },
 ];
 
 const TRANSITION_LEAD_SECONDS = 2.5;
@@ -131,7 +155,7 @@ export default function HeroSection() {
     <section className="relative isolate flex h-screen min-h-[600px] items-start bg-neutral-900 lg:h-[89svh] lg:items-center">
       {videos.map((video, index) => (
         <video
-          key={`${isDesktop ? "desktop" : "mobile"}-${video}`}
+          key={`${isDesktop ? "desktop" : "mobile"}-${video.webm}`}
           ref={(element) => {
             videoRefs.current[index] = element;
           }}
@@ -154,15 +178,37 @@ export default function HeroSection() {
             }
           }}
         >
-          <source src={video} type="video/mp4" />
+          <source src={video.webm} type="video/webm" />
+          <source src={video.mp4} type="video/mp4" />
         </video>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-
+      <div
+        style={{
+          background:
+            "linear-gradient(270deg, rgba(16, 19, 19, 0) 0%, rgba(16, 19, 19, 0.5) 100%)",
+          backdropFilter: "blur(0px)",
+          WebkitBackdropFilter: "blur(0px)",
+          pointerEvents: "none",
+        }}
+        className="absolute inset-0 z-30 hidden w-[660px] lg:block"
+      />
+      <div
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(16, 19, 19, 0.5) 0%, rgba(16, 19, 19, 0) 100%)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, transparent 100%)",
+          pointerEvents: "none",
+        }}
+        className="absolute inset-x-0 top-0 z-30 block h-1/2 lg:hidden"
+      />
       <div className="relative z-30 mx-auto w-full max-w-[1512px] px-5 pt-24 pb-16 lg:px-20 lg:py-28">
         {/* <div
           aria-hidden="true"
-          className="absolute top-0 bottom-0 left-0 -mt-24 hidden h-[calc(100vh-86px)] w-[660px] md:block"
+          className="absolute -top-20 bottom-0 left-0 hidden h-[89svh] w-[660px] lg:block"
           style={{
             background:
               "linear-gradient(270deg, rgba(16, 19, 19, 0) 0%, rgba(16, 19, 19, 0.5) 100%)",
@@ -187,7 +233,7 @@ export default function HeroSection() {
         <div className="mt-8 flex w-full max-w-[220px] items-center gap-2">
           {videos.map((video, index) => (
             <button
-              key={`progress-${video}`}
+              key={`progress-${video.webm}`}
               type="button"
               aria-label={`Show hero video ${index + 1}`}
               aria-pressed={index === activeVideo || index === incomingVideo}
