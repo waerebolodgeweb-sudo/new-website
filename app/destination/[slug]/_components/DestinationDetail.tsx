@@ -107,7 +107,7 @@ export default function DestinationDetail({
           <IoChevronForward size={22} />
         </button>
 
-        <p className="absolute top-[68px] right-5 left-5 text-[11px] text-white/75 sm:top-24 sm:right-10 sm:left-10 sm:text-sm lg:top-auto lg:right-20 lg:bottom-[116px] lg:left-20">
+        <p className="absolute top-[100px] right-5 left-5 text-[11px] text-white/75 sm:top-24 sm:right-10 sm:left-10 sm:text-sm lg:top-auto lg:right-20 lg:bottom-[116px] lg:left-20">
           <Link href="/" className="hover:underline">
             {labels.breadcrumbHome[lang]}
           </Link>

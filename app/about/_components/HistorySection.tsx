@@ -1,12 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 
 const aboutAsset = (file: string) => `/About%20Us/${file}`;
-const historySnapMediaQuery =
-  "(min-width: 1024px) and (prefers-reduced-motion: no-preference)";
+
+// 1 = satu tinggi layar, 1.2 = 1,2 layar, dan seterusnya.
+const HISTORY_MILESTONE_DISTANCE = 0.5;
+// Batas minimum jarak antar-pusat milestone untuk layar yang pendek.
+const HISTORY_MILESTONE_MIN_DISTANCE_REM = 30;
+// Naikkan nilainya jika ingin snap lebih lambat dan lembut.
+const HISTORY_SNAP_DURATION_MS = 800;
 
 const milestones = [
   {
@@ -66,115 +71,6 @@ export default function HistorySection() {
   const [activeMilestone, setActiveMilestone] = useState(0);
   const milestoneRefs = useRef<(HTMLElement | null)[]>([]);
   const stickyMediaRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const timeline = timelineRef.current;
-    if (!timeline) return;
-
-    let snapTimer: number | undefined;
-    let animationFrame: number | undefined;
-    let isAutoSnapping = false;
-
-    const clearTimer = (timer: number | undefined) => {
-      if (timer !== undefined) window.clearTimeout(timer);
-    };
-
-    const snapToNearestMilestone = () => {
-      if (isAutoSnapping || !window.matchMedia(historySnapMediaQuery).matches)
-        return;
-
-      const viewportCenter = window.innerHeight / 2;
-      const timelineRect = timeline.getBoundingClientRect();
-      if (
-        timelineRect.top > viewportCenter ||
-        timelineRect.bottom < viewportCenter
-      )
-        return;
-
-      let nearestMilestone: HTMLElement | null = null;
-      let nearestDistance = Number.POSITIVE_INFINITY;
-
-      for (const milestone of milestoneRefs.current) {
-        if (!milestone) continue;
-        const rect = milestone.getBoundingClientRect();
-        const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
-
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestMilestone = milestone;
-        }
-      }
-
-      if (!nearestMilestone || nearestDistance <= 2) return;
-
-      const milestoneRect = nearestMilestone.getBoundingClientRect();
-      const startTop = window.scrollY;
-      const maxTop = Math.max(
-        0,
-        document.documentElement.scrollHeight - window.innerHeight
-      );
-      const targetTop = Math.min(
-        maxTop,
-        Math.max(
-          0,
-          startTop +
-            milestoneRect.top +
-            milestoneRect.height / 2 -
-            viewportCenter
-        )
-      );
-      const distance = targetTop - startTop;
-      const duration = 440;
-      const startTime = window.performance.now();
-
-      isAutoSnapping = true;
-
-      const animateSnap = (time: number) => {
-        const progress = Math.min(1, (time - startTime) / duration);
-        const easedProgress = 1 - Math.pow(1 - progress, 4);
-        window.scrollTo(0, startTop + distance * easedProgress);
-
-        if (progress < 1) {
-          animationFrame = window.requestAnimationFrame(animateSnap);
-        } else {
-          animationFrame = undefined;
-          isAutoSnapping = false;
-        }
-      };
-
-      animationFrame = window.requestAnimationFrame(animateSnap);
-    };
-
-    const scheduleSnap = () => {
-      if (isAutoSnapping) return;
-      clearTimer(snapTimer);
-      snapTimer = window.setTimeout(snapToNearestMilestone, 140);
-    };
-
-    const cancelAutoSnap = () => {
-      if (animationFrame !== undefined) {
-        window.cancelAnimationFrame(animationFrame);
-        animationFrame = undefined;
-      }
-      isAutoSnapping = false;
-      clearTimer(snapTimer);
-    };
-
-    window.addEventListener("scroll", scheduleSnap, { passive: true });
-    window.addEventListener("wheel", cancelAutoSnap, { passive: true });
-    window.addEventListener("touchstart", cancelAutoSnap, { passive: true });
-
-    return () => {
-      clearTimer(snapTimer);
-      if (animationFrame !== undefined) {
-        window.cancelAnimationFrame(animationFrame);
-      }
-      window.removeEventListener("scroll", scheduleSnap);
-      window.removeEventListener("wheel", cancelAutoSnap);
-      window.removeEventListener("touchstart", cancelAutoSnap);
-    };
-  }, []);
 
   useEffect(() => {
     const observedItems = milestoneRefs.current.filter(
@@ -208,7 +104,106 @@ export default function HistorySection() {
     );
 
     observedItems.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 1024px)");
+    let isAutoSnapping = false;
+    let animationFrame: number | undefined;
+
+    const cancelAutoSnap = () => {
+      if (animationFrame !== undefined) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = undefined;
+      }
+      isAutoSnapping = false;
+    };
+
+    const snapNearestMilestone = () => {
+      if (!desktopMedia.matches || isAutoSnapping) return;
+
+      const availableMilestones = milestoneRefs.current.filter(
+        (milestone): milestone is HTMLElement => Boolean(milestone)
+      );
+      const firstMilestone = availableMilestones[0];
+      const lastMilestone = availableMilestones.at(-1);
+      if (!firstMilestone || !lastMilestone) return;
+
+      const viewportCenter = window.innerHeight / 2;
+      const snapBoundary = window.innerHeight * 0.45;
+      const getCenter = (milestone: HTMLElement) => {
+        const rect = milestone.getBoundingClientRect();
+        return rect.top + rect.height / 2;
+      };
+      const firstCenter = getCenter(firstMilestone);
+      const lastCenter = getCenter(lastMilestone);
+
+      if (
+        firstCenter > viewportCenter + snapBoundary ||
+        lastCenter < viewportCenter - snapBoundary
+      ) {
+        return;
+      }
+
+      const nearestMilestone = availableMilestones.reduce((nearest, current) =>
+        Math.abs(getCenter(current) - viewportCenter) <
+        Math.abs(getCenter(nearest) - viewportCenter)
+          ? current
+          : nearest
+      );
+      const distance = getCenter(nearestMilestone) - viewportCenter;
+      if (Math.abs(distance) < 2) return;
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (reducedMotion) {
+        window.scrollBy({ top: distance, behavior: "auto" });
+        return;
+      }
+
+      const startY = window.scrollY;
+      const targetY = startY + distance;
+      const startTime = window.performance.now();
+      isAutoSnapping = true;
+
+      const animateSnap = (currentTime: number) => {
+        const progress = Math.min(
+          1,
+          (currentTime - startTime) / HISTORY_SNAP_DURATION_MS
+        );
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+        window.scrollTo(0, startY + (targetY - startY) * easedProgress);
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(animateSnap);
+        } else {
+          animationFrame = undefined;
+          isAutoSnapping = false;
+        }
+      };
+
+      animationFrame = window.requestAnimationFrame(animateSnap);
+    };
+
+    window.addEventListener("scrollend", snapNearestMilestone);
+    window.addEventListener("wheel", cancelAutoSnap, { passive: true });
+    window.addEventListener("touchstart", cancelAutoSnap, { passive: true });
+    window.addEventListener("keydown", cancelAutoSnap);
+
+    return () => {
+      window.removeEventListener("scrollend", snapNearestMilestone);
+      window.removeEventListener("wheel", cancelAutoSnap);
+      window.removeEventListener("touchstart", cancelAutoSnap);
+      window.removeEventListener("keydown", cancelAutoSnap);
+      cancelAutoSnap();
+    };
   }, []);
 
   useEffect(() => {
@@ -235,27 +230,41 @@ export default function HistorySection() {
     };
   }, []);
 
+  const scrollToMilestone = (index: number) => {
+    const milestone = milestoneRefs.current[index];
+    if (!milestone) return;
+
+    milestone.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "center",
+    });
+  };
+
   return (
     <section id="history" className="bg-savana-50 py-14 lg:py-24">
-      <div className="mx-auto max-w-[1512px] px-4 sm:px-6 lg:px-20">
-        <div className="grid gap-7 lg:grid-cols-[1fr_0.95fr] lg:gap-28">
-          <div>
-            <p className="mb-2 text-base font-medium text-savana-600">
-              {t("about.history.eyebrow")}
+      <div className="mx-auto">
+        <div className="max-w-[1512px] px-4 sm:px-6 lg:px-20">
+          <div className="grid gap-7 lg:grid-cols-[1fr_0.95fr] lg:gap-28">
+            <div>
+              <p className="mb-2 text-base font-medium text-savana-600">
+                {t("about.history.eyebrow")}
+              </p>
+              <h2 className="text-4xl leading-tight font-normal text-savana-800">
+                <span className="font-semibold">
+                  {t("about.history.heading1")}{" "}
+                </span>
+                {t("about.history.heading2")}
+              </h2>
+            </div>
+            <p className="text-sm leading-relaxed font-medium text-neutral-700 lg:text-base">
+              {t("about.history.body")}
             </p>
-            <h2 className="text-4xl leading-tight font-normal text-savana-800">
-              <span className="font-semibold">
-                {t("about.history.heading1")}{" "}
-              </span>
-              {t("about.history.heading2")}
-            </h2>
           </div>
-          <p className="text-sm leading-relaxed font-medium text-neutral-700 lg:text-base">
-            {t("about.history.body")}
-          </p>
         </div>
 
-        <div className="mt-9 lg:mt-16 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-24">
+        <div className="mt-9 px-6 lg:mt-16 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-24">
           <div className="hidden lg:block">
             <div
               ref={stickyMediaRef}
@@ -284,14 +293,7 @@ export default function HistorySection() {
                       aria-label={`Show ${milestone.year} history image`}
                       onClick={() => {
                         setActiveMilestone(index);
-                        milestoneRefs.current[index]?.scrollIntoView({
-                          behavior: window.matchMedia(
-                            "(prefers-reduced-motion: reduce)"
-                          ).matches
-                            ? "auto"
-                            : "smooth",
-                          block: "center",
-                        });
+                        scrollToMilestone(index);
                       }}
                       className={`h-1 rounded-full transition-all ${
                         index === activeMilestone
@@ -305,53 +307,62 @@ export default function HistorySection() {
             </div>
           </div>
 
-          <div ref={timelineRef} className="relative">
-            <div className="absolute top-0 bottom-0 left-[18px] w-1 bg-savana-200 lg:left-[-48px]" />
-            <div className="space-y-8 lg:space-y-28">
-              {milestones.map((milestone, index) => (
-                <article
-                  key={milestone.key}
-                  ref={(element) => {
-                    milestoneRefs.current[index] = element;
-                  }}
-                  data-milestone-index={index}
-                  className="relative pl-11 lg:pl-0"
-                >
-                  <span
-                    className={`absolute top-36 left-[7px] z-10 h-6 w-6 rounded-full transition-colors lg:top-1/2 lg:left-[-58px] lg:-translate-y-1/2 ${
-                      index === activeMilestone
-                        ? "border-4 border-savana-050 bg-savana-500"
-                        : "border-4 border-savana-200 bg-savana-200"
-                    }`}
-                  />
-
-                  <div
-                    data-reveal
-                    className="w-full overflow-hidden rounded-xl bg-white shadow-[0_16px_38px_rgba(38,35,22,0.12)] lg:rounded-2xl"
+          <div
+            className="relative"
+            style={
+              {
+                "--history-milestone-height": `max(${HISTORY_MILESTONE_DISTANCE * 100}svh, ${HISTORY_MILESTONE_MIN_DISTANCE_REM}rem)`,
+              } as CSSProperties
+            }
+          >
+            <div className="relative">
+              <div className="absolute top-0 bottom-0 left-[18px] w-1 bg-savana-200 lg:left-[-48px]" />
+              <div className="space-y-8 lg:space-y-0">
+                {milestones.map((milestone, index) => (
+                  <article
+                    key={milestone.key}
+                    ref={(element) => {
+                      milestoneRefs.current[index] = element;
+                    }}
+                    data-milestone-index={index}
+                    className="relative pl-11 lg:flex lg:h-[var(--history-milestone-height)] lg:items-center lg:pl-0"
                   >
-                    <div className="relative aspect-[1.58] lg:hidden">
-                      <Image
-                        src={milestone.image}
-                        alt={t(`about.history.${milestone.key}.title`)}
-                        fill
-                        sizes="82vw"
-                        className="object-cover"
-                      />
+                    <span
+                      className={`absolute top-36 left-[7px] z-10 h-6 w-6 rounded-full transition-colors lg:top-1/2 lg:left-[-58px] lg:-translate-y-1/2 ${
+                        index === activeMilestone
+                          ? "border-4 border-savana-050 bg-savana-500"
+                          : "border-4 border-savana-200 bg-savana-200"
+                      }`}
+                    />
+
+                    <div
+                      data-reveal
+                      className="w-full overflow-hidden rounded-xl bg-white shadow-[0_16px_38px_rgba(38,35,22,0.12)] lg:rounded-2xl"
+                    >
+                      <div className="relative aspect-[1.58] lg:hidden">
+                        <Image
+                          src={milestone.image}
+                          alt={t(`about.history.${milestone.key}.title`)}
+                          fill
+                          sizes="82vw"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-5 lg:p-9">
+                        <p className="mb-2 text-xl text-savana-600 italic">
+                          {milestone.year}
+                        </p>
+                        <h3 className="text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
+                          {t(`about.history.${milestone.key}.title`)}
+                        </h3>
+                        <p className="mt-4 text-[13px] leading-relaxed text-savana-800 lg:text-sm">
+                          {t(`about.history.${milestone.key}.text`)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-5 lg:p-9">
-                      <p className="mb-2 text-xl text-savana-600 italic">
-                        {milestone.year}
-                      </p>
-                      <h3 className="text-2xl leading-tight font-semibold text-savana-800 lg:text-3xl">
-                        {t(`about.history.${milestone.key}.title`)}
-                      </h3>
-                      <p className="mt-4 text-[13px] leading-relaxed text-savana-800 lg:text-sm">
-                        {t(`about.history.${milestone.key}.text`)}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </div>

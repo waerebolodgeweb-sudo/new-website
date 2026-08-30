@@ -563,16 +563,16 @@ function IconicCarousel({ lang }: { lang: Lang }) {
           <button
             onClick={prev}
             aria-label="Previous destination"
-            className="carousel-chevron-light flex h-[52px] w-[52px] items-center justify-center transition-colors"
+            className="carousel-chevron-overlay flex h-[52px] w-[52px] items-center justify-center transition-colors"
           >
-            <IoChevronBack size={22} />
+            <IoChevronBack size={36} />
           </button>
           <button
             onClick={next}
             aria-label="Next destination"
-            className="carousel-chevron-light flex h-[52px] w-[52px] items-center justify-center transition-colors"
+            className="carousel-chevron-overlay flex h-[52px] w-[52px] items-center justify-center transition-colors"
           >
-            <IoChevronForward size={22} />
+            <IoChevronForward size={36} />
           </button>
         </div>
       </div>
@@ -683,7 +683,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
                 className={`absolute inset-0 bg-gradient-to-t transition-colors duration-500 motion-reduce:transition-none ${
                   isActive
                     ? "from-black/80 via-black/20 to-transparent"
-                    : "from-black/90 via-black/30 to-black/10"
+                    : "from-black/90 via-black/50 to-black/50"
                 }`}
               />
               <div className="absolute right-3 bottom-4 left-3 text-left text-white">
@@ -692,7 +692,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
                 </div>
                 <h3
                   className={`font-semibold underline-offset-4 group-hover:underline ${
-                    isActive ? "text-lg" : "text-sm"
+                    isActive ? "text-lg" : "text-sm text-white/70"
                   }`}
                 >
                   {dest.title[lang]}
@@ -701,7 +701,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
                   className={`mt-1 overflow-hidden text-white/80 transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
                     isActive
                       ? "max-h-20 text-sm opacity-100"
-                      : "line-clamp-2 max-h-8 text-[11px] leading-snug opacity-80"
+                      : "line-clamp-2 max-h-8 text-[11px] leading-snug text-white/40 opacity-80"
                   }`}
                 >
                   {dest.caption[lang]}
@@ -723,7 +723,7 @@ export default function GalleryContent() {
   return (
     <>
       {/* Header */}
-      <section className="bg-neutral-050 pt-[60px] pb-[60px]">
+      <section className="bg-savana-050 pt-[60px] pb-[60px]">
         <div className="mx-auto max-w-[1512px] px-5 text-center lg:px-20">
           <h1 className="text-4xl font-semibold text-savana-800 lg:text-5xl">
             {galleryHeader.title[lang]}
@@ -735,7 +735,7 @@ export default function GalleryContent() {
       </section>
 
       {/* Hero photo strip — no bottom padding, flows straight into the band (figma) */}
-      <section className="overflow-hidden bg-neutral-050">
+      <section className="overflow-hidden bg-savana-050 pb-10">
         <HeroStrip />
       </section>
 
@@ -747,14 +747,14 @@ export default function GalleryContent() {
       </section>
 
       {/* Bento A */}
-      <section className="bg-neutral-050 pt-[120px]">
+      <section className="bg-savana-050 pt-[120px]">
         <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
           <BentoGrid cells={bentoA} mobileCells={bentoAMobile} lang={lang} />
         </div>
       </section>
 
       {/* Feature — Mbaru Niang (full bleed) */}
-      <section className="bg-neutral-050 py-5 sm:py-[60px] lg:py-[120px]">
+      <section className="bg-savana-050 py-5 sm:py-[60px] lg:py-[120px]">
         <FeatureImage
           desktop={featureMbaruNiang.desktop}
           mobile={featureMbaruNiang.mobile}
@@ -765,14 +765,14 @@ export default function GalleryContent() {
       </section>
 
       {/* Bento B */}
-      <section className="bg-neutral-050">
+      <section className="bg-savana-050">
         <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
           <BentoGrid cells={bentoB} mobileCells={bentoBMobile} lang={lang} />
         </div>
       </section>
 
       {/* Feature — Ikat weaving (full bleed) */}
-      <section className="bg-neutral-050 py-5 sm:py-[60px] lg:py-[120px]">
+      <section className="bg-savana-050 py-5 sm:py-[60px] lg:py-[120px]">
         <FeatureImage
           desktop={featureIkat.desktop}
           mobile={featureIkat.mobile}
@@ -783,7 +783,7 @@ export default function GalleryContent() {
       </section>
 
       {/* Bento C */}
-      <section className="bg-neutral-050 pb-[120px]">
+      <section className="bg-savana-050 pb-[120px]">
         <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
           <BentoGrid cells={bentoC} mobileCells={bentoCMobile} lang={lang} />
         </div>
