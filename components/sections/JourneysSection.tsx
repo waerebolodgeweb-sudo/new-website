@@ -519,25 +519,27 @@ function TripSlider() {
   const emailSubject = encodeURIComponent(t("trip.email.customSubject"));
 
   return (
-    <div className="mx-auto max-w-[1180px]">
+    <div className="mx-auto max-w-[1512px]">
       <div className="relative">
-        <SliderArrow
-          direction="previous"
-          onClick={goToPrevious}
-          label={t("trip.previousPackage")}
-        />
-        <SliderArrow
-          direction="next"
-          onClick={goToNext}
-          label={t("trip.nextPackage")}
-        />
+        <div className="absolute inset-0 z-10 flex items-center justify-between px-6 md:px-8 lg:px-0">
+          <SliderArrow
+            direction="previous"
+            onClick={goToPrevious}
+            label={t("trip.previousPackage")}
+          />
+          <SliderArrow
+            direction="next"
+            onClick={goToNext}
+            label={t("trip.nextPackage")}
+          />
+        </div>
 
-        <div className="grid grid-cols-1 gap-5 px-8 md:grid-cols-2 lg:grid-cols-3 lg:px-0">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleTrips.map((def, index) => (
             <div
               key={`${activeIndex}-${def.id}`}
               className={`${index === 1 ? "hidden md:block" : ""} ${
-                index === 2 ? "hidden lg:block" : ""
+                index === 2 ? "hidden xl:block" : ""
               }`}
             >
               <Card def={def} />
@@ -807,8 +809,8 @@ export default function JourneysSection() {
       id="journeys"
       className="relative z-30 bg-transparent pt-0 pb-24 lg:pt-0 lg:pb-28"
     >
-      <div className="relative mx-auto max-w-[1312px] px-6 lg:px-20">
-        <div className="relative z-40 -mt-24 lg:-mt-16">
+      <div className="relative mx-auto max-w-[1512px] px-6 lg:px-20">
+        <div className="relative z-40 -mt-12.5 lg:-mt-16">
           <div className="overflow-hidden rounded-2xl border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
             <p
               className={`mb-2 font-normal text-savana-600 ${

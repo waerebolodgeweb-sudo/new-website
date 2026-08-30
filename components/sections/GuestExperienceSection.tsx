@@ -203,7 +203,7 @@ export default function GuestExperienceSection() {
   return (
     <section className="bg-savana-050 py-2.5 lg:py-20" id="testimonials">
       <div className="ml-auto w-full max-w-[1920px]">
-        <div className="ml-auto w-[calc(100%_-_32px)] max-w-[1845px] lg:w-[90.1vw]">
+        <div className="ml-auto w-[calc(100%_-_20px)] max-w-[1845px] lg:w-[90.1vw]">
           <div className="mc:aspect-[1845/998] relative min-h-[980px] overflow-hidden rounded-l-[28px] rounded-r-none shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[1100px] lg:min-h-0 lg:rounded-l-[36px]">
             <Image
               src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Desktop.webp"

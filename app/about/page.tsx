@@ -21,8 +21,8 @@ export default function AboutPage() {
         <StorySection />
         <OfferGrid />
         <HistorySection />
-        <ContactSection />
         <LodgeDirectionMap />
+        <ContactSection />
       </main>
       <Footer />
     </>

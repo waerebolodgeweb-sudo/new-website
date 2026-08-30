@@ -43,7 +43,7 @@ export default function StorySection() {
       <div className="mx-auto max-w-[1512px] lg:px-20">
         <div className="lg:hidden">
           <div className="overflow-hidden">
-            <div className="flex w-max min-w-full flex-row-reverse justify-center gap-3">
+            <div className="flex w-max min-w-full flex-row-reverse justify-center">
               <Image
                 src={desktopPhotos.landscape.src}
                 alt="Flores coastline near Waerebo Lodge"
@@ -51,7 +51,7 @@ export default function StorySection() {
                 height={desktopPhotos.landscape.height}
                 priority
                 sizes="42vw"
-                className="max-h-[400px] min-h-[320px] w-auto shrink-0"
+                className="max-h-[580px] min-h-[390px] w-auto shrink-0"
               />
               <Image
                 src={desktopPhotos.lodge.src}
@@ -60,12 +60,12 @@ export default function StorySection() {
                 height={desktopPhotos.lodge.height}
                 priority
                 sizes="75vw"
-                className="max-h-[400px] min-h-[320px] w-auto shrink-0"
+                className="max-h-[580px] min-h-[390px] w-auto shrink-0"
               />
             </div>
           </div>
 
-          <div className="mt-7 px-4 sm:px-6">
+          <div className="mt-7 px-6 sm:px-6">
             <h1 className="text-4xl leading-tight font-semibold text-neutral-900 md:text-5xl">
               {t("about.story.heading1")}
               <br />
@@ -80,7 +80,7 @@ export default function StorySection() {
             </div>
           </div>
 
-          <div className="mt-7 px-4 sm:px-6">
+          <div className="mt-7">
             <Image
               src={mobilePhotos.founder.src}
               alt="Mr. Martin and Mrs. Isabela"
@@ -89,10 +89,10 @@ export default function StorySection() {
               sizes="100vw"
               className="h-auto w-full"
             />
-            <p className="mt-4 text-sm font-bold text-neutral-900">
+            <p className="mt-4 px-6 text-sm font-bold text-neutral-900">
               {t("about.story.martinName")}
             </p>
-            <div className="mt-2 space-y-3 text-sm leading-relaxed font-medium text-neutral-500">
+            <div className="mt-2 space-y-3 px-6 text-sm leading-relaxed font-medium text-neutral-500">
               {t("about.story.martinBio")
                 .split("\n\n")
                 .map((paragraph) => (
@@ -128,7 +128,7 @@ export default function StorySection() {
               sizes="25vw"
               className="h-auto w-full"
             />
-            <div className="pt-6">
+            <div className="px-4 pt-2">
               <p className="text-xl leading-tight font-bold text-neutral-900">
                 {t("about.story.martinName")}
               </p>

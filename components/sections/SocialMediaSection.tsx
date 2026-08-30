@@ -40,7 +40,7 @@ export default function SocialMediaSection() {
 
   return (
     <section className="bg-savana-050 py-2.5 lg:py-20">
-      <div className="mx-auto max-w-[1512px] px-6 lg:px-20">
+      <div className="mx-auto max-w-[1512px] p-5 lg:px-20">
         <div className="flex flex-col gap-0 rounded-[28px] bg-white p-2 shadow-xl lg:flex-row lg:gap-10">
           <a
             href={`https://www.instagram.com/p/${channel.shortcode}/`}

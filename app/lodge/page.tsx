@@ -18,8 +18,8 @@ export default function LodgePage() {
       <Navbar />
       <main className="pt-16 lg:pt-20">
         <LodgeGrid rooms={rooms} />
-        <ContactSection />
         <LodgeDirectionMap />
+        <ContactSection />
       </main>
       <Footer />
     </>

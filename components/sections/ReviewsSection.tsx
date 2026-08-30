@@ -237,7 +237,7 @@ export default function ReviewsSection() {
       className="scroll-mt-20 bg-savana-050 py-12 lg:scroll-mt-24 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1512px] lg:px-20">
-        <div className="relative aspect-[1179/2400] overflow-hidden sm:aspect-auto sm:h-[720px] xl:aspect-[2784/1830] xl:h-auto xl:overflow-visible">
+        <div className="relative h-[640px] overflow-hidden sm:aspect-auto sm:h-[720px] xl:aspect-[2784/1830] xl:h-auto xl:overflow-visible">
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Google-Reviews-Desktop.webp"
             alt=""
@@ -255,8 +255,8 @@ export default function ReviewsSection() {
             className="object-fill sm:hidden"
           />
 
-          <div className="absolute inset-0 z-10 flex flex-col px-[6%] pt-[7%] pb-[9%] xl:px-[4.5%] xl:pt-[5.5%] xl:pb-[12%]">
-            <div className="flex items-end justify-between gap-5">
+          <div className="absolute inset-0 z-10 flex flex-col pt-[7%] pb-[9%] xl:pt-[5.5%] xl:pb-[12%]">
+            <div className="flex items-end justify-between gap-5 px-[6%] xl:px-[4.5%]">
               <div>
                 <p className="mb-1 text-sm font-normal text-white/90 xl:mb-2 xl:text-base">
                   {t("testimonials.eyebrow")}
@@ -266,12 +266,12 @@ export default function ReviewsSection() {
                 </h2>
               </div>
 
-              <div className="flex shrink-0 items-center gap-2 xl:gap-3">
+              <div className="hidden shrink-0 items-center gap-3 xl:flex">
                 <button
                   type="button"
                   onClick={prev}
                   aria-label="Previous reviews"
-                  className="carousel-chevron-overlay flex size-10 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:size-[52px]"
+                  className="carousel-chevron-overlay flex size-[52px] items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <IoChevronBack aria-hidden="true" size={25} />
                 </button>
@@ -279,96 +279,120 @@ export default function ReviewsSection() {
                   type="button"
                   onClick={next}
                   aria-label="Next reviews"
-                  className="carousel-chevron-overlay flex size-10 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:size-[52px]"
+                  className="carousel-chevron-overlay flex size-[52px] items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <IoChevronForward aria-hidden="true" size={25} />
                 </button>
               </div>
             </div>
 
-            <div
-              className="reviews-pagination mt-5 flex xl:mt-4"
-              role="tablist"
-              aria-label="Choose a review slide"
-            >
-              {Array.from({ length: PROGRESS_STEPS }, (_, progressIndex) => (
-                <button
-                  key={progressIndex}
-                  type="button"
-                  role="tab"
-                  data-progress-index={progressIndex}
-                  aria-selected={activeProgress === progressIndex}
-                  aria-label={`Show review ${progressPageStart + progressIndex + 1}`}
-                  onClick={handlePaginationClick}
-                  className={`reviews-pagination-bullet ${
-                    progressIndex < activeProgress
-                      ? "is-complete"
-                      : progressIndex === activeProgress
-                        ? "is-active"
-                        : ""
-                  }`}
-                >
-                  <span className="reviews-pagination-track">
-                    {progressIndex < activeProgress && (
-                      <span className="reviews-pagination-fill is-complete" />
-                    )}
-                    {progressIndex === activeProgress && (
-                      <span
-                        key={`${activeReview}-${progressCycle}`}
-                        className="reviews-pagination-fill"
-                        onAnimationEnd={handleProgressComplete}
-                        style={{
-                          animationName: "review-pagination-progress",
-                          animationDuration: `${autoplayDuration}ms`,
-                          animationTimingFunction: "linear",
-                          animationFillMode: "forwards",
-                          transformOrigin: "left",
-                        }}
-                      />
-                    )}
-                  </span>
-                </button>
-              ))}
+            <div className="px-[6%] xl:px-[4.5%]">
+              <div
+                className="reviews-pagination mt-5 flex xl:mt-4"
+                role="tablist"
+                aria-label="Choose a review slide"
+              >
+                {Array.from({ length: PROGRESS_STEPS }, (_, progressIndex) => (
+                  <button
+                    key={progressIndex}
+                    type="button"
+                    role="tab"
+                    data-progress-index={progressIndex}
+                    aria-selected={activeProgress === progressIndex}
+                    aria-label={`Show review ${progressPageStart + progressIndex + 1}`}
+                    onClick={handlePaginationClick}
+                    className={`reviews-pagination-bullet ${
+                      progressIndex < activeProgress
+                        ? "is-complete"
+                        : progressIndex === activeProgress
+                          ? "is-active"
+                          : ""
+                    }`}
+                  >
+                    <span className="reviews-pagination-track">
+                      {progressIndex < activeProgress && (
+                        <span className="reviews-pagination-fill is-complete" />
+                      )}
+                      {progressIndex === activeProgress && (
+                        <span
+                          key={`${activeReview}-${progressCycle}`}
+                          className="reviews-pagination-fill"
+                          onAnimationEnd={handleProgressComplete}
+                          style={{
+                            animationName: "review-pagination-progress",
+                            animationDuration: `${autoplayDuration}ms`,
+                            animationTimingFunction: "linear",
+                            animationFillMode: "forwards",
+                            transformOrigin: "left",
+                          }}
+                        />
+                      )}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="mt-5 min-h-0 flex-1 overflow-hidden xl:mt-8">
-              <Swiper
-                key={isDesktop ? "reviews-desktop" : "reviews-mobile"}
-                ref={swiperRef}
-                modules={[A11y]}
-                initialSlide={activeReview}
-                slidesPerView={1}
-                slidesPerGroup={1}
-                spaceBetween={20}
-                breakpoints={{
-                  640: { slidesPerView: 2, spaceBetween: 20 },
-                  768: { slidesPerView: 2.5, spaceBetween: 22 },
-                  1024: { slidesPerView: 3, spaceBetween: 24 },
-                  1200: { slidesPerView: 3.5, spaceBetween: 26 },
-                  1400: { slidesPerView: 4, spaceBetween: 28 },
-                }}
-                loop
-                loopAdditionalSlides={4}
-                grabCursor
-                speed={700}
-                threshold={8}
-                a11y={{
-                  enabled: true,
-                  containerMessage: "Traveler reviews",
-                  containerRoleDescriptionMessage: "carousel",
-                  itemRoleDescriptionMessage: "review",
-                  paginationBulletMessage: "Show review slide {{index}}",
-                }}
-                onRealIndexChange={handleRealIndexChange}
-                onTouchStart={handleTouchStart}
-                className="review-swiper h-full w-full"
-              >
-                {testimonials.map((review) => (
-                  <SwiperSlide key={review.id} className="!h-auto min-w-0">
-                    <ReviewCard review={review} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+            <div className="mt-5 min-h-0 flex-1 xl:mt-8">
+              <div className="relative mx-0 h-full overflow-hidden sm:mx-[1.5%]">
+                <Swiper
+                  key={isDesktop ? "reviews-desktop" : "reviews-mobile"}
+                  ref={swiperRef}
+                  modules={[A11y]}
+                  initialSlide={activeReview}
+                  slidesPerView={1}
+                  slidesPerGroup={1}
+                  slidesOffsetBefore={28}
+                  slidesOffsetAfter={28}
+                  spaceBetween={16}
+                  breakpoints={{
+                    480: { slidesPerView: 1.5, spaceBetween: 18 },
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    768: { slidesPerView: 2.5, spaceBetween: 22 },
+                    1024: { slidesPerView: 3, spaceBetween: 24 },
+                    1200: { slidesPerView: 3.5, spaceBetween: 26 },
+                    1400: { slidesPerView: 4, spaceBetween: 28 },
+                  }}
+                  loop
+                  loopAdditionalSlides={4}
+                  grabCursor
+                  speed={700}
+                  threshold={8}
+                  a11y={{
+                    enabled: true,
+                    containerMessage: "Traveler reviews",
+                    containerRoleDescriptionMessage: "carousel",
+                    itemRoleDescriptionMessage: "review",
+                    paginationBulletMessage: "Show review slide {{index}}",
+                  }}
+                  onRealIndexChange={handleRealIndexChange}
+                  onTouchStart={handleTouchStart}
+                  className="review-swiper h-full w-full"
+                >
+                  {testimonials.map((review) => (
+                    <SwiperSlide key={review.id} className="!h-auto min-w-0">
+                      <ReviewCard review={review} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+
+                <button
+                  type="button"
+                  onClick={prev}
+                  aria-label="Previous reviews"
+                  className="carousel-chevron-overlay absolute top-[40%] left-3 z-20 flex size-10 -translate-y-1/2 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:hidden"
+                >
+                  <IoChevronBack aria-hidden="true" size={25} />
+                </button>
+                <button
+                  type="button"
+                  onClick={next}
+                  aria-label="Next reviews"
+                  className="carousel-chevron-overlay absolute top-[40%] right-3 z-20 flex size-10 -translate-y-1/2 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:hidden"
+                >
+                  <IoChevronForward aria-hidden="true" size={25} />
+                </button>
+              </div>
             </div>
           </div>
         </div>

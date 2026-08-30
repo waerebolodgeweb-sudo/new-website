@@ -159,7 +159,7 @@ export default function HeroSection() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-      <div className="relative z-20 mx-auto w-full max-w-[1512px] px-5 pt-24 pb-16 lg:px-20 lg:py-28">
+      <div className="relative z-30 mx-auto w-full max-w-[1512px] px-5 pt-24 pb-16 lg:px-20 lg:py-28">
         {/* <div
           aria-hidden="true"
           className="absolute top-0 bottom-0 left-0 -mt-24 hidden h-[calc(100vh-86px)] w-[660px] md:block"
@@ -172,7 +172,7 @@ export default function HeroSection() {
           }}
         /> */}
 
-        <div className="relative z-20">
+        <div className="relative z-20 mt-10 max-w-2xl lg:mt-0">
           <h1 className="max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
             {t("hero.line1")}
             <br />
@@ -192,7 +192,7 @@ export default function HeroSection() {
               aria-label={`Show hero video ${index + 1}`}
               aria-pressed={index === activeVideo || index === incomingVideo}
               onClick={() => startTransition(index)}
-              className="group flex h-11 flex-1 items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="group flex h-11 flex-1 cursor-pointer touch-manipulation items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <span className="h-1 w-full overflow-hidden rounded-full bg-white/30 transition-colors group-hover:bg-white/45">
                 <span
