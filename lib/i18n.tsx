@@ -43,7 +43,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "purpose.body1.post": '".',
     "purpose.body2":
       "But our mission goes beyond our walls. We commit 10% of your room rate to directly support the social and cultural initiatives of the Waerebo community. By staying with us, your adventure leaves a positive, lasting mark on the highlands.",
-    "purpose.cta": "Learn More",
+    "purpose.cta": "About Waerebo Lodge",
     "purpose.mapCta": "Open Map",
     "purpose.mapCtaMobile": "Open Location Map",
     "purpose.location.title": "Waerebo Lodge",
@@ -60,7 +60,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "services.headingRest": "You Need!",
     "services.body":
       "We offer more than just a stay. Enjoy warm Flores hospitality, expert local guides, and thoughtfully planned journeys so you can focus on the moments that matter",
-    "services.learnMore": "Learn More",
+    "services.learnMore": "Explore",
     "services.trip.label": "Waerebo Trip",
     "services.trip.content":
       "Pick from our curated 1 to 4-day guided trekking routes. Dive deep into Manggarai culture, sleep inside the iconic Village Houses, and explore the highlands safely",
@@ -727,7 +727,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "purpose.body1.post": '".',
     "purpose.body2":
       "Namun misi kami melampaui dinding lodge ini. Kami mengalokasikan 10% dari tarif kamar untuk mendukung langsung inisiatif sosial dan budaya komunitas Waerebo. Dengan menginap bersama kami, petualanganmu meninggalkan jejak positif yang bermakna di pegunungan ini.",
-    "purpose.cta": "Pelajari",
+    "purpose.cta": "Tentang Waerebo Lodge",
     "purpose.mapCta": "Buka Peta Lokasi",
     "purpose.mapCtaMobile": "Buka Peta Lokasi",
     "purpose.location.title": "Waerebo Lodge",
@@ -744,7 +744,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "services.headingRest": "yang Anda Butuhkan!",
     "services.body":
       "Kami menawarkan lebih dari sekadar tempat menginap. Nikmati keramahan Flores, pemandu lokal berpengalaman, dan perjalanan yang dirancang dengan baik agar Anda bisa fokus pada momen yang berarti.",
-    "services.learnMore": "Pelajari Lebih Lanjut",
+    "services.learnMore": "Jelajahi",
     "services.trip.label": "Paket Trip Waerebo",
     "services.trip.content":
       "Pilih rute trekking berpemandu 1 hingga 4 hari yang telah kami susun. Selami budaya Manggarai, bermalam di rumah adat ikonik, dan jelajahi dataran tinggi dengan aman.",

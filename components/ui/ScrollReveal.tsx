@@ -5,11 +5,11 @@ import { useEffect, useRef, useState } from "react";
 type Variant = "fadeUp" | "fadeDown" | "fadeLeft" | "fadeRight" | "fadeIn";
 
 const HIDDEN: Record<Variant, React.CSSProperties> = {
-  fadeUp:    { opacity: 0, transform: "translateY(48px)" },
-  fadeDown:  { opacity: 0, transform: "translateY(-48px)" },
-  fadeLeft:  { opacity: 0, transform: "translateX(-48px)" },
+  fadeUp: { opacity: 0, transform: "translateY(48px)" },
+  fadeDown: { opacity: 0, transform: "translateY(-48px)" },
+  fadeLeft: { opacity: 0, transform: "translateX(-48px)" },
   fadeRight: { opacity: 0, transform: "translateX(48px)" },
-  fadeIn:    { opacity: 0 },
+  fadeIn: { opacity: 0 },
 };
 
 interface Props {
@@ -55,6 +55,8 @@ export default function ScrollReveal({
       ref={ref}
       className={className}
       style={{
+        contentVisibility: "auto",
+        containIntrinsicSize: "auto 900px",
         transitionProperty: "opacity, transform",
         transitionDuration: `${duration}ms`,
         transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",

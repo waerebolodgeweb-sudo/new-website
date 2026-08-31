@@ -122,7 +122,8 @@ export default function ServicesSection() {
                             href={serviceHrefs[id]}
                             className="button-primary inline-flex min-h-11 w-full min-w-[150px] items-center justify-center rounded-lg px-6 text-base font-medium transition-colors md:w-fit"
                           >
-                            {t("services.learnMore")}
+                            {t("services.learnMore")}{" "}
+                            {t(`services.${id}.label`)}
                           </Link>
                         </div>
                         <div className="relative h-44 min-w-[180px] overflow-hidden rounded-2xl sm:h-auto">

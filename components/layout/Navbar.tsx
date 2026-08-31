@@ -68,7 +68,7 @@ function LangToggle({ transparent }: { transparent: boolean }) {
   return (
     <button
       onClick={toggle}
-      aria-label={`Switch language — current ${lang === "en" ? "English" : "Indonesian"}`}
+      aria-label={`EN / ID — switch language, current ${lang === "en" ? "English" : "Indonesian"}`}
       className={`inline-flex items-center gap-1 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors ${
         transparent
           ? "border-white/50 text-white hover:bg-white/10"

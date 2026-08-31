@@ -42,7 +42,7 @@ const mobileVideos = [
   },
 ];
 
-const TRANSITION_LEAD_SECONDS = 2.5;
+const TRANSITION_LEAD_SECONDS = 5;
 const CROSSFADE_MS = 900;
 
 /** Play a video, ignoring the AbortError thrown when the element is
@@ -54,12 +54,12 @@ function safePlay(element: HTMLVideoElement | null | undefined) {
   }
 }
 
-function useDesktopHeroVideo() {
-  const [isDesktop, setIsDesktop] = useState(false);
+function useHeroVideoMode() {
+  const [mode, setMode] = useState<"desktop" | "mobile" | null>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const update = () => setIsDesktop(mediaQuery.matches);
+    const update = () => setMode(mediaQuery.matches ? "desktop" : "mobile");
 
     update();
     mediaQuery.addEventListener("change", update);
@@ -67,12 +67,13 @@ function useDesktopHeroVideo() {
     return () => mediaQuery.removeEventListener("change", update);
   }, []);
 
-  return isDesktop;
+  return mode;
 }
 
 export default function HeroSection() {
   const { t } = useLang();
-  const isDesktop = useDesktopHeroVideo();
+  const mode = useHeroVideoMode();
+  const isDesktop = mode === "desktop";
   const videos = isDesktop ? desktopVideos : mobileVideos;
   const poster = isDesktop
     ? "/homepage/Homepage-Waerebo-Lodge-Hero-Overlay-Desktop-1.webp"
@@ -81,14 +82,27 @@ export default function HeroSection() {
   const transitionTimeoutRef = useRef<number | null>(null);
   const [activeVideo, setActiveVideo] = useState(0);
   const [incomingVideo, setIncomingVideo] = useState<number | null>(null);
+  const [incomingReady, setIncomingReady] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (mode === null) return;
+
     const activeElement = videoRefs.current[activeVideo];
     if (!activeElement) return;
 
     safePlay(activeElement);
-  }, [activeVideo, videos]);
+  }, [activeVideo, mode]);
+
+  useEffect(() => {
+    if (incomingVideo === null) return;
+
+    const incomingElement = videoRefs.current[incomingVideo];
+    if (!incomingElement) return;
+
+    incomingElement.currentTime = 0;
+    safePlay(incomingElement);
+  }, [incomingVideo]);
 
   useEffect(() => {
     return () => {
@@ -102,32 +116,39 @@ export default function HeroSection() {
     (nextIndex: number) => {
       if (incomingVideo !== null || nextIndex === activeVideo) return;
 
-      const currentElement = videoRefs.current[activeVideo];
-      const nextElement = videoRefs.current[nextIndex];
-
+      setIncomingReady(false);
       setIncomingVideo(nextIndex);
-
-      if (nextElement) {
-        nextElement.currentTime = 0;
-        safePlay(nextElement);
-      }
-
-      if (transitionTimeoutRef.current !== null) {
-        window.clearTimeout(transitionTimeoutRef.current);
-      }
-
-      transitionTimeoutRef.current = window.setTimeout(() => {
-        currentElement?.pause();
-        if (currentElement) {
-          currentElement.currentTime = 0;
-        }
-        setActiveVideo(nextIndex);
-        setIncomingVideo(null);
-        setProgress(0);
-      }, CROSSFADE_MS);
     },
     [activeVideo, incomingVideo]
   );
+
+  useEffect(() => {
+    if (!incomingReady || incomingVideo === null) return;
+
+    const currentElement = videoRefs.current[activeVideo];
+    const nextIndex = incomingVideo;
+
+    if (transitionTimeoutRef.current !== null) {
+      window.clearTimeout(transitionTimeoutRef.current);
+    }
+
+    transitionTimeoutRef.current = window.setTimeout(() => {
+      currentElement?.pause();
+      if (currentElement) {
+        currentElement.currentTime = 0;
+      }
+      setActiveVideo(nextIndex);
+      setIncomingVideo(null);
+      setIncomingReady(false);
+      setProgress(0);
+    }, CROSSFADE_MS);
+
+    return () => {
+      if (transitionTimeoutRef.current !== null) {
+        window.clearTimeout(transitionTimeoutRef.current);
+      }
+    };
+  }, [activeVideo, incomingReady, incomingVideo]);
 
   const goToNextVideo = useCallback(() => {
     startTransition((activeVideo + 1) % videos.length);
@@ -151,37 +172,50 @@ export default function HeroSection() {
     }
   };
 
+  const visibleVideoIndexes =
+    incomingVideo === null ? [activeVideo] : [activeVideo, incomingVideo];
+
   return (
     <section className="relative isolate flex h-screen min-h-[600px] items-start bg-neutral-900 lg:h-[89svh] lg:items-center">
-      {videos.map((video, index) => (
-        <video
-          key={`${isDesktop ? "desktop" : "mobile"}-${video.webm}`}
-          ref={(element) => {
-            videoRefs.current[index] = element;
-          }}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
-            index === incomingVideo
-              ? "z-20 opacity-100"
-              : index === activeVideo
-                ? "z-10 opacity-100"
-                : "z-0 opacity-0"
-          }`}
-          autoPlay={index === 0}
-          muted
-          playsInline
-          preload="auto"
-          poster={poster}
-          onTimeUpdate={(event) => handleTimeUpdate(event, index)}
-          onEnded={() => {
-            if (index === activeVideo) {
-              goToNextVideo();
-            }
-          }}
-        >
-          <source src={video.webm} type="video/webm" />
-          <source src={video.mp4} type="video/mp4" />
-        </video>
-      ))}
+      {mode !== null &&
+        visibleVideoIndexes.map((index) => {
+          const video = videos[index];
+
+          return (
+            <video
+              key={`${isDesktop ? "desktop" : "mobile"}-${video.webm}`}
+              ref={(element) => {
+                videoRefs.current[index] = element;
+              }}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
+                index === incomingVideo
+                  ? incomingReady
+                    ? "z-20 opacity-100"
+                    : "z-20 opacity-0"
+                  : index === activeVideo
+                    ? "z-10 opacity-100"
+                    : "z-0 opacity-0"
+              }`}
+              autoPlay={index === 0}
+              muted
+              playsInline
+              preload="auto"
+              poster={index === activeVideo ? poster : undefined}
+              onCanPlay={() => {
+                if (index === incomingVideo) setIncomingReady(true);
+              }}
+              onTimeUpdate={(event) => handleTimeUpdate(event, index)}
+              onEnded={() => {
+                if (index === activeVideo) {
+                  goToNextVideo();
+                }
+              }}
+            >
+              <source src={video.webm} type="video/webm" />
+              <source src={video.mp4} type="video/mp4" />
+            </video>
+          );
+        })}
       <div
         style={{
           background:

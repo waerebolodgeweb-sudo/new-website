@@ -23,8 +23,7 @@ export default function PurposeSection() {
                 alt="Waerebo Lodge sign"
                 width={680}
                 height={810}
-                priority
-                sizes="100vw"
+                sizes="(max-width: 479px) calc(100vw - 40px), 1px"
                 className="h-auto w-full rounded-[24px] object-cover shadow-md"
               />
 
@@ -108,7 +107,7 @@ export default function PurposeSection() {
 
           {/* Content */}
           <div className="w-full xl:w-2/5 xl:translate-y-20">
-            <p className="mb-2 text-sm font-normal text-savana-600 xl:mb-4 xl:text-base">
+            <p className="mb-2 text-sm font-normal text-savana-800 xl:mb-4 xl:text-base">
               {t("purpose.eyebrow")}
             </p>
 

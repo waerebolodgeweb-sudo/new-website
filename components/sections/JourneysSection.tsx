@@ -3,27 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, TouchEvent } from "react";
-import type { IconType } from "react-icons";
+import type { ComponentType, CSSProperties, TouchEvent } from "react";
 import {
-  IoBoatOutline,
-  IoCalendarOutline,
-  IoCarOutline,
   IoChevronBack,
   IoChevronForward,
-  IoPeopleOutline,
   IoBedOutline,
-  IoEarthOutline,
-  IoHomeOutline,
   IoLogoWhatsapp,
-  IoMapOutline,
   IoMailOutline,
-  IoRestaurantOutline,
-  IoSnowOutline,
   IoThermometerOutline,
-  IoLeafOutline,
-  IoWalkOutline,
-  IoWaterOutline,
   IoPeople,
   IoThumbsUp,
   IoCar,
@@ -45,6 +32,10 @@ import {
 } from "@/components/icons/new-icons";
 
 type TabKey = "trip" | "lodge" | "restaurant" | "transport";
+type JourneyIcon = ComponentType<{
+  className?: string;
+  "aria-hidden"?: boolean | "true" | "false";
+}>;
 const tabKeys: TabKey[] = ["trip", "lodge", "restaurant", "transport"];
 const MOBILE_SLIDE_DURATION_MS = 5000;
 const DEFAULT_DESKTOP_SLIDE_DURATION_MS = 6000;
@@ -54,7 +45,7 @@ const whatsappNumber = "6285339021145";
 const email = "waerebolodge@gmail.com";
 
 interface TripFeatureDef {
-  icon: any;
+  icon: JourneyIcon;
   labelKey: string;
 }
 
@@ -72,7 +63,7 @@ interface LodgeCardDef {
   title: string;
   image: string;
   meta: {
-    icon: any;
+    icon: JourneyIcon;
     label: string;
   }[];
 }
@@ -167,7 +158,7 @@ const customJourneyFeatures: TripFeatureDef[] = [
   { icon: IoCar, labelKey: "trip.custom.feature.accommodation" },
 ];
 
-const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], any> = {
+const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], JourneyIcon> = {
   people: IoPeople,
   ac: ACIcon,
   fan: FanIcon,
@@ -795,7 +786,7 @@ export default function JourneysSection() {
           className={`-mb-px px-5 pb-3 text-sm font-semibold whitespace-nowrap transition-colors md:text-lg ${
             activeTab === tab
               ? "border-b-2 border-savana-800 text-neutral-900"
-              : "border-b-2 border-neutral-50 text-neutral-200 hover:text-neutral-900"
+              : "border-b-2 border-neutral-50 text-neutral-500 hover:text-neutral-900"
           }`}
         >
           {t(`journeys.tab.${tab}`)}
@@ -813,7 +804,7 @@ export default function JourneysSection() {
         <div className="relative z-40 -mt-12.5 lg:-mt-16">
           <div className="overflow-hidden rounded-2xl border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
             <p
-              className={`mb-2 font-normal text-savana-600 ${
+              className={`mb-2 font-normal text-savana-700 ${
                 activeTab === "trip" ? "text-xs" : "text-base"
               }`}
             >
