@@ -40,6 +40,9 @@ export default function StorySection() {
 
   return (
     <section id="story" className="bg-savana-50 pt-7 pb-14 lg:pt-14 lg:pb-24">
+      <h1 className="sr-only">
+        {t("about.story.heading1")} {t("about.story.heading2")}
+      </h1>
       <div className="mx-auto max-w-[1512px] lg:px-20">
         <div className="lg:hidden">
           <div className="overflow-hidden">
@@ -66,11 +69,14 @@ export default function StorySection() {
           </div>
 
           <div className="mt-7 px-6 sm:px-6">
-            <h1 className="text-4xl leading-tight font-semibold text-neutral-900 md:text-5xl">
+            <h2
+              aria-hidden="true"
+              className="text-4xl leading-tight font-semibold text-neutral-900 md:text-5xl"
+            >
               {t("about.story.heading1")}
               <br />
               {t("about.story.heading2")}
-            </h1>
+            </h2>
             <div className="mt-4 space-y-4 text-sm leading-relaxed font-medium text-neutral-500">
               {t("about.story.body")
                 .split("\n\n")
@@ -104,11 +110,14 @@ export default function StorySection() {
 
         <div className="hidden items-start lg:grid lg:grid-cols-[1fr_0.86fr_0.56fr_0.72fr]">
           <div className="pt-24 pr-6 lg:pr-10">
-            <h1 className="text-[52px] leading-[1.04] font-normal text-neutral-900">
+            <h2
+              aria-hidden="true"
+              className="text-[52px] leading-[1.04] font-normal text-neutral-900"
+            >
               <span className="font-semibold">{t("about.story.heading1")}</span>
               <br />
               {t("about.story.heading2")}
-            </h1>
+            </h2>
             <div className="mt-8 space-y-6 text-[17px] leading-[1.55] font-normal text-neutral-900">
               {t("about.story.body")
                 .split("\n\n")

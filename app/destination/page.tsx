@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { destinations } from "./data";
 
 export default function DestinationIndexPage() {
-  redirect(`/destination/${destinations[0].slug}`);
+  permanentRedirect(`/destination/${destinations[0].slug}`);
 }

@@ -107,10 +107,13 @@ function HeroStrip() {
                 } ${col.pt ?? ""}`}
               >
                 {col.imgs.map(({ i, h }) => (
-                  <img
+                  <Image
                     key={i}
                     src={heroPhotos[i]}
                     alt=""
+                    width={740}
+                    height={880}
+                    sizes="370px"
                     loading={dup === 0 && i < 4 ? "eager" : "lazy"}
                     className={`w-full rounded-2xl object-cover ${h}`}
                   />

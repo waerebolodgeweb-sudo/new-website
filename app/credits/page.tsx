@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CreditsContent from "./_components/CreditsContent";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Photo Credits — Waerebo Lodge",
   description:
     "Attribution for photography and imagery used across the Waerebo Lodge website.",
-};
+  path: "/credits",
+});
 
 export default function CreditsPage() {
   return (

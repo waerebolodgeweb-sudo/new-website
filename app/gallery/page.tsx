@@ -4,12 +4,18 @@ import Footer from "@/components/layout/Footer";
 import ContactSection from "@/components/sections/ContactSection";
 import SocialMediaSection from "@/components/sections/SocialMediaSection";
 import GalleryContent from "./_components/GalleryContent";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Gallery — Waerebo Lodge",
   description:
     "Captured moments in Flores — culture, nature, and unforgettable experiences at Waerebo Lodge and beyond.",
-};
+  path: "/gallery",
+  image: {
+    url: "/Gallery/Gallery-Waerebo-Lodge-Hero-Carousel-Picture-01.webp",
+    alt: "Waerebo Lodge and Flores travel gallery",
+  },
+});
 
 export default function GalleryPage() {
   return (
