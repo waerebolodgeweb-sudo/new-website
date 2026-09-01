@@ -18,6 +18,17 @@ type Tile = { kind: "image"; key: TileKey; src: string } | { kind: "spacer" };
 
 const aboutAsset = (file: string) => `/About%20Us/${file}`;
 
+const tileHrefs: Record<TileKey, string> = {
+  "waerebo-village": "/destination/waerebo-village",
+  "pleas-waterfall": "/destination/pleas-waterfall",
+  "waerebo-lodge": "/lodge",
+  "hobbit-cave": "/destination/liang-bua",
+  "waerebo-house": "/destination/waerebo-village",
+  "double-bed": "/rooms/standard-double",
+  "nusa-molas": "/destination/nusa-molas",
+  restaurant: "/restaurant",
+};
+
 const tiles: Tile[] = [
   {
     kind: "image",
@@ -68,9 +79,10 @@ function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
   const { t } = useLang();
   const label = t(`about.tile.${tileKey}`);
   return (
-    <div
+    <Link
+      href={tileHrefs[tileKey]}
       data-reveal
-      className="group bg-savana-300 relative aspect-[0.88] overflow-hidden rounded-xl shadow-[0_16px_32px_rgba(38,35,22,0.18)] lg:aspect-square lg:rounded-[22px]"
+      className="group bg-savana-300 relative block aspect-[0.88] overflow-hidden rounded-xl shadow-[0_16px_32px_rgba(38,35,22,0.18)] focus-visible:ring-4 focus-visible:ring-savana-600 focus-visible:ring-offset-4 focus-visible:ring-offset-savana-200 focus-visible:outline-none lg:aspect-square lg:rounded-[22px]"
     >
       <Image
         src={src}
@@ -82,7 +94,7 @@ function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
       <p className="absolute right-3 bottom-3 left-3 text-sm leading-tight font-semibold text-white drop-shadow lg:text-base">
         {label}
       </p>
-    </div>
+    </Link>
   );
 }
 
