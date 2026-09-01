@@ -245,7 +245,7 @@ export default function HistorySection() {
   return (
     <section id="history" className="bg-savana-50 py-14 lg:py-24">
       <div className="mx-auto">
-        <div className="max-w-[1512px] px-4 sm:px-6 lg:px-20">
+        <div className="mx-auto max-w-[1512px] px-5 lg:px-20">
           <div className="grid gap-7 lg:grid-cols-[1fr_0.95fr] lg:gap-28">
             <div>
               <p className="mb-2 text-base font-medium text-savana-600">
@@ -264,7 +264,7 @@ export default function HistorySection() {
           </div>
         </div>
 
-        <div className="mt-9 px-6 lg:mt-16 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-24">
+        <div className="mx-auto mt-9 max-w-[1512px] px-5 lg:mt-16 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-24 lg:px-20">
           <div className="hidden lg:block">
             <div
               ref={stickyMediaRef}
