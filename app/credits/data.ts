@@ -29,7 +29,7 @@ const TRIP_ROOT = "/Trip Package";
 
 export function creditImageSrc(file: string): string {
   if (!file.startsWith("Trip-Waerebo-Lodge-")) {
-    return `/copyright/${encodeURIComponent(file)}`;
+    return `/copyright/thumbs/${encodeURIComponent(file)}`;
   }
 
   const folder = file.includes("-Hero-")

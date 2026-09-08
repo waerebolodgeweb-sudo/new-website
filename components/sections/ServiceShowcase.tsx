@@ -42,6 +42,7 @@ export default function ServiceShowcase({
             alt={`${titleHead}${titleTail}`}
             fill
             priority
+            sizes="(min-width: 1280px) 1280px, calc(100vw - 32px)"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
@@ -80,6 +81,7 @@ export default function ServiceShowcase({
                 src={thumb.src}
                 alt={thumb.alt}
                 fill
+                sizes="(min-width: 1024px) 25vw, 50vw"
                 className="object-cover"
               />
             </div>

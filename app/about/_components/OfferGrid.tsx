@@ -88,6 +88,7 @@ function ImageTile({ tileKey, src }: { tileKey: TileKey; src: string }) {
         src={src}
         alt={label}
         fill
+        sizes="(min-width: 1024px) 25vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

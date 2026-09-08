@@ -1,27 +1,22 @@
-import Image from "next/image";
-
 export function LodgeDirectionMap() {
   return (
     <section className="w-full">
-      {/* Mobile */}
-      <Image
-        src="/map/Waerebo-Lodge-Maps-Blueprint-Direction-Mobile.webp"
-        alt="Waerebo Lodge map and directions"
-        width={1080}
-        height={1920}
-        className="h-auto w-full object-contain md:hidden"
-        priority
-      />
-
-      {/* Desktop */}
-      <Image
-        src="/map/Waerebo-Lodge-Maps-Blueprint-Direction-Desktop.webp"
-        alt="Waerebo Lodge map and directions"
-        width={1920}
-        height={1080}
-        className="hidden h-auto w-full object-contain md:block"
-        priority
-      />
+      <picture>
+        <source
+          media="(min-width: 768px)"
+          srcSet="/map/Waerebo-Lodge-Maps-Blueprint-Direction-Desktop-Optimized.webp"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/map/Waerebo-Lodge-Maps-Blueprint-Direction-Mobile-Optimized.webp"
+          alt="Waerebo Lodge map and directions"
+          width={1080}
+          height={1920}
+          loading="lazy"
+          decoding="async"
+          className="h-auto w-full object-contain"
+        />
+      </picture>
     </section>
   );
 }

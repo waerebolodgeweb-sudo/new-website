@@ -220,20 +220,20 @@ export default function GuestExperienceSection() {
       <div className="ml-auto w-full max-w-[1920px]">
         <div className="ml-auto w-[calc(100%_-_20px)] max-w-[1845px] lg:w-[90.1vw]">
           <div className="mc:aspect-[1845/998] relative min-h-[980px] overflow-hidden rounded-l-[28px] rounded-r-none shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[1100px] lg:min-h-0 lg:rounded-l-[36px]">
-            <Image
-              src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Desktop.webp"
-              alt=""
-              fill
-              priority
-              className="hidden object-cover sm:block"
-            />
-            <Image
-              src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Mobile.webp"
-              alt=""
-              fill
-              priority
-              className="object-cover sm:hidden"
-            />
+            <picture className="absolute inset-0">
+              <source
+                media="(min-width: 640px)"
+                srcSet="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Desktop.webp"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/homepage/Homepage-Waerebo-Lodge-Background-Youtube-Video-Reviews-Mobile.webp"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </picture>
             <div className="absolute inset-0 bg-black/28" />
             <div className="absolute inset-y-0 left-0 w-[50%] bg-gradient-to-r from-black/42 via-black/24 to-transparent backdrop-blur-[2px]" />
             <div className="absolute inset-x-0 bottom-0 h-[36%] bg-gradient-to-t from-black/45 to-transparent" />

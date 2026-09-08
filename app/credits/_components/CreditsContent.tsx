@@ -81,6 +81,7 @@ export default function CreditsContent() {
                               fill
                               loading="lazy"
                               sizes="150px"
+                              unoptimized
                               className="object-cover"
                             />
                           </div>

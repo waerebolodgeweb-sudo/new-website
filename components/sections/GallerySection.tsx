@@ -208,18 +208,20 @@ export default function GallerySection() {
     <section className="z-10 bg-transparent py-2.5 pb-16 lg:py-20">
       <div className="max-w-[1845px mr-auto w-[calc(100%_-_20px)] lg:w-[90.1vw]">
         <div className="relative flex min-h-[640px] overflow-hidden rounded-l-none rounded-r-[28px] shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[676px] lg:rounded-r-[36px]">
-          <Image
-            src="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Desktop.webp"
-            alt=""
-            fill
-            className="hidden object-cover sm:block"
-          />
-          <Image
-            src="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Mobile.webp"
-            alt=""
-            fill
-            className="object-cover sm:hidden"
-          />
+          <picture className="absolute inset-0">
+            <source
+              media="(min-width: 640px)"
+              srcSet="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Desktop.webp"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Mobile.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/24 to-black/72" />
 
           <div className="relative z-10 my-auto flex w-full flex-col px-5 py-10 sm:px-8 sm:py-12 lg:px-[80px] lg:py-[52px]">
