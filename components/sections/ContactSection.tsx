@@ -219,7 +219,7 @@ export default function ContactSection() {
                   alt={slide.alt}
                   fill
                   sizes="(min-width: 1024px) 20vw, 50vw"
-                  className={`object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-105 ${
+                  className={`object-cover transition-opacity transition-transform duration-700 ease-out group-hover:scale-105 ${
                     index === activeLodgeSlide ? "opacity-100" : "opacity-0"
                   }`}
                 />

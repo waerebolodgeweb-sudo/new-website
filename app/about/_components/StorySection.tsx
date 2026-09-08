@@ -68,7 +68,7 @@ export default function StorySection() {
             </div>
           </div>
 
-          <div className="mt-7 px-6 sm:px-6">
+          <div className="px-6 sm:px-6">
             <h2
               aria-hidden="true"
               className="text-4xl leading-tight font-semibold text-neutral-900 md:text-5xl"
@@ -109,7 +109,7 @@ export default function StorySection() {
         </div>
 
         <div className="hidden items-start lg:grid lg:grid-cols-[1fr_0.86fr_0.56fr_0.72fr]">
-          <div className="pt-24 pr-6 lg:pr-10">
+          <div className="pr-6 lg:pr-10">
             <h2
               aria-hidden="true"
               className="text-[52px] leading-[1.04] font-normal text-neutral-900"
@@ -118,7 +118,7 @@ export default function StorySection() {
               <br />
               {t("about.story.heading2")}
             </h2>
-            <div className="mt-8 space-y-6 text-[17px] leading-[1.55] font-normal text-neutral-900">
+            <div className="mt-8 space-y-6 text-[16px] leading-[1.55] font-normal text-neutral-900">
               {t("about.story.body")
                 .split("\n\n")
                 .map((paragraph) => (

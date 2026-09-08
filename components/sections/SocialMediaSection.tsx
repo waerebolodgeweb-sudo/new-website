@@ -67,14 +67,14 @@ export default function SocialMediaSection() {
           </a>
 
           {/* Right: card panel */}
-          <div className="flex flex-col gap-10 rounded-3xl bg-transparent p-5 lg:w-[500px] lg:flex-shrink-0">
+          <div className="flex flex-col gap-5 rounded-3xl bg-transparent p-5 lg:w-[500px] lg:flex-shrink-0">
             {/* Channel tabs */}
             <div className="flex gap-4 border-b-2 border-savana-800/20">
               {CHANNELS.map((ch) => (
                 <button
                   key={ch.id}
                   onClick={() => setActive(ch.id)}
-                  className={`-mb-0.5 w-1/2 border-b-2 px-4 py-3 text-xl font-semibold transition-colors lg:w-fit ${
+                  className={`-mb-0.5 w-1/2 border-b-2 py-3 text-lg font-semibold transition-colors lg:w-fit lg:px-4 lg:text-xl ${
                     active === ch.id
                       ? "border-yellow-600 text-savana-800"
                       : "border-transparent text-savana-800 opacity-40 hover:opacity-70"

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import type { Swiper as SwiperClass } from "swiper";
 import { A11y } from "swiper/modules";
@@ -443,13 +443,14 @@ function FeatureImage({
    ──────────────────────────────────────────────── */
 function IconicCarousel({ lang }: { lang: Lang }) {
   const [start, setStart] = useState(0);
+  const [mobileStart, setMobileStart] = useState(0);
   const startRef = useRef(0);
   const mobileSwiperRef = useRef<SwiperRef>(null);
   const desktopCardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const animationFrameRef = useRef<number | null>(null);
   const total = iconicDestinations.length;
 
-  const animateTo = (nextIndex: number) => {
+  const animateTo = useCallback((nextIndex: number) => {
     startRef.current = nextIndex;
 
     if (window.innerWidth < 1024) {
@@ -506,7 +507,20 @@ function IconicCarousel({ lang }: { lang: Lang }) {
     };
 
     animationFrameRef.current = requestAnimationFrame(tick);
-  };
+  }, []);
+
+  useEffect(() => {
+    // Each selected card gets a fresh 20 seconds, including manual navigation.
+    const timer = window.setTimeout(() => {
+      if (window.innerWidth < 1024) {
+        mobileSwiperRef.current?.swiper.slideNext();
+      } else {
+        animateTo((startRef.current + 1) % total);
+      }
+    }, 20_000);
+
+    return () => window.clearTimeout(timer);
+  }, [start, mobileStart, animateTo, total]);
 
   const prev = () => {
     if (window.innerWidth < 1024 && mobileSwiperRef.current) {
@@ -527,8 +541,8 @@ function IconicCarousel({ lang }: { lang: Lang }) {
   };
 
   const handleMobileSlideChange = (swiper: SwiperClass) => {
-    startRef.current = swiper.realIndex;
-    setStart(swiper.realIndex);
+    // Hidden Swiper updates must not reset the desktop accordion selection.
+    setMobileStart(swiper.realIndex);
   };
 
   useEffect(
@@ -601,7 +615,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
             >
               <Link
                 href={`/destination/${dest.slug}`}
-                aria-current={index === start ? "true" : undefined}
+                aria-current={index === mobileStart ? "true" : undefined}
                 className="group relative block aspect-[340/520] w-full overflow-hidden rounded-[20px]"
               >
                 <Image
@@ -609,7 +623,7 @@ function IconicCarousel({ lang }: { lang: Lang }) {
                   alt={dest.title[lang]}
                   fill
                   sizes="(max-width: 640px) calc(100vw - 48px), 380px"
-                  loading={index === start ? "eager" : "lazy"}
+                  loading={index === mobileStart ? "eager" : "lazy"}
                   className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />

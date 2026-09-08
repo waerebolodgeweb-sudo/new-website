@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   keywords: [
     "Waerebo Lodge",
-    "Wae Rebo accommodation",
-    "Wae Rebo trek",
+    "Waerebo accommodation",
+    "Waerebo trek",
     "Flores lodge",
     "Manggarai travel",
     "East Nusa Tenggara accommodation",
@@ -118,7 +118,7 @@ export default function RootLayout({
       lang="en"
       className={`${jakarta.variable} ${dancing.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-light-green-100 font-sans">
+      <body className="flex min-h-full flex-col bg-savana-050 font-sans">
         <JsonLd data={websiteJsonLd} />
         <LanguageProvider>
           {children}

@@ -1,6 +1,6 @@
 # Waerebo Lodge
 
-> Official website of Waerebo Lodge, a lodge and travel basecamp in Dintor, Flores, Indonesia, for journeys to Wae Rebo Village and destinations across Manggarai.
+> Official website of Waerebo Lodge, a lodge and travel basecamp in Dintor, Flores, Indonesia, for journeys to Waerebo Village and destinations across Manggarai.
 
 Waerebo Lodge provides accommodation, guided trekking packages, a restaurant, and transport services. The website is available in English and Indonesian. Use the canonical `https://waerebo-lodge.com` URLs below.
 
@@ -9,10 +9,10 @@ Waerebo Lodge provides accommodation, guided trekking packages, a restaurant, an
 - [Home](https://waerebo-lodge.com/): Overview of Waerebo Lodge, its location, services, guest experiences, and contact details.
 - [About Waerebo Lodge](https://waerebo-lodge.com/about): The lodge's story, purpose, community commitment, and history.
 - [Lodge and Rooms](https://waerebo-lodge.com/lodge): Available room types, facilities, and links to room details.
-- [Wae Rebo Trips](https://waerebo-lodge.com/trips): Guided trekking packages and custom itineraries.
+- [Waerebo Trips](https://waerebo-lodge.com/trips): Guided trekking packages and custom itineraries.
 - [Restaurant](https://waerebo-lodge.com/restaurant): Dining information and daily menu highlights.
 - [Transport](https://waerebo-lodge.com/transport): Airport transfers, lodge transfers, and transport options across Flores.
-- [Destinations](https://waerebo-lodge.com/destination/waerebo-village): Wae Rebo Village and nearby Flores destinations.
+- [Destinations](https://waerebo-lodge.com/destination/waerebo-village): Waerebo Village and nearby Flores destinations.
 - [Gallery](https://waerebo-lodge.com/gallery): Photographs and guest moments from the lodge and surrounding destinations.
 - [Frequently Asked Questions](https://waerebo-lodge.com/faq): Answers about stays, trips, transport, dining, and booking.
 
