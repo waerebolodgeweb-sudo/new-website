@@ -203,7 +203,7 @@ export default function FaqContent() {
         </div>
 
         {/* Mobile — tab row, pinned under the navbar while scrolling */}
-        <div className="sticky top-[var(--navbar-bottom,0px)] z-20 -mx-5 mt-3 flex [scrollbar-width:none] items-center gap-5 overflow-x-auto justify-center border-b border-savana-200 bg-savana-050 px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
+        <div className="sticky top-[var(--navbar-bottom,0px)] z-20 -mx-5 mt-3 flex [scrollbar-width:none] items-center justify-start gap-5 overflow-x-auto border-b border-savana-200 bg-savana-050 px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
           {catKeys.map((cat) => (
             <button
               key={cat}

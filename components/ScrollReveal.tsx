@@ -20,7 +20,9 @@ export default function ScrollReveal() {
   useEffect(() => {
     // The homepage has its own section-level reveal boundaries. Skipping the
     // global DOM scan there avoids duplicate observers and expensive layout work.
-    if (pathname === "/") return;
+    // Credits is a long, image-heavy attribution page. Keeping it out of the
+    // global reveal flow ensures its content paints immediately in Safari.
+    if (pathname === "/" || pathname === "/credits") return;
 
     if (
       typeof window === "undefined" ||
