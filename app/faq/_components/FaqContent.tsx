@@ -5,20 +5,20 @@ import { NewIcon } from "@/components/icons/new-icons";
 import { useLang } from "@/lib/i18n";
 
 type CatKey =
+  | "general"
   | "location"
   | "rooms"
   | "reservation"
   | "restaurant"
-  | "waerebo"
-  | "general";
+  | "waerebo";
 
 const catKeys: CatKey[] = [
+  "general",
   "location",
   "rooms",
   "reservation",
   "restaurant",
   "waerebo",
-  "general",
 ];
 
 interface FaqItem {
@@ -33,12 +33,12 @@ const createFaqItems = (category: CatKey, count: number): FaqItem[] =>
   }));
 
 const faqItems: Record<CatKey, FaqItem[]> = {
+  general: createFaqItems("general", 4),
   location: createFaqItems("location", 6),
   rooms: createFaqItems("rooms", 5),
   reservation: createFaqItems("reservation", 4),
   restaurant: createFaqItems("restaurant", 5),
   waerebo: createFaqItems("waerebo", 5),
-  general: createFaqItems("general", 4),
 };
 
 /* Running number across every group (01 … 29) */
@@ -72,25 +72,57 @@ function formatInline(text: string) {
     });
 }
 
-function FaqAnswer({ text }: { text: string }) {
+function FaqAnswer({
+  text,
+  isOpen,
+  id,
+}: {
+  text: string;
+  isOpen: boolean;
+  id: string;
+}) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<number>();
+
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+    const observer = new ResizeObserver(() => {
+      setHeight(content.getBoundingClientRect().height);
+    });
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="mt-3 space-y-3 pr-8 text-sm leading-6 text-pale-savana-300 lg:mt-4 lg:pr-9 lg:text-base lg:leading-7">
-      {text.split("\n\n").map((block, blockIndex) => {
-        const lines = block.split("\n").filter(Boolean);
-        const isList = lines.every((line) => line.startsWith("- "));
+    <div
+      id={id}
+      inert={!isOpen}
+      aria-hidden={!isOpen}
+      style={{ height: isOpen ? height : 0 }}
+      className="overflow-hidden transition-[height] duration-1000 ease-in-out motion-reduce:duration-200"
+    >
+      <div
+        ref={contentRef}
+        className="space-y-3 pt-3 pr-8 text-sm leading-6 text-pale-savana-300 lg:pt-4 lg:pr-9 lg:text-base lg:leading-7"
+      >
+        {text.split("\n\n").map((block, blockIndex) => {
+          const lines = block.split("\n").filter(Boolean);
+          const isList = lines.every((line) => line.startsWith("- "));
 
-        if (isList) {
-          return (
-            <ul key={blockIndex} className="list-disc space-y-1 pl-5">
-              {lines.map((line, lineIndex) => (
-                <li key={lineIndex}>{formatInline(line.slice(2))}</li>
-              ))}
-            </ul>
-          );
-        }
+          if (isList) {
+            return (
+              <ul key={blockIndex} className="list-disc space-y-1 pl-5">
+                {lines.map((line, lineIndex) => (
+                  <li key={lineIndex}>{formatInline(line.slice(2))}</li>
+                ))}
+              </ul>
+            );
+          }
 
-        return <p key={blockIndex}>{formatInline(block)}</p>;
-      })}
+          return <p key={blockIndex}>{formatInline(block)}</p>;
+        })}
+      </div>
     </div>
   );
 }
@@ -171,7 +203,7 @@ export default function FaqContent() {
         </div>
 
         {/* Mobile — tab row, pinned under the navbar while scrolling */}
-        <div className="sticky top-16 z-20 -mx-5 mt-3 flex [scrollbar-width:none] items-center gap-5 overflow-x-auto border-b border-savana-200 bg-savana-050 px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
+        <div className="sticky top-[var(--navbar-bottom,0px)] z-20 -mx-5 mt-3 flex [scrollbar-width:none] items-center gap-5 overflow-x-auto justify-center border-b border-savana-200 bg-savana-050 px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
           {catKeys.map((cat) => (
             <button
               key={cat}
@@ -188,7 +220,7 @@ export default function FaqContent() {
         </div>
 
         {/* Questions — every group stacked, divided by a rule */}
-        <div className="mt-8 lg:mt-0 lg:min-w-0 lg:flex-1 xl:max-w-[782px]">
+        <div className="mt-8 [overflow-anchor:none] lg:mt-0 lg:min-w-0 lg:flex-1 xl:max-w-[782px]">
           {catKeys.map((cat, groupIndex) => (
             <div
               key={cat}
@@ -218,6 +250,7 @@ export default function FaqContent() {
                     <button
                       onClick={() => setOpen(isOpen ? null : faq.qKey)}
                       aria-expanded={isOpen}
+                      aria-controls={`answer-${faq.qKey}`}
                       className="flex w-full items-start gap-2 text-left lg:gap-3"
                     >
                       <span className="mt-[3px] w-6 flex-shrink-0 text-xs font-medium text-savana-500 lg:mt-1.5 lg:w-7 lg:text-sm">
@@ -227,12 +260,16 @@ export default function FaqContent() {
                         {t(faq.qKey)}
                       </span>
                       <NewIcon
-                        name={isOpen ? "chevron-up" : "chevron-down"}
+                        name="chevron-down"
                         size={24}
-                        className="mt-0.5 text-savana-600"
+                        className={`mt-0.5 text-savana-600 transition-transform duration-1000 ease-in-out motion-reduce:duration-200 ${isOpen ? "rotate-180" : "rotate-0"}`}
                       />
                     </button>
-                    {isOpen && <FaqAnswer text={t(faq.aKey)} />}
+                    <FaqAnswer
+                      id={`answer-${faq.qKey}`}
+                      isOpen={isOpen}
+                      text={t(faq.aKey)}
+                    />
                   </div>
                 );
               })}

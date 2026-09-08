@@ -8,7 +8,6 @@ import {
   IoMenuOutline,
   IoCloseOutline,
   IoChevronDownOutline,
-  IoChevronUpOutline,
   IoLogoInstagram,
   IoLogoTiktok,
   IoLogoYoutube,
@@ -61,7 +60,6 @@ const mobileSocialLinks = [
 
 const desktopNavMediaQuery = "(min-width: 1440px)";
 const navbarRevealOffset = 80;
-const scrollDirectionThreshold = 8;
 
 function LangToggle({ transparent }: { transparent: boolean }) {
   const { lang, toggle } = useLang();
@@ -83,14 +81,70 @@ function LangToggle({ transparent }: { transparent: boolean }) {
 }
 
 export default function Navbar() {
+  const navbarRef = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileServicesHeight, setMobileServicesHeight] = useState(0);
+  const mobileServicesRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
   const [currentHash, setCurrentHash] = useState("");
   const lastScrollY = useRef(0);
   const pathname = usePathname();
   const { t } = useLang();
+
+  useEffect(() => {
+    const navbar = navbarRef.current;
+    if (!navbar) return;
+    let frame = 0;
+    let animating = false;
+    const update = () => {
+      document.documentElement.style.setProperty(
+        "--navbar-bottom",
+        `${Math.max(0, navbar.getBoundingClientRect().bottom)}px`
+      );
+      if (animating) frame = requestAnimationFrame(update);
+    };
+    const start = (event: TransitionEvent) => {
+      if (event.target !== navbar || event.propertyName !== "translate") return;
+      animating = true;
+      cancelAnimationFrame(frame);
+      update();
+    };
+    const stop = (event: TransitionEvent) => {
+      if (event.target !== navbar || event.propertyName !== "translate") return;
+      animating = false;
+      cancelAnimationFrame(frame);
+      update();
+    };
+    const observer = new ResizeObserver(() => {
+      if (!animating) update();
+    });
+    observer.observe(navbar);
+    navbar.addEventListener("transitionrun", start);
+    navbar.addEventListener("transitionend", stop);
+    navbar.addEventListener("transitioncancel", stop);
+    update();
+    return () => {
+      animating = false;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      navbar.removeEventListener("transitionrun", start);
+      navbar.removeEventListener("transitionend", stop);
+      navbar.removeEventListener("transitioncancel", stop);
+      document.documentElement.style.removeProperty("--navbar-bottom");
+    };
+  }, []);
+
+  useEffect(() => {
+    const content = mobileServicesRef.current;
+    if (!content) return;
+    const observer = new ResizeObserver(() => {
+      setMobileServicesHeight(content.getBoundingClientRect().height);
+    });
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, [open]);
 
   useEffect(() => {
     let animationFrame: number | null = null;
@@ -104,7 +158,7 @@ export default function Navbar() {
       if (currentScrollY <= navbarRevealOffset) {
         setNavHidden(false);
         lastScrollY.current = currentScrollY;
-      } else if (Math.abs(scrollDelta) >= scrollDirectionThreshold) {
+      } else if (scrollDelta !== 0) {
         setNavHidden(scrollDelta > 0);
         lastScrollY.current = currentScrollY;
       }
@@ -187,7 +241,8 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 right-0 left-0 z-50 transition-[transform,background-color,border-color] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] focus-within:translate-y-0 motion-reduce:transition-none ${
+      ref={navbarRef}
+      className={`fixed top-0 right-0 left-0 z-50 transition-[translate,background-color,border-color] duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] focus-within:translate-y-0 ${
         navHidden && !open ? "-translate-y-full" : "translate-y-0"
       } ${
         transparent
@@ -324,18 +379,26 @@ export default function Navbar() {
                     : "text-pale-savana-200 hover:bg-savana-200/60"
                 }`}
                 aria-expanded={mobileServicesOpen}
+                aria-controls="mobile-services-panel"
                 onClick={() => setMobileServicesOpen((current) => !current)}
               >
                 <span>{t("nav.services")}</span>
-                {mobileServicesOpen ? (
-                  <IoChevronUpOutline size={16} />
-                ) : (
-                  <IoChevronDownOutline size={16} />
-                )}
+                <IoChevronDownOutline
+                  size={16}
+                  className={`transition-transform duration-1000 ease-in-out motion-reduce:duration-200 ${mobileServicesOpen ? "rotate-180" : "rotate-0"}`}
+                />
               </button>
 
-              {mobileServicesOpen && (
-                <div className="space-y-1 py-1 pl-6">
+              <div
+                id="mobile-services-panel"
+                inert={!mobileServicesOpen}
+                aria-hidden={!mobileServicesOpen}
+                style={{
+                  height: mobileServicesOpen ? mobileServicesHeight : 0,
+                }}
+                className="overflow-hidden transition-[height] duration-1000 ease-in-out motion-reduce:duration-200"
+              >
+                <div ref={mobileServicesRef} className="space-y-1 py-1 pl-6">
                   {navLinks
                     .find((link) => link.key === "nav.services")
                     ?.children?.map((child) => (
@@ -361,7 +424,7 @@ export default function Navbar() {
                       </Link>
                     ))}
                 </div>
-              )}
+              </div>
 
               {navLinks
                 .filter(
@@ -403,7 +466,7 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 text-sm font-medium text-savana-600 transition-opacity hover:opacity-75"
                 >
-                  <Icon size={16} className="text-neutral-400" />
+                  <Icon size={16} className="text-savana-800" />
                   <span>{label}</span>
                 </a>
               ))}

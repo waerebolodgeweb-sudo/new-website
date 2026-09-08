@@ -101,7 +101,10 @@ function useMobileTripStickyState(
       const stackHeight = Math.ceil(stack.getBoundingClientRect().height);
       const stackRect = stack.getBoundingClientRect();
       const rootRect = root.getBoundingClientRect();
-      const pinned = stackRect.top <= 0.5 && rootRect.bottom > stackHeight;
+      const stickyTop = parseFloat(getComputedStyle(stack).top) || 0;
+      const pinned =
+        stackRect.top <= stickyTop + 0.5 &&
+        rootRect.bottom > stackHeight + stickyTop;
       const exiting = pinned && rootRect.bottom <= window.innerHeight;
       const active = pinned && !exiting;
 
@@ -1191,7 +1194,7 @@ export default function TripContent() {
       >
         <div
           ref={stickyStackRef}
-          className={`sticky top-0 z-40 -mt-11 transition-[transform,opacity,box-shadow,background-color] duration-300 ease-out motion-reduce:transition-none sm:-mt-14 lg:relative lg:top-auto lg:z-20 lg:translate-y-0 lg:bg-transparent lg:opacity-100 lg:shadow-none ${
+          className={`sticky top-[var(--navbar-bottom,0px)] z-40 -mt-11 transition-[transform,opacity,box-shadow,background-color] duration-300 ease-out motion-reduce:transition-none sm:-mt-14 lg:relative lg:top-auto lg:z-20 lg:translate-y-0 lg:bg-transparent lg:opacity-100 lg:shadow-none ${
             stickyState.pinned
               ? "bg-savana-50 shadow-[0_4px_8px_rgba(38,35,22,0.14)]"
               : "bg-transparent"
