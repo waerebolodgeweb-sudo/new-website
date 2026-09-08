@@ -216,30 +216,40 @@ export default function HeroSection() {
             </video>
           );
         })}
+      <div className="absolute top-0 z-10 h-20 w-full bg-gradient-to-b from-black/20 via-black/12 to-transparent" />
       <div
+        className="absolute inset-0 z-30 hidden w-[900px] lg:block"
         style={{
-          background:
-            "linear-gradient(270deg, rgba(16, 19, 19, 0) 0%, rgba(16, 19, 19, 0.5) 100%)",
-          backdropFilter: "blur(0px)",
-          WebkitBackdropFilter: "blur(0px)",
-          pointerEvents: "none",
-        }}
-        className="absolute inset-0 z-30 hidden w-[660px] lg:block"
-      />
-      <div
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(16, 19, 19, 0.5) 0%, rgba(16, 19, 19, 0) 100%)",
+          background: "rgba(16, 19, 19, 0.5)",
+
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+
+          maskImage:
+            "linear-gradient(270deg, transparent 0%, black 65%, black 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, transparent 100%)",
+            "linear-gradient(270deg, transparent 0%, black 65%, black 100%)",
+
           pointerEvents: "none",
         }}
-        className="absolute inset-x-0 top-0 z-30 block h-1/2 lg:hidden"
       />
-      <div className="relative z-30 mx-auto w-full max-w-[1512px] px-5 pt-24 pb-16 lg:px-20 lg:py-28">
+      <div
+        className="absolute inset-x-0 top-0 z-30 block h-1/2 lg:hidden"
+        style={{
+          background: "rgba(16, 19, 19, 0.6)",
+
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+
+          maskImage:
+            "linear-gradient(to bottom, black 0%, black 45%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, black 45%, transparent 100%)",
+
+          pointerEvents: "none",
+        }}
+      />
+      <div className="relative z-30 mx-auto w-full max-w-[1512px] px-5 pt-20 pb-16 lg:px-20 lg:py-28">
         {/* <div
           aria-hidden="true"
           className="absolute -top-20 bottom-0 left-0 hidden h-[89svh] w-[660px] lg:block"
@@ -253,18 +263,23 @@ export default function HeroSection() {
         /> */}
 
         <div className="relative z-20 mt-10 max-w-2xl lg:mt-0">
-          <h1 className="max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="block max-w-2xl text-3xl leading-[1.05] font-semibold text-white sm:text-5xl lg:hidden lg:text-6xl xl:text-7xl">
+            {t("heromobile.line1")}
+            <br />
+            {t("heromobile.line2")}
+          </h1>
+          <h1 className="hidden max-w-2xl text-4xl leading-[1.05] font-semibold text-white sm:text-5xl lg:block lg:text-6xl xl:text-7xl">
             {t("hero.line1")}
             <br />
             {t("hero.line2")}
             <br />
             {t("hero.line3")}
           </h1>
-          <p className="mt-5 max-w-md text-sm leading-relaxed font-normal text-white/75 lg:text-base">
+          <p className="mt-3 max-w-md text-sm leading-relaxed font-normal text-white/90 lg:mt-5 lg:text-base">
             {t("hero.subtitle")}
           </p>
         </div>
-        <div className="mt-8 flex w-full max-w-[220px] items-center gap-2">
+        <div className="mt-2 flex w-full max-w-[220px] items-center gap-2">
           {videos.map((video, index) => (
             <button
               key={`progress-${video.webm}`}
@@ -272,7 +287,7 @@ export default function HeroSection() {
               aria-label={`Show hero video ${index + 1}`}
               aria-pressed={index === activeVideo || index === incomingVideo}
               onClick={() => startTransition(index)}
-              className="group flex h-11 flex-1 cursor-pointer touch-manipulation items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="group flex h-4 flex-1 cursor-pointer touch-manipulation items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <span className="h-1 w-full overflow-hidden rounded-full bg-white/30 transition-colors group-hover:bg-white/45">
                 <span

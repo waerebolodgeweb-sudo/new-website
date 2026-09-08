@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   IoChevronBackOutline,
@@ -195,13 +196,27 @@ export default function GuestExperienceSection() {
   };
 
   useEffect(() => {
+    if (!modalVideo) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setModalVideo(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [modalVideo]);
+
+  useEffect(() => {
     return () => {
       if (textTimerRef.current) window.clearTimeout(textTimerRef.current);
     };
   }, []);
 
   return (
-    <section className="bg-savana-050 py-2.5 lg:py-20" id="testimonials">
+    <section className="bg-savana-050 py-4 lg:py-20" id="testimonials">
       <div className="ml-auto w-full max-w-[1920px]">
         <div className="ml-auto w-[calc(100%_-_20px)] max-w-[1845px] lg:w-[90.1vw]">
           <div className="mc:aspect-[1845/998] relative min-h-[980px] overflow-hidden rounded-l-[28px] rounded-r-none shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[1100px] lg:min-h-0 lg:rounded-l-[36px]">
@@ -306,9 +321,12 @@ export default function GuestExperienceSection() {
                           className={`group relative block aspect-[2/3] w-full overflow-hidden rounded-[20px] text-left transition-opacity duration-500 disabled:cursor-not-allowed lg:rounded-[24px] ${
                             index === current
                               ? "border-2 border-white ring-white"
-                              : "opacity-55"
+                              : "opacity-100"
                           }`}
                         >
+                          {index !== current && (
+                            <div className="pointer-events-none absolute inset-0 z-10 bg-black/55 transition-colors duration-500 group-hover:bg-black/45" />
+                          )}
                           <Image
                             src={video.thumbnail}
                             alt={video.title}
@@ -320,10 +338,6 @@ export default function GuestExperienceSection() {
                                 : ""
                             }`}
                           />
-
-                          {index !== current && (
-                            <span className="absolute inset-0 bg-slate-950/45" />
-                          )}
 
                           {index === current && video.url && (
                             <span className="absolute top-1/2 left-1/2 grid h-[112px] w-[112px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-slate-950/65 text-white shadow-lg transition-transform group-hover:scale-105">
@@ -372,29 +386,43 @@ export default function GuestExperienceSection() {
           </div>
         </div>
       </div>
-      {modalVideo && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/78 px-4 py-8">
-          <div className="relative w-full max-w-4xl">
-            <button
-              type="button"
-              onClick={() => setModalVideo(null)}
-              aria-label="Close video"
-              className="absolute -top-14 right-0 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 shadow-lg"
-            >
-              <IoClose size={24} />
-            </button>
-            <div className="relative aspect-video overflow-hidden rounded-[24px] bg-black">
-              <iframe
-                src={`https://www.youtube.com/embed/${modalVideo.id}?autoplay=1`}
-                title={modalVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
+      {modalVideo &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={modalVideo.title}
+            onClick={(event) => {
+              if (
+                event.target instanceof Element &&
+                !event.target.closest("button, iframe")
+              )
+                setModalVideo(null);
+            }}
+            className="fixed inset-0 z-[100] grid place-items-center bg-black/78 px-4 py-8"
+          >
+            <div className="relative w-full max-w-[min(56rem,calc((100dvh-8rem)*16/9))]">
+              <button
+                type="button"
+                onClick={() => setModalVideo(null)}
+                aria-label="Close video"
+                className="absolute -top-14 right-0 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 shadow-lg"
+              >
+                <IoClose size={24} />
+              </button>
+              <div className="relative aspect-video overflow-hidden rounded-[24px] bg-black">
+                <iframe
+                  src={`https://www.youtube.com/embed/${modalVideo.id}?autoplay=1`}
+                  title={modalVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </section>
   );
 }

@@ -4,18 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentType, CSSProperties, TouchEvent } from "react";
+import type { Swiper as SwiperClass } from "swiper";
+import { A11y, Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import {
   IoChevronBack,
   IoChevronForward,
   IoBedOutline,
-  IoLogoWhatsapp,
-  IoMailOutline,
   IoThermometerOutline,
   IoPeople,
-  IoThumbsUp,
-  IoCar,
-  IoCalendar,
-  IoHome,
 } from "react-icons/io5";
 import { rooms, type Room } from "@/app/rooms/data";
 import { useLang } from "@/lib/i18n";
@@ -41,8 +39,7 @@ const MOBILE_SLIDE_DURATION_MS = 5000;
 const DEFAULT_DESKTOP_SLIDE_DURATION_MS = 6000;
 const TRIP_DESKTOP_SLIDE_DURATION_MS = 9000;
 const LODGE_DESKTOP_SLIDE_DURATION_MS = 6000;
-const whatsappNumber = "6285339021145";
-const email = "waerebolodge@gmail.com";
+const JOURNEY_SLIDE_SPEED_MS = 500;
 
 interface TripFeatureDef {
   icon: JourneyIcon;
@@ -147,17 +144,6 @@ const tripDefs: JourneyCardDef[] = [
   },
 ];
 
-const customJourneyFeatures: TripFeatureDef[] = [
-  { icon: IoPeople, labelKey: "trip.custom.feature.travelers" },
-  { icon: IoThumbsUp, labelKey: "trip.custom.feature.team" },
-  { icon: IoCalendar, labelKey: "trip.custom.feature.flexible" },
-  { icon: IoHome, labelKey: "trip.custom.feature.lodge" },
-  { icon: VillageIcon, labelKey: "trip.custom.feature.village" },
-  { icon: WaterfallsIcon, labelKey: "trip.custom.feature.authentic" },
-  { icon: LunchIcon, labelKey: "trip.custom.feature.meals" },
-  { icon: IoCar, labelKey: "trip.custom.feature.accommodation" },
-];
-
 const roomSpecIcon: Record<Room["cardSpecs"][number]["key"], JourneyIcon> = {
   people: IoPeople,
   ac: ACIcon,
@@ -218,10 +204,6 @@ const restaurantSliderImages = [
   },
 ];
 
-function getVisibleSlides<T>(items: T[], activeIndex: number, count: number) {
-  return [...items, ...items].slice(activeIndex, activeIndex + count);
-}
-
 function useAutoSlider(
   total: number,
   isActive = true,
@@ -265,7 +247,71 @@ function useAutoSlider(
     setActiveIndex((current) => (current + 1) % total);
   };
 
-  return { activeIndex, setActiveIndex, goToPrevious, goToNext, duration };
+  const goToSlide = (index: number) => {
+    if (index === activeIndex) return;
+
+    setActiveIndex(index);
+  };
+
+  return {
+    activeIndex,
+    goToSlide,
+    goToPrevious,
+    goToNext,
+    duration,
+  };
+}
+
+function useResponsiveSliderDuration(desktop: number) {
+  const [duration, setDuration] = useState(desktop);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px)");
+    const updateDuration = () =>
+      setDuration(query.matches ? desktop : MOBILE_SLIDE_DURATION_MS);
+
+    updateDuration();
+    query.addEventListener("change", updateDuration);
+    return () => query.removeEventListener("change", updateDuration);
+  }, [desktop]);
+
+  return duration;
+}
+
+function useSwiperSlider(desktopDuration: number) {
+  const swiperRef = useRef<SwiperClass | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const duration = useResponsiveSliderDuration(desktopDuration);
+
+  const setSwiper = (swiper: SwiperClass) => {
+    swiperRef.current = swiper;
+  };
+
+  const goToPrevious = () => {
+    const swiper = swiperRef.current;
+    if (swiper && !swiper.destroyed) swiper.slidePrev(JOURNEY_SLIDE_SPEED_MS);
+  };
+
+  const goToNext = () => {
+    const swiper = swiperRef.current;
+    if (swiper && !swiper.destroyed) swiper.slideNext(JOURNEY_SLIDE_SPEED_MS);
+  };
+
+  const goToSlide = (index: number) => {
+    const swiper = swiperRef.current;
+    if (swiper && !swiper.destroyed)
+      swiper.slideToLoop(index, JOURNEY_SLIDE_SPEED_MS);
+  };
+
+  return {
+    setSwiper,
+    activeIndex,
+    setActiveIndex,
+    duration,
+    goToPrevious,
+    goToNext,
+    goToSlide,
+  };
 }
 
 function SliderPagination({
@@ -332,7 +378,7 @@ function SliderArrow({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`carousel-chevron-light absolute top-[43%] z-20 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors md:h-12 md:w-12 ${
+      className={`carousel-chevron-light pointer-events-auto absolute top-[43%] z-20 grid h-11 w-11 -translate-y-1/2 place-items-center transition-colors md:h-12 md:w-12 ${
         direction === "previous"
           ? "left-0 -translate-x-1/2 xl:-left-11"
           : "right-0 translate-x-1/2 xl:-right-11"
@@ -405,8 +451,8 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
   const { t } = useLang();
 
   return (
-    <article className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]">
-      <div className="relative aspect-[7.62/4] overflow-hidden rounded-[20px]">
+    <article className="rounded-2xl bg-white p-3 shadow-[0_14px_12px_rgba(38,35,22,0.10)]">
+      <div className="relative aspect-[7.62/4] overflow-hidden rounded-[12px]">
         <Image
           src={def.image}
           alt={def.title}
@@ -449,40 +495,63 @@ function LodgeCard({ def }: { def: LodgeCardDef }) {
 
 function LodgePreview() {
   const { t } = useLang();
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
-    useAutoSlider(lodgeDefs.length, true, {
-      desktop: LODGE_DESKTOP_SLIDE_DURATION_MS,
-      mobile: MOBILE_SLIDE_DURATION_MS,
-    });
-  const visibleRooms = getVisibleSlides(lodgeDefs, activeIndex, 3);
+  const {
+    setSwiper,
+    activeIndex,
+    setActiveIndex,
+    goToSlide,
+    goToPrevious,
+    goToNext,
+    duration,
+  } = useSwiperSlider(LODGE_DESKTOP_SLIDE_DURATION_MS);
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        <SliderArrow
-          direction="previous"
-          onClick={goToPrevious}
-          label="Previous rooms"
-        />
-        <SliderArrow direction="next" onClick={goToNext} label="Next rooms" />
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-0 z-10">
+          <SliderArrow
+            direction="previous"
+            onClick={goToPrevious}
+            label="Previous rooms"
+          />
+          <SliderArrow direction="next" onClick={goToNext} label="Next rooms" />
+        </div>
 
-        {visibleRooms.map((def, index) => (
-          <div
-            key={`${activeIndex}-${def.slug}`}
-            className={`${index === 1 ? "hidden md:block" : ""} ${
-              index === 2 ? "hidden xl:block" : ""
-            }`}
-          >
-            <LodgeCard def={def} />
-          </div>
-        ))}
+        <Swiper
+          onSwiper={setSwiper}
+          modules={[A11y, Autoplay]}
+          className="journey-card-swiper"
+          style={{ paddingInline: 16 }}
+          loop
+          grabCursor
+          speed={JOURNEY_SLIDE_SPEED_MS}
+          slidesPerView={1}
+          spaceBetween={24}
+          threshold={8}
+          autoplay={{
+            delay: duration,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1280: { slidesPerView: 3 },
+          }}
+          onRealIndexChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        >
+          {lodgeDefs.map((def) => (
+            <SwiperSlide key={def.slug} className="!h-auto">
+              <LodgeCard def={def} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       <div className="mt-7">
         <SliderPagination
           items={lodgeDefs.map((def) => ({ id: def.slug }))}
           activeIndex={activeIndex}
-          onSelect={setActiveIndex}
+          onSelect={goToSlide}
           getLabel={(index) => `Show ${lodgeDefs[index].title}`}
           duration={duration}
         />
@@ -499,20 +568,21 @@ function LodgePreview() {
 }
 
 function TripSlider() {
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
-    useAutoSlider(tripDefs.length, true, {
-      desktop: TRIP_DESKTOP_SLIDE_DURATION_MS,
-      mobile: MOBILE_SLIDE_DURATION_MS,
-    });
-  const visibleTrips = getVisibleSlides(tripDefs, activeIndex, 3);
+  const {
+    setSwiper,
+    activeIndex,
+    setActiveIndex,
+    goToSlide,
+    goToPrevious,
+    goToNext,
+    duration,
+  } = useSwiperSlider(TRIP_DESKTOP_SLIDE_DURATION_MS);
   const { t } = useLang();
-  const whatsappMessage = encodeURIComponent(t("trip.message.custom"));
-  const emailSubject = encodeURIComponent(t("trip.email.customSubject"));
 
   return (
     <div className="mx-auto max-w-[1512px]">
       <div className="relative">
-        <div className="absolute inset-0 z-10 flex items-center justify-between px-6 md:px-8 lg:px-0">
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-6 md:px-8 lg:px-0">
           <SliderArrow
             direction="previous"
             onClick={goToPrevious}
@@ -525,90 +595,45 @@ function TripSlider() {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {visibleTrips.map((def, index) => (
-            <div
-              key={`${activeIndex}-${def.id}`}
-              className={`${index === 1 ? "hidden md:block" : ""} ${
-                index === 2 ? "hidden xl:block" : ""
-              }`}
-            >
+        <Swiper
+          onSwiper={setSwiper}
+          modules={[A11y, Autoplay]}
+          className="journey-card-swiper"
+          style={{ paddingInline: 20 }}
+          loop
+          grabCursor
+          speed={JOURNEY_SLIDE_SPEED_MS}
+          slidesPerView={1}
+          spaceBetween={24}
+          threshold={8}
+          autoplay={{
+            delay: duration,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1280: { slidesPerView: 3 },
+          }}
+          onRealIndexChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        >
+          {tripDefs.map((def) => (
+            <SwiperSlide key={def.id} className="!h-auto">
               <Card def={def} />
-            </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
         <div className="mt-6">
           <SliderPagination
             items={tripDefs}
             activeIndex={activeIndex}
-            onSelect={setActiveIndex}
+            onSelect={goToSlide}
             getLabel={(index) => t(tripDefs[index].titleKey)}
             duration={duration}
           />
         </div>
       </div>
-
-      <section className="mt-7 overflow-hidden rounded-2xl bg-white p-2 shadow-[0_4px_8px_rgba(69,61,24,0.14)]">
-        <div className="grid gap-2 lg:grid-cols-[1.05fr_1fr]">
-          <div className="relative min-h-64 overflow-hidden rounded-xl lg:min-h-[300px]">
-            <Image
-              src="/Trip Package/Hero webp/Trip-Waerebo-Lodge-Custom-Hero-Desktop.webp"
-              alt={t("journeys.custom.title")}
-              fill
-              sizes="(min-width: 1024px) 38vw, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-            <div className="absolute right-0 bottom-0 left-0 p-5 text-white sm:p-6">
-              <h3 className="text-xl leading-tight font-semibold text-balance sm:text-2xl">
-                {t("journeys.custom.title")}
-              </h3>
-              <p className="mt-2 max-w-xl text-xs leading-5 text-pretty text-white/90 sm:text-sm">
-                {t("journeys.custom.desc")}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-center p-2 sm:p-3">
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {customJourneyFeatures.map(({ icon: Icon, labelKey }) => (
-                <div
-                  key={labelKey}
-                  className="flex min-h-20 flex-col items-center justify-center rounded-lg bg-savana-50 px-2 py-3 text-center"
-                >
-                  <Icon
-                    aria-hidden="true"
-                    className="h-5 w-5 flex-none text-savana-600"
-                  />
-                  <span className="mt-1.5 text-[9px] leading-tight font-semibold text-savana-800 sm:text-[10px]">
-                    {t(labelKey)}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-auto grid gap-2 pt-3 sm:grid-cols-2">
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button-primary flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-base font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
-              >
-                <IoLogoWhatsapp aria-hidden="true" className="h-5 w-5" />
-                {t("journeys.custom.whatsapp")}
-              </a>
-              <a
-                href={`mailto:${email}?subject=${emailSubject}`}
-                className="button-outline flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-base font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-savana-800"
-              >
-                <IoMailOutline aria-hidden="true" className="h-5 w-5" />
-                {t("journeys.custom.email")}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <Link
         href="/trips"
@@ -629,9 +654,9 @@ function TransportPreview() {
         {transportDefs.map((def) => (
           <article
             key={def.id}
-            className="rounded-[28px] bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
+            className="rounded-2xl bg-white p-3 shadow-[0_14px_38px_rgba(38,35,22,0.18)]"
           >
-            <div className="relative aspect-[1.86] overflow-hidden rounded-[20px]">
+            <div className="relative aspect-[1.86] overflow-hidden rounded-[12px]">
               <Image
                 src={def.image}
                 alt={def.title}
@@ -641,7 +666,7 @@ function TransportPreview() {
               />
             </div>
             <div className="px-3 pt-5 pb-2">
-              <h3 className="text-xl leading-tight font-semibold text-neutral-900 md:text-2xl">
+              <h3 className="text-xl leading-tight font-semibold text-savana-800 md:text-2xl">
                 {def.title}
               </h3>
               <p className="mt-3 line-clamp-3 min-h-[72px] text-sm leading-6 font-normal text-neutral-500 md:text-base">
@@ -664,7 +689,7 @@ function TransportPreview() {
 
 function RestaurantPreview() {
   const { t } = useLang();
-  const { activeIndex, setActiveIndex, goToPrevious, goToNext, duration } =
+  const { activeIndex, goToSlide, goToPrevious, goToNext, duration } =
     useAutoSlider(restaurantSliderImages.length, true, {
       desktop: DEFAULT_DESKTOP_SLIDE_DURATION_MS,
       mobile: MOBILE_SLIDE_DURATION_MS,
@@ -702,7 +727,7 @@ function RestaurantPreview() {
     <div>
       <article className="overflow-hidden rounded-2xl bg-white p-3 shadow-[0_8px_18px_rgba(38,35,22,0.14)]">
         <div className="flex flex-col-reverse gap-3 lg:min-h-[436px] lg:flex-row lg:items-stretch">
-          <div className="flex flex-col justify-center px-4 py-5 lg:w-[38%] lg:px-5 lg:py-8 xl:px-7">
+          <div className="flex flex-col justify-start px-4 py-5 lg:w-[38%] lg:px-5 lg:py-8 xl:px-7">
             <h3 className="text-xl leading-tight font-semibold text-savana-800 md:text-2xl">
               Waerebo Lodge Restaurant
             </h3>
@@ -751,7 +776,7 @@ function RestaurantPreview() {
               <SliderPagination
                 items={restaurantSliderImages.map((item) => ({ id: item.src }))}
                 activeIndex={activeIndex}
-                onSelect={setActiveIndex}
+                onSelect={goToSlide}
                 getLabel={(index) => `Show restaurant image ${index + 1}`}
                 duration={duration}
                 tone="light"
@@ -798,26 +823,18 @@ export default function JourneysSection() {
   return (
     <section
       id="journeys"
-      className="relative z-30 bg-transparent pt-0 pb-24 lg:pt-0 lg:pb-28"
+      className="relative z-30 overflow-x-clip bg-transparent pt-0 lg:pt-0"
     >
       <div className="relative mx-auto max-w-[1512px] px-6 lg:px-20">
         <div className="relative z-40 -mt-12.5 lg:-mt-16">
-          <div className="overflow-hidden rounded-2xl border border-pale-green-100/50 bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
-            <p
-              className={`mb-2 font-normal text-savana-700 ${
-                activeTab === "trip" ? "text-xs" : "text-base"
-              }`}
-            >
+          <div className="overflow-hidden rounded-2xl bg-white p-6 shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
+            <p className={`text-xs font-normal text-savana-700`}>
               {t(`journeys.${activeTab}.eyebrow`)}
             </p>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
                 <h2
-                  className={`leading-tight text-balance text-neutral-900 ${
-                    activeTab === "trip"
-                      ? "text-xl lg:text-3xl"
-                      : "text-2xl lg:text-4xl"
-                  }`}
+                  className={`text-xl leading-tight text-balance text-neutral-900 lg:text-3xl`}
                 >
                   {t(`journeys.${activeTab}.head`)}
                   <span className="font-semibold">

@@ -19,6 +19,7 @@ interface Props {
   duration?: number;
   threshold?: number;
   className?: string;
+  allowOverflow?: boolean;
 }
 
 export default function ScrollReveal({
@@ -28,6 +29,7 @@ export default function ScrollReveal({
   duration = 700,
   threshold = 0.12,
   className = "",
+  allowOverflow = false,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -55,8 +57,9 @@ export default function ScrollReveal({
       ref={ref}
       className={className}
       style={{
-        contentVisibility: "auto",
-        containIntrinsicSize: "auto 900px",
+        // Paint containment clips shadows and other content outside the wrapper.
+        contentVisibility: allowOverflow ? "visible" : "auto",
+        containIntrinsicSize: allowOverflow ? undefined : "auto 900px",
         transitionProperty: "opacity, transform",
         transitionDuration: `${duration}ms`,
         transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",

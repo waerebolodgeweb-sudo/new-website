@@ -31,6 +31,8 @@ const dict: Record<Lang, Record<string, string>> = {
     "hero.line1": "A lodge stop",
     "hero.line2": "before your",
     "hero.line3": "journey.",
+    "heromobile.line1": "A lodge stop before",
+    "heromobile.line2": "your journey.",
     "hero.subtitle":
       "Located among rice terraces and ocean views, Waerebo Lodge is the final oasis before your climb to the legendary Waerebo Village.",
 
@@ -43,7 +45,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "purpose.body1.post": '".',
     "purpose.body2":
       "But our mission goes beyond our walls. We commit 10% of your room rate to directly support the social and cultural initiatives of the Waerebo community. By staying with us, your adventure leaves a positive, lasting mark on the highlands.",
-    "purpose.cta": "About Waerebo Lodge",
+    "purpose.cta": "Learn More",
     "purpose.mapCta": "Open Map",
     "purpose.mapCtaMobile": "Open Location Map",
     "purpose.location.title": "Waerebo Lodge",
@@ -191,6 +193,12 @@ const dict: Record<Lang, Record<string, string>> = {
       "Looking for a more flexible trip? We can help create a private itinerary based on your travel dates, group size, interests, and preferred pace.",
     "journeys.custom.whatsapp": "Custom Trip via WhatsApp",
     "journeys.custom.email": "Custom Trip via Email",
+    "journeys.custom.feature.private": "Private or groups",
+    "journeys.custom.feature.team": "Local Expert Team",
+    "journeys.custom.feature.flexible": "Flexible Itinerary",
+    "journeys.custom.feature.lodge": "Lodge Package",
+    "journeys.custom.feature.village": "Village Stay",
+    "journeys.custom.feature.meals": "Arranged Meals",
     // Lodge cards
     "journeys.lodge1.title": "Twin Room (AC)",
     "journeys.lodge1.meta0": "2 Person",
@@ -386,20 +394,20 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.cat.rooms": "Rooms",
     "faq.cat.reservation": "Booking",
     "faq.cat.restaurant": "Restaurant",
-    "faq.cat.waerebo": "Wae Rebo",
+    "faq.cat.waerebo": "Waerebo",
     "faq.cat.general": "General",
     "faq.nav.location": "Location and Access",
     "faq.nav.rooms": "Rooms and Facilities",
     "faq.nav.reservation": "Check-in and Reservations",
     "faq.nav.restaurant": "Restaurant and Food",
-    "faq.nav.waerebo": "Journey to Wae Rebo Village",
+    "faq.nav.waerebo": "Journey to Waerebo Village",
     "faq.nav.general": "General Information",
     "faq.location.q1": "Where exactly is Waerebo Lodge located?",
     "faq.location.a1":
       "Waerebo Lodge is located in Dintor Village, West Satar Mese District, Manggarai Regency, Flores. Our lodge sits among rice fields, with views of the surrounding hills and Mules Island.",
-    "faq.location.q2": "Is Waerebo Lodge inside Wae Rebo Village?",
+    "faq.location.q2": "Is Waerebo Lodge inside Waerebo Village?",
     "faq.location.a2":
-      "No. Waerebo Lodge is in Dintor Village, while Wae Rebo Village is in the mountains and can only be reached by trekking. Our lodge is a convenient place to rest before or after your journey to Wae Rebo Village.",
+      "No. Waerebo Lodge is in Dintor Village, while Waerebo Village is in the mountains and can only be reached by trekking. Our lodge is a convenient place to rest before or after your journey to Waerebo Village.",
     "faq.location.q3": "How do I get to Waerebo Lodge from Labuan Bajo?",
     "faq.location.a3":
       "Waerebo Lodge can be reached by road from Labuan Bajo to Dintor Village. The journey usually takes around four hours, depending on road conditions, weather, and the places visited along the way.\n\nWe can arrange pickup from the airport or your hotel in Labuan Bajo.",
@@ -461,26 +469,26 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.waerebo.q1":
       "How long does it take to reach the trekking starting point from the lodge?",
     "faq.waerebo.a1":
-      "The drive from Waerebo Lodge to the starting area for the Wae Rebo journey takes around 20 minutes. From there, guests can continue to Pos 1 on foot or by local motorcycle taxi.",
+      "The drive from Waerebo Lodge to the starting area for the Waerebo journey takes around 20 minutes. From there, guests can continue to Pos 1 on foot or by local motorcycle taxi.",
     "faq.waerebo.q2":
-      "What is the elevation, and how difficult is the trek to Wae Rebo Village?",
+      "What is the elevation, and how difficult is the trek to Waerebo Village?",
     "faq.waerebo.a2":
-      "Wae Rebo Village is located at approximately **1,200 meters above sea level**. The trek from Pos 1 is considered **moderate**, covering around **4 km** with an average travel time of **2–3 hours**, depending on each guest’s fitness and walking pace.\n\nThe trekking route is predominantly uphill and passes through mountain forest. Basic fitness and comfortable, non-slip footwear are therefore highly recommended.",
+      "Waerebo Village is located at approximately **1,200 meters above sea level**. The trek from Pos 1 is considered **moderate**, covering around **4 km** with an average travel time of **2–3 hours**, depending on each guest’s fitness and walking pace.\n\nThe trekking route is predominantly uphill and passes through mountain forest. Basic fitness and comfortable, non-slip footwear are therefore highly recommended.",
     "faq.waerebo.q3": "Does the journey require a guide?",
     "faq.waerebo.a3":
-      "We strongly recommend traveling with a local guide who understands the route, terrain conditions, and visiting customs in Wae Rebo Village. Waerebo Lodge can help arrange a guide for your journey.",
+      "We strongly recommend traveling with a local guide who understands the route, terrain conditions, and visiting customs in Waerebo Village. Waerebo Lodge can help arrange a guide for your journey.",
     "faq.waerebo.q4":
       "What is the motorcycle taxi service mentioned in the itinerary?",
     "faq.waerebo.a4":
       "A local motorcycle taxi, or ojek, is operated by a local driver. It can be used to reach Pos 1, helping guests save time and energy before beginning the trek.\n\n_This service is optional. Guests may also choose to walk._",
     "faq.waerebo.q5":
-      "Where do guests sleep when staying overnight in Wae Rebo Village?",
+      "Where do guests sleep when staying overnight in Waerebo Village?",
     "faq.waerebo.a5":
       "Guests sleep inside a traditional cone-shaped house known as a Mbaru Niang. The accommodation is communal, so the sleeping space is shared with other travelers.\n\nSimple mattresses, pillows, and blankets are provided. Bathrooms are located outside the main house and are shared.",
     "faq.general.q1":
-      "Is electricity available 24 hours a day in Wae Rebo Village?",
+      "Is electricity available 24 hours a day in Waerebo Village?",
     "faq.general.a1":
-      "No. Electricity in Wae Rebo Village is generally only available from around 6:00 PM to 10:00 PM. We recommend fully charging your electronic devices before starting the trek and carrying a power bank during the journey.",
+      "No. Electricity in Waerebo Village is generally only available from around 6:00 PM to 10:00 PM. We recommend fully charging your electronic devices before starting the trek and carrying a power bank during the journey.",
     "faq.general.q2":
       "Is electricity available 24 hours a day at Waerebo Lodge?",
     "faq.general.a2":
@@ -491,7 +499,7 @@ const dict: Record<Lang, Record<string, string>> = {
       "Mobile phone signals around the lodge are generally unavailable or very weak. However, Waerebo Lodge provides a Starlink Wi-Fi connection for guests who need internet access.",
     "faq.general.q4": "Is luggage storage available during the trek?",
     "faq.general.a4":
-      "Yes. You can leave luggage and unnecessary belongings at Waerebo Lodge to make the trek to Wae Rebo Village more comfortable. We recommend carrying only a small bag with the items needed for the journey and overnight stay in the village.",
+      "Yes. You can leave luggage and unnecessary belongings at Waerebo Lodge to make the trek to Waerebo Village more comfortable. We recommend carrying only a small bag with the items needed for the journey and overnight stay in the village.",
 
     // ── Trips page
     "trips.chooseProgram": "Choose your Program",
@@ -580,6 +588,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.lunchNote":
       "*Lunch is not included in this package. However, it is available for an additional charge.",
     "room.latestReview": "Latest Review",
+    "room.guestReview": "Review From Guest",
     "room.seeAll": "See all",
     "cardSpec.people": "2 People",
     "cardSpec.ac": "AC",
@@ -714,6 +723,8 @@ const dict: Record<Lang, Record<string, string>> = {
     "hero.line1": "Tempat singgah",
     "hero.line2": "sebelum",
     "hero.line3": "perjalananmu.",
+    "heromobile.line1": "Tempat singgah sebelum",
+    "heromobile.line2": "perjalananmu.",
     "hero.subtitle":
       "Di antara sawah dan pemandangan laut, Waerebo Lodge adalah oasis terakhir sebelum pendakianmu menuju Desa Waerebo yang legendaris.",
 
@@ -727,7 +738,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "purpose.body1.post": '".',
     "purpose.body2":
       "Namun misi kami melampaui dinding lodge ini. Kami mengalokasikan 10% dari tarif kamar untuk mendukung langsung inisiatif sosial dan budaya komunitas Waerebo. Dengan menginap bersama kami, petualanganmu meninggalkan jejak positif yang bermakna di pegunungan ini.",
-    "purpose.cta": "Tentang Waerebo Lodge",
+    "purpose.cta": "Selengkapnya",
     "purpose.mapCta": "Buka Peta Lokasi",
     "purpose.mapCtaMobile": "Buka Peta Lokasi",
     "purpose.location.title": "Waerebo Lodge",
@@ -874,6 +885,12 @@ const dict: Record<Lang, Record<string, string>> = {
       "Mencari trip yang lebih fleksibel? Kami dapat membantu membuat itinerary privat berdasarkan tanggal perjalanan, jumlah peserta, minat, dan tempo yang Anda inginkan.",
     "journeys.custom.whatsapp": "Trip Kustom via WhatsApp",
     "journeys.custom.email": "Trip Kustom via Email",
+    "journeys.custom.feature.private": "Privat atau grup",
+    "journeys.custom.feature.team": "Tim Ahli Lokal",
+    "journeys.custom.feature.flexible": "Itinerary Fleksibel",
+    "journeys.custom.feature.lodge": "Paket Lodge",
+    "journeys.custom.feature.village": "Menginap di Desa",
+    "journeys.custom.feature.meals": "Makanan Terjadwal",
     // Lodge cards
     "journeys.lodge1.title": "Kamar Twin (AC)",
     "journeys.lodge1.meta0": "2 Orang",
@@ -1071,20 +1088,20 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.cat.rooms": "Kamar",
     "faq.cat.reservation": "Reservasi",
     "faq.cat.restaurant": "Restoran",
-    "faq.cat.waerebo": "Wae Rebo",
+    "faq.cat.waerebo": "Waerebo",
     "faq.cat.general": "Umum",
     "faq.nav.location": "Lokasi dan Akses",
     "faq.nav.rooms": "Kamar dan Fasilitas",
     "faq.nav.reservation": "Check-in dan Reservasi",
     "faq.nav.restaurant": "Restoran dan Makanan",
-    "faq.nav.waerebo": "Perjalanan ke Kampung Wae Rebo",
+    "faq.nav.waerebo": "Perjalanan ke Kampung Waerebo",
     "faq.nav.general": "Informasi Umum",
     "faq.location.q1": "Di mana tepatnya Waerebo Lodge berada?",
     "faq.location.a1":
       "Waerebo Lodge berlokasi di Desa Dintor, Kecamatan Satar Mese Barat, Kabupaten Manggarai, Flores. Lodge kami berada di tengah persawahan, dengan pemandangan perbukitan dan Pulau Mules.",
-    "faq.location.q2": "Apakah Waerebo Lodge berada di dalam Kampung Wae Rebo?",
+    "faq.location.q2": "Apakah Waerebo Lodge berada di dalam Kampung Waerebo?",
     "faq.location.a2":
-      "Tidak. Waerebo Lodge berada di Desa Dintor, sedangkan Kampung Wae Rebo berada di kawasan pegunungan dan hanya dapat dicapai dengan trekking. Lodge kami cocok sebagai tempat beristirahat sebelum atau setelah perjalanan ke Kampung Wae Rebo.",
+      "Tidak. Waerebo Lodge berada di Desa Dintor, sedangkan Kampung Waerebo berada di kawasan pegunungan dan hanya dapat dicapai dengan trekking. Lodge kami cocok sebagai tempat beristirahat sebelum atau setelah perjalanan ke Kampung Waerebo.",
     "faq.location.q3": "Bagaimana cara menuju Waerebo Lodge dari Labuan Bajo?",
     "faq.location.a3":
       "Waerebo Lodge dapat dicapai melalui perjalanan darat dari Labuan Bajo menuju Desa Dintor. Perjalanan biasanya memerlukan waktu sekitar empat jam, tergantung kondisi jalan, cuaca, dan tempat yang dikunjungi selama perjalanan.\n\nKami dapat mengatur penjemputan dari bandara atau hotel di Labuan Bajo.",
@@ -1148,24 +1165,24 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.waerebo.q1":
       "Berapa lama perjalanan dari lodge menuju titik awal trekking?",
     "faq.waerebo.a1":
-      "Perjalanan dari Waerebo Lodge menuju area awal perjalanan ke Kampung Wae Rebo memerlukan waktu sekitar 20 menit dengan kendaraan. Setelah itu, tamu dapat melanjutkan perjalanan menuju Pos 1 dengan berjalan kaki atau menggunakan ojek lokal.",
+      "Perjalanan dari Waerebo Lodge menuju area awal perjalanan ke Kampung Waerebo memerlukan waktu sekitar 20 menit dengan kendaraan. Setelah itu, tamu dapat melanjutkan perjalanan menuju Pos 1 dengan berjalan kaki atau menggunakan ojek lokal.",
     "faq.waerebo.q2":
-      "Berapa ketinggian dan seberapa sulit trekking menuju Kampung Wae Rebo?",
+      "Berapa ketinggian dan seberapa sulit trekking menuju Kampung Waerebo?",
     "faq.waerebo.a2":
-      "Kampung Wae Rebo berada di ketinggian sekitar **1.200 meter di atas permukaan laut (mdpl)**. Trekking dari Pos 1 tergolong **tingkat kesulitan sedang**, dengan jarak sekitar **4 km** dan waktu tempuh rata-rata **2–3 jam**, tergantung kondisi fisik serta kecepatan berjalan masing-masing.\n\nJalur trekking didominasi tanjakan dan melewati hutan pegunungan. Oleh karena itu, kebugaran dasar serta penggunaan alas kaki yang nyaman dan tidak licin sangat disarankan.",
+      "Kampung Waerebo berada di ketinggian sekitar **1.200 meter di atas permukaan laut (mdpl)**. Trekking dari Pos 1 tergolong **tingkat kesulitan sedang**, dengan jarak sekitar **4 km** dan waktu tempuh rata-rata **2–3 jam**, tergantung kondisi fisik serta kecepatan berjalan masing-masing.\n\nJalur trekking didominasi tanjakan dan melewati hutan pegunungan. Oleh karena itu, kebugaran dasar serta penggunaan alas kaki yang nyaman dan tidak licin sangat disarankan.",
     "faq.waerebo.q3": "Apakah perjalanan harus didampingi pemandu?",
     "faq.waerebo.a3":
-      "Kami sangat menyarankan perjalanan didampingi pemandu lokal yang memahami jalur, kondisi medan, dan tata cara kunjungan ke Kampung Wae Rebo. Waerebo Lodge dapat membantu mengatur pemandu untuk perjalanan Anda.",
+      "Kami sangat menyarankan perjalanan didampingi pemandu lokal yang memahami jalur, kondisi medan, dan tata cara kunjungan ke Kampung Waerebo. Waerebo Lodge dapat membantu mengatur pemandu untuk perjalanan Anda.",
     "faq.waerebo.q4": "Apa itu layanan ojek yang disebutkan dalam itinerary?",
     "faq.waerebo.a4":
       "Ojek adalah layanan transportasi sepeda motor yang dioperasikan oleh pengemudi lokal. Ojek dapat digunakan untuk menuju Pos 1 sehingga tamu dapat menghemat waktu dan tenaga sebelum memulai trekking.\n\n_Layanan ini bersifat opsional. Tamu juga dapat memilih berjalan kaki._",
-    "faq.waerebo.q5": "Di mana tamu tidur saat menginap di Kampung Wae Rebo?",
+    "faq.waerebo.q5": "Di mana tamu tidur saat menginap di Kampung Waerebo?",
     "faq.waerebo.a5":
       "Tamu akan tidur di dalam rumah tradisional berbentuk kerucut yang dikenal sebagai Mbaru Niang. Sistem menginapnya bersifat komunal sehingga ruang tidur digunakan bersama wisatawan lain.\n\nKasur, bantal, dan selimut sederhana disediakan. Kamar mandi berada di luar rumah utama dan digunakan bersama.",
     "faq.general.q1":
-      "Apakah listrik tersedia selama 24 jam di Kampung Wae Rebo?",
+      "Apakah listrik tersedia selama 24 jam di Kampung Waerebo?",
     "faq.general.a1":
-      "Tidak. Listrik di Kampung Wae Rebo umumnya hanya tersedia sekitar pukul 18.00–22.00. Kami menyarankan Anda mengisi penuh perangkat elektronik sebelum memulai trekking dan membawa power bank selama perjalanan.",
+      "Tidak. Listrik di Kampung Waerebo umumnya hanya tersedia sekitar pukul 18.00–22.00. Kami menyarankan Anda mengisi penuh perangkat elektronik sebelum memulai trekking dan membawa power bank selama perjalanan.",
     "faq.general.q2": "Apakah listrik tersedia selama 24 jam di Waerebo Lodge?",
     "faq.general.a2": "Ya. Listrik di Waerebo Lodge tersedia selama 24 jam.",
     "faq.general.q3":
@@ -1175,7 +1192,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "faq.general.q4":
       "Apakah tersedia layanan penitipan koper selama trekking?",
     "faq.general.a4":
-      "Ya. Anda dapat menitipkan koper dan barang yang tidak diperlukan di Waerebo Lodge agar perjalanan trekking menuju Kampung Wae Rebo lebih nyaman. Kami menyarankan hanya membawa tas kecil berisi perlengkapan yang diperlukan selama perjalanan dan menginap di kampung.",
+      "Ya. Anda dapat menitipkan koper dan barang yang tidak diperlukan di Waerebo Lodge agar perjalanan trekking menuju Kampung Waerebo lebih nyaman. Kami menyarankan hanya membawa tas kecil berisi perlengkapan yang diperlukan selama perjalanan dan menginap di kampung.",
 
     // ── Trips page
     "trips.chooseProgram": "Pilih Program Anda",
@@ -1264,6 +1281,7 @@ const dict: Record<Lang, Record<string, string>> = {
     "room.lunchNote":
       "*Makan siang belum termasuk dalam paket ini. Namun, tersedia dengan biaya tambahan.",
     "room.latestReview": "Ulasan Terbaru",
+    "room.guestReview": "Ulasan dari Tamu",
     "room.seeAll": "Lihat semua",
     "cardSpec.people": "2 Orang",
     "cardSpec.ac": "AC",

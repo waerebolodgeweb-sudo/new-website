@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
 import type { Swiper as SwiperClass } from "swiper";
-import { A11y, Autoplay, Keyboard } from "swiper/modules";
+import { A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import { useLang } from "@/lib/i18n";
 import "swiper/css";
@@ -121,7 +122,21 @@ export default function GallerySection() {
   const [modalIndex, setModalIndex] = useState<number | null>(null);
   const { t, lang } = useLang();
   const swiperRef = useRef<SwiperRef>(null);
-  const modalSwiperRef = useRef<SwiperRef>(null);
+  const modalThumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    if (modalIndex === null) return;
+    const thumbnail = modalThumbnailRefs.current[modalIndex];
+    const strip = thumbnail?.parentElement;
+    if (!thumbnail || !strip) return;
+    strip.scrollTo({
+      left:
+        thumbnail.offsetLeft -
+        strip.clientWidth / 2 +
+        thumbnail.offsetWidth / 2,
+      behavior: "smooth",
+    });
+  }, [modalIndex]);
 
   const prev = () => swiperRef.current?.swiper.slidePrev();
   const next = () => swiperRef.current?.swiper.slideNext();
@@ -143,11 +158,23 @@ export default function GallerySection() {
   };
 
   const closeGalleryModal = () => setModalIndex(null);
-  const prevModal = () => modalSwiperRef.current?.swiper.slidePrev();
-  const nextModal = () => modalSwiperRef.current?.swiper.slideNext();
+  const prevModal = () =>
+    setModalIndex((index) =>
+      index === null
+        ? null
+        : (index - 1 + galleryItems.length) % galleryItems.length
+    );
+  const nextModal = () =>
+    setModalIndex((index) =>
+      index === null ? null : (index + 1) % galleryItems.length
+    );
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) closeGalleryModal();
+    if (
+      event.target instanceof Element &&
+      !event.target.closest("button, img, [data-gallery-caption]")
+    )
+      closeGalleryModal();
   };
 
   useEffect(() => {
@@ -156,6 +183,16 @@ export default function GallerySection() {
     const previousOverflow = document.body.style.overflow;
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setModalIndex(null);
+      if (event.key === "ArrowLeft")
+        setModalIndex((index) =>
+          index === null
+            ? null
+            : (index - 1 + galleryItems.length) % galleryItems.length
+        );
+      if (event.key === "ArrowRight")
+        setModalIndex((index) =>
+          index === null ? null : (index + 1) % galleryItems.length
+        );
     };
 
     document.body.style.overflow = "hidden";
@@ -168,9 +205,9 @@ export default function GallerySection() {
   }, [modalIndex]);
 
   return (
-    <section className="bg-savana-050 py-2.5 lg:py-20">
-      <div className="mr-auto w-[calc(100%_-_20px)] max-w-[1845px] lg:w-[90.1vw]">
-        <div className="relative min-h-[640px] overflow-hidden rounded-l-none rounded-r-[28px] shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[676px] lg:rounded-r-[36px]">
+    <section className="z-10 bg-transparent py-2.5 pb-16 lg:py-20">
+      <div className="max-w-[1845px mr-auto w-[calc(100%_-_20px)] lg:w-[90.1vw]">
+        <div className="relative flex min-h-[640px] overflow-hidden rounded-l-none rounded-r-[28px] shadow-[0_26px_42px_rgba(38,35,22,0.18)] sm:min-h-[676px] lg:rounded-r-[36px]">
           <Image
             src="/homepage/Homepage-Waerebo-Lodge-Background-Gallery-Desktop.webp"
             alt=""
@@ -185,7 +222,7 @@ export default function GallerySection() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/24 to-black/72" />
 
-          <div className="relative z-10 flex h-full flex-col px-5 pt-9 pb-10 sm:px-8 sm:pt-12 sm:pb-12 lg:px-[80px] lg:pt-[64px] lg:pb-[52px]">
+          <div className="relative z-10 my-auto flex w-full flex-col px-5 py-10 sm:px-8 sm:py-12 lg:px-[80px] lg:py-[52px]">
             <div className="mb-5 flex items-end justify-between gap-6">
               <div>
                 <p className="mb-2 text-[14px] leading-5 font-normal text-white/90 sm:text-base">
@@ -305,11 +342,11 @@ export default function GallerySection() {
                             alt={item.caption[lang]}
                             fill
                             sizes={isSquare ? "320px" : "570px"}
-                            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
+                            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
                           />
 
                           <span
-                            className={`absolute inset-0 transition-colors duration-500 motion-reduce:transition-none ${
+                            className={`absolute inset-0 transition-colors duration-500 ${
                               isActive
                                 ? "bg-black/0 group-hover:bg-black/10"
                                 : "bg-black/55 group-hover:bg-black/45"
@@ -318,7 +355,7 @@ export default function GallerySection() {
                         </span>
 
                         <span
-                          className={`mt-5 block text-xs leading-[1.55] transition-colors duration-500 motion-reduce:transition-none sm:text-[18px] md:text-[16px] ${
+                          className={`mt-5 block text-xs leading-[1.55] transition-colors duration-500 sm:text-[18px] md:text-[16px] ${
                             isActive
                               ? "font-semibold text-white"
                               : "font-medium text-white/45"
@@ -335,81 +372,87 @@ export default function GallerySection() {
           </div>
         </div>
       </div>
-      {modalIndex !== null && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Gallery photo viewer"
-          onClick={handleBackdropClick}
-          className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/85 px-4 py-6 sm:px-8"
-        >
-          <div className="relative w-full max-w-6xl overflow-hidden rounded-[20px] bg-neutral-900 shadow-2xl">
-            <button
-              type="button"
-              onClick={closeGalleryModal}
-              aria-label="Close photo"
-              className="absolute top-3 right-3 z-30 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 transition-colors hover:bg-savana-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
-            >
-              <IoClose size={24} />
-            </button>
+      {modalIndex !== null &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Gallery photo viewer"
+            onClick={handleBackdropClick}
+            className="fixed inset-0 z-[100] grid place-items-center bg-black/85 px-4 py-6 sm:px-8"
+          >
+            <div className="flex h-full min-h-0 w-full max-w-6xl min-w-0 flex-col items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={closeGalleryModal}
+                aria-label="Close photo"
+                className="absolute top-3 right-3 z-30 grid h-11 w-11 place-items-center rounded-full bg-white text-savana-800 transition-colors hover:bg-savana-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+              >
+                <IoClose size={24} />
+              </button>
 
-            <button
-              type="button"
-              onClick={prevModal}
-              aria-label="Previous gallery photo"
-              className="carousel-chevron-overlay absolute top-[42%] left-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:left-5"
-            >
-              <IoChevronBack size={32} />
-            </button>
-            <button
-              type="button"
-              onClick={nextModal}
-              aria-label="Next gallery photo"
-              className="carousel-chevron-overlay absolute top-[42%] right-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:right-5"
-            >
-              <IoChevronForward size={32} />
-            </button>
+              <button
+                type="button"
+                onClick={prevModal}
+                aria-label="Previous gallery photo"
+                className="carousel-chevron-overlay absolute top-1/2 left-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:left-5"
+              >
+                <IoChevronBack size={32} />
+              </button>
+              <button
+                type="button"
+                onClick={nextModal}
+                aria-label="Next gallery photo"
+                className="carousel-chevron-overlay absolute top-1/2 right-3 z-20 grid h-12 w-12 -translate-y-1/2 place-items-center transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:right-5"
+              >
+                <IoChevronForward size={32} />
+              </button>
 
-            <Swiper
-              key={`gallery-modal-${modalIndex}`}
-              ref={modalSwiperRef}
-              modules={[A11y, Keyboard]}
-              initialSlide={modalIndex}
-              keyboard={{ enabled: true }}
-              loop
-              slidesPerView={1}
-              speed={450}
-              className="w-full"
-            >
-              {galleryItems.map((item, index) => (
-                <SwiperSlide key={item.src} className="!h-auto">
-                  <div className="flex flex-col">
-                    <div className="relative h-[58vh] min-h-[320px] w-full bg-black sm:h-[68vh] sm:max-h-[700px]">
-                      <Image
-                        src={item.modalSrc}
-                        alt={item.caption[lang]}
-                        fill
-                        sizes="100vw"
-                        className="object-contain"
-                        priority={index === modalIndex}
-                      />
-                    </div>
-                    <div className="bg-white px-5 py-5 text-savana-800 sm:px-8 sm:py-6">
-                      <p className="mb-2 text-sm font-semibold text-savana-600">
-                        {String(index + 1).padStart(2, "0")} /{" "}
-                        {galleryItems.length}
-                      </p>
-                      <p className="max-w-4xl text-base leading-relaxed font-medium text-balance sm:text-lg">
-                        {item.caption[lang]}
-                      </p>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </div>
-      )}
+              <div className="flex min-h-0 w-full flex-1 items-center justify-center">
+                <Image
+                  src={galleryItems[modalIndex].modalSrc}
+                  alt={galleryItems[modalIndex].caption[lang]}
+                  width={1600}
+                  height={1200}
+                  sizes="100vw"
+                  className="h-auto max-h-[calc(100dvh-15rem)] w-auto max-w-full rounded-2xl object-contain shadow-2xl sm:max-h-[calc(100dvh-15rem)]"
+                  unoptimized
+                  priority
+                />
+              </div>
+              <p
+                data-gallery-caption
+                className="max-h-20 max-w-4xl shrink-0 overflow-y-auto px-2 text-center text-sm leading-relaxed text-white/90 sm:text-base"
+              >
+                {galleryItems[modalIndex].caption[lang]}
+              </p>
+              <div className="relative mx-auto flex max-w-full shrink-0 [scrollbar-width:none] gap-3 overflow-x-auto rounded-2xl bg-black/25 p-2 [&::-webkit-scrollbar]:hidden">
+                {galleryItems.map((item, index) => (
+                  <button
+                    key={item.src}
+                    ref={(element) => {
+                      modalThumbnailRefs.current[index] = element;
+                    }}
+                    type="button"
+                    onClick={() => setModalIndex(index)}
+                    aria-label={`${lang === "id" ? "Pratinjau foto" : "Preview image"} ${index + 1}`}
+                    aria-pressed={index === modalIndex}
+                    className={`relative h-20 w-28 flex-none overflow-hidden rounded-xl border-2 transition-opacity sm:h-24 sm:w-36 ${index === modalIndex ? "border-white opacity-100" : "border-transparent opacity-60 hover:opacity-90"}`}
+                  >
+                    <Image
+                      src={item.src}
+                      alt=""
+                      fill
+                      sizes="144px"
+                      className="object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }
