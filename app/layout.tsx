@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Dancing_Script } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import ScrollReveal from "@/components/ScrollReveal";
 import JsonLd from "@/components/JsonLd";
@@ -12,16 +13,18 @@ import {
   SITE_URL,
 } from "@/lib/seo";
 
-const jakarta = Plus_Jakarta_Sans({
+const jakarta = localFont({
+  src: "./fonts/PlusJakartaSans-latin.woff2",
   variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "400 800",
+  display: "swap",
 });
 
-const dancing = Dancing_Script({
+const dancing = localFont({
+  src: "./fonts/DancingScript-latin.woff2",
   variable: "--font-dancing",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
+  display: "swap",
 });
 
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
@@ -124,6 +127,7 @@ export default function RootLayout({
           {children}
           <ScrollReveal />
         </LanguageProvider>
+        <Analytics />
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-NRRTDS8MR6"
