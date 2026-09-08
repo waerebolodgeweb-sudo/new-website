@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import ScrollReveal from "@/components/ScrollReveal";
 import JsonLd from "@/components/JsonLd";
@@ -128,6 +129,7 @@ export default function RootLayout({
           <ScrollReveal />
         </LanguageProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-NRRTDS8MR6"
