@@ -34,8 +34,8 @@ export default function LodgeCard({ room }: { room: Room }) {
   const cardImage = room.cardImage ?? room.images[0];
 
   return (
-    <div className="flex w-full flex-col gap-4 rounded-3xl bg-white pb-5 shadow-md md:px-2 md:pt-2">
-      <div className="relative aspect-[7.62/4] w-full overflow-hidden rounded-t-[20px] bg-neutral-100 md:rounded-[20px]">
+    <div className="flex w-full flex-col gap-4 rounded-2xl bg-white pb-5 shadow-md md:px-2 md:pt-2">
+      <div className="relative aspect-[7.62/4] w-full overflow-hidden rounded-t-[12px] bg-neutral-100 md:rounded-[12px]">
         <Image
           src={cardImage}
           alt={cardTitle}

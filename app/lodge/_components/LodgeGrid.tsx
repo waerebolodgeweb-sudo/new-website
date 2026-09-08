@@ -19,7 +19,7 @@ const LODGE_CARD_ORDER = [
   "deluxe-twin-2",
 ];
 
-const WHATSAPP_NUMBER = "6285339567549";
+const WHATSAPP_NUMBER = "6285339021145";
 
 export default function LodgeGrid({ rooms }: { rooms: Room[] }) {
   const { lang, t } = useLang();

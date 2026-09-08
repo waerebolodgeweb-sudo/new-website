@@ -36,6 +36,7 @@ import {
 } from "@/components/icons/new-icons";
 import type { Room, FacilityKey, HighlightKey, CardSpecKey } from "../../data";
 import { useLang } from "@/lib/i18n";
+import { guestReviews } from "@/lib/reviews";
 
 type RoomIcon = ComponentType<{ size?: number; className?: string }>;
 
@@ -72,7 +73,7 @@ const CARD_SPEC_ICON: Record<CardSpecKey, RoomIcon> = {
   bed: DoubleBedIcon,
 };
 
-const WHATSAPP_NUMBER = "6285339567549";
+const WHATSAPP_NUMBER = "6285339021145";
 const BOOKING_EMAIL = "waerebolodge@gmail.com";
 const MORE_ROOM_ORDER = [
   "standard-double",
@@ -153,6 +154,22 @@ export default function RoomDetail({
     Math.min(2, room.images.length - 1)
   );
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [selectedReviews, setSelectedReviews] = useState(() =>
+    guestReviews.slice(0, 3)
+  );
+
+  useEffect(() => {
+    // Keep server and initial client output identical; sample once per room visit.
+    const frame = requestAnimationFrame(() => {
+      const shuffled = [...guestReviews];
+      for (let index = shuffled.length - 1; index > 0; index--) {
+        const other = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[other]] = [shuffled[other], shuffled[index]];
+      }
+      setSelectedReviews(shuffled.slice(0, 3));
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [room.slug]);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const previewThumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const { lang, t } = useLang();
@@ -347,24 +364,6 @@ export default function RoomDetail({
                   {t("booking.via.email")}
                 </a>
               </div>
-              <div className="fixed bottom-0 z-20 mt-4 flex w-full flex-col items-center justify-center gap-3 rounded-t-2xl bg-white px-5 py-3 pb-5 shadow-2xl sm:flex-row lg:hidden">
-                <a
-                  href={bookLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="button-primary flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors"
-                >
-                  <IoLogoWhatsapp size={14} />
-                  {t("booking.via.whatsapp")}
-                </a>
-                <a
-                  href={emailLink}
-                  className="button-outline flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors"
-                >
-                  <IoMailOutline size={14} />
-                  {t("booking.via.email")}
-                </a>
-              </div>
             </div>
 
             <div className="min-w-0 px-5 pt-0 pb-14 lg:px-0 lg:pt-1 lg:pb-0">
@@ -448,21 +447,21 @@ export default function RoomDetail({
                 </div>
               </section>
 
-              {room.reviews.length > 0 && (
+              {selectedReviews.length > 0 && (
                 <section className="mt-14 lg:mt-12">
                   <div className="mb-6 flex items-center justify-between gap-4">
                     <h2 className="text-[22px] font-extrabold text-pale-savana-500 lg:text-2xl">
-                      {t("room.latestReview")}
+                      {t("room.guestReview")}
                     </h2>
                     <Link
-                      href="/#testimonials"
+                      href="/#reviews"
                       className="hidden text-sm font-medium text-pale-savana-300 transition-colors hover:text-savana-800 lg:inline"
                     >
                       {t("room.seeAll")}
                     </Link>
                   </div>
                   <div className="space-y-9 lg:space-y-8">
-                    {room.reviews.map((review) => (
+                    {selectedReviews.map((review) => (
                       <article
                         key={review.name}
                         className="grid grid-cols-[52px_1fr_auto] gap-x-4 lg:grid-cols-[56px_1fr_auto]"
@@ -479,9 +478,6 @@ export default function RoomDetail({
                         <div className="min-w-0">
                           <p className="text-base leading-tight font-extrabold text-neutral-800">
                             {review.name}
-                          </p>
-                          <p className="text-xs font-semibold text-neutral-200">
-                            {review.location}
                           </p>
                         </div>
                         <div className="pt-1 text-right text-3xl font-extrabold text-savana-500 lg:pt-4">
@@ -539,6 +535,14 @@ export default function RoomDetail({
           aria-modal="true"
           aria-label={`${room.title} ${lang === "id" ? "pratinjau foto" : "image preview"}`}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 py-5 backdrop-blur-sm"
+          onClick={(event) => {
+            if (
+              event.target instanceof Element &&
+              !event.target.closest("button, img")
+            ) {
+              setIsPreviewOpen(false);
+            }
+          }}
         >
           <button
             type="button"
@@ -622,6 +626,24 @@ export default function RoomDetail({
           </div>
         </div>
       )}
+      <div className="fixed bottom-0 z-20 mt-4 flex w-full flex-col items-center justify-center gap-3 rounded-t-2xl bg-white px-5 py-3 pb-5 shadow-2xl sm:flex-row lg:hidden">
+        <a
+          href={bookLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button-primary flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors"
+        >
+          <IoLogoWhatsapp size={14} />
+          {t("booking.via.whatsapp")}
+        </a>
+        <a
+          href={emailLink}
+          className="button-outline flex min-h-9 w-full min-w-[40%] items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors"
+        >
+          <IoMailOutline size={14} />
+          {t("booking.via.email")}
+        </a>
+      </div>
     </>
   );
 }
