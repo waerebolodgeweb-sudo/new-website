@@ -1,7 +1,7 @@
 /* ── Photo attribution registry ──
  *
  * Legal notice source of truth. Every third-party image used on the site is
- * credited here by file name, with a link back to the original owner where one
+ * credited here with a preview image and a link back to the original owner where one
  * is available. Rendered publicly at /credits and referenced from the footer
  * and the Terms & Conditions page.
  */
@@ -13,7 +13,7 @@ export interface CreditEntry {
   owner: string;
   /** Canonical link to the owner, when one exists */
   href?: string;
-  /** File names this credit covers */
+  /** Preview files for this credit */
   files: string[];
 }
 
@@ -23,12 +23,15 @@ export interface CreditGroup {
   entries: CreditEntry[];
 }
 
-/* Credited files live in per-package folders under /public/Trip Package.
- * Map a bare file name to its public URL so the credits page can show
- * a thumbnail next to each attribution. */
+/* Credit previews live under /public/copyright. Keep the original trip
+ * images for attributions whose replacement still needs confirmation. */
 const TRIP_ROOT = "/Trip Package";
 
 export function creditImageSrc(file: string): string {
+  if (!file.startsWith("Trip-Waerebo-Lodge-")) {
+    return `/copyright/${encodeURIComponent(file)}`;
+  }
+
   const folder = file.includes("-Hero-")
     ? "Hero webp"
     : file.includes("-4D-3N-Island-Escape-")
@@ -55,30 +58,30 @@ export const creditGroups: CreditGroup[] = [
       {
         owner: "komododiscoverytour.com",
         href: "http://komododiscoverytour.com/",
-        files: ["Trip-Waerebo-Lodge-1D-0N-Hero-Desktop.webp"],
+        files: ["komododiscoverytour.com.webp"],
       },
       {
         owner: "@danielkordan",
         href: "https://www.instagram.com/danielkordan/",
-        files: ["Trip-Waerebo-Lodge-2D-1N-Hero-Desktop.webp"],
+        files: ["@danielkordan.webp"],
       },
       {
         owner: "@cunca_plias_waterfall",
         href: "https://www.instagram.com/cunca_plias_waterfall/",
-        files: ["Trip-Waerebo-Lodge-3D-2N-Hero-Desktop.webp"],
+        files: ["@cunca_plias_waterfall.webp"],
       },
       {
         owner: "Touring Nusantara",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-Hero-Desktop.webp"],
+        files: ["Touring Nusantara.webp"],
       },
       {
         owner: "Wikipedia",
         href: "https://www.wikipedia.org/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-Hero-Desktop.webp"],
+        files: ["Wikipedia.webp"],
       },
       {
         owner: "Rizky Ramadhan",
-        files: ["Trip-Waerebo-Lodge-Custom-Hero-Desktop.webp"],
+        files: ["Rizky Ramadhan.webp"],
       },
     ],
   },
@@ -92,148 +95,133 @@ export const creditGroups: CreditGroup[] = [
       {
         owner: "adventurearchipelago.com",
         href: "http://adventurearchipelago.com/",
-        files: [
-          "Trip-Waerebo-Lodge-1D-0N-04.webp",
-          "Trip-Waerebo-Lodge-2D-1N-04.webp",
-          "Trip-Waerebo-Lodge-3D-2N-09.webp",
-        ],
+        files: ["adventurearchipelago.com.webp"],
       },
       {
         owner: "finansialku.com",
         href: "https://finansialku.com",
-        files: ["Trip-Waerebo-Lodge-2D-1N-06.webp"],
+        files: ["finansialku.com.webp"],
       },
       {
         owner: "@memepua",
         href: "https://instagram.com/memepua",
-        files: ["Trip-Waerebo-Lodge-2D-1N-09.webp"],
+        files: ["@memepua.webp"],
       },
       {
         owner: "@forean_agun",
         href: "https://www.tiktok.com/@forean_agun",
-        files: ["Trip-Waerebo-Lodge-3D-2N-03.webp"],
+        files: ["@forean_agun.webp"],
       },
       {
         owner: "@fzndianz",
         href: "https://www.instagram.com/fzndianz/",
-        files: ["Trip-Waerebo-Lodge-3D-2N-10.webp"],
+        files: ["@fzndianz.webp"],
       },
       {
         owner: "Aldomarung",
-        files: ["Trip-Waerebo-Lodge-3D-2N-04.webp"],
+        files: ["Aldomarung.webp"],
       },
       {
         owner: "Alief Baldwin",
-        files: ["Trip-Waerebo-Lodge-3D-2N-14.webp"],
+        files: ["Alief Baldwin.webp"],
       },
       {
         owner: "Mawatu.co.id",
         href: "http://mawatu.co.id/",
-        files: ["Trip-Waerebo-Lodge-3D-2N-01.webp"],
+        files: ["Mawatu.co.id.webp"],
       },
       {
         owner: "@cunca_plias_waterfall",
         href: "https://www.instagram.com/cunca_plias_waterfall/",
-        files: [
-          "Trip-Waerebo-Lodge-3D-2N-02.webp",
-          "Trip-Waerebo-Lodge-4D-3N-Island-Escape-02.webp",
-        ],
+        files: ["@cunca_plias_waterfall-2.webp"],
       },
       {
         owner: "Garry Rudolf Liu",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-01.webp"],
+        files: ["Garry Rudolf Liu.webp"],
       },
       {
         owner: "Indonesia Tourism",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-03.webp"],
+        files: ["Indonesia Tourism.webp"],
       },
       {
         owner: "@matamerahstudio (YouTube)",
         href: "https://www.youtube.com/@matamerahstudio",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-04.webp"],
+        files: ["@matamerahstudio (YouTube).webp"],
       },
       {
         owner: "@gaiaaparma",
         href: "https://www.instagram.com/gaiaaparma",
-        files: [
-          "Trip-Waerebo-Lodge-4D-3N-Island-Escape-09.webp",
-          "Trip-Waerebo-Lodge-4D-3N-Flores-15.webp",
-        ],
+        files: ["@gaiaaparma.webp"],
       },
       {
         owner: "travelwriter.ws",
         href: "http://travelwriter.ws/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-14.webp"],
+        files: ["travelwriter.ws.webp"],
       },
       {
         owner: "floresdaytrip.com",
         href: "http://floresdaytrip.com/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-15.webp"],
+        files: ["floresdaytrip.com.webp"],
       },
       {
         owner: "indonesiajuara.asia",
         href: "http://indonesiajuara.asia/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-17.webp"],
-      },
-      {
-        owner: "indonesia.travel",
-        href: "https://www.indonesia.travel",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Island-Escape-17.webp"],
+        files: ["indonesiajuara.asia.webp"],
       },
       {
         owner: "hubud.kemenhub.go.id",
         href: "http://hubud.kemenhub.go.id/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-01.webp"],
+        files: ["hubud.kemenhub.go.id.webp"],
       },
       {
         owner: "Rami Cunca",
         href: "https://www.facebook.com/ramicunca",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-02.webp"],
+        files: ["Rami Cunca.webp"],
       },
       {
         owner: "@infolabuanbajo",
         href: "https://www.tiktok.com/@infolabuanbajo",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-03.webp"],
+        files: ["@infolabuanbajo.webp"],
       },
       {
         owner: "Patroklos Haralambis",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-04.webp"],
+        files: ["Patroklos Haralambis.webp"],
       },
       {
         owner: "museumofwander.com",
         href: "http://museumofwander.com/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-05.webp"],
+        files: ["museumofwander.com.webp"],
       },
       {
         owner: "tripadvisor.co.id",
         href: "https://www.tripadvisor.co.id",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-06.webp"],
+        files: ["tripadvisor.co.id.webp"],
       },
       {
         owner: "@rensiambangofficial",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-07.webp"],
+        files: ["@rensiambangofficial.webp"],
       },
       {
         owner: "Istimewa",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-08.webp"],
+        files: ["Istimewa.webp"],
       },
       {
         owner: "Luka Esenko",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-09.webp"],
+        files: ["Luka Esenko.webp"],
       },
       {
         owner: "IndonesiaJuara Trip",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-10.webp"],
+        files: ["IndonesiaJuara Trip.webp"],
       },
       {
         owner: "syukaery (Flickr)",
         href: "https://www.flickr.com/photos/ytse-jam/28715362333/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-17.webp"],
+        files: ["syukaery (Flickr).webp"],
       },
       {
         owner: "@danielkordan",
         href: "https://www.instagram.com/danielkordan/",
-        files: ["Trip-Waerebo-Lodge-4D-3N-Flores-20.webp"],
+        files: ["@danielkordan.webp"],
       },
     ],
   },

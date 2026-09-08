@@ -73,16 +73,17 @@ export default function CreditsContent() {
                           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-savana-200/50 ring-1 ring-savana-800/10">
                             <Image
                               src={creditImageSrc(file)}
-                              alt={`${entry.owner} — ${file}`}
+                              alt={
+                                lang === "id"
+                                  ? `Foto oleh ${entry.owner}`
+                                  : `Photo by ${entry.owner}`
+                              }
                               fill
                               loading="lazy"
                               sizes="150px"
                               className="object-cover"
                             />
                           </div>
-                          <p className="mt-1.5 font-mono text-[10px] leading-snug break-all text-pale-savana-300">
-                            {file}
-                          </p>
                         </li>
                       ))}
                     </ul>
