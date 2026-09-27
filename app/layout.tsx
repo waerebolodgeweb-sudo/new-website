@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppAssistant from "@/components/layout/WhatsAppAssistant";
 import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/lib/i18n";
 import {
@@ -127,6 +128,7 @@ export default function RootLayout({
         <LanguageProvider>
           {children}
           <ScrollReveal />
+          <WhatsAppAssistant />
         </LanguageProvider>
         <Analytics />
         <SpeedInsights />
