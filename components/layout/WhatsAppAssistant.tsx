@@ -104,14 +104,21 @@ export default function WhatsAppAssistant() {
   return (
     <>
       {open && (
-        <section
-          id="whatsapp-assistant-dialog"
-          role="dialog"
-          aria-modal="false"
-          aria-labelledby="whatsapp-assistant-title"
-          className="fixed right-4 bottom-24 z-[60] w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-2xl border border-savana-200 bg-savana-050 shadow-[0_18px_50px_rgba(38,35,22,0.2)] sm:right-6 lg:right-8"
-        >
-          <div className="flex items-center justify-between bg-[#25D366] px-4 py-3 text-white">
+        <>
+          <button
+            type="button"
+            onClick={close}
+            aria-label={t("whatsappAssistant.close")}
+            className="fixed inset-0 z-[55] cursor-default bg-transparent focus:outline-none"
+          />
+          <section
+            id="whatsapp-assistant-dialog"
+            role="dialog"
+            aria-modal="false"
+            aria-labelledby="whatsapp-assistant-title"
+            className="fixed right-4 bottom-24 z-[60] w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-2xl border border-savana-200 bg-savana-050 shadow-[0_18px_50px_rgba(38,35,22,0.2)] sm:right-6 lg:right-8"
+          >
+          <div className="flex items-center justify-between bg-[#00C357] px-4 py-3 text-white">
             <div className="flex items-center gap-2.5">
               <IoLogoWhatsapp size={22} aria-hidden="true" />
               <div>
@@ -215,7 +222,8 @@ export default function WhatsAppAssistant() {
               {t("whatsappAssistant.direct")}
             </a>
           </div>
-        </section>
+          </section>
+        </>
       )}
 
       <button
@@ -224,7 +232,7 @@ export default function WhatsAppAssistant() {
         aria-label={t("whatsappAssistant.button")}
         aria-expanded={open}
         aria-controls="whatsapp-assistant-dialog"
-        className="fixed right-5 bottom-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_12px_30px_rgba(37,211,102,0.35)] transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 lg:right-8 lg:bottom-8 lg:h-16 lg:w-16"
+        className="fixed right-5 bottom-5 z-[60] grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_12px_30px_rgba(37,211,102,0.35)] transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 lg:right-8 lg:bottom-8 lg:h-16 lg:w-16"
       >
         {open ? (
           <IoCloseOutline size={30} aria-hidden="true" />
